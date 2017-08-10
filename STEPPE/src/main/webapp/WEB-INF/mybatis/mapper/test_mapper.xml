@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- test_mapper.xml :문제관련 쿼리문 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+1.parameterType에 1개인 type만 올수있다.
+2.parameterType에 bean인경우 #{필드명}
+3.parameterType에 Map<key, value>타입인 경우 #{key}로쓴다.
+4.resultType도 1개만 올수있는데 selectList인 경우 List로 반환한다.
+ -->
+<mapper namespace="test">
+	<select id = "getTestList" parameterType = "String" resultType = "test">
+		SELECT * FROM TEST WHERE T_NAME = #{t_name}
+	</select>
+	
+	<select id="showFstDetail" parameterType = "String" resultType="test">
+		SELECT * FROM TEST WHERE T_NUM = #{t_num}
+	</select>
+</mapper>
