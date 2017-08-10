@@ -50,5 +50,8 @@ public class HomeController {
 		mav.setViewName("projectInsert"); //projectDetail.jsp 프로젝트 상세보기 페이지
 		return mav;
 	}
-
+	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
+	public String fstMm(Model model) {
+		return "fstMm";
+	}
 }

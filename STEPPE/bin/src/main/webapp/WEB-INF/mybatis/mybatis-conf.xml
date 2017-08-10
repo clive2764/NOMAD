@@ -13,6 +13,5 @@
 	
 	<typeAliases>
 	<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
-	<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
 	</typeAliases> 
 </configuration> 
