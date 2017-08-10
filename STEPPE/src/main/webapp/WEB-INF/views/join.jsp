@@ -13,7 +13,8 @@
 	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
-	<link href="resources/css/style.css" rel="stylesheet" />	
+	<link href="resources/css/style.css" rel="stylesheet" />
+	<script src="http://code.jquery.com/jquery-3.2.1.js"></script>	
     <!-- =======================================================
         Theme Name: Day
         Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
@@ -73,12 +74,12 @@
                 <div class="navbar-collapse collapse">							
 					<div class="menu">
 						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">프로젝트</a></li>
-							<li role="presentation"><a href="goFreelancer">프리랜서</a></li>
-							<li role="presentation"><a href="goManual">이용방법</a></li>
-                            <li role="presentation"><a href="goPms">프로젝트 관리</a></li>
-                            <li role="presentation"><a href="goLogin">로그인</a></li>
+							<li role="presentation"><a href="intro">steppe?</a></li>
+							<li role="presentation"><a href="project">프로젝트</a></li>
+							<li role="presentation"><a href="freelancer">프리랜서</a></li>
+							<li role="presentation"><a href="manual">이용방법</a></li>
+                            <li role="presentation"><a href="pms">프로젝트 관리</a></li>
+                            <li role="presentation"><a href="login">로그인</a></li>
                             <li role="presentation"><a href="goJoin">회원가입</a></li>
 						</ul>
 					</div>
@@ -100,14 +101,17 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="password" id="userPw" name="userPw" placeholder="비밀번호"  />
+								<input type="password" id="userPassword" name="pw" placeholder="비밀번호"  />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="password" id="confirmPw" name="confirmPw" placeholder="비밀번호 확인" />
+								<input type="password" id="passwordCheck" name="pw" onkeyup="passwordCheckk()" placeholder="비밀번호 확인" />
 								<span id="notiPw"></span>
 							</td>
+						</tr>
+						<tr>
+							<td id="passwordCheckText"></td>
 						</tr>
 						<tr>
 							<td>
@@ -117,19 +121,11 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="userPhone" name="userPhone" placeholder="핸드폰 번호 ex)010-0000-0000" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<!-- <span id="notiPhone">ex)010-0000-0000</span> -->
-							</td>
-						</tr>
-						<tr>
-							<td>
 								<input type="text" id="userEmail" name="userEmail" placeholder="이메일" />
-								<span id="notiEmail"></span>
 							</td>
+						</tr>
+						<tr>
+							<td id="notiEmail" style="color:red"></td>
 						</tr>
 						<tr>
 							<td>
@@ -149,11 +145,12 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="button" class="btn" onClick="toIndex()" value="돌아가기" />
+								<input type="button" class="btn" onClick="toHome()" value="돌아가기" />
 							</td>
 						</tr>
 						
 					</table>
+					
 				</form>
 			</div>   
         </div>
@@ -196,44 +193,48 @@
       
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery.js"></script>		
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>	
-	<script src="js/wow.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>	
+	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>	
     
 </body>
-
-	<!-- <script>
-		$(function() {
-			var msg = '${joinMsg}';
-			if(msg == "실패")
-				alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-		});
 	
+	<script language="javascript">
+		/* 비밀번호 중복 검사 */
+		function passwordCheckk(){
+			var password = document.getElementById("userPassword").value;
+			var passwordCheck = document.getElementById("passwordCheck").value;
+	
+			if (passwordCheck == "") {
+				document.getElementById("passwordCheckText").innerHTML = ""
+			} else if (password != passwordCheck) {
+				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>비밀 번호가 틀립니다.</font></span>"
+			} else {
+				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>비밀 번호가 일치 합니다.</font></span>"
+			}
+		}
 		
-		function sendCode()
-		{
+		/* 이메일 인증 */
+		function sendCode(){
 			var flag = 1;
 			var email = $('#userEmail').val();
 			
-			if(email!='')
-			{
+			if(email!=''){
 				$.ajax({
 					type: 'POST',
 					url: './sendCode',
 					data: {flag:flag, userEmail:email},
 					
-					success:function(data)
-					{
+					success:function(data){
 						var msg = data.split(",");
 						console.log(data);
 						$('#notiEmail').html(msg[0]);
 						$('#notiCode').html(msg[1]);
+						console.log('flag');
 					},
 					
-					error:function(error)
-					{
+					error:function(error){
 						console.log(error);
 					}
 				}); 	
@@ -244,7 +245,8 @@
 			}
 		}
 		
-		function join()
+		/* 회원 가입 */
+		/* function join()
 		{	
 				var id = $('#userId').val();
 				var pw = $('#userPw').val();				
@@ -284,12 +286,31 @@
 					{
 						console.log(error);
 					}
-				
-		
-		function toIndex()
+				}
+		}  */
+		/* 돌아가기 */
+		/* function toHome()
 		{
-			join.action = "./index";
+			join.action = "./home";
 			join.submit();
-		}
+		} */
+		
+		
+	</script>
+	
+	
+<!-- <script>
+		$(function() {
+			var msg = '${joinMsg}';
+			if(msg == "실패")
+				alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+		});
+	
+		
+		
+		
+		
+		
+		
 	</script> -->
 </html>
