@@ -1,7 +1,7 @@
 package com.steppe.nomad.bean;
 
 public class Test {
-	private String t_num;
+	private int t_num;
 	private String t_name;
 	private String t_content;
 	private String t_no1;
@@ -11,13 +11,14 @@ public class Test {
 	private int t_answer;
 	
 	
-	public String getT_num() {
+	
+	
+	public int getT_num() {
 		return t_num;
 	}
-	public void setT_num(String t_num) {
+	public void setT_num(int t_num) {
 		this.t_num = t_num;
 	}
-	
 	public String getT_name() {
 		return t_name;
 	}

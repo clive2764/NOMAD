@@ -21,23 +21,59 @@ public class TestController {
 	private ModelAndView mav;
 
 	
-	@RequestMapping(value = "/showFstList", method = RequestMethod.POST)
+	@RequestMapping(value = "/showFstList")
 	public ModelAndView showFstList(Test test) {
+		System.out.println("시험리스트");
+		mav=new ModelAndView();
 		mav=fm.execute(test, 1);
 		return mav;
 	}
 	
-	@RequestMapping(value = "/showFstDetail", method = RequestMethod.GET)
+	@RequestMapping(value = "/showFstDetail")
 	public ModelAndView showFstDetail() {
-		System.out.println("디테일");
+		System.out.println("시험디테일");
+		mav=new ModelAndView();
 		mav=fm.execute(1); 
 		return mav;
 	}
 	
-	@RequestMapping(value = "/goInsertFst", method = RequestMethod.GET)
+	@RequestMapping(value = "/insertFst")
+	public ModelAndView insertFst() {
+		System.out.println("시험문제추가");
+		mav=new ModelAndView();
+		mav=fm.execute(2); 
+		return mav;
+	}
+	
+	@RequestMapping(value = "/goInsertFst")
 	public ModelAndView goInsertFst() {
+		System.out.println("시험추가페이지");
 		mav=new ModelAndView();
 		mav.setViewName("fstInsert");		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/goUpdateFst")
+	public ModelAndView UpdateFst() {
+		System.out.println("시험수정페이지");
+		mav=new ModelAndView();
+		mav=fm.execute(3); 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/updateFst")
+	public ModelAndView updateFst() {
+		System.out.println("시험수정");
+		mav=new ModelAndView();
+		mav=fm.execute(4); 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/deleteFst")
+	public ModelAndView deleteFst() {
+		System.out.println("시험수정");
+		mav=new ModelAndView();
+		mav=fm.execute(5); 		
 		return mav;
 	}
 	

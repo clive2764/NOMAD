@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>steppe È¸¿ø°¡ÀÔ</title>
+    <title>steppe íšŒì›ê°€ì…</title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -55,7 +55,7 @@
     </style>
   </head>
   <body>
-    <!--»ó´Ü ¸Ş´º¹Ù-->
+    <!--ìƒë‹¨ ë©”ë‰´ë°”-->
 	<header id="header">
         <nav class="navbar navbar-default navbar-static-top" role="banner">
             <div class="container">
@@ -74,12 +74,12 @@
 					<div class="menu">
 						<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">ÇÁ·ÎÁ§Æ®</a></li>
-							<li role="presentation"><a href="goFreelancer">ÇÁ¸®·£¼­</a></li>
-							<li role="presentation"><a href="goManual">ÀÌ¿ë¹æ¹ı</a></li>
-                            <li role="presentation"><a href="goPms">ÇÁ·ÎÁ§Æ® °ü¸®</a></li>
-                            <li role="presentation"><a href="goLogin">·Î±×ÀÎ</a></li>
-                            <li role="presentation"><a href="goJoin">È¸¿ø°¡ÀÔ</a></li>
+							<li role="presentation"><a href="goProject">í”„ë¡œì íŠ¸</a></li>
+							<li role="presentation"><a href="goFreelancer">í”„ë¦¬ëœì„œ</a></li>
+							<li role="presentation"><a href="goManual">ì´ìš©ë°©ë²•</a></li>
+                            <li role="presentation"><a href="goPms">í”„ë¡œì íŠ¸ ê´€ë¦¬</a></li>
+                            <li role="presentation"><a href="goLogin">ë¡œê·¸ì¸</a></li>
+                            <li role="presentation"><a href="goJoin">íšŒì›ê°€ì…</a></li>
 						</ul>
 					</div>
 				</div>		
@@ -89,35 +89,35 @@
     <div class="about">
 		<div class="container">
            	<div id="join">
-           		<h3 style="color:black;">È¸¿ø °¡ÀÔ</h3>
+           		<h3 style="color:black;">íšŒì› ê°€ì…</h3>
 				<form name="joinForm" method="post">
 					<table>
 						<tr>
 							<td>
-								<input type="text" id="userId" name="userId" placeholder="¾ÆÀÌµğ" />
+								<input type="text" id="userId" name="userId" placeholder="ì•„ì´ë””" />
 								<span id="notiId"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="password" id="userPw" name="userPw" placeholder="ºñ¹Ğ¹øÈ£"  />
+								<input type="password" id="userPw" name="userPw" placeholder="ë¹„ë°€ë²ˆí˜¸"  />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="password" id="confirmPw" name="confirmPw" placeholder="ºñ¹Ğ¹øÈ£ È®ÀÎ" />
+								<input type="password" id="confirmPw" name="confirmPw" placeholder="ë¹„ë°€ë²ˆí˜¸ í™•ì¸" />
 								<span id="notiPw"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="userName" name="userName" placeholder="ÀÌ¸§" />
+								<input type="text" id="userName" name="userName" placeholder="ì´ë¦„" />
 								<span id="notiName"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="userPhone" name="userPhone" placeholder="ÇÚµåÆù ¹øÈ£ ex)010-0000-0000" />
+								<input type="text" id="userPhone" name="userPhone" placeholder="í•¸ë“œí° ë²ˆí˜¸ ex)010-0000-0000" />
 							</td>
 						</tr>
 						<tr>
@@ -127,29 +127,29 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="userEmail" name="userEmail" placeholder="ÀÌ¸ŞÀÏ" />
+								<input type="text" id="userEmail" name="userEmail" placeholder="ì´ë©”ì¼" />
 								<span id="notiEmail"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="button" class="btn" onClick="sendCode()" value="ÀÎÁõ¹øÈ£ ¹ß¼Û" />
+								<input type="button" class="btn" onClick="sendCode()" value="ì¸ì¦ë²ˆí˜¸ ë°œì†¡" />
 								<span id="notiCode"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="text" id="userCode" name="userCode" placeholder="ÀÎÁõ¹øÈ£" />
+								<input type="text" id="userCode" name="userCode" placeholder="ì¸ì¦ë²ˆí˜¸" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="button" class="btn" onClick="join()" value="È¸¿ø°¡ÀÔ" />
+								<input type="button" class="btn" onClick="join()" value="íšŒì›ê°€ì…" />
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="button" class="btn" onClick="toIndex()" value="µ¹¾Æ°¡±â" />
+								<input type="button" class="btn" onClick="toIndex()" value="ëŒì•„ê°€ê¸°" />
 							</td>
 						</tr>
 						
@@ -161,7 +161,7 @@
 	<hr>
     
     <div class="row"></div>
-    <!--ÇªÅÍ ¿µ¿ª ½ÃÀÛ-->
+    <!--í‘¸í„° ì˜ì—­ ì‹œì‘-->
 	<div class="sub-footer">
 		<div class="container">
 			<div class="social-icon">
@@ -182,9 +182,9 @@
 		                  <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
 		                  <a href="https://bootstrapmade.com/">BootstrapMade</a>
 		                  <br/>
-		                  <a href="#">°øÁö»çÇ×</a>&nbsp;&nbsp;&nbsp;
+		                  <a href="#">ê³µì§€ì‚¬í•­</a>&nbsp;&nbsp;&nbsp;
 		                  <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-		                  <a href="#">ÀÌ¿ë¾à°ü</a>
+		                  <a href="#">ì´ìš©ì•½ê´€</a>
 		              </div>
 				</div>
 			</div>			
@@ -192,7 +192,7 @@
 	</div>	
 				
 	
-	<!--ÇªÅÍ ¿µ¿ª ³¡-->
+	<!--í‘¸í„° ì˜ì—­ ë-->
       
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -207,8 +207,8 @@
 	<!-- <script>
 		$(function() {
 			var msg = '${joinMsg}';
-			if(msg == "½ÇÆĞ")
-				alert("È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.");
+			if(msg == "ì‹¤íŒ¨")
+				alert("íšŒì›ê°€ì…ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
 		});
 	
 		
@@ -240,7 +240,7 @@
 			}
 			else
 			{
-				$('#notiEmail').html("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				$('#notiEmail').html("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			}
 		}
 		
