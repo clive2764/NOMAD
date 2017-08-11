@@ -15,6 +15,7 @@
 			<option value="c">C</option>
 			<option value="android">Android</option>
 		</select>
+		<br/><br/>
 		<table border = "1">		
 			<tr>
 				<td width="100"><input type="text" style="width: 25px;" readonly="readonly" name="t_num" value="${test.t_num}"/><span>번 문제</span></td>
@@ -48,6 +49,7 @@
 				</td>
 			</tr>
 		</table>
+		<br/>
 		<input type = "submit" value="수정 확인">
 	</form>
 		<button><a href="deleteFst?t_num=${test.t_num}">삭제</a></button>
