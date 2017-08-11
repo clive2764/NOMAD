@@ -13,10 +13,11 @@
 	
 	<typeAliases>
 
-	<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
-
-	<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
-	<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
+		<typeAlias alias="member" type="com.steppe.nomad.bean.Member"/>
+		<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
+		<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
+		<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
+		<typeAlias type="com.steppe.nomad.bean.Project" alias="project"/>
 
 	</typeAliases> 
 </configuration> 
