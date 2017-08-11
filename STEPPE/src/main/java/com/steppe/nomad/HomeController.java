@@ -50,13 +50,6 @@ public class HomeController {
 		mav.setViewName("projectDetail"); //projectDetail.jsp 프로젝트 상세보기 페이지
 		return mav;
 	}
-	@RequestMapping(value="/goAddProject", method = RequestMethod.GET)
-	public ModelAndView goAddProject(){
-		mav = new ModelAndView();
-		mav.setViewName("projectInsert"); //projectDetail.jsp 프로젝트 상세보기 페이지
-		return mav;
-	}
-<<<<<<< HEAD
 
 	//이메일 인증
 	@RequestMapping(value = "/sendCode", method = RequestMethod.POST)
@@ -67,10 +60,8 @@ public class HomeController {
 		return mav;
 	}
 
-=======
 	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
 	public String fstMm(Model model) {
 		return "fstMm";
 	}
->>>>>>> eecc1bf697fce88ecae5304625d6b4e765496c15
 }

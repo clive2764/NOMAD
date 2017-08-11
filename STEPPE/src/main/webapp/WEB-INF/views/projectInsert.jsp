@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -15,6 +15,9 @@
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
 	<link href="resources/css/style.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+    <script>
+    
+    </script>
 <style>
 select {
 	color: black;
@@ -87,30 +90,23 @@ td.category{
 	</header>
 	<div class="row"></div>
 	<div class="container">
-		<form action="" method="post" id="insertForm">
+		<form action="" method="post" id="insertForm" name="form1">
 			
 			<div class="container">
 				<table class="table table-responsive">
 					<tr>
 						<td style="vertical-align: bottom;">
-							<select name="pc1_name">
-									<option value="내용고치시오">1차카테고리</option>
-									<option value="내용고치시오">내용고치시오</option>
-									<option value="내용고치시오">내용고치시오</option>
-									<option value="내용고치시오">내용고치시오</option>
-									<option value="내용고치시오">내용고치시오</option>
+							<select name="pc1_name" id="pc1_name" onchange="firstChange();">
+									${cList1}
 							</select> 
-							<select name="pc2_name">
-									<option value="">2차카테고리</option>
-									<option value="내용고치시오">내용고치시오</option>
-									<option value="내용고치시오">내용고치시오</option>
-									<option value="내용고치시오">내용고치시오</option>
-									<option value="내용고치시오">내용고치시오</option>
+							<select name="pc2_name" id="pc2_name">
+									<option value="2차 카테고리">2차카테고리</option>
 							</select>
 							<td>
-							<span style="float: right;">기간</span><br/>
-							<input type="text" name="p_term" id="p_term" placeholder="기간을 입력하시오" />
-						</td>
+							<span style="float: right;">기간(일)</span><br/>
+							<input type="text" name="p_term" id="p_term" placeholder="기간을 입력하시오" 
+							onkeydown="inputOnlyNumber(this);" onkeyup="typing()" value=0 />
+							</td>
 					</tr>
 					<tr>
 						<td class="category">
@@ -129,10 +125,11 @@ td.category{
 					</tr>
 					<tr>
 						<td class="category">
-							<span>첨부 파일</span>
+							<span>파일 첨부</span>
 						</td>
 						<td>
-							<input type="file" name="p_filename" id="p_filename" style="width: 100%;"/>
+							<input type="file" name="p_filename" onChange="fileChk(this)" style="width: 100%;"/>
+							<input id="p_filename" type="hidden" name="fileCheck"/>
 						</td>
 					</tr>
 					<tr>
@@ -140,9 +137,18 @@ td.category{
 							<span>입찰 마감</span>
 						</td>
 						<td>
-							<input type="text" name="p_deadline" id="p_deadline" />
+							<input type="date" name="p_deadline" id="p_deadline" />
 						</td>
 					</tr>
+					<tr>
+                  		<td class="category">
+                     	<span>예상비용</span>
+                  		</td>
+                  		<td>
+                     		<input type="text" name="p_budget" id="p_budget" 
+                     		onkeydown="inputBudget(this)" onkeyup="typing2()" value=0 /><span>        만원</span>
+                  		</td>
+               		</tr>
 					<tr style="text-align: center;">
 						<td colspan="2">
 							<input type="button" id="complete" value="프로젝트 등록" style="height: 80px;"/>
@@ -190,27 +196,159 @@ td.category{
 	<script>wow = new WOW({}).init();</script>
 </body>
 <script>
-    $("#check").click(function(){
-        var price = $("#price").val();
-        
-        
-        if(price == "" ){
-          alert("입찰가를 입력하세요!");      
-        } 
-          
-        if(price != ""){
-            $("#priceForm").submit();
-        }    
-    });
-    $("#replyInsert").click(function(){
-    	var r_content  = $("#r_content").val();
+	/*
+    function firstChange(){
+    	var x = document.form1.pc1_name.options.selectedIndex;
+    	var groups=document.form1.pc1_name.options.length;
+    	var group=new Array(groups);
     	
-    	if(r_content == ""){
-    		alert("댓글을 입력하세요!");
-    	}
-    	if(r_content != ""){
-    		$("#replyForm").submit();
-    	}
-    });
+    	 for (i=0; i<groups; i++) {
+    		  group[i]=new Array();
+    		 }//for
+    	 // 옵션(<option>) 생성
+    	  group[0][0]=new Option("2차 카테고리");
+ 		  group[1][0]=new Option("개발 선택");
+ 		  group[1][1]=new Option("Android앱");//결과 <option value="ss">삼성</option>
+ 		  group[1][2]=new Option("플랫폼서비스");
+ 		  group[1][3]=new Option("게임");
+ 		  group[1][4]=new Option("임베디드");
+ 		  group[1][5]=new Option("모바일앱");
+ 		  group[1][6]=new Option("IOS앱");
+ 		  group[1][7]=new Option("ERP");
+ 		  group[1][8]=new Option("퍼블리싱");
+ 		  group[1][9]=new Option("기타");
+ 		  group[2][0]=new Option("디자인 선택");
+ 		  group[2][1]=new Option("웹");
+ 		  group[2][2]=new Option("애플리케이션");
+ 		  group[2][3]=new Option("일러스트");
+ 		  group[2][4]=new Option("영상");
+ 		  group[2][5]=new Option("로고");
+ 		  group[2][6]=new Option("인쇄물");
+ 		  group[2][7]=new Option("그래픽");
+ 		  group[2][8]=new Option("3P");
+ 		  group[2][9]=new Option("PPT템플릿");
+ 		  group[2][10]=new Option("광고,배너");
+ 		  
+ 		 temp = document.form1.pc2catagory;
+ 		 for (m = temp.options.length-1 ; m > 0 ; m--) {//현재 값 지우기
+ 		  temp.options[m]=null
+ 		 }
+ 		 for (i=0;i<group[x].length;i++){//값 셋팅
+ 		  //예) <option value="ss">삼성</option>
+ 		  temp.options[i]=new Option(group[x][i].text,group[x][i].value);
+ 		 }
+ 		 temp.options[0].selected=true//인덱스 0번째, 즉, 첫번째 선택
+ 		}//firstChange
+ 			*/
+ 			
+ 		function firstChange(){
+ 				var selectBox = document.getElementById("pc1_name");
+ 			    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+ 			    //alert(selectedValue + '을  선택하셨습니다.');
+ 			   $.ajax({
+ 				 	 type:'get',
+ 			         url : './secondCatagory',
+ 			         data : {
+ 			            selectedValue : selectedValue
+ 			         },
+
+ 			         success : function(data) {
+ 			            $('#pc2_name').html(data);
+ 			            console.log(data);
+ 			         },
+ 			         error : function(error) {
+ 			            console.log(error);
+ 			         }
+ 			      });
+ 		}
+    	function inputOnlyNumber(obj){
+ 			e=window.event;
+ 			
+ 			if((e.keyCode>=46 && e.keyCode<=57)||//숫자열
+ 			(e.keyCode>=96 && e.keyCode<=105) ||//키패드
+ 			e.keyCode==8||//BackSpace
+ 			e.keyCode==46||//Delete
+ 			//e.keyCode==110||//소수점: 문자키배열
+ 			//e.keyCode==190||//소수점: 키패브
+ 			e.keyCode==37||//좌 화살표
+ 			e.keyCode==39||//우 화살표
+ 			e.keyCode==35||//end키
+ 			e.keyCode==36||//home키
+ 			e.keyCode==9//tab키
+ 			){
+ 			if(e.keyCode==48 || e.keyCode==96){//0을 눌렀을 경우
+ 				if(obj.value=="" || obj.value=='0')//아무것도 없거나 현재값이 0일 경우에서 0을 눌렀을 경우
+ 					e.returnValue=false;//입력 안됨
+ 				else//다른 숫자뒤에 오는 0은
+ 					return;//입력
+ 			}
+ 			else//0이 아닌 숫자
+ 				return;//입력
+ 			}
+ 			else//숫자가 아니면 넣을수 없음
+ 				{
+ 				alert('숫자만 입력가능합니다');
+ 				e.returnValue=false;
+ 				
+ 				
+ 				}
+ 		}
+ 		
+ 		function fileChk(elem){
+ 			console.log(elem.value);
+ 			if(elem.value==""){
+ 				console.log("empty");
+ 				$("#p_filename").val(0);//파일첨부 않함
+ 			}else{
+ 				$("#p_filename").val(1);//파일첨부 함
+ 			}
+ 		}
+ 		
+ 		function typing(){
+ 			  var val=document.getElementById("p_term").value;
+ 			  var value=document.getElementById("p_term");
+ 			  if(val>=184)
+ 				  alert("183일 까지만 가능합니다");
+ 		}
+ 		
+ 		function inputBudget(obj){
+			e=window.event;
+ 			
+ 			if((e.keyCode>=46 && e.keyCode<=57)||//숫자열
+ 			(e.keyCode>=96 && e.keyCode<=105) ||//키패드
+ 			e.keyCode==8||//BackSpace
+ 			e.keyCode==46||//Delete
+ 			//e.keyCode==110||//소수점: 문자키배열
+ 			//e.keyCode==190||//소수점: 키패브
+ 			e.keyCode==37||//좌 화살표
+ 			e.keyCode==39||//우 화살표
+ 			e.keyCode==35||//end키
+ 			e.keyCode==36||//home키
+ 			e.keyCode==9//tab키
+ 			){
+ 			if(e.keyCode==48 || e.keyCode==96){//0을 눌렀을 경우
+ 				if(obj.value=="" || obj.value=='0')//아무것도 없거나 현재값이 0일 경우에서 0을 눌렀을 경우
+ 					e.returnValue=false;//입력 안됨
+ 				else//다른 숫자뒤에 오는 0은
+ 					return;//입력
+ 			}
+ 			else//0이 아닌 숫자
+ 				return;//입력
+ 			}
+ 			else//숫자가 아니면 넣을수 없음
+ 				{
+ 				alert('숫자만 입력가능합니다');
+ 				e.returnValue=false;
+ 				
+ 				
+ 				}
+ 			
+ 		}
+ 		function typing2(){
+ 			  var val=document.getElementById("p_budget").value;
+ 			 if(val>=20001)
+				  alert("2억원 까지만 입력 가능 합니다.");
+ 		}
+ 		
 </script>
 </html>
