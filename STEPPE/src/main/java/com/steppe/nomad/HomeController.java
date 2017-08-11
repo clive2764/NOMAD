@@ -17,14 +17,14 @@ public class HomeController {
 
 	@Autowired
 	private MemberManagement mm;	//페이지 처음 진입용
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
 		mav.setViewName("home"); //main.jsp 메인페이지
 		return mav;
 	}
 	//상단 헤더메뉴의 메인페이지 링크용
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = "/main")
 	public ModelAndView home2(Model model) {
 		mav = new ModelAndView();
 		mav.setViewName("home"); //main.jsp 메인페이지
@@ -32,25 +32,25 @@ public class HomeController {
 	}
 
 	//회원가입용
-	@RequestMapping(value = "/goJoin", method = RequestMethod.GET)
+	@RequestMapping(value = "/goJoin")
 	public ModelAndView goJoin() {
 		mav = new ModelAndView();
 		mav.setViewName("join"); //join.jsp 회원가입 페이지
 		return mav;
 	}
-	@RequestMapping(value="/goProject", method = RequestMethod.GET)
+	@RequestMapping(value="/goProject")
 	public ModelAndView goProject(){
 		mav = new ModelAndView();
 		mav.setViewName("project"); //join.jsp 회원가입 페이지
 		return mav;
 	}
-	@RequestMapping(value="/goProjectDetail", method = RequestMethod.GET)
+	@RequestMapping(value="/goProjectDetail")
 	public ModelAndView goProjectDetail(){
 		mav = new ModelAndView();
 		mav.setViewName("projectDetail"); //projectDetail.jsp 프로젝트 상세보기 페이지
 		return mav;
 	}
-	@RequestMapping(value="/goAddProject", method = RequestMethod.GET)
+	@RequestMapping(value="/goAddProject")
 	public ModelAndView goAddProject(){
 		mav = new ModelAndView();
 		mav.setViewName("projectInsert"); //projectDetail.jsp 프로젝트 상세보기 페이지
@@ -58,16 +58,26 @@ public class HomeController {
 	}
 
 	//이메일 인증
-	@RequestMapping(value = "/sendCode", method = RequestMethod.POST)
+	@RequestMapping(value = "/sendCode")
 	public ModelAndView sendCode() {
 		System.out.println("ModelAndView sendCode 시작");
 		mav = new ModelAndView(); 
 		mm.sendCode();
 		return mav;
 	}
-
-	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
+	//자격시험 관리
+	@RequestMapping(value = "/fstMm")
 	public String fstMm(Model model) {
 		return "fstMm";
 	}
+	
+	//이용방법 페이지로 이동
+	@RequestMapping(value= "/goManual")
+	public ModelAndView goManual(){
+		System.out.println("이용방법 페이지로 이동");
+		mav = new ModelAndView();
+		mav.setViewName("manual");
+		return mav;
+	}
+	
 }

@@ -143,6 +143,14 @@ td.category{
 							<input type="text" name="p_deadline" id="p_deadline" />
 						</td>
 					</tr>
+					<tr>
+						<td class="category">
+							<span>예상비용</span>
+						</td>
+						<td>
+							<input type="text" name="p_budget" id="p_budget" />
+						</td>
+					</tr>
 					<tr style="text-align: center;">
 						<td colspan="2">
 							<input type="button" id="complete" value="프로젝트 등록" style="height: 80px;"/>
@@ -190,27 +198,8 @@ td.category{
 	<script>wow = new WOW({}).init();</script>
 </body>
 <script>
-    $("#check").click(function(){
-        var price = $("#price").val();
-        
-        
-        if(price == "" ){
-          alert("입찰가를 입력하세요!");      
-        } 
-          
-        if(price != ""){
-            $("#priceForm").submit();
-        }    
-    });
-    $("#replyInsert").click(function(){
-    	var r_content  = $("#r_content").val();
-    	
-    	if(r_content == ""){
-    		alert("댓글을 입력하세요!");
-    	}
-    	if(r_content != ""){
+    $("#complete").click(function(){
     		$("#replyForm").submit();
-    	}
     });
 </script>
 </html>
