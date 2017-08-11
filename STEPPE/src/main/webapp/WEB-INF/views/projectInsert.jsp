@@ -350,5 +350,9 @@ td.category{
 				  alert("2억원 까지만 입력 가능 합니다.");
  		}
  		
+
+    //$("#complete").click(function(){
+    	//	$("#replyForm").submit();
+  //  });
 </script>
 </html>

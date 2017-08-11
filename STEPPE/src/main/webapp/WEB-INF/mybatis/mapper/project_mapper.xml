@@ -7,7 +7,25 @@
 2. parameterType에 bean인 경우 #{필드명}
 3. parameterType에 Map<key, value>타입인 경우 #{key}로 쓴다.
 4. resultType도 1개만 올 수 있는데 selectList인 경우 List로 변환한다. -->
-
 <mapper namespace="project">
+	<select id="showProcess" parameterType="Integer" resultType="Project"> 
+		<choose>
+    		<when test='value == "0"'>
+    		SELECT * FROM project
+    		</when>
+    		<when test='value == "1"'>
+      		SELECT * FROM project WHERE p_status = #{value}
+    		</when>
+    		<when test='value == "2"'>
+      		SELECT * FROM project WHERE p_status = #{value}
+    		</when>
+    		<when test='value == "3"'>
+      		SELECT * FROM project WHERE p_status = #{value}
+    		</when>
+    	</choose>
+	</select>
 	
+	<update id="progressUpdate" parameterType="Integer">
+		UPDATE project SET p_status = #{progNum}
+	</update>
 </mapper>
