@@ -4,6 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.steppe.nomad.bean.Member;
+
 
 @Repository 
 public class MemberDao {
@@ -15,6 +17,19 @@ public class MemberDao {
 	public boolean isEmail(String email) {//로그인한 사람의 모든 정보를 가져온다
 
 		return sqlSession.selectOne("member.isEmail", email);
+	}
+
+	public int getLoginResult(Member mb) { //id, pw 넘김
+
+		return sqlSession.selectOne("member.getLoginResult",mb);
+	}
+	public Member getMemberInfo(String m_id) {//로그인한 사람의 모든 정보를 가져온다
+
+		return sqlSession.selectOne("member.getMemberInfo",m_id);
+	}
+	public String getPwd(String m_id) {
+
+		return sqlSession.selectOne("member.getPwd",m_id);
 	}
 
 
