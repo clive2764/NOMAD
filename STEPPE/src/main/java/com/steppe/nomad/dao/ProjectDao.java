@@ -17,4 +17,10 @@ public class ProjectDao {
 		System.out.println("플래그:" + p_status);
 		return sqlSession.selectList("project.showProcess", p_status);
 	}
+
+	public int progressUpdate(int progNum) {
+		System.out.println("progNum"+progNum);
+		return sqlSession.update("project.progressUpdate", progNum);
+		
+	}
 }
