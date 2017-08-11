@@ -13,7 +13,8 @@
 	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
-	<link href="resources/css/style.css" rel="stylesheet" />	
+	<link href="resources/css/style.css" rel="stylesheet" />
+	<script src="http://code.jquery.com/jquery-3.2.1.js"></script>	
     <!-- =======================================================
         Theme Name: Day
         Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
@@ -122,7 +123,7 @@
 						</tr>
 						<tr>
 							<td>
-								<!-- <span id="notiPhone">ex)010-0000-0000</span> -->
+								<input type="text" id="userEmail" name="userEmail" placeholder="�̸���" />
 							</td>
 						</tr>
 						<tr>
@@ -196,44 +197,55 @@
       
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="js/jquery.js"></script>		
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>	
-	<script src="js/wow.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>	
+	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>	
     
 </body>
-
 	<!-- <script>
 		$(function() {
 			var msg = '${joinMsg}';
 			if(msg == "실패")
 				alert("회원가입에 실패했습니다. 다시 시도해주세요.");
 		});
+
 	
+	<script language="javascript">
+		/* ��й�ȣ �ߺ� �˻� */
+		function passwordCheckk(){
+			var password = document.getElementById("userPassword").value;
+			var passwordCheck = document.getElementById("passwordCheck").value;
+	
+			if (passwordCheck == "") {
+				document.getElementById("passwordCheckText").innerHTML = ""
+			} else if (password != passwordCheck) {
+				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>��� ��ȣ�� Ʋ���ϴ�.</font></span>"
+			} else {
+				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>��� ��ȣ�� ��ġ �մϴ�.</font></span>"
+			}
+		}
 		
-		function sendCode()
-		{
+		/* �̸��� ���� */
+		function sendCode(){
 			var flag = 1;
 			var email = $('#userEmail').val();
 			
-			if(email!='')
-			{
+			if(email!=''){
 				$.ajax({
 					type: 'POST',
 					url: './sendCode',
 					data: {flag:flag, userEmail:email},
 					
-					success:function(data)
-					{
+					success:function(data){
 						var msg = data.split(",");
 						console.log(data);
 						$('#notiEmail').html(msg[0]);
 						$('#notiCode').html(msg[1]);
+						console.log('flag');
 					},
 					
-					error:function(error)
-					{
+					error:function(error){
 						console.log(error);
 					}
 				}); 	
@@ -244,7 +256,8 @@
 			}
 		}
 		
-		function join()
+		/* ȸ�� ���� */
+		/* function join()
 		{	
 				var id = $('#userId').val();
 				var pw = $('#userPw').val();				
@@ -284,12 +297,31 @@
 					{
 						console.log(error);
 					}
-				
-		
-		function toIndex()
+				}
+		}  */
+		/* ���ư��� */
+		/* function toHome()
 		{
-			join.action = "./index";
+			join.action = "./home";
 			join.submit();
-		}
+		} */
+		
+		
+	</script>
+	
+	
+<!-- <script>
+		$(function() {
+			var msg = '${joinMsg}';
+			if(msg == "����")
+				alert("ȸ�����Կ� �����߽��ϴ�. �ٽ� �õ����ּ���.");
+		});
+	
+		
+		
+		
+		
+		
+		
 	</script> -->
 </html>

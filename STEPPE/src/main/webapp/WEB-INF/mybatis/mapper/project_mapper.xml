@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="project">
+	<select id="showProcess" parameterType="Integer" resultType="Project">
+		SELECT * FROM project 
+		<choose>
+    		<when test='value == "0"'>
+      			WHERE p_status = #{value}
+    		</when>
+    		<when test='value == "1"'>
+      			WHERE p_status = #{value}
+    		</when>
+    		<when test='value == "2"'>
+      			WHERE p_status = #{value}
+    		</when>
+    		<when test='value == "3"'>
+      			WHERE p_status = #{value}
+    		</when>
+    	</choose>
+		<!-- <if test="flag == 0">
+			#{flag}
+		</if>
+		<if test="flag == 1">
+			#{flag}
+		</if>
+		<if test="flag == 2">
+			#{flag}
+		</if>
+		<if test="flag == 3">
+			#{flag}
+		</if> -->
+		
+	</select>
+</mapper>

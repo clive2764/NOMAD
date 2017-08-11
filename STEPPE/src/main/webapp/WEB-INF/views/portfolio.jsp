@@ -83,7 +83,7 @@ input {
 
    <div class="container">
       <!--style="height:-webkit-fill-available;"-->
-      <form action="" method="post" id="carrier">
+      <form action="" method="post" id="career">
          <table class="table">
             <tr>
                <td><p>경력 기간</p></td>
