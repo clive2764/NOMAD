@@ -162,7 +162,7 @@ input {
         } 
           
         if(term != "" && company != "" && rank != ""){
-            $("#carrier").submit();
+            $("#career").submit();
         }    
     });
     /*function complete(){
@@ -176,7 +176,7 @@ input {
         } 
           
         if(term != "" && company != "" && rank != ""){
-            $("#carrier").submit();
+            $("#career").submit();
         }    
    }*/
 </script>

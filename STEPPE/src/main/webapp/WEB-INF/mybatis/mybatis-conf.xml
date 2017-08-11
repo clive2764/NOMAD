@@ -12,11 +12,11 @@
 	</settings>
 	
 	<typeAliases>
-<<<<<<< HEAD
+
 	<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
-=======
+
 	<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
 	<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
->>>>>>> 1da3b2ac5049ebee86e2a7d21dbaddeb8d6d19d9
+
 	</typeAliases> 
 </configuration> 
