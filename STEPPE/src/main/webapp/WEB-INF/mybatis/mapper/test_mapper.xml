@@ -13,7 +13,31 @@
 		SELECT * FROM TEST WHERE T_NAME = #{t_name}
 	</select>
 	
-	<select id="showFstDetail" parameterType = "String" resultType="test">
+	<select id = "showFstDetail" parameterType = "Integer" resultType="test">
 		SELECT * FROM TEST WHERE T_NUM = #{t_num}
 	</select>
+	
+	<select id = "getTestMaxNum" resultType="Integer">
+		SELECT NVL(MAX(T_NUM),0) FROM TEST
+	</select>
+	
+	<insert id = "insertFst" parameterType = "test">
+		INSERT INTO TEST VALUES(#{t_num},#{t_name},#{t_content},#{t_answer},#{t_no1},#{t_no2},#{t_no3},#{t_no4})
+	</insert>
+	
+	<update id = "updateFst" parameterType = "test">
+		UPDATE TEST SET 
+			T_NAME = #{t_name},
+			T_CONTENT = #{t_content},
+			T_ANSWER = #{t_answer},
+			T_NO1 = #{t_no1},
+			T_NO2 = #{t_no2},
+			T_NO3 = #{t_no3},
+			T_NO4 = #{t_no4}
+		WHERE T_NUM = #{t_num}
+	</update>
+	
+	<delete id="deleteFst" parameterType = "Integer">
+		DELETE FROM TEST WHERE T_NUM = #{t_num}
+	</delete>
 </mapper>

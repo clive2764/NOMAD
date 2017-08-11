@@ -11,16 +11,16 @@
 <mapper namespace="member">
 	<!-- <insert id = "memberInsert" parameterType = "member">
 		INSERT INTO M VALUES(#{m_id},#{m_pwd},#{m_name},#{m_birth},#{m_addr},#{m_phone},default)
-	</insert>
+	</insert> -->
 	<select id="getLoginResult" parameterType = "member" resultType="Integer">
-		SELECT COUNT(*) FROM M WHERE M_ID=#{m_id} AND M_PWD=#{m_pwd}
+		SELECT COUNT(*) FROM MEMBER WHERE M_ID=#{m_id} AND M_PW=#{m_pw}
 	</select>
 	<select id="getMemberInfo" parameterType = "String" resultType="member">
-		SELECT * FROM MINFO WHERE M_ID=#{m_id}
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
 	</select>
-	<select id="getSecurityPwd" parameterType = "String" resultType="String">
-		SELECT M_PWD FROM MINFO WHERE M_ID=#{m_id}
-	</select> -->
+	<select id="getPwd" parameterType = "String" resultType="String">
+		SELECT M_PW FROM MEMBER WHERE M_ID=#{m_id}
+	</select> 
 	
 	<!-- HashMap 테스트 -->
 	<!-- <select id="hashMapTest" parameterType = "HashMap" resultType="Integer">
