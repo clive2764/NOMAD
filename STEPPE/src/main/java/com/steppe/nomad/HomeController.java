@@ -85,7 +85,6 @@ public class HomeController {
 	public ModelAndView access(Member mb) {
 		System.out.println("mb="+mb.getM_id());
 		mav = mm.execute(mb,1);
-
 		return mav;
 	}
 	
