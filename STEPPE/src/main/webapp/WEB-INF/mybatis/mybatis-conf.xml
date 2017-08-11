@@ -12,9 +12,11 @@
 	</settings>
 	
 	<typeAliases>
-	<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
-	<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
-	<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
-	<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
+		<typeAlias alias="member" type="com.steppe.nomad.bean.Member"/>
+		<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
+		<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
+		<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
+		<typeAlias alias="project" type="com.steppe.nomad.bean.Project" />
+		<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
 	</typeAliases> 
 </configuration> 
