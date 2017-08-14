@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- member_mapper.xml : 회원(member)관리 관련 쿼리문이 들어간다. -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!-- 1. parameterType에 1개의 Type만 올 수 있다.
+2. parameterType에 bean인 경우 #{필드명}
+3. parameterType에 Map<key, value>타입인 경우 #{key}로 쓴다.
+4. resultType도 1개만 올 수 있는데 selectList인 경우 List로 변환한다. -->
 <mapper namespace="project">
 	<select id="showProcess" parameterType="Integer" resultType="Project"> 
 		<choose>
@@ -19,6 +24,7 @@
     		</when>
     	</choose>
 	</select>
+
 	<update id="progressUpdate" parameterType="java.util.Map">
 		UPDATE project SET p_status = #{progNum} where p_num = #{btnNum}
 	</update>
@@ -32,4 +38,20 @@
 	<delete id="deleteTeamMember" parameterType="String">
 		DELETE FROM volunteer WHERE v_mid = #{mid}
 	</delete>
+	<select id="getRequired_SkillList" resultType="required_skill">
+		select * from required_skills
+	</select>
+	
+	<update id="progressUpdate" parameterType="Integer">
+		UPDATE project SET p_status = #{progNum}
+	</update>
+	
+	<select id="getProjectMaxNum" resultType="Integer">
+		select NVL(MAX(p_num),0) FROM project
+	</select>
+	
+	<insert id="insertProject" parameterType = "Map">
+      INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
+      							,#{sysFileName},#{p_deadline},#{p_plnum},#{p_person},#{p_status})
+   </insert>
 </mapper>
