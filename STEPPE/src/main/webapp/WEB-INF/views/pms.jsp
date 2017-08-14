@@ -13,8 +13,6 @@
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/sb-admin.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
 </head>
 
 <body style="background-color:#fff;">
@@ -74,7 +72,7 @@
                        <a href="goLiveChat"><i class="fa fa-fw fa-desktop"></i>실시간 채팅</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i>멤버 관리</a>
+                        <a href="goProjectMemberMM"><i class="fa fa-fw fa-table"></i>멤버 관리</a>
                     </li>
                 </ul>
             </div>
@@ -150,9 +148,11 @@
 					}
 				});
 			}
-			function Ajax2(url, position){
-				var num = document.getElementById('prog').options[document.getElementById('prog').selectedIndex].value;
+			function Ajax2(url, position, progId){
+				alert(progId);
+				var num = document.getElementById(progId).options[document.getElementById(progId).selectedIndex].value;
 				alert('num='+num);
+				console.log('num='+num);
 				var url2 = url + num;
 				$.ajax({
 					type: 'get',
@@ -165,6 +165,7 @@
 						console.log(error);
 					}
 				});
+				location.reload();
 			}
 		</script>
 </html>

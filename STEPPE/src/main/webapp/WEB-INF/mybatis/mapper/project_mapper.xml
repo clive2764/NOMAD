@@ -19,8 +19,17 @@
     		</when>
     	</choose>
 	</select>
-	
-	<update id="progressUpdate" parameterType="Integer">
-		UPDATE project SET p_status = #{progNum}
+	<update id="progressUpdate" parameterType="java.util.Map">
+		UPDATE project SET p_status = #{progNum} where p_num = #{btnNum}
 	</update>
+	<select id="showMyProjectList" parameterType="String" resultType="Project">
+		SELECT * FROM project WHERE p_mid = #{id}
+	</select>
+	<select id="showMyMemberList" parameterType="Map" resultType="Member">
+		SELECT m_id, m_name, m_email FROM member where m_id IN (SELECT v_mid FROM volunteer where v_pnum = #{pNum})
+		<!-- SELECT * FROM project WHERE p_title = #{title} AND p_num = #{pNum} -->
+	</select>
+	<delete id="deleteTeamMember" parameterType="String">
+		DELETE FROM volunteer WHERE v_mid = #{mid}
+	</delete>
 </mapper>
