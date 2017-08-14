@@ -104,4 +104,13 @@ public class HomeController {
 		return mav;
 	}
 	
+	@RequestMapping(value= "/goMyPageCI")
+	public ModelAndView goMyPageCI(){
+		System.out.println("마이 페이지로 이동");
+		mav = new ModelAndView();
+		mav.setViewName("myPageCI");
+		return mav;
+	}
+	
+	
 }

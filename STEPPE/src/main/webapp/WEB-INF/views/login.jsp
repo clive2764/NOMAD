@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
   <head>
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>steppe È¸¿ø°¡ÀÔ</title>
+    <title>steppe íšŒì›ê°€ì…</title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -54,7 +54,7 @@
     </style>
   </head>
   <body>
-    <!--»ó´Ü ¸Ş´º¹Ù-->
+    <!--ìƒë‹¨ ë©”ë‰´ë°”-->
 	<header id="header">
         <nav class="navbar navbar-default navbar-static-top" role="banner">
             <div class="container">
@@ -73,12 +73,12 @@
 					<div class="menu">
 						<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">ÇÁ·ÎÁ§Æ®</a></li>
-							<li role="presentation"><a href="goFreelancer">ÇÁ¸®·£¼­</a></li>
-							<li role="presentation"><a href="goManual">ÀÌ¿ë¹æ¹ı</a></li>
-                            <li role="presentation"><a href="goPms">ÇÁ·ÎÁ§Æ® °ü¸®</a></li>
-                            <li role="presentation"><a href="goLogin">·Î±×ÀÎ</a></li>
-                            <li role="presentation"><a href="goJoin">È¸¿ø°¡ÀÔ</a></li>
+							<li role="presentation"><a href="goProject">í”„ë¡œì íŠ¸</a></li>
+							<li role="presentation"><a href="goFreelancer">í”„ë¦¬ëœì„œ</a></li>
+							<li role="presentation"><a href="goManual">ì´ìš©ë°©ë²•</a></li>
+                            <li role="presentation"><a href="goPms">í”„ë¡œì íŠ¸ ê´€ë¦¬</a></li>
+                            <li role="presentation"><a href="goLogin">ë¡œê·¸ì¸</a></li>
+                            <li role="presentation"><a href="goJoin">íšŒì›ê°€ì…</a></li>
 						</ul>
 					</div>
 				</div>		
@@ -90,17 +90,17 @@
 			<form action="access" method="post">
 				<table>
 					<tr>
-						<td align="center">·Î±×ÀÎ</td>
+						<td align="center">ë¡œê·¸ì¸</td>
 					</tr>
 					<tr>
-						<td><input type="text" name="m_id" placeholder="¾ÆÀÌµğ"/></td>
+						<td><input type="text" name="m_id" placeholder="ì•„ì´ë””"/></td>
 					</tr>
 					<tr>
-						<td><input type="password" name="m_pw" placeholder="ºñ¹Ğ¹øÈ£"/></td>
+						<td><input type="password" name="m_pw" placeholder="ë¹„ë°€ë²ˆí˜¸"/></td>
 					</tr>
 					<tr>
 						<td>
-							<input type="submit" class="btn" value="·Î±×ÀÎ"/>
+							<input type="submit" class="btn" value="ë¡œê·¸ì¸"/>
 						</td>
 					</tr>
 									
@@ -111,7 +111,7 @@
 	<hr>
     
     <div class="row"></div>
-    <!--ÇªÅÍ ¿µ¿ª ½ÃÀÛ-->
+    <!--í‘¸í„° ì˜ì—­ ì‹œì‘-->
 	<div class="sub-footer">
 		<div class="container">
 			<div class="social-icon">
@@ -132,9 +132,9 @@
 		                  <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
 		                  <a href="https://bootstrapmade.com/">BootstrapMade</a>
 		                  <br/>
-		                  <a href="#">°øÁö»çÇ×</a>&nbsp;&nbsp;&nbsp;
+		                  <a href="#">ê³µì§€ì‚¬í•­</a>&nbsp;&nbsp;&nbsp;
 		                  <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-		                  <a href="#">ÀÌ¿ë¾à°ü</a>
+		                  <a href="#">ì´ìš©ì•½ê´€</a>
 		              </div>
 				</div>
 			</div>			
@@ -142,7 +142,7 @@
 	</div>	
 				
 	
-	<!--ÇªÅÍ ¿µ¿ª ³¡-->
+	<!--í‘¸í„° ì˜ì—­ ë-->
       
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

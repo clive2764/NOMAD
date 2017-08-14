@@ -18,5 +18,6 @@
 		<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
 		<typeAlias alias="project" type="com.steppe.nomad.bean.Project" />
 		<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
+		<typeAlias alias="required_skill" type="com.steppe.nomad.bean.Required_Skill"/>
 	</typeAliases> 
 </configuration> 

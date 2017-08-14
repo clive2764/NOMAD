@@ -1,12 +1,15 @@
 package com.steppe.nomad.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Required_Skill;
 
 @Repository
 public class ProjectDao {
@@ -23,4 +26,18 @@ public class ProjectDao {
 		return sqlSession.update("project.progressUpdate", progNum);
 		
 	}
+
+	public List<Required_Skill> getRequired_SkillList() {
+		return sqlSession.selectList("project.getRequired_SkillList");
+	}
+
+	public int getProjectMaxNum() {
+		return sqlSession.selectOne("project.getProjectMaxNum");
+	}
+	
+	public int insertProject(Map<Object, Object> fMap) {
+		return sqlSession.insert("project.insertProject",fMap);
+	}
+
+
 }

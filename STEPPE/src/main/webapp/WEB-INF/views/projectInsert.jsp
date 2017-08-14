@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>steppe »ùÇÃÆäÀÌÁö</title>
+    <title>steppe ìƒ˜í”Œí˜ì´ì§€</title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -15,9 +16,6 @@
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
 	<link href="resources/css/style.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
-    <script>
-    
-    </script>
 <style>
 select {
 	color: black;
@@ -54,10 +52,55 @@ td.category{
 	text-align: center;
     width: 5%;
 }
+
+#articleView_layer {
+   display:none;
+   position:fixed;
+   position:absolute;
+   top:0;
+   left:0;
+   width:100%;
+   height:100%
+   }
+
+  #articleView_layer.open {
+  display:block;
+  color:red
+  }
+
+  #articleView_layer #bg_layer {
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:#000;
+      opacity:.5;
+      filter:alpha(opacity=50);
+      z-index:100
+      }
+
+  #contents_layer { 
+  	position:absolute;
+  	top:40%;
+  	left:40%;
+    width:400px;
+    height:400px;
+    margin:-150px 0 0 -194px;
+    padding:28px 28px 0 28px;
+    border:2px solid #555;
+    background:#fff;
+    font-size:12px;
+    z-index:200;
+    color:#767676;
+    line-height:normal;
+    white-space:normal;
+    overflow:scroll
+     }
 </style>
 </head>
 <body>
-	<!--»ó´Ü ¸Ş´º¹Ù-->
+	<!--ìƒë‹¨ ë©”ë‰´ë°”-->
 	<header id="header"> <nav
 		class="navbar navbar-default navbar-static-top" role="banner">
 	<div class="container">
@@ -77,10 +120,10 @@ td.category{
 				<ul class="nav nav-tabs" role="tablist">
 					<ul class="nav nav-tabs" role="tablist">
 							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">ÇÁ·ÎÁ§Æ®</a></li>
-							<li role="presentation"><a href="goFreelancer">ÇÁ¸®·£¼­</a></li>
-							<li role="presentation"><a href="goManual">ÀÌ¿ë¹æ¹ı</a></li>
-                            <li role="presentation"><a href="goPms">ÇÁ·ÎÁ§Æ® °ü¸®</a></li>
+							<li role="presentation"><a href="goProject">í”„ë¡œì íŠ¸</a></li>
+							<li role="presentation"><a href="goFreelancer">í”„ë¦¬ëœì„œ</a></li>
+							<li role="presentation"><a href="goManual">ì´ìš©ë°©ë²•</a></li>
+                            <li role="presentation"><a href="goPms">í”„ë¡œì íŠ¸ ê´€ë¦¬</a></li>
 					</ul>
 				</ul>
 			</div>
@@ -90,42 +133,44 @@ td.category{
 	</header>
 	<div class="row"></div>
 	<div class="container">
-		<form action="" method="post" id="insertForm" name="form1">
-			
+		<form action="insertProject" method="post" id="insertForm" name="form1" enctype="multipart/form-data" onsubmit="return check()">
 			<div class="container">
 				<table class="table table-responsive">
 					<tr>
 						<td style="vertical-align: bottom;">
 							<select name="pc1_name" id="pc1_name" onchange="firstChange();">
-									${cList1}
+							<option value="1ì°¨ ì¹´í…Œê³ ë¦¬">1ì°¨ ì¹´í…Œê³ ë¦¬</option>
+							<option value="ê°œë°œ">ê°œë°œ</option>
+							<option value="ë””ìì¸">ë””ìì¸</option>
 							</select> 
 							<select name="pc2_name" id="pc2_name">
-									<option value="2Â÷ Ä«Å×°í¸®">2Â÷Ä«Å×°í¸®</option>
+									<option value="">2ì°¨ ì¹´í…Œê³ ë¦¬</option>
+									
 							</select>
 							<td>
-							<span style="float: right;">±â°£(ÀÏ)</span><br/>
-							<input type="text" name="p_term" id="p_term" placeholder="±â°£À» ÀÔ·ÂÇÏ½Ã¿À" 
+							<span style="float: right;">ê¸°ê°„(ì¼)</span><br/>
+							<input type="text" name="p_term" id="p_term" placeholder="ê¸°ê°„ì„ ì…ë ¥í•˜ì‹œì˜¤" 
 							onkeydown="inputOnlyNumber(this);" onkeyup="typing()" value=0 />
 							</td>
 					</tr>
 					<tr>
 						<td class="category">
-							<span>Á¦¸ñ</span>
+							<span>ì œëª©</span>
 						</td>
 						<td>
-							<input type="text" style="width:100%;" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇÏ¿© ÁÖ¼¼¿ä" />
+							<input type="text" style="width:100%;" placeholder="ì œëª©ì„ ì…ë ¥í•˜ì—¬ ì£¼ì„¸ìš”" name="p_title" />
 						</td>
 					</tr>
 					<tr>
 						<td class="category" style="vertical-align: middle;">
-							<span>³»¿ë</span>
+							<span>ë‚´ìš©</span>
 						</td>
 						<td><textarea name="p_content"
 								id="p_content" rows="30"></textarea></td>
 					</tr>
 					<tr>
 						<td class="category">
-							<span>ÆÄÀÏ Ã·ºÎ</span>
+							<span>íŒŒì¼ ì²¨ë¶€</span>
 						</td>
 						<td>
 							<input type="file" name="p_filename" onChange="fileChk(this)" style="width: 100%;"/>
@@ -134,7 +179,7 @@ td.category{
 					</tr>
 					<tr>
 						<td class="category">
-							<span>ÀÔÂû ¸¶°¨</span>
+							<span>ì…ì°° ë§ˆê°</span>
 						</td>
 						<td>
 							<input type="date" name="p_deadline" id="p_deadline" />
@@ -142,16 +187,38 @@ td.category{
 					</tr>
 					<tr>
                   		<td class="category">
-                     	<span>¿¹»óºñ¿ë</span>
+                     	<span>ì˜ˆìƒë¹„ìš©</span>
                   		</td>
                   		<td>
                      		<input type="text" name="p_budget" id="p_budget" 
-                     		onkeydown="inputBudget(this)" onkeyup="typing2()" value=0 /><span>        ¸¸¿ø</span>
+                     		onkeydown="inputBudget(this)" onkeyup="typing2()" value=0 /><span>        ë§Œì›</span>
                   		</td>
                		</tr>
+               		<tr>
+                  		<td class="category">
+                     	<span>ì„¸ë¶€ê¸°ìˆ </span>
+                  		</td>
+                  		<td>
+                     		<fieldset name="p_plnum" id="p_plnum">
+                     			<legend>ì„¸ë¶€ê¸°ìˆ  ì„ íƒ(ìµœëŒ€3ê°œ)</legend>
+                     				${slist}
+                     		</fieldset>
+                  		</td>
+               		</tr>
+
+               		<tr>
+               			<td class="category">
+                     	<span>í•„ìš”ì¸ì›</span>
+                  		</td>
+                 		<td>
+                     		<input type="text" name="p_person" id="p_person"
+                     		onkeydown="inputPerson(this)" onkeyup="typing3()" /><span>                 ëª…</span>
+                  		</td>
+               		</tr>
+               		
 					<tr style="text-align: center;">
 						<td colspan="2">
-							<input type="button" id="complete" value="ÇÁ·ÎÁ§Æ® µî·Ï" style="height: 80px;"/>
+							<input type="submit" id="complete" value="í”„ë¡œì íŠ¸ ë“±ë¡" style="height: 80px;"/>
 						</td>
 					</tr>
 				</table>
@@ -161,7 +228,7 @@ td.category{
 		
 	<div class="row"></div>
 
-	<!--ÇªÅÍ ¿µ¿ª ½ÃÀÛ-->
+	<!--í‘¸í„° ì˜ì—­ ì‹œì‘-->
 	<div class="sub-footer">
 		<div class="container">
 			<div class="social-icon">
@@ -180,14 +247,14 @@ td.category{
                         -->
 						<a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by
 						<a href="https://bootstrapmade.com/">BootstrapMade</a> <br /> <a
-							href="#">°øÁö»çÇ×</a>&nbsp;&nbsp;&nbsp; <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-						<a href="#">ÀÌ¿ë¾à°ü</a>
+							href="#">ê³µì§€ì‚¬í•­</a>&nbsp;&nbsp;&nbsp; <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
+						<a href="#">ì´ìš©ì•½ê´€</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!--ÇªÅÍ ¿µ¿ª ³¡-->
+	<!--í‘¸í„° ì˜ì—­ ë-->
 
 
 
@@ -195,9 +262,23 @@ td.category{
 	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>
 </body>
+<div id="articleView_layer">
+	<div id="bg_layer"></div>
+	<div id="contents_layer"></div>
+</div>
+
 <script>
-	/*
+	$("input[name=p_plnum]:checked").each(function(){
+		var test=$(this).val();
+		console.log(test);
+		
+	});
+	
     function firstChange(){
+    	var selectBox = document.getElementById("pc1_name");
+		var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+		    alert(selectedValue + 'ì„  ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤.');
+		    
     	var x = document.form1.pc1_name.options.selectedIndex;
     	var groups=document.form1.pc1_name.options.length;
     	var group=new Array(groups);
@@ -205,89 +286,83 @@ td.category{
     	 for (i=0; i<groups; i++) {
     		  group[i]=new Array();
     		 }//for
-    	 // ¿É¼Ç(<option>) »ı¼º
-    	  group[0][0]=new Option("2Â÷ Ä«Å×°í¸®");
- 		  group[1][0]=new Option("°³¹ß ¼±ÅÃ");
- 		  group[1][1]=new Option("Android¾Û");//°á°ú <option value="ss">»ï¼º</option>
- 		  group[1][2]=new Option("ÇÃ·§Æû¼­ºñ½º");
- 		  group[1][3]=new Option("°ÔÀÓ");
- 		  group[1][4]=new Option("ÀÓº£µğµå");
- 		  group[1][5]=new Option("¸ğ¹ÙÀÏ¾Û");
- 		  group[1][6]=new Option("IOS¾Û");
+    	 // ì˜µì…˜(<option>) ìƒì„±
+    	  group[0][0]=new Option("2ì°¨ ì¹´í…Œê³ ë¦¬");
+ 		  group[1][0]=new Option("ê°œë°œ ì„ íƒ");
+ 		  group[1][1]=new Option("Androidì•±");//ê²°ê³¼ <option value="ss">ì‚¼ì„±</option>
+ 		  group[1][2]=new Option("í”Œë«í¼ì„œë¹„ìŠ¤");
+ 		  group[1][3]=new Option("ê²Œì„");
+ 		  group[1][4]=new Option("ì„ë² ë””ë“œ");
+ 		  group[1][5]=new Option("ëª¨ë°”ì¼ì•±");
+ 		  group[1][6]=new Option("IOSì•±");
  		  group[1][7]=new Option("ERP");
- 		  group[1][8]=new Option("ÆÛºí¸®½Ì");
- 		  group[1][9]=new Option("±âÅ¸");
- 		  group[2][0]=new Option("µğÀÚÀÎ ¼±ÅÃ");
- 		  group[2][1]=new Option("À¥");
- 		  group[2][2]=new Option("¾ÖÇÃ¸®ÄÉÀÌ¼Ç");
- 		  group[2][3]=new Option("ÀÏ·¯½ºÆ®");
- 		  group[2][4]=new Option("¿µ»ó");
- 		  group[2][5]=new Option("·Î°í");
- 		  group[2][6]=new Option("ÀÎ¼â¹°");
- 		  group[2][7]=new Option("±×·¡ÇÈ");
+ 		  group[1][8]=new Option("í¼ë¸”ë¦¬ì‹±");
+ 		  group[1][9]=new Option("ê¸°íƒ€");
+ 		  group[2][0]=new Option("ë””ìì¸ ì„ íƒ");
+ 		  group[2][1]=new Option("ì›¹");
+ 		  group[2][2]=new Option("ì• í”Œë¦¬ì¼€ì´ì…˜");
+ 		  group[2][3]=new Option("ì¼ëŸ¬ìŠ¤íŠ¸");
+ 		  group[2][4]=new Option("ì˜ìƒ");
+ 		  group[2][5]=new Option("ë¡œê³ ");
+ 		  group[2][6]=new Option("ì¸ì‡„ë¬¼");
+ 		  group[2][7]=new Option("ê·¸ë˜í”½");
  		  group[2][8]=new Option("3P");
- 		  group[2][9]=new Option("PPTÅÛÇÃ¸´");
- 		  group[2][10]=new Option("±¤°í,¹è³Ê");
+ 		  group[2][9]=new Option("PPTí…œí”Œë¦¿");
+ 		  group[2][10]=new Option("ê´‘ê³ ,ë°°ë„ˆ");
  		  
- 		 temp = document.form1.pc2catagory;
- 		 for (m = temp.options.length-1 ; m > 0 ; m--) {//ÇöÀç °ª Áö¿ì±â
+ 		 temp = document.form1.pc2_name;
+ 		 for (m = temp.options.length-1 ; m > 0 ; m--) {//í˜„ì¬ ê°’ ì§€ìš°ê¸°
  		  temp.options[m]=null
  		 }
- 		 for (i=0;i<group[x].length;i++){//°ª ¼ÂÆÃ
- 		  //¿¹) <option value="ss">»ï¼º</option>
+ 		 for (i=0;i<group[x].length;i++){//ê°’ ì…‹íŒ…
+ 		  //ì˜ˆ) <option value="ss">ì‚¼ì„±</option>
  		  temp.options[i]=new Option(group[x][i].text,group[x][i].value);
  		 }
- 		 temp.options[0].selected=true//ÀÎµ¦½º 0¹øÂ°, Áï, Ã¹¹øÂ° ¼±ÅÃ
+ 		 temp.options[0].selected=true//ì¸ë±ìŠ¤ 0ë²ˆì§¸, ì¦‰, ì²«ë²ˆì§¸ ì„ íƒ
  		}//firstChange
- 			*/
  			
+ 	/*
  		function firstChange(){
  				var selectBox = document.getElementById("pc1_name");
  			    var selectedValue = selectBox.options[selectBox.selectedIndex].value;
- 			    //alert(selectedValue + 'À»  ¼±ÅÃÇÏ¼Ì½À´Ï´Ù.');
- 			   $.ajax({
- 				 	 type:'get',
- 			         url : './secondCatagory',
- 			         data : {
- 			            selectedValue : selectedValue
- 			         },
-
- 			         success : function(data) {
- 			            $('#pc2_name').html(data);
- 			            console.log(data);
- 			         },
- 			         error : function(error) {
- 			            console.log(error);
- 			         }
- 			      });
+ 			    alert(selectedValue + 'ì„  ì„ íƒí•˜ì…¨ìŠµë‹ˆë‹¤.');
+ 			  if(selectedValue=="ê°œë°œ"){
+ 				 document.form1.action="secondCatagory1"
+ 	 			 document.form1.submit();
+ 			  }else if(selectedValue=="ë””ìì¸"){
+ 				  document.form1.action="secondCatagory2"
+ 				  document.form1.submit();
+ 			  }
+ 				  
  		}
+ 		*/
     	function inputOnlyNumber(obj){
  			e=window.event;
  			
- 			if((e.keyCode>=46 && e.keyCode<=57)||//¼ıÀÚ¿­
- 			(e.keyCode>=96 && e.keyCode<=105) ||//Å°ÆĞµå
+ 			if((e.keyCode>=46 && e.keyCode<=57)||//ìˆ«ìì—´
+ 			(e.keyCode>=96 && e.keyCode<=105) ||//í‚¤íŒ¨ë“œ
  			e.keyCode==8||//BackSpace
  			e.keyCode==46||//Delete
- 			//e.keyCode==110||//¼Ò¼öÁ¡: ¹®ÀÚÅ°¹è¿­
- 			//e.keyCode==190||//¼Ò¼öÁ¡: Å°ÆĞºê
- 			e.keyCode==37||//ÁÂ È­»ìÇ¥
- 			e.keyCode==39||//¿ì È­»ìÇ¥
- 			e.keyCode==35||//endÅ°
- 			e.keyCode==36||//homeÅ°
- 			e.keyCode==9//tabÅ°
+ 			//e.keyCode==110||//ì†Œìˆ˜ì : ë¬¸ìí‚¤ë°°ì—´
+ 			//e.keyCode==190||//ì†Œìˆ˜ì : í‚¤íŒ¨ë¸Œ
+ 			e.keyCode==37||//ì¢Œ í™”ì‚´í‘œ
+ 			e.keyCode==39||//ìš° í™”ì‚´í‘œ
+ 			e.keyCode==35||//endí‚¤
+ 			e.keyCode==36||//homeí‚¤
+ 			e.keyCode==9//tabí‚¤
  			){
- 			if(e.keyCode==48 || e.keyCode==96){//0À» ´­·¶À» °æ¿ì
- 				if(obj.value=="" || obj.value=='0')//¾Æ¹«°Íµµ ¾ø°Å³ª ÇöÀç°ªÀÌ 0ÀÏ °æ¿ì¿¡¼­ 0À» ´­·¶À» °æ¿ì
- 					e.returnValue=false;//ÀÔ·Â ¾ÈµÊ
- 				else//´Ù¸¥ ¼ıÀÚµÚ¿¡ ¿À´Â 0Àº
- 					return;//ÀÔ·Â
+ 			if(e.keyCode==48 || e.keyCode==96){//0ì„ ëˆŒë €ì„ ê²½ìš°
+ 				if(obj.value=="" || obj.value=='0')//ì•„ë¬´ê²ƒë„ ì—†ê±°ë‚˜ í˜„ì¬ê°’ì´ 0ì¼ ê²½ìš°ì—ì„œ 0ì„ ëˆŒë €ì„ ê²½ìš°
+ 					e.returnValue=false;//ì…ë ¥ ì•ˆë¨
+ 				else//ë‹¤ë¥¸ ìˆ«ìë’¤ì— ì˜¤ëŠ” 0ì€
+ 					return;//ì…ë ¥
  			}
- 			else//0ÀÌ ¾Æ´Ñ ¼ıÀÚ
- 				return;//ÀÔ·Â
+ 			else//0ì´ ì•„ë‹Œ ìˆ«ì
+ 				return;//ì…ë ¥
  			}
- 			else//¼ıÀÚ°¡ ¾Æ´Ï¸é ³ÖÀ»¼ö ¾øÀ½
+ 			else//ìˆ«ìê°€ ì•„ë‹ˆë©´ ë„£ì„ìˆ˜ ì—†ìŒ
  				{
- 				alert('¼ıÀÚ¸¸ ÀÔ·Â°¡´ÉÇÕ´Ï´Ù');
+ 				alert('ìˆ«ìë§Œ ì…ë ¥ê°€ëŠ¥í•©ë‹ˆë‹¤');
  				e.returnValue=false;
  				
  				
@@ -298,9 +373,9 @@ td.category{
  			console.log(elem.value);
  			if(elem.value==""){
  				console.log("empty");
- 				$("#p_filename").val(0);//ÆÄÀÏÃ·ºÎ ¾ÊÇÔ
+ 				$("#p_filename").val(0);//íŒŒì¼ì²¨ë¶€ ì•Ší•¨
  			}else{
- 				$("#p_filename").val(1);//ÆÄÀÏÃ·ºÎ ÇÔ
+ 				$("#p_filename").val(1);//íŒŒì¼ì²¨ë¶€ í•¨
  			}
  		}
  		
@@ -308,36 +383,36 @@ td.category{
  			  var val=document.getElementById("p_term").value;
  			  var value=document.getElementById("p_term");
  			  if(val>=184)
- 				  alert("183ÀÏ ±îÁö¸¸ °¡´ÉÇÕ´Ï´Ù");
+ 				  alert("183ì¼ ê¹Œì§€ ê°€ëŠ¥í•©ë‹ˆë‹¤");
  		}
  		
  		function inputBudget(obj){
 			e=window.event;
  			
- 			if((e.keyCode>=46 && e.keyCode<=57)||//¼ıÀÚ¿­
- 			(e.keyCode>=96 && e.keyCode<=105) ||//Å°ÆĞµå
+ 			if((e.keyCode>=46 && e.keyCode<=57)||//ìˆ«ìì—´
+ 			(e.keyCode>=96 && e.keyCode<=105) ||//í‚¤íŒ¨ë“œ
  			e.keyCode==8||//BackSpace
  			e.keyCode==46||//Delete
- 			//e.keyCode==110||//¼Ò¼öÁ¡: ¹®ÀÚÅ°¹è¿­
- 			//e.keyCode==190||//¼Ò¼öÁ¡: Å°ÆĞºê
- 			e.keyCode==37||//ÁÂ È­»ìÇ¥
- 			e.keyCode==39||//¿ì È­»ìÇ¥
- 			e.keyCode==35||//endÅ°
- 			e.keyCode==36||//homeÅ°
- 			e.keyCode==9//tabÅ°
+ 			//e.keyCode==110||//ì†Œìˆ˜ì : ë¬¸ìí‚¤ë°°ì—´
+ 			//e.keyCode==190||//ì†Œìˆ˜ì : í‚¤íŒ¨ë¸Œ
+ 			e.keyCode==37||//ì¢Œ í™”ì‚´í‘œ
+ 			e.keyCode==39||//ìš° í™”ì‚´í‘œ
+ 			e.keyCode==35||//endí‚¤
+ 			e.keyCode==36||//homeí‚¤
+ 			e.keyCode==9//tabí‚¤
  			){
- 			if(e.keyCode==48 || e.keyCode==96){//0À» ´­·¶À» °æ¿ì
- 				if(obj.value=="" || obj.value=='0')//¾Æ¹«°Íµµ ¾ø°Å³ª ÇöÀç°ªÀÌ 0ÀÏ °æ¿ì¿¡¼­ 0À» ´­·¶À» °æ¿ì
- 					e.returnValue=false;//ÀÔ·Â ¾ÈµÊ
- 				else//´Ù¸¥ ¼ıÀÚµÚ¿¡ ¿À´Â 0Àº
- 					return;//ÀÔ·Â
+ 			if(e.keyCode==48 || e.keyCode==96){//0ì„ ëˆŒë €ì„ ê²½ìš°
+ 				if(obj.value=="" || obj.value=='0')//ì•„ë¬´ê²ƒë„ ì—†ê±°ë‚˜ í˜„ì¬ê°’ì´ 0ì¼ ê²½ìš°ì—ì„œ 0ì„ ëˆŒë €ì„ ê²½ìš°
+ 					e.returnValue=false;//ì…ë ¥ ì•ˆë¨
+ 				else//ë‹¤ë¥¸ ìˆ«ìë’¤ì— ì˜¤ëŠ” 0ì€
+ 					return;//ì…ë ¥
  			}
- 			else//0ÀÌ ¾Æ´Ñ ¼ıÀÚ
- 				return;//ÀÔ·Â
+ 			else//0ì´ ì•„ë‹Œ ìˆ«ì
+ 				return;//ì…ë ¥
  			}
- 			else//¼ıÀÚ°¡ ¾Æ´Ï¸é ³ÖÀ»¼ö ¾øÀ½
+ 			else//ìˆ«ìê°€ ì•„ë‹ˆë©´ ë„£ì„ìˆ˜ ì—†ìŒ
  				{
- 				alert('¼ıÀÚ¸¸ ÀÔ·Â°¡´ÉÇÕ´Ï´Ù');
+ 				alert('ìˆ«ìë§Œ ì…ë ¥ê°€ëŠ¥í•©ë‹ˆë‹¤');
  				e.returnValue=false;
  				
  				
@@ -345,12 +420,78 @@ td.category{
  			
  		}
  		function typing2(){
- 			  var val=document.getElementById("p_budget").value;
+ 			 var val=document.getElementById("p_budget").value;
  			 if(val>=20001)
-				  alert("2¾ï¿ø ±îÁö¸¸ ÀÔ·Â °¡´É ÇÕ´Ï´Ù.");
+				  alert("2ì–µì› ê¹Œì§€ ì…ë ¥ ê°€ëŠ¥ í•©ë‹ˆë‹¤.");
+ 		}
+ 		function inputPerson(obj){
+ 			e=window.event;
+ 			
+ 			if((e.keyCode>=46 && e.keyCode<=57)||//ìˆ«ìì—´
+ 		 			(e.keyCode>=96 && e.keyCode<=105) ||//í‚¤íŒ¨ë“œ
+ 		 			e.keyCode==8||//BackSpace
+ 		 			e.keyCode==46||//Delete
+ 		 			//e.keyCode==110||//ì†Œìˆ˜ì : ë¬¸ìí‚¤ë°°ì—´
+ 		 			//e.keyCode==190||//ì†Œìˆ˜ì : í‚¤íŒ¨ë¸Œ
+ 		 			e.keyCode==37||//ì¢Œ í™”ì‚´í‘œ
+ 		 			e.keyCode==39||//ìš° í™”ì‚´í‘œ
+ 		 			e.keyCode==35||//endí‚¤
+ 		 			e.keyCode==36||//homeí‚¤
+ 		 			e.keyCode==9//tabí‚¤
+ 		 			){
+ 		 			if(e.keyCode==48 || e.keyCode==96){//0ì„ ëˆŒë €ì„ ê²½ìš°
+ 		 				if(obj.value=="" || obj.value=='0')//ì•„ë¬´ê²ƒë„ ì—†ê±°ë‚˜ í˜„ì¬ê°’ì´ 0ì¼ ê²½ìš°ì—ì„œ 0ì„ ëˆŒë €ì„ ê²½ìš°
+ 		 					e.returnValue=false;//ì…ë ¥ ì•ˆë¨
+ 		 				else//ë‹¤ë¥¸ ìˆ«ìë’¤ì— ì˜¤ëŠ” 0ì€
+ 		 					return;//ì…ë ¥
+ 		 			}
+ 		 			else//0ì´ ì•„ë‹Œ ìˆ«ì
+ 		 				return;//ì…ë ¥
+ 		 			}
+ 		 			else//ìˆ«ìê°€ ì•„ë‹ˆë©´ ë„£ì„ìˆ˜ ì—†ìŒ
+ 		 				{
+ 		 				alert('ìˆ«ìë§Œ ì…ë ¥ê°€ëŠ¥í•©ë‹ˆë‹¤');
+ 		 				e.returnValue=false;
+ 		 				
+ 		 				
+ 		 				}
  		}
  		
+ 		
+ 		function typing3(){
+ 			 var val=document.getElementById("p_person").value;
+ 			 if(val>=11)
+				  alert("10ëª… ê¹Œì§€ ì…ë ¥ ê°€ëŠ¥ í•©ë‹ˆë‹¤.");
+ 		}
+ 		
+ 		var maxChecked=3;
+		var totalChecked=0;
+ 		
+ 		function CountChecked(obj){
+ 			if(obj.checked)
+ 				totalChecked+=1;
+ 			else
+ 				totalChecked-=1;
+ 			console.log(totalChecked)
+ 			if(totalChecked>maxChecked){
+ 				alert("ìµœëŒ€ 3ê°œ ê¹Œì§€ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
+ 				obj.checked=false;
+ 				totalChecked-=1;
+ 			}
+ 		}
 
+ 		function check(){
+ 			var frm=document.joinFrm;
+ 			var length=frm.length-1;//ë§ˆì§€ë§‰ íšŒì›ê°€ì…ì€ í•˜ë©´ ì•Šë˜ì–´ -1ì„ í•¨
+ 			for(var i=0; i<length; i++){//í•˜ë‚˜ë¼ë„ ë¹ ì§€ë©´ ì‘ë™ì´ ì•Šë˜ê²Œ í•˜ê¸° ìœ„í•´ í•„ìš”
+ 				if(frm[i].value=="" || frm[i]==null){
+ 					alert(frm[i].name="ì„ ì…ë ¥í•˜ì„¸ìš”");//ë¹ ì§„ ë¶€ë¶„ì´ ê²½ê³ ì°½ì— ì…ë ¥ë¨
+ 					frm[i].focus();
+ 					return false;//ì‹¤íŒ¨ì‹œ//onsubmitì—ì„œëŠ” ê¼­ í•„ìš”
+ 				}
+ 			}
+ 			return true;//ì„±ê³µì‹œ
+ 		}
     //$("#complete").click(function(){
     	//	$("#replyForm").submit();
   //  });

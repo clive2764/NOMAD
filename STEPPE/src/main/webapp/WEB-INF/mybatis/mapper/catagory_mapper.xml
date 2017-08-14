@@ -7,8 +7,12 @@
 		SELECT * FROM project_catagory1
 	</select>
 	
-	<select id="getCatagorycList2" resultType="catagory" parameterType="Integer">
-		SELECT * FROM project_catagory2 where pc2_pc1id=#{selectedValue}
+	<select id="getCatagorycList21" resultType="catagory">
+		SELECT * FROM project_catagory2 where pc2_pc1id=0
+	</select>
+	
+	<select id="getCatagorycList22" resultType="catagory">
+		SELECT * FROM project_catagory2 where pc2_pc1id=1
 	</select>
 
 </mapper>

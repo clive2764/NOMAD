@@ -25,7 +25,20 @@
     	</choose>
 	</select>
 	
+	<select id="getRequired_SkillList" resultType="required_skill">
+		select * from required_skills
+	</select>
+	
 	<update id="progressUpdate" parameterType="Integer">
 		UPDATE project SET p_status = #{progNum}
 	</update>
+	
+	<select id="getProjectMaxNum" resultType="Integer">
+		select NVL(MAX(p_num),0) FROM project
+	</select>
+	
+	<insert id="insertProject" parameterType = "Map">
+      INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
+      							,#{sysFileName},#{p_deadline},#{p_plnum},#{p_person},#{p_status})
+   </insert>
 </mapper>
