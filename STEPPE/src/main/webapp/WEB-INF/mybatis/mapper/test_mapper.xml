@@ -9,6 +9,10 @@
 4.resultType도 1개만 올수있는데 selectList인 경우 List로 반환한다.
  -->
 <mapper namespace="test">
+	<select id = "getTestCnt" parameterType = "answer" resultType = "Integer">
+		SELECT COUNT(*) FROM ANSWER WHERE A_TNAME = #{a_tname} AND A_MID = #{a_mid}  
+	</select>
+	
 	<select id = "getTestList" parameterType = "String" resultType = "test">
 		SELECT * FROM TEST WHERE T_NAME = #{t_name}
 	</select>
@@ -17,12 +21,24 @@
 		SELECT * FROM TEST WHERE T_NUM = #{t_num}
 	</select>
 	
+	<select id = "getT_answer" parameterType = "test" resultType = "Integer">
+		SELECT T_ANSWER FROM TEST WHERE T_NAME = #{t_name} AND T_NUM = #{t_num}
+	</select>
+	
 	<select id = "getTestMaxNum" resultType="Integer">
 		SELECT NVL(MAX(T_NUM),0) FROM TEST
 	</select>
 	
+	<select id = "getAnswerMaxNum" resultType="Integer">
+		SELECT NVL(MAX(A_NUM),0) FROM ANSWER
+	</select>
+	
 	<insert id = "insertFst" parameterType = "test">
 		INSERT INTO TEST VALUES(#{t_num},#{t_name},#{t_content},#{t_answer},#{t_no1},#{t_no2},#{t_no3},#{t_no4})
+	</insert>
+	
+	<insert id = "insertAnswer" parameterType = "answer">
+		INSERT INTO ANSWER VALUES(#{a_num},#{a_mid},#{a_tnum},#{a_insertnum},#{a_check},#{a_tname})
 	</insert>
 	
 	<update id = "updateFst" parameterType = "test">

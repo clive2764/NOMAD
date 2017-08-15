@@ -22,10 +22,10 @@ public class TestController {
 
 	
 	@RequestMapping(value = "/showFstList")
-	public ModelAndView showFstList(Test test) {
+	public ModelAndView showFstList() {
 		System.out.println("시험 리스트");
 		mav=new ModelAndView();
-		mav=fm.execute(test, 1);
+		mav=fm.execute(6);
 		return mav;
 	}
 	
@@ -82,6 +82,30 @@ public class TestController {
 		System.out.println("자격시험 페이지");
 		mav=new ModelAndView();
 		mav.setViewName("fst");		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/selectTest")
+	public ModelAndView selectTest() {
+		System.out.println("시험 테스트 공지");
+		mav=new ModelAndView();
+		mav=fm.userExecute(1); 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/doTest")
+	public ModelAndView doTest() {
+		System.out.println("시험 테스트 시작");
+		mav=new ModelAndView();
+		mav=fm.userExecute(2); 		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/checkTest")
+	public ModelAndView checkTest() {
+		System.out.println("시험 문제 푸는중");
+		mav=new ModelAndView();
+		mav=fm.userExecute(3);	
 		return mav;
 	}
 }

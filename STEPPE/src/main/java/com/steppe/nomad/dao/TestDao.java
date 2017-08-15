@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.steppe.nomad.bean.Answer;
 import com.steppe.nomad.bean.Test;
 
 @Service
@@ -35,6 +36,22 @@ public class TestDao {
 
 	public int deleteFst(int t_num) {
 		return sqlSession.delete("test.deleteFst", t_num);
+	}
+
+	public int getTestCnt(Answer ans) {
+		return sqlSession.selectOne("test.getTestCnt", ans);
+	}
+
+	public int getAnswerMaxNum() {
+		return sqlSession.selectOne("test.getAnswerMaxNum");
+	}
+
+	public int getT_answer(Test test) {
+		return sqlSession.selectOne("test.getT_answer", test);
+	}
+
+	public int insertAnswer(Answer ans) {
+		return sqlSession.insert("test.insertAnswer", ans);
 	}
 
 	
