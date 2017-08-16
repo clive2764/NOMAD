@@ -108,4 +108,12 @@ public class TestController {
 		mav=fm.userExecute(3);	
 		return mav;
 	}
+	
+	@RequestMapping(value = "/goFst")
+	public ModelAndView goFst() {
+		System.out.println("시험종료");
+		mav=new ModelAndView();
+		mav.setViewName("fst");		
+		return mav;
+	}
 }

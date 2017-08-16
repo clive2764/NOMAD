@@ -54,5 +54,19 @@ public class TestDao {
 		return sqlSession.insert("test.insertAnswer", ans);
 	}
 
+	public List<Test> getFstTest(int t_num) {
+		return sqlSession.selectList("test.getFstTest",t_num);
+	}
+
+	public int getSum(Answer ans) {
+		return sqlSession.selectOne("test.getSum", ans);
+	}
+
+	public int deleteAnswer(Answer ans) {
+		return sqlSession.delete("test.deleteAnswer", ans);
+	}
+
+	
+
 	
 }

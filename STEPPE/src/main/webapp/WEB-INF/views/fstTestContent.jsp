@@ -48,4 +48,7 @@
 			$(ajax(checkTest)).submit;
 		}
 	});
+	$("#goFst").click(function(){
+		$("goFst").submit;
+	});
 </script>

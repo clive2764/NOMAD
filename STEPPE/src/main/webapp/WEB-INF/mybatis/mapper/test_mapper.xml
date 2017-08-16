@@ -13,6 +13,14 @@
 		SELECT COUNT(*) FROM ANSWER WHERE A_TNAME = #{a_tname} AND A_MID = #{a_mid}  
 	</select>
 	
+	<select id = "getSum" parameterType = "answer" resultType = "Integer">
+		SELECT COUNT(*) FROM ANSWER WHERE A_TNAME = #{a_tname} AND A_MID = #{a_mid} AND A_CHECK = 1
+	</select>
+	
+	<select id = "getFstTest" parameterType = "Integer" resultType = "test">
+		SELECT * FROM TEST WHERE T_NUM = #{t_num}
+	</select>
+	
 	<select id = "getTestList" parameterType = "String" resultType = "test">
 		SELECT * FROM TEST WHERE T_NAME = #{t_name}
 	</select>
@@ -55,5 +63,9 @@
 	
 	<delete id="deleteFst" parameterType = "Integer">
 		DELETE FROM TEST WHERE T_NUM = #{t_num}
+	</delete>
+	
+	<delete id="deleteAnswer" parameterType = "answer">
+		DELETE FROM ANSWER WHERE A_TNAME = #{a_tname} AND A_MID = #{a_mid} 
 	</delete>
 </mapper>
