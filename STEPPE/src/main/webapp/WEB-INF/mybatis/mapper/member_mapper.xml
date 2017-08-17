@@ -21,7 +21,9 @@
 	<select id="getPwd" parameterType = "String" resultType="String">
 		SELECT M_PW FROM MEMBER WHERE M_ID=#{m_id}
 	</select> 
-	
+	<select resultType="String" parameterType="String" id="getKind">
+	 	SELECT M_KIND FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
 	<!-- HashMap 테스트 -->
 	<!-- <select id="hashMapTest" parameterType = "HashMap" resultType="Integer">
 		SELECT COUNT(*) FROM M WHERE M_ID=#{id} AND M_PWD=#{pwd}
