@@ -89,22 +89,31 @@ input {
 
 	<div class="container">
 		<!--style="height:-webkit-fill-available;"-->
-		<form action="addCareerInfo" method="post" id="career">
+		<form action="addPortfolio" method="post" id="portfolio" enctype="multipart/form-data">
 			<table class="table">
 				<tr>
-					<td><p>경력 기간</p></td>
+					<td><p>제목</p></td>
 					<td colspan="2"><input style="width: 40%;" type="text"
-						placeholder="경력기간을 입력해주세요" name="ca_term" id="term"></td>
+						placeholder="포트폴리오 제목을 입력해주세요" name="pf_title" id="title"></td>
 				</tr>
 				<tr>
-					<td><p>회사명</p></td>
+					<td><p>기간</p></td>
 					<td colspan="2"><input style="width: 40%;" type="text"
-						placeholder="회사명을 입력해주세요" name="ca_company" id="company"></td>
+						placeholder="포트폴리오 기간을 입력해주세요" name="pf_term" id="term"></td>
 				</tr>
 				<tr>
-					<td><p>근무직급</p></td>
+					<td><p>기여도</p></td>
 					<td colspan="2"><input style="width: 40%;" type="text"
-						placeholder="근무 직급을 입력해주세요" name="ca_rank" id="rank"></td>
+						placeholder="포트폴리오 기여도를 입력해주세요" name="pf_contribute" id="contribute"></td>
+				</tr>
+				<tr>
+					<td><p>내용</p></td>
+					<td colspan="2"><input style="width: 40%;" type="text"
+						placeholder="포트폴리오 내용을 입력해주세요" name="pf_content" id="content"></td>
+				</tr>
+				<tr>
+					<td><p>포트폴리오 첨부</p></td>
+					<td><input type="file" name="pf_image[]" onchange="fileChk(this)" multiple="multiple"/>
 				</tr>
 				<tr rowspan="3" colspan="3">
 					<td colspan="3"><input type="button" id="complete"
@@ -114,17 +123,13 @@ input {
 		</form>
 		<table>
 			<tr align="center" height="25">
-				<td width="200">경력기간</td>
-				<td width="200">회사명</td>
-				<td width="200">직급</td>
+				<td width="200"></td>
 			</tr>
 		</table>
-		<table id="cTable">
-			<c:forEach var="career" items="${clist}">
+		<table id="pfTable">
+			<c:forEach var="portfolio" items="${mapList}">
 				<tr align="center" height="25">
-					<td width="200">${c.ca_term}</td>
-					<td width="200">${c.ca_company}</td>
-					<td width="200">${c.ca_rank}</td>
+					<td width="200"></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -189,7 +194,7 @@ input {
 	        $("#career").submit();
 	    }
 	}); */
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 		var clist=''; 	
 		$.ajax({
 			type : 'get',
@@ -212,26 +217,24 @@ input {
 				alert("error");
 				console.log(error);
 			}
-		});
+		}); */
 
-	$("#complete").click(function() {
-				var clist='';
+	   $("#complete").click(function() {
+				var pflist='';
 		$.ajax({
 			type : 'get',
-			url : 'addCareerInfo',
-			data : $('#career').serialize(),
+			url : 'addPortfolio',
+			data : $('#portfolio').serialize(),
 			//$('#rForm').serialize(), 폼 전체 데이터 전송
 			dataType : 'json',
 			success : function(data) { //댓글 리스트 json형태 반환
 				console.log(data); //json 구조파악
 				for(var i=0;i<data.length;i++){
-					clist+='<tr height="25" align="center">'
-					+'<td width="200">'+data[i].ca_term+'</td>'
-					+'<td width="200">'+data[i].ca_company+'</td>'
-					+'<td width="200">'+data[i].ca_rank+'</td>'
-				 	+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+					pflist+='<tr height="25" align="center">'
+					+'<td width="200">'+data[i].pf_term+'</td>'
+					+'<td width="200">'+data[i].pf_content+'</td></tr>'
 			}
-			$('#cTable').html(clist);
+			$('#pfTable').html(pflist);
 			},
 			error : function(error) {
 				alert("error");
@@ -239,8 +242,8 @@ input {
 			}
 		});
 	});
-	});
-	function memberDelete(num){
+
+	/*function memberDelete(num){
 		var number = num;
 		var clist='';
 		$.ajax({
@@ -265,7 +268,7 @@ input {
 			} 
 	});
 		location.reload();
-	}
+	} */
 	
 
 	/* function(){

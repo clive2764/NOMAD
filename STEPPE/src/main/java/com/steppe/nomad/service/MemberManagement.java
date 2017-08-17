@@ -53,11 +53,11 @@ public class MemberManagement {
 	private void logout(Member mb) {
 		mav = new ModelAndView();
 		String view = null;
-		session.invalidate();
-
+		if(session !=null){
+	         session.invalidate();
+	      }
 		view = "home";
 		mav.setViewName(view);
-
 	}
 	
 	private void memberAccess(Member mb) {

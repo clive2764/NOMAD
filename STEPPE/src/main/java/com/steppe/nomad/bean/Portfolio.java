@@ -1,17 +1,17 @@
 package com.steppe.nomad.bean;
 
 public class Portfolio {
-private String pf_num;
+private int pf_num;
 private String m_id;
 private String pf_title;
 private String pf_term;
 private String pf_contribute;
 private String pf_content;
 private String pf_image;
-public String getPf_num() {
+public int getPf_num() {
 	return pf_num;
 }
-public void setPf_num(String pf_num) {
+public void setPf_num(int pf_num) {
 	this.pf_num = pf_num;
 }
 public String getM_id() {

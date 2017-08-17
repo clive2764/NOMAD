@@ -20,10 +20,8 @@ public class HomeController {
 	private EmailManagement em;
 
 	@Autowired
-
 	private MemberManagement mm;	//페이지 처음 진입용
 	@RequestMapping(value = "/")
-
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
 		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
@@ -32,7 +30,6 @@ public class HomeController {
 
 	//상단 헤더메뉴의 메인페이지 링크용
 	@RequestMapping(value = "/main")
-
 	public ModelAndView home2(Model model) {
 		mav = new ModelAndView();
 		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
@@ -43,7 +40,6 @@ public class HomeController {
 
 	//회원가입용
 	@RequestMapping(value = "/goJoin")
-
 	public ModelAndView goJoin() {
 		System.out.println("회원가입 페이지로 이동");
 		mav = new ModelAndView();
@@ -74,7 +70,6 @@ public class HomeController {
 
 	//이메일 인증
 	@RequestMapping(value = "/sendCode")
-
 	public ModelAndView sendCode() {
 		System.out.println("ModelAndView sendCode �떆�옉");
 		mav = new ModelAndView(); 
@@ -101,10 +96,15 @@ public class HomeController {
 		return mav;
 	}
 	
-	
+	//로그아웃
+    @RequestMapping(value = "/logout")
+    public ModelAndView logout(Member mb) {
+       System.out.println("로그아웃");
+       mav = mm.execute(mb,2);
+       return mav;
+    }
 
 	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
-
 	public String fstMm(Model model) {
 		return "fstMm";
 	}

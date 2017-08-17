@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- board_mapper.xml :게시판관련 쿼리문 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Career">
+	<select id="getCareerMaxNum" resultType="Integer">
+		SELECT NVL(MAX(CA_NUM),0) FROM CAREER
+	</select>
+	
+	<select id="getCareerList" parameterType="String" resultType="career">
+		SELECT * FROM CAREER WHERE CA_MID = #{m_id}
+	</select>
+	
+	<insert id="insertCareer" parameterType="career">
+		INSERT INTO CAREER VALUES(#{ca_num},#{m_id},#{ca_term},#{ca_company},#{ca_rank})
+	</insert>
+	
+	<delete id="deleteCareer" parameterType="career">
+		DELETE FROM CAREER WHERE CA_NUM = #{ca_num}
+	</delete>
+</mapper>
