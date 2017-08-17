@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -8,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>steppe È¸¿ø°¡ÀÔ</title>
+<title>steppe È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</title>
 <!-- Bootstrap -->
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -17,11 +18,32 @@
 <link href="resources/css/style.css" rel="stylesheet" />
 <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
 <!-- =======================================================
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>steppe íšŒì›ê°€ì…</title>
+    <!-- Bootstrap -->
+    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
+	<link rel="stylesheet" href="resources/css/animate.css">
+	<link href="resources/css/animate.min.css" rel="stylesheet"> 
+	<link href="resources/css/style.css" rel="stylesheet" />
+	<script src="http://code.jquery.com/jquery-3.2.1.js"></script>	
+    <!-- =======================================================
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
         Theme Name: Day
         Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
         Author: BootstrapMade
         Author URL: https://bootstrapmade.com
     ======================================================= -->
+<<<<<<< HEAD
 	<style>
 		.navbar-header {
 			/*background-color: dimgrey;*/
@@ -91,7 +113,7 @@
 	</style>
 </head>
 <body>
-	<!--»ó´Ü ¸Ş´º¹Ù-->
+	<!--ï¿½ï¿½ï¿½ ï¿½Ş´ï¿½ï¿½ï¿½-->
 	<header id="header"> <nav
 		class="navbar navbar-default navbar-static-top" role="banner">
 	<div class="container">
@@ -110,22 +132,22 @@
 			<div class="menu">
 				<ul class="nav nav-tabs" role="tablist">
 					<li role="presentation"><a href="goIntro">steppe?</a></li>
-					<li role="presentation"><a href="goProject">ÇÁ·ÎÁ§Æ®</a></li>
-					<li role="presentation"><a href="goFreelancer">ÇÁ¸®·£¼­</a></li>
-					<li role="presentation"><a href="goManual">ÀÌ¿ë¹æ¹ı</a></li>
-					<li role="presentation"><a href="goPms">ÇÁ·ÎÁ§Æ® °ü¸®</a></li>
+					<li role="presentation"><a href="goProject">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®</a></li>
+					<li role="presentation"><a href="goFreelancer">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a></li>
+					<li role="presentation"><a href="goManual">ï¿½Ì¿ï¿½ï¿½ï¿½</a></li>
+					<li role="presentation"><a href="goPms">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½</a></li>
 					<li role="presentation">
 					<c:set var="m_id" value="${member.m_id}" /> 
 						<c:if test="${empty m_id}">
-							<a href="goLogin">·Î±×ÀÎ</a>
+							<a href="goLogin">ï¿½Î±ï¿½ï¿½ï¿½</a>
 						</c:if> 
 						<c:if test="${!empty m_id}">
-							<a href="./logout">${m_id}´Ô ·Î±×¾Æ¿ô</a>
+							<a href="./logout">${m_id}ï¿½ï¿½ ï¿½Î±×¾Æ¿ï¿½</a>
 						</c:if>
 					</li>
 					<li role="presentation">
 						<c:if test="${empty m_id}">
-							<a href="goJoin">È¸¿ø°¡ÀÔ</a>
+							<a href="goJoin">È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a>
 						</c:if>
 					</li>
 					
@@ -137,7 +159,7 @@
 	<div class="about">
 		<div class="container">
 			<div id="join">
-				<h3 style="color: black;">È¸¿ø °¡ÀÔ</h3>
+				<h3 style="color: black;">È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</h3>
 				<!-- <form name="join" action ="memberInsert" method="post" enctype="multipart/form-data"> -->
 				<form action ="memberInsert" method="post" enctype="multipart/form-data">
 					<table>
@@ -145,34 +167,92 @@
 							<td>
 								<ul>
 									<li><input type="radio" id="choseClient" class="radio" name="m_kind" value="C" /></li>
-									<li><label for="choseClient">Å¬¶óÀÌ¾ğÆ®</label></li>
+									<li><label for="choseClient">Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ®</label></li>
 								</ul>
 							</td>
 							<td>
 								<ul>
 									<li><input type="radio" id="choseFreelancer" class="radio" name="m_kind" value="F" /></li>
-									<li><label for="choseFreelancer">ÇÁ¸®·£¼­</label></li>
+									<li><label for="choseFreelancer">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</label></li>
 								</ul>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="text" id="userId" name="userId" placeholder="¾ÆÀÌµğ" /> 
+								<input type="text" id="userId" name="userId" placeholder="ï¿½ï¿½ï¿½Ìµï¿½" /> 
+=======
+    <style>
+        .navbar-header{
+            /*background-color: dimgrey;*/
+        }  
+        
+        #join{
+        	/* width: 300px; */
+        	/* background-color: lightgrey; */
+        	text-align: center;
+        }
+        table{
+        	width: 300px;
+        	/* text-align: center; */
+        	margin:0 auto;
+        	
+        }
+        td{
+        	padding: 3px;
+        }
+        input{
+        	color: black;
+        	width: 250px; 
+        }
+        .btn{
+        	color: white;
+        	margin-top: 0px;
+        }
+        .btn:hover{
+        	background-color:skyblue;
+        	color: white;
+        	margin-top: 0px;
+        }
+    </style>
+  </head>
+  <body>
+    <jsp:include page="header.jsp" />
+    <div class="about">
+		<div class="container">
+           	<div id="join">
+           		<h3 style="color:black;">íšŒì› ê°€ì…</h3>
+				<form name="joinForm" method="post">
+					<table>
+						<tr>
+							<td>
+								<input type="text" id="userId" name="userId" placeholder="ì•„ì´ë””" />
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 								<span id="notiId"></span>
 							</td>
 						</tr>
 						<tr>
+<<<<<<< HEAD
 							<td colspan="2">
-								<input type="password" id="userPassword" name="pw" placeholder="ºñ¹Ğ¹øÈ£" />
+								<input type="password" id="userPassword" name="pw" placeholder="ï¿½ï¿½Ğ¹ï¿½È£" />
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="password" id="passwordCheck" name="pw" onkeyup="passwordCheckk()" placeholder="ºñ¹Ğ¹øÈ£ È®ÀÎ" /> 
+								<input type="password" id="passwordCheck" name="pw" onkeyup="passwordCheckk()" placeholder="ï¿½ï¿½Ğ¹ï¿½È£ È®ï¿½ï¿½" /> 
+=======
+							<td>
+								<input type="password" id="userPw" name="userPw" placeholder="ë¹„ë°€ë²ˆí˜¸"  />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="password" id="confirmPw" name="confirmPw" placeholder="ë¹„ë°€ë²ˆí˜¸ í™•ì¸" />
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 								<span id="notiPw"></span>
 							</td>
 						</tr>
 						<tr>
+<<<<<<< HEAD
 							<td colspan="2" id="passwordCheckText"></td>
 						</tr>
 						<tr>
@@ -190,13 +270,13 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="text" id="userName" name="userName" placeholder="ÀÌ¸§" /> 
+								<input type="text" id="userName" name="userName" placeholder="ï¿½Ì¸ï¿½" /> 
 								<span id="notiName"></span>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="text" id="userEmail" name="userEmail" placeholder="ÀÌ¸ŞÀÏ" />
+								<input type="text" id="userEmail" name="userEmail" placeholder="ï¿½Ì¸ï¿½ï¿½ï¿½" />
 							</td>
 						</tr>
 						<tr>
@@ -204,25 +284,66 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="button" class="btn" onClick="sendCode()" value="ÀÎÁõ¹øÈ£ ¹ß¼Û" /> 
+								<input type="button" class="btn" onClick="sendCode()" value="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ ï¿½ß¼ï¿½" /> 
+=======
+							<td>
+								<input type="text" id="userName" name="userName" placeholder="ì´ë¦„" />
+								<span id="notiName"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="userPhone" name="userPhone" placeholder="í•¸ë“œí° ë²ˆí˜¸ ex)010-0000-0000" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="userEmail" name="userEmail" placeholder="ï¿½Ì¸ï¿½ï¿½ï¿½" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="text" id="userEmail" name="userEmail" placeholder="ì´ë©”ì¼" />
+								<span id="notiEmail"></span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" class="btn" onClick="sendCode()" value="ì¸ì¦ë²ˆí˜¸ ë°œì†¡" />
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 								<span id="notiCode"></span>
 							</td>
 						</tr>
 						<tr>
+<<<<<<< HEAD
 							<td colspan="2">
-								<input type="text" id="userCode" name="userCode" placeholder="ÀÎÁõ¹øÈ£" />
+								<input type="text" id="userCode" name="userCode" placeholder="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£" />
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<!-- <input type="button" class="btn" onClick="join()" value="È¸¿ø°¡ÀÔ" /> -->
-								<input type="submit" class="btn" value="È¸¿ø°¡ÀÔ" />
+								<!-- <input type="button" class="btn" onClick="join()" value="È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" /> -->
+								<input type="submit" class="btn" value="È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" />
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="button" class="btn" onClick="location.href='./'" value="µ¹¾Æ°¡±â" />
+								<input type="button" class="btn" onClick="location.href='./'" value="ï¿½ï¿½ï¿½Æ°ï¿½ï¿½ï¿½" />
 								
+=======
+							<td>
+								<input type="text" id="userCode" name="userCode" placeholder="ì¸ì¦ë²ˆí˜¸" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" class="btn" onClick="join()" value="íšŒì›ê°€ì…" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="button" class="btn" onClick="toIndex()" value="ëŒì•„ê°€ê¸°" />
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 							</td>
 						</tr>
 
@@ -232,9 +353,15 @@
 		</div>
 	</div>
 	<hr>
+<<<<<<< HEAD
 
 	<div class="row"></div>
-	<!--ÇªÅÍ ¿µ¿ª ½ÃÀÛ-->
+	<!--Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½-->
+=======
+    
+    <div class="row"></div>
+    <!--í‘¸í„° ì˜ì—­ ì‹œì‘-->
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 	<div class="sub-footer">
 		<div class="container">
 			<div class="social-icon">
@@ -250,38 +377,73 @@
 		                      Licensing information: https://bootstrapmade.com/license/
 		                      Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Day
 		                  -->
+<<<<<<< HEAD
 						<a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by
 						<a href="https://bootstrapmade.com/">BootstrapMade</a> <br /> <a
-							href="#">°øÁö»çÇ×</a>&nbsp;&nbsp;&nbsp; <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-						<a href="#">ÀÌ¿ë¾à°ü</a>
+							href="#">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a>&nbsp;&nbsp;&nbsp; <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
+						<a href="#">ï¿½Ì¿ï¿½ï¿½ï¿½</a>
 					</div>
+=======
+		                  <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
+		                  <a href="https://bootstrapmade.com/">BootstrapMade</a>
+		                  <br/>
+		                  <a href="#">ê³µì§€ì‚¬í•­</a>&nbsp;&nbsp;&nbsp;
+		                  <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
+		                  <a href="#">ì´ìš©ì•½ê´€</a>
+		              </div>
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 				</div>
 			</div>
 		</div>
+<<<<<<< HEAD
 	</div>
 
 
-	<!--ÇªÅÍ ¿µ¿ª ³¡-->
+	<!--Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½-->
 
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="resources/js/bootstrap.min.js"></script>
+=======
+	</div>	
+				
+	
+	<!--í‘¸í„° ì˜ì—­ ë-->
+      
+      
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="resources/js/bootstrap.min.js"></script>	
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>
 
 </body>
+<<<<<<< HEAD
 
 <script language="javascript">
-		var checked_radio = $('input:radio[name=m_kind]:checked').val(); // ¼±ÅÃµÈ radioÀÇ value °¡Á®¿À±â
-		if(checked_radio === undefined) // ¼±ÅÃÀ» ÇÏÁö ¾Ê¾ÒÀ» °æ¿ì
+		var checked_radio = $('input:radio[name=m_kind]:checked').val(); // ï¿½ï¿½ï¿½Ãµï¿½ radioï¿½ï¿½ value ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if(checked_radio === undefined) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		{
-		    alert('¿É¼ÇÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.');
+		    alert('ï¿½É¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.');
 		} else {
-		    alert(checked_radio + "¸¦ ¼±ÅÃÇÏ¼Ì½À´Ï´Ù.");
+		    alert(checked_radio + "ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.");
 		}
 
-		/* ºñ¹Ğ¹øÈ£ Áßº¹ °Ë»ç */
+		/* ï¿½ï¿½Ğ¹ï¿½È£ ï¿½ßºï¿½ ï¿½Ë»ï¿½ */
+=======
+	<!-- <script>
+		$(function() {
+			var msg = '${joinMsg}';
+			if(msg == "ì‹¤íŒ¨")
+				alert("íšŒì›ê°€ì…ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.");
+		});
+
+	
+	<script language="javascript">
+		/* ï¿½ï¿½Ğ¹ï¿½È£ ï¿½ßºï¿½ ï¿½Ë»ï¿½ */
+>>>>>>> d317d85d5485a6cb7d4cf31b037b3a3bce5efc3a
 		function passwordCheckk(){
 			var password = document.getElementById("userPassword").value;
 			var passwordCheck = document.getElementById("passwordCheck").value;
@@ -289,13 +451,13 @@
 			if (passwordCheck == "") {
 				document.getElementById("passwordCheckText").innerHTML = ""
 			} else if (password != passwordCheck) {
-				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>ºñ¹Ğ ¹øÈ£°¡ Æ²¸³´Ï´Ù.</font></span>"
+				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ Æ²ï¿½ï¿½ï¿½Ï´ï¿½.</font></span>"
 			} else {
-				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>ºñ¹Ğ ¹øÈ£°¡ ÀÏÄ¡ ÇÕ´Ï´Ù.</font></span>"
+				document.getElementById("passwordCheckText").innerHTML = "<span><font color=red size=2pt>ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Õ´Ï´ï¿½.</font></span>"
 			}
 		}
 		
-		/* ÀÌ¸ŞÀÏ ÀÎÁõ */
+		/* ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 		function sendCode(){
 			var flag = 1;
 			var email = $('#userEmail').val();
@@ -321,51 +483,48 @@
 			}
 			else
 			{
-				$('#notiEmail').html("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				$('#notiEmail').html("ì´ë©”ì¼ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 			}
 		}
 		
-		//ÆÄÀÏ¾÷·Îµå 
-		function fileChk(elem){ //ÆÄÀÏ ¿¤¸®¸ÕÆ®¸¦ ÆÄ¶ó¹ÌÅÍ·Î ¹Ş¾Ò´Ù.
-			//ÆÄ¶ó¹ÌÅÍ·Î Àß °¡Á® ¿Ô´ÂÁö È®ÀÎ
+<<<<<<< HEAD
+		//ï¿½ï¿½ï¿½Ï¾ï¿½ï¿½Îµï¿½ 
+		function fileChk(elem){ //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½ï¿½Í·ï¿½ ï¿½Ş¾Ò´ï¿½.
+			//ï¿½Ä¶ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 			console.log(elem.value);
 			if(elem.value==""){
 				console.log("empty");
 				//jquery 
-				$("#fileCheck").val(0);//ÆÄÀÏ Ã·ºÎ ¾ÈÇÔ
+				$("#fileCheck").val(0);//ï¿½ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			}else{
-				$("#fileCheck").val(1);//ÆÄÀÏ Ã·ºÎ ÇÔ
+				$("#fileCheck").val(1);//ï¿½ï¿½ï¿½ï¿½ Ã·ï¿½ï¿½ ï¿½ï¿½
 			}
 			
 		}//function end 
-		
-				
 		$('#userImage').on('change', function() {
 	        
-	        ext = $(this).val().split('.').pop().toLowerCase(); //È®ÀåÀÚ
+	        ext = $(this).val().split('.').pop().toLowerCase(); //È®ï¿½ï¿½ï¿½ï¿½
 	        
-	        //¹è¿­¿¡ ÃßÃâÇÑ È®ÀåÀÚ°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©
+	        //ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ Ã¼Å©
 	        if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
-	            resetFormElement($(this)); //Æû ÃÊ±âÈ­
-	            window.alert('ÀÌ¹ÌÁö ÆÄÀÏÀÌ ¾Æ´Õ´Ï´Ù! (gif, png, jpg, jpeg ¸¸ ¾÷·Îµå °¡´É)');
+	            resetFormElement($(this)); //ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	            window.alert('ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Õ´Ï´ï¿½! (gif, png, jpg, jpeg ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½)');
 	        } else {
 	            file = $('#userImage').prop("files")[0];
 	            blobURL = window.URL.createObjectURL(file);
 	            $('#image_preview img').attr('src', blobURL);
-	            $('#image_preview').slideDown(); //¾÷·ÎµåÇÑ ÀÌ¹ÌÁö ¹Ì¸®º¸±â 
-	            $(this).slideUp(); //ÆÄÀÏ ¾ç½Ä °¨Ãã
+	            $('#image_preview').slideDown(); //ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	            $(this).slideUp(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	        }
 	    });
 
 	    
 	    $('#image_preview a').bind('click', function() {
-	        resetFormElement($('#userImage')); //Àü´ŞÇÑ ¾ç½Ä ÃÊ±âÈ­
-	        $('#image').slideDown(); //ÆÄÀÏ ¾ç½Ä º¸¿©ÁÜ
-	        $(this).parent().slideUp(); //¹Ì¸® º¸±â ¿µ¿ª °¨Ãã
-	        return false; //±âº» ÀÌº¥Æ® ¸·À½
+	        resetFormElement($('#userImage')); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+	        $('#image').slideDown(); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	        $(this).parent().slideUp(); //ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	        return false; //ï¿½âº» ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	    });
 		
 	</script>
-
-
 </html>

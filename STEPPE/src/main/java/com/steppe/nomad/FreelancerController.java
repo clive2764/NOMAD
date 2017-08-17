@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Career;
+import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.service.FreelancerManegement;
 
 @Controller
@@ -16,22 +17,32 @@ public class FreelancerController {
 	private FreelancerManegement fm;
 	private ModelAndView mav;
 	@RequestMapping(value = "/goMyCareer")
-	public ModelAndView careerInfo() {
-		mav=new ModelAndView();
-		mav.setViewName("careerInfo");
+	public ModelAndView careerInfo(Career career) {
+		mav=fm.execute(career, 1);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/addCareerInfo", method = RequestMethod.POST)
 	public ModelAndView addCareerInfo(Career career) {
-		mav=fm.execute(career, 1);
+		mav=fm.execute(career, 2);
 		return mav;
 	}
 	
-	@RequestMapping(value = "/goMyProfile", method = RequestMethod.GET)
-	public ModelAndView profile() {
-		mav=new ModelAndView();
-		mav.setViewName("profile");
+	@RequestMapping(value = "/deleteCareerInfo", method = RequestMethod.POST)
+	public ModelAndView deleteCareerInfo(Career career) {
+		mav=fm.execute(career, 3);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/goMyProfile")
+	public ModelAndView profile(Profile profile) {
+		mav=fm.execute(profile, 1);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/insertProfile")
+	public ModelAndView insertProfile(Profile profile) {
+		mav=fm.execute(profile, 2);
 		return mav;
 	}
 	

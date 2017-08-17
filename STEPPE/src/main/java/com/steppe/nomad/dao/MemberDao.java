@@ -35,7 +35,7 @@ public class MemberDao {
 
 		return sqlSession.selectOne("member.getPwd",m_id);
 	}
-	
+
 	@Transactional
 	public int memberInsert(Member member, Map<String, String> fMap) {
 		//게시판 테이블에 글을 입력
@@ -48,28 +48,36 @@ public class MemberDao {
 		fMap.put("mfnum", String.valueOf(mfnum));
 		fMap.put("id", id);
 		int f = fileInsert(fMap);
-		
+
 		if(m!=0 && f!=0){
 			return 1; //Transactional 성공시
 		}return 0; //Transactional 실패시 
-		
-		
+
+
 	}
-	
+
 	private int getMFMaxNum() {
 		return sqlSession.selectOne("member.getMFMaxNum");
 	}
-	
+
 	private int fileInsert(Map<String, String> fMap) {
 		return sqlSession.insert("member.fileInsert",fMap);
 	}
-	
+
 	public int memberInsert(Member member) {
 		System.out.println("m_id = " + member.getM_id());
 		int result = sqlSession.insert("member.memberInsert",member);
 		System.out.println("result="+result);
 		return result;
-		
+
 	}
+	public String getKind(String m_id) {
+
+		return sqlSession.selectOne("member.getKind",m_id);
+
+	}
+
+
+
 
 }

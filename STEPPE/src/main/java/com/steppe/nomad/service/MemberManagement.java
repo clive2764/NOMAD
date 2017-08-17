@@ -22,9 +22,9 @@ import com.steppe.nomad.userClass.UploadFile;
 
 @Service
 public class MemberManagement {
-	
+
 	int code;
-	
+
 	@Autowired
 	private HttpSession session;//request.getSession();
 
@@ -33,7 +33,7 @@ public class MemberManagement {
 
 	@Autowired
 	private HttpServletResponse response;
-	
+
 	//싱글톤
 	@Autowired
 	private MemberDao mDao;
@@ -54,7 +54,7 @@ public class MemberManagement {
 		return mav;
 
 	}
-	
+
 
 	public ModelAndView execute(MultipartHttpServletRequest multi, int cmd){
 		switch (cmd) {
@@ -72,7 +72,7 @@ public class MemberManagement {
 		mav = new ModelAndView();
 		String view = null;
 		String message = null;
-		
+
 		//BCryptPasswordEncoder pwdEncoder = new BCryptPasswordEncoder();
 
 		String id = multi.getParameter("userId");
@@ -87,10 +87,10 @@ public class MemberManagement {
 		System.out.println("m_kind="+kind);
 		String userCode = multi.getParameter("userCode");
 		System.out.println("userCode= "+userCode);
-				
+
 		int check = Integer.parseInt(multi.getParameter("fileCheck"));
 		System.out.println("check="+check);
-		
+
 		Map<String, String> fMap = null;
 
 		if(check==1){
@@ -98,7 +98,7 @@ public class MemberManagement {
 			//서버에 파일을 업로드 한뒤, 오리지널 파일명, 시스템파일명을 리턴후 맵에 저장
 			fMap = upload.fileUp(multi);
 		}
-		
+
 		if(Integer.parseInt(userCode) == code){
 			Member member = new Member();
 			member.setM_id(id);
@@ -107,7 +107,7 @@ public class MemberManagement {
 			member.setM_email(email);
 			member.setM_kind(kind);
 			member.setMf_file(fMap.get("sysFileName"));
-			
+
 			if(mDao.memberInsert(member,fMap)!=0){//true 성공하면
 				view = "home";//성공하면 로그인 페이지
 				mav.addObject("check",1);//회원가입 성공
@@ -120,7 +120,7 @@ public class MemberManagement {
 			view = "join";
 		}
 		mav.setViewName("home");
-				
+
 	}
 
 	private void logout(Member mb) {
@@ -132,39 +132,54 @@ public class MemberManagement {
 		mav.setViewName(view);
 
 	}
-	
-	private void memberAccess(Member mb) {
-		System.out.println("memberAccess(Member mb) 시작");
-		mav = new ModelAndView();
-		String view = null;
-		
-		session.setAttribute("pwd", mb.getM_pw());
-		String pwd = (String)session.getAttribute("pwd");
-		
-		session.setAttribute("id", mb.getM_id());
-		String id = (String)session.getAttribute("id");
-		
-		String pw = mDao.getPwd(mb.getM_id());
-		System.out.println("pw= "+pw);
-		
-		if(pwd!=null){
-			if(pwd.equals(pw)){
-				
-				System.out.println("로그인 성공");
-				System.out.println("입력 id = "+id);
-				System.out.println("입력 pwd = "+pwd);
-				view = "home";
-				mav.setViewName(view);
-				return;
-						
-			}
-		
-		}
-		System.out.println("로그인 실패");
-		view = "login";
-		mav.setViewName(view);
 
-	}	
+	private ModelAndView memberAccess(Member mb) {
+		mav=new ModelAndView();
+		String view=null;
+
+		String m_id=request.getParameter("m_id");
+		String m_pass=request.getParameter("m_pw");
+
+		String passC=mDao.getPwd(m_id);
+		System.out.println(m_pass);
+		System.out.println(passC);
+		if(m_pass!=null){
+			if(m_pass.equals(passC)){
+
+				String m_kind=mDao.getKind(m_id);
+				session.setAttribute("m_kind", m_kind);
+				session.getAttribute("m_kind");
+
+				System.out.println("로그인성공");
+				session.setAttribute("m_id",m_id);
+				session.getAttribute("m_id");
+
+				session.setAttribute("m_pw", m_pass);
+				session.getAttribute("m_pw");
+
+				session.setAttribute("member", mb);
+				session.getAttribute("member");
+
+				System.out.println(mDao.getKind(m_id));
+				System.out.println("아이디:"+session.getAttribute("m_id"));
+				System.out.println("패스워드:"+session.getAttribute("m_pw"));
+				System.out.println("회원종류:"+session.getAttribute("m_kind"));
+				System.out.println("세션:"+session.getId());
+
+				view="redirect:/";
+				mav.setViewName(view);
+
+
+			}else{
+				view="login";
+				mav.setViewName(view);
+
+			}
+
+
+
+		}	return mav;
+	}
 	@Autowired
 	private JavaMailSenderImpl javaMailSenderImpl;
 	public String sendCode() throws Exception{
@@ -201,7 +216,7 @@ public class MemberManagement {
 
 				HttpSession session = request.getSession();
 				session.setAttribute("code", code);
-				
+
 				//일반 텍스트메일
 				SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 				simpleMailMessage.setFrom("emailtest20170314@gmail.com");
@@ -233,7 +248,7 @@ public class MemberManagement {
 
 				HttpSession session = request.getSession();
 				session.setAttribute("code", code);
-				
+
 				//일반 텍스트메일
 				SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 				simpleMailMessage.setFrom("emailtest20170314@gmail.com");
@@ -255,24 +270,22 @@ public class MemberManagement {
 
 		}
 		return null;
-		
-		
-		
-		
+
+
+
+
 
 		/*//HTML 메일
 
-		MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
-		mimeMessage.setFrom(new InternetAddress("emailtest20170314@gmail.com"));
-		mimeMessage.addRecipient(RecipientType.TO, new InternetAddress("jiwon.ha0513@gamil.com"));
-		mimeMessage.setSubject("Mime 테스트 메일");
-		mimeMessage.setText("<b>메일 내용입니다.</b>", "UTF-8", "html");
+			MimeMessage mimeMessage = javaMailSenderImpl.createMimeMessage();
+			mimeMessage.setFrom(new InternetAddress("emailtest20170314@gmail.com"));
+			mimeMessage.addRecipient(RecipientType.TO, new InternetAddress("jiwon.ha0513@gamil.com"));
+			mimeMessage.setSubject("Mime 테스트 메일");
+			mimeMessage.setText("<b>메일 내용입니다.</b>", "UTF-8", "html");
 
-		javaMailSenderImpl.send(mimeMessage);
+			javaMailSenderImpl.send(mimeMessage);
 		 */
 		//return null;
 
 	}
-	
-
 }

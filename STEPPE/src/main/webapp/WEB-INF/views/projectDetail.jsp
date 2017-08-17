@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>steppe »ùÇÃÆäÀÌÁö</title>
+    <title>steppe ìƒ˜í”ŒíŽ˜ì´ì§€</title>
     <!-- Bootstrap -->
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -77,63 +77,34 @@
     </style>
   </head>
   <body>
-    <!--»ó´Ü ¸Þ´º¹Ù-->
-	<header id="header">
-        <nav class="navbar navbar-default navbar-static-top" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                   <div class="navbar-brand">
-						<a href="main"><h1>steppe</h1></a>
-					</div>
-                </div>				
-                <div class="navbar-collapse collapse">							
-					<div class="menu">
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">ÇÁ·ÎÁ§Æ®</a></li>
-							<li role="presentation"><a href="goFreelancer">ÇÁ¸®·£¼­</a></li>
-							<li role="presentation"><a href="goManual">ÀÌ¿ë¹æ¹ý</a></li>
-                            <li role="presentation"><a href="goPms">ÇÁ·ÎÁ§Æ® °ü¸®</a></li>
-  						</ul>
-					</div>
-				</div>		
-            </div>
-        </nav>	
-    </header>
-    
+    <jsp:include page="header.jsp" />
 		<div class="col-md-12 col-xs-12 col-lg-12 col-sm-12" id="body">
             <table class="table table-responsive">
                 <tr>
-                    <td>Á¦¸ñ</td>
-                    <td colspan="3">È¨ÆäÀÌÁö Á¦ÀÛ</td>
+                    <td>ì œëª©</td>
+                    <td colspan="3">í™ˆíŽ˜ì´ì§€ ì œìž‘</td>
                 </tr>
                 <tr>
-                    <td>ÇÁ·ÎÁ§Æ® ±â°£</td>
-                    <td>¿¹»ó ±â°£</td>
+                    <td>í”„ë¡œì íŠ¸ ê¸°ê°„</td>
+                    <td>ì˜ˆìƒ ê¸°ê°„</td>
                     
-                    <td colspan="2">Áö¿øÀÚ</td>
+                    <td colspan="2">ì§€ì›ìž</td>
                 </tr>
                 <tr>
-                    <td>ÇÁ·ÎÁ§Æ®±â°£ Ç¥±â ¿µ¿ª</td>
-                    <td>¿¹»ó±â°£ Ç¥±â ¿µ¿ª</td>
-                    <td>Áö¿øÀÚ ¼ö Ç¥±â ¿µ¿ª</td>
+                    <td>í”„ë¡œì íŠ¸ê¸°ê°„ í‘œê¸° ì˜ì—­</td>
+                    <td>ì˜ˆìƒê¸°ê°„ í‘œê¸° ì˜ì—­</td>
+                    <td>ì§€ì›ìž ìˆ˜ í‘œê¸° ì˜ì—­</td>
                 </tr>
                 <tr>
-                    <td>ÇÊ¿ä¾ð¾î</td>
-                    <td>ÇÊ¿ä¾ð¾î Ç¥±â ¿µ¿ª</td>
+                    <td>í•„ìš”ì–¸ì–´</td>
+                    <td>í•„ìš”ì–¸ì–´ í‘œê¸° ì˜ì—­</td>
                     <td>
                         <form action="" method="post" id="priceForm">
-                            <input type="text" placeholder="ÀÔÂû°¡°ÝÀ» ÀÔ·ÂÇÏ¼¼¿ä." id="price" name="price">
-                            <input type="button" value="ÀÔÂû °¡°Ý °áÁ¤" id="check"/>
+                            <input type="text" placeholder="ìž…ì°°ê°€ê²©ì„ ìž…ë ¥í•˜ì„¸ìš”." id="price" name="price">
+                            <input type="button" value="ìž…ì°° ê°€ê²© ê²°ì •" id="check"/>
                         </form>
                     </td>
-                    <td><a href="goProject"><input type="button" value="¸ñ·Ïº¸±â" id="list"></a></td>
+                    <td><a href="goProject"><input type="button" value="ëª©ë¡ë³´ê¸°" id="list"></a></td>
                 </tr>
             
             </table>
@@ -141,98 +112,98 @@
     
 	<hr>
     <div class="container">
-            <h1 style="text-align:center; color:black;">ÇÁ·ÎÁ§Æ® »ó¼¼ ¼³¸í ¿µ¿ª</h1>
+            <h1 style="text-align:center; color:black;">í”„ë¡œì íŠ¸ ìƒì„¸ ì„¤ëª… ì˜ì—­</h1>
             <p>
-                ¡Ø ÇÁ·ÎÁ§Æ® ÁøÇà ¹æ½Ä
-                - ÃÊ±â ¿ÀÇÁ¶óÀÎ ¹ÌÆÃ 1È¸ 
-                - ¿ø°Ý / ÀçÅÃ±Ù¹« 
-                - PMS °ü¸® / ÀÌ¸ÞÀÏ,À¯¼± ¼ÒÅë
+                â€» í”„ë¡œì íŠ¸ ì§„í–‰ ë°©ì‹
+                - ì´ˆê¸° ì˜¤í”„ë¼ì¸ ë¯¸íŒ… 1íšŒ 
+                - ì›ê²© / ìž¬íƒê·¼ë¬´ 
+                - PMS ê´€ë¦¬ / ì´ë©”ì¼,ìœ ì„  ì†Œí†µ
             </p>
             <p>
-                ¡ØÇÁ·ÎÁ§Æ®ÀÇ ÇöÀç »óÈ²
+                â€»í”„ë¡œì íŠ¸ì˜ í˜„ìž¬ ìƒí™©
 
-                - ½ºÅ¸Æ®¾÷ ±â¾÷ ÆÀ±¸Ãà ¿Ï·áµÈ »óÅÂ·Î ¼­ºñ½º ½ÃÀÛÀ» À§ÇÑ ÃÊ±â ´Ü°è 
+                - ìŠ¤íƒ€íŠ¸ì—… ê¸°ì—… íŒ€êµ¬ì¶• ì™„ë£Œëœ ìƒíƒœë¡œ ì„œë¹„ìŠ¤ ì‹œìž‘ì„ ìœ„í•œ ì´ˆê¸° ë‹¨ê³„ 
 
-                - È­¸é ¼³°è ¹®¼­´Â ¾ÆÁ÷ ¾øÀ¸¸ç, ´ë·«ÀûÀÎ ±â´É Á¤ÀÇ Á¤µµ ÀÖÀ½
+                - í™”ë©´ ì„¤ê³„ ë¬¸ì„œëŠ” ì•„ì§ ì—†ìœ¼ë©°, ëŒ€ëžµì ì¸ ê¸°ëŠ¥ ì •ì˜ ì •ë„ ìžˆìŒ
             </p>
 
             <p>
-                ¡Ø»ó¼¼ÇÑ ¾÷¹« ³»¿ë
+                â€»ìƒì„¸í•œ ì—…ë¬´ ë‚´ìš©
 
-                [ ÀÏ¿ëÁ÷ Áß°³ À¥¼­ºñ½º 1Â÷¸ðµ¨ °³¹ß ]
+                [ ì¼ìš©ì§ ì¤‘ê°œ ì›¹ì„œë¹„ìŠ¤ 1ì°¨ëª¨ë¸ ê°œë°œ ]
 
-                - °³¹ß ºÐ·ù : ¼­¹ö ¹× À¥°ü¸®ÀÚ , Å¬¶óÀÌ¾ðÆ® ( PC WEB ) , µðÀÚÀÎ
+                - ê°œë°œ ë¶„ë¥˜ : ì„œë²„ ë° ì›¹ê´€ë¦¬ìž , í´ë¼ì´ì–¸íŠ¸ ( PC WEB ) , ë””ìžì¸
 
-                + ¼­ºñ½º °£·« ¼Ò°³ 
+                + ì„œë¹„ìŠ¤ ê°„ëžµ ì†Œê°œ 
 
-                   - ¿ª°æ¸Å ¹æ½ÄÀ¸·Î µ¹º½ÀÌ ½ÃÅÍ, °¡»çµµ¿ì¹Ì¿Í ÀÇ·ÚÀÎÀ» ¿¬°áÇÏ´Â Áß°³ À¥¼­ºñ½º 
+                   - ì—­ê²½ë§¤ ë°©ì‹ìœ¼ë¡œ ëŒë´„ì´ ì‹œí„°, ê°€ì‚¬ë„ìš°ë¯¸ì™€ ì˜ë¢°ì¸ì„ ì—°ê²°í•˜ëŠ” ì¤‘ê°œ ì›¹ì„œë¹„ìŠ¤ 
             </p>
             <p>
-                + °³¹ß ³»¿ë 
+                + ê°œë°œ ë‚´ìš© 
 
-                   - È¸¿ø°¡ÀÔ, ·Î±×ÀÎ ( ½Ç¸íÀÎÁõ ) 
+                   - íšŒì›ê°€ìž…, ë¡œê·¸ì¸ ( ì‹¤ëª…ì¸ì¦ ) 
 
-                   - ±¸ÀÎ°ø°í µî·Ï , »ó¼¼ ÆäÀÌÁö 
+                   - êµ¬ì¸ê³µê³  ë“±ë¡ , ìƒì„¸ íŽ˜ì´ì§€ 
 
-                   - Áö¿ªº°, Ä«Å×°í¸®º°, ±Þ¿©º° °Ë»ö 
+                   - ì§€ì—­ë³„, ì¹´í…Œê³ ë¦¬ë³„, ê¸‰ì—¬ë³„ ê²€ìƒ‰ 
 
-                   - ¿ª°æ¸Å ¹æ½ÄÀÇ Áö¿øÇÏ±â / Áö¿ø³»¿ª º¸±â 
+                   - ì—­ê²½ë§¤ ë°©ì‹ì˜ ì§€ì›í•˜ê¸° / ì§€ì›ë‚´ì—­ ë³´ê¸° 
 
-                   - ÀÇ·ÚÀÎ µµ¿ì¹Ì ¼±ÅÃ , ¿¬¶ôÃ³ ¿­¶÷ 
+                   - ì˜ë¢°ì¸ ë„ìš°ë¯¸ ì„ íƒ , ì—°ë½ì²˜ ì—´ëžŒ 
 
-                   - ÃÊ±â¿¡´Â °áÁ¦ ±â´É ¾øÀ½ ( ¹«·á ) ÃßÈÄ BM ¸ðµ¨ Å¾Àç 
+                   - ì´ˆê¸°ì—ëŠ” ê²°ì œ ê¸°ëŠ¥ ì—†ìŒ ( ë¬´ë£Œ ) ì¶”í›„ BM ëª¨ë¸ íƒ‘ìž¬ 
 
-                     :: ÃßÈÄ È¸¿øÁ¦ ¸ðµ¨·Î °í·ÁÁß 
+                     :: ì¶”í›„ íšŒì›ì œ ëª¨ë¸ë¡œ ê³ ë ¤ì¤‘ 
 
-                   - ÀüÃ¼ ¸ÞÀÏ ,SMS ¹ß¼Û 
+                   - ì „ì²´ ë©”ì¼ ,SMS ë°œì†¡ 
 
-                   - Æ¯Á¤ ¿µ¿ª ±¤°í ¹è³Ê µî·Ï, °ü¸® 
+                   - íŠ¹ì • ì˜ì—­ ê´‘ê³  ë°°ë„ˆ ë“±ë¡, ê´€ë¦¬ 
 
-                   - °¡»ç/À°¾Æ °ü·Ã ÄÁÅÙÃ÷ °Ô½ÃÆÇ 
+                   - ê°€ì‚¬/ìœ¡ì•„ ê´€ë ¨ ì»¨í…ì¸  ê²Œì‹œíŒ 
 
-                - ÃÊ±â PC À¥ ¹öÀüÀ¸·Î ½ÃÀÛÇÏ¿© ÃßÈÄ ¾ÛÀ¸·Î °íµµÈ­ ÁøÇà ¿¹Á¤ 
+                - ì´ˆê¸° PC ì›¹ ë²„ì „ìœ¼ë¡œ ì‹œìž‘í•˜ì—¬ ì¶”í›„ ì•±ìœ¼ë¡œ ê³ ë„í™” ì§„í–‰ ì˜ˆì • 
 
-                - »ç¾÷ÀÚµî·ÏÁõÀÌ ÀÖ´Â °³ÀÎ / ÆÀ ´ÜÀ§ Áö¿ø Èñ¸Á ( ÀÏ¹Ý °³ÀÎ ºÒ°¡ ) 
+                - ì‚¬ì—…ìžë“±ë¡ì¦ì´ ìžˆëŠ” ê°œì¸ / íŒ€ ë‹¨ìœ„ ì§€ì› í¬ë§ ( ì¼ë°˜ ê°œì¸ ë¶ˆê°€ ) 
 
-                - °³¹ß ¾ð¾î ¹«°ü
+                - ê°œë°œ ì–¸ì–´ ë¬´ê´€
             </p>
             <p>
 
-                # Å±¿ÀÇÁÀÏÁ¤ : 8¿ù 4Â°ÁÖ 
+                # í‚¥ì˜¤í”„ì¼ì • : 8ì›” 4ì§¸ì£¼ 
 
-                # IT °³¹ßÀÌ Ã³À½ÀÌ±â¿¡ ¸¹Àº Á¶¾ð/ÄÁ¼³ÆÃ ºÎÅ¹µå¸³´Ï´Ù.
+                # IT ê°œë°œì´ ì²˜ìŒì´ê¸°ì— ë§Žì€ ì¡°ì–¸/ì»¨ì„¤íŒ… ë¶€íƒë“œë¦½ë‹ˆë‹¤.
             </p>    
            
     </div>
     <hr/>
     <div class="container">
-        <h1 style="color:black; text-align:center;">´ñ±Û ¿µ¿ªÀ¸·Î È°¿ë</h1>
+        <h1 style="color:black; text-align:center;">ëŒ“ê¸€ ì˜ì—­ìœ¼ë¡œ í™œìš©</h1>
         <div class="row"></div>
         <table class="table table-responsive">
             <tr>
-                <td>ÀÛ¼ºÀÚ</td>
-                <td colspan="5">ÀÛ¼º ³»¿ë</td>
+                <td>ìž‘ì„±ìž</td>
+                <td colspan="5">ìž‘ì„± ë‚´ìš©</td>
             </tr>
             <tr>
-                <td><p>ÇÖ»ê</p></td>
-                <td colspan="5"><p>½ÎÀÜ´Ô ¿ù±Þ ÁÖ½ê¿À ÂÅ¹ß</p></td>
+                <td><p>í•«ì‚°</p></td>
+                <td colspan="5"><p>ì‹¸ìž”ë‹˜ ì›”ê¸‰ ì£¼ìŽ„ì˜¤ ì©¨ë°œ</p></td>
             </tr>
             <tr>
-                <td><p>ÇÖ»ê</p></td>
-                <td colspan="5"><p>3´ÞÂ° ¹Ð·È¾î¿À ½ÎÀÜ´Ô</p></td>
+                <td><p>í•«ì‚°</p></td>
+                <td colspan="5"><p>3ë‹¬ì§¸ ë°€ë ¸ì–´ì˜¤ ì‹¸ìž”ë‹˜</p></td>
             </tr>
             <tr>
-                <td><p>ÇÖ»ê</p></td>
-                <td colspan="5"><p>°¡Á·µé ±¾¾î¿ä ½ÎÀÜ´Ô</p></td>
+                <td><p>í•«ì‚°</p></td>
+                <td colspan="5"><p>ê°€ì¡±ë“¤ êµ¶ì–´ìš” ì‹¸ìž”ë‹˜</p></td>
             </tr>
         </table>
         <form action="insertComment" method="post" id="replyForm">
         	<textarea name="r_content" id="r_content"></textarea><br/>
-        	<input type="button" id="replyInsert" value="´ñ±ÛÀÛ¼º"/>
+        	<input type="button" id="replyInsert" value="ëŒ“ê¸€ìž‘ì„±"/>
         </form>
     </div>
     <div class="row"></div>
-    <!--ÇªÅÍ ¿µ¿ª ½ÃÀÛ-->
+    <!--í‘¸í„° ì˜ì—­ ì‹œìž‘-->
 	<div class="sub-footer">
 		<div class="container">
 			<div class="social-icon">
@@ -254,15 +225,15 @@
                         <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
                         <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         <br/>
-                        <a href="#">°øÁö»çÇ×</a>&nbsp;&nbsp;&nbsp;
+                        <a href="#">ê³µì§€ì‚¬í•­</a>&nbsp;&nbsp;&nbsp;
                         <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-                        <a href="#">ÀÌ¿ë¾à°ü</a>
+                        <a href="#">ì´ìš©ì•½ê´€</a>
                     </div>
 				</div>
 			</div>						
 		</div>				
 	</div>
-	<!--ÇªÅÍ ¿µ¿ª ³¡-->
+	<!--í‘¸í„° ì˜ì—­ ë-->
       
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -278,7 +249,7 @@
         
         
         if(price == "" ){
-          alert("ÀÔÂû°¡¸¦ ÀÔ·ÂÇÏ¼¼¿ä!");      
+          alert("ìž…ì°°ê°€ë¥¼ ìž…ë ¥í•˜ì„¸ìš”!");      
         } 
           
         if(price != ""){
@@ -289,7 +260,7 @@
     	var r_content  = $("#r_content").val();
     	
     	if(r_content == ""){
-    		alert("´ñ±ÛÀ» ÀÔ·ÂÇÏ¼¼¿ä!");
+    		alert("ëŒ“ê¸€ì„ ìž…ë ¥í•˜ì„¸ìš”!");
     	}
     	if(r_content != ""){
     		$("#replyForm").submit();
