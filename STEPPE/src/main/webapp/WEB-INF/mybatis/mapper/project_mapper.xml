@@ -8,19 +8,19 @@
 3. parameterType에 Map<key, value>타입인 경우 #{key}로 쓴다.
 4. resultType도 1개만 올 수 있는데 selectList인 경우 List로 변환한다. -->
 <mapper namespace="project">
-	<select id="showProcess" parameterType="Integer" resultType="Project"> 
+	<select id="showProcess" parameterType="Map" resultType="Project"> 
 		<choose>
-    		<when test='value == "0"'>
-    		SELECT * FROM project
+    		<when test='p_status == "0"'>
+    		SELECT * FROM project WHERE p_mid = #{m_id}
     		</when>
-    		<when test='value == "1"'>
-      		SELECT * FROM project WHERE p_status = #{value}
+    		<when test='p_status == "1"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
-    		<when test='value == "2"'>
-      		SELECT * FROM project WHERE p_status = #{value}
+    		<when test='p_status == "2"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
-    		<when test='value == "3"'>
-      		SELECT * FROM project WHERE p_status = #{value}
+    		<when test='p_status == "3"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
     	</choose>
 	</select>

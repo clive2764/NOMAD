@@ -75,23 +75,20 @@ public class PmsManagement {
 		//mav.setViewName("");
 	}
 
-	private String makeMemberList(List<Project> memberList) {
-		StringBuilder sb = new StringBuilder();
-		for(int i=0; i<memberList.size(); i++){
-			
-		}
-		return sb.toString();
-	}
-
 	private void showMyProjectList() {
 		//session.getAttribute("id");
+		String view = null;
 		mav = new ModelAndView();
 		//session.getAttribute("");
-		
-		List<Project> list = pDao.showMyProjectList("test2");
-		String makeList = makeMyProjectList(list);
-		mav.addObject("makeList", makeList);
-		mav.setViewName("team");
+		if(session!=null && session.getAttribute("m_id")!=null){
+			List<Project> list = pDao.showMyProjectList("test2");
+			String makeList = makeMyProjectList(list);
+			mav.addObject("makeList", makeList);
+			view = "team";
+		}else{
+			view = "redirect:/main";
+		}
+		mav.setViewName(view);
 	}
 
 	private String makeMyProjectList(List<Project> list) {
@@ -125,6 +122,7 @@ public class PmsManagement {
 	}
 	
 	private void progress() {
+		String m_id = session.getAttribute("m_id").toString();
 		System.out.println("실행");
 		mav = new ModelAndView();
 		String view = null;
@@ -146,7 +144,7 @@ public class PmsManagement {
 			progNum = 100;
 			code = 3;
 		}
-		list = pDao.showProcess(code);
+		list = pDao.showProcess(code,m_id);
 		String makeShowList = makeProjectList(list, value);
 		
 		mav.addObject("makeShowList", makeShowList);
@@ -154,18 +152,25 @@ public class PmsManagement {
 	}
 
 	private void showProcess(Project project) {
-		System.out.println("showProcess() 실행");
+		//String m_id = session.getAttribute("m_id").toString();
+		//System.out.println("m_id:"+m_id);
 		String view = null;
-		List<Project> list = null;
-		
 		mav = new ModelAndView();
-
-		int progNum = 0;
-		
-		list = pDao.showProcess(progNum);
-		String makeList = makeProjectList(list, progNum);
-		mav.addObject("makeList", makeList);
-		mav.setViewName("pms");
+		String m_id = session.getAttribute("m_id").toString();
+		//String id = (String) session.getAttribute("m_id");
+		if(session!=null && session.getAttribute("m_id")!=null){
+			System.out.println("showProcess() 실행");
+			List<Project> list = null;
+			int progNum = 0;
+			
+			list = pDao.showProcess(progNum,m_id);
+			String makeList = makeProjectList(list, progNum);
+			mav.addObject("makeList", makeList);
+			view = "pms";
+		}else{
+			view = "redirect:/main";
+		}
+		mav.setViewName(view);
 	}
 	
 	public String makeProjectList(List<Project> list, int value){

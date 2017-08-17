@@ -18,7 +18,6 @@ public class PmsController {
 	@RequestMapping(value = "/goPms")
 	public ModelAndView goPms(Project project){
 		mav=pmm.execute(1, project);
-		mav.setViewName("pms");
 		return mav;
 	}
 	@RequestMapping(value = "/showProcessAll", method = RequestMethod.GET)
