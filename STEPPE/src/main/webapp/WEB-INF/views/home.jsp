@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -22,39 +22,7 @@
     ======================================================= -->
   </head>
   <body>
-    <!--상단 메뉴바-->
-	<header id="header">
-        <nav class="navbar navbar-default navbar-static-top" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                   <div class="navbar-brand">
-						<a href="main"><h1>steppe</h1></a>
-					</div>
-                </div>				
-                <div class="navbar-collapse collapse">							
-					<div class="menu">
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">프로젝트</a></li>
-							<li role="presentation"><a href="goFreelancer">프리랜서</a></li>
-							<li role="presentation"><a href="goManual">이용방법</a></li>
-                            <li role="presentation"><a href="goPms">프로젝트 관리</a></li>
-                            <li role="presentation"><a href="goLogin">로그인</a></li>
-                            <li role="presentation"><a href="goJoin">회원가입</a></li>
-						</ul>
-					</div>
-				</div>		
-            </div>
-        </nav>	
-    </header>
-	<!--상단 메뉴바 영역 끝-->
-      
+  	<jsp:include page="header.jsp" />
     <!--carousel 영역-->
 	<div class="slider">		
 		<div id="about-slider">
@@ -128,11 +96,10 @@
     
 	<!--메인페이지 영역-->
 	<div class="about">
-		<div class="container">
 			<div class="text-center">
 				<div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <i class="fa fa-heart-o"></i>
-                    <h3>프로젝트 영역</h3>
+                    <h3>${sessionScope.m_kind}</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
 			     </div>
                 <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
@@ -156,10 +123,9 @@
 				</div>
                 
 			</div>	
-		</div>			
-	</div>
+	</div>			
 	<hr>
-    <!--carousel 영역 end-->
+    <div class="row"></div>
       
     <!--푸터 영역 시작-->
 	<div class="sub-footer">
@@ -193,7 +159,13 @@
 	</div>
 	<!--푸터 영역 끝-->
       
-      
+     <script type="text/javascript">
+     	console.log("${empty m_id}");
+     	console.log("${sessionScope.m_id}");
+     	console.log("${sessionScope.m_kind}");
+     	console.log("${empty m_kind}");
+     	
+     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="resources/js/jquery-3.2.1.min.js"></script>		
     <!-- Include all compiled plugins (below), or include individual files as needed -->

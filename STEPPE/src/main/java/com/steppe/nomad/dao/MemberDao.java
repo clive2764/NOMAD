@@ -31,6 +31,11 @@ public class MemberDao {
 
 		return sqlSession.selectOne("member.getPwd",m_id);
 	}
+	public String getKind(String m_id) {
+		
+		return sqlSession.selectOne("member.getKind",m_id);
+		
+	}
 
 
 	/*Connection con;

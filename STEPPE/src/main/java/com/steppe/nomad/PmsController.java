@@ -26,4 +26,9 @@ public class PmsController {
 		mav = pmm.execute(1);
 		return mav;
 	}
+	@RequestMapping(value = "/progressUpdate", method = RequestMethod.GET)
+	public ModelAndView progressUpdate(){
+		mav = pmm.execute(2);
+		return mav;
+	}
 }

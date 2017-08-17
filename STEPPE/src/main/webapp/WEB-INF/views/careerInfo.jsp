@@ -51,36 +51,7 @@ input {
 </style>
 </head>
 <body>
-   <!--상단 메뉴바-->
-   <header id="header">
-      <nav class="navbar navbar-default navbar-static-top" role="banner">
-         <div class="container">
-            <div class="navbar-header">
-               <button type="button" class="navbar-toggle" data-toggle="collapse"
-                  data-target=".navbar-collapse">
-                  <span class="sr-only">Toggle navigation</span> <span
-                     class="icon-bar"></span> <span class="icon-bar"></span> <span
-                     class="icon-bar"></span>
-               </button>
-               <div class="navbar-brand">
-                  <a href="main"><h1>steppe</h1></a>
-               </div>
-            </div>
-            <div class="navbar-collapse collapse">
-               <div class="menu">
-                  <ul class="nav nav-tabs" role="tablist">
-                     <li role="presentation"><a href="intro">steppe?</a></li>
-                     <li role="presentation"><a href="project">프로젝트</a></li>
-                     <li role="presentation"><a href="freelancer">프리랜서</a></li>
-                     <li role="presentation"><a href="manual">이용방법</a></li>
-                     <li role="presentation"><a href="pms">프로젝트 관리</a></li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </nav>
-   </header>
-
+   <jsp:include page="header.jsp" />
    <div class="container">
       <!--style="height:-webkit-fill-available;"-->
       <form action="" method="post" id="career">
@@ -162,7 +133,7 @@ input {
         } 
           
         if(term != "" && company != "" && rank != ""){
-            $("#carrier").submit();
+            $("#career").submit();
         }    
     });
     /*function complete(){
@@ -176,7 +147,7 @@ input {
         } 
           
         if(term != "" && company != "" && rank != ""){
-            $("#carrier").submit();
+            $("#career").submit();
         }    
    }*/
 </script>
