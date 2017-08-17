@@ -39,5 +39,24 @@ public class ProjectDao {
 		return sqlSession.insert("project.insertProject",fMap);
 	}
 
+	//public String getProjectInfo(String m_id) {
+		//return sqlSession.selectOne("project.getProjectInfo",m_id);
+	//}
+
+	public List<Project> getProjectList(String m_id) {
+		return sqlSession.selectList("project.getProjectList", m_id);
+	}
+
+	/*public List<Project> getProjectList(Object attribute) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
+
+	
+
+	
+
+	
+
 
 }

@@ -203,6 +203,9 @@ td.category{
                      			<legend>세부기술 선택(최대3개)</legend>
                      				${slist}
                      		</fieldset>
+                     		<input id="p_plnum0" type="hidden" name="p_plnum0"/>
+                     		<input id="p_plnum1" type="hidden" name="p_plnum1"/>
+                     		<input id="p_plnum2" type="hidden" name="p_plnum2"/>
                   		</td>
                		</tr>
 
@@ -268,9 +271,25 @@ td.category{
 </div>
 
 <script>
+
+/*
+$("#inter").click(function(){
+	$("input[name=p_plnum]:checked").each(function(idx){
+		var value=$(this).val();
+		var eqValue=$("input[name=p_plnum]:eq("+idx+")").val();
+		console.log(value+":"+eqValue);
+		//console.log(test);
+		//$("#inter").attr({
+			//"name":"test"	
+		//});
+	});
+});*/
 	$("input[name=p_plnum]:checked").each(function(){
 		var test=$(this).val();
 		console.log(test);
+		$("#inter").attr({
+			"name":"test"	
+		});
 		
 	});
 	
@@ -377,6 +396,7 @@ td.category{
  			}else{
  				$("#p_filename").val(1);//파일첨부 함
  			}
+ 			
  		}
  		
  		function typing(){
@@ -468,6 +488,7 @@ td.category{
 		var totalChecked=0;
  		
  		function CountChecked(obj){
+ 			
  			if(obj.checked)
  				totalChecked+=1;
  			else
@@ -478,8 +499,47 @@ td.category{
  				obj.checked=false;
  				totalChecked-=1;
  			}
+ 			
+ 			/*var valueArr=[];
+ 			var list=$("input[name='p_plnum']");
+ 			for(var i=0; i<list.length; i++){
+ 				if(list[i].checked){
+ 					valueArr.push(list[i].value);
+ 				}
+ 			}
+ 			var str='';
+ 			for(var i in valueArr){
+ 				str+=valueArr[i]+",";
+ 			}
+ 			console.log(str); 	
+ 			$("#inter").attr({
+ 				value : str
+ 			});*/
+ 			var valueArr=[];
+ 	 		var list=document.getElementsByName("p_plnum");		
+ 	 		var listi=document.getElementById("inter");
+ 	 		var p_plnum0=document.getElementById("p_plnum0");
+ 	 		var p_plnum1=document.getElementById("p_plnum1");
+ 	 		var p_plnum2=document.getElementById("p_plnum2");
+ 	 		for(var i=0; i<list.length; i++){
+ 	 			if(list[i].checked){
+ 	 				valueArr.push(list[i].value);
+ 	 			}
+ 	 		}
+ 	 		var str='';
+ 	 		for(var i in valueArr){
+ 				str+=valueArr[i]+",";
+ 			}
+ 	 		console.log(str); 
+ 	 		listi.setAttribute("value",str);
+ 	 		var newArr=str.split(",");
+ 	 		console.log(newArr);
+ 	 		console.log(newArr[0]);
+ 	 		p_plnum0.setAttribute("value",newArr[0]);
+ 	 		p_plnum1.setAttribute("value",newArr[1]);
+ 	 		p_plnum2.setAttribute("value",newArr[2]);
+ 	 		
  		}
-
  		function check(){
  			var frm=document.joinFrm;
  			var length=frm.length-1;//마지막 회원가입은 하면 않되어 -1을 함
