@@ -18,5 +18,6 @@
 		<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
 		<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
 		<typeAlias type="com.steppe.nomad.bean.Project" alias="project"/>
+		<typeAlias type="com.steppe.nomad.bean.Notice" alias="notice"/>
 	</typeAliases> 
 </configuration> 

@@ -99,9 +99,10 @@
 						<td><input type="password" name="m_pw" placeholder="비밀번호"/></td>
 					</tr>
 					<tr>
-						<td>
-							<input type="submit" class="btn" value="로그인"/>
-						</td>
+						<td><input type="submit" class="btn" value="로그인"/></td>
+					</tr>
+					<tr>
+						<td><input type="button" name="findInfo" onClick="location.href='./goFindInfo'"  class="btn" value="내정보 찾기"/></td>
 					</tr>
 									
 				</table>
