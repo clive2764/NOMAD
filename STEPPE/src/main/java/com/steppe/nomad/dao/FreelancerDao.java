@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.steppe.nomad.bean.Career;
+import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.bean.Test;
 
@@ -35,4 +36,16 @@ public class FreelancerDao {
 	public List<Profile> getProfileList(int pro_num) {
 		return sqlSession.selectList("Profile.getPRofileList", pro_num);
 	}
+
+	public List<Member> getFreelancer() {
+		return sqlSession.selectList("Career.getFreelancerList");
+	}
+
+	public Member getFreelancerDetail(String m_id) {
+		
+		return sqlSession.selectOne("Career.getFreelancerDetail", m_id);
+		
+	}
+
+	
 }

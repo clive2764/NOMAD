@@ -12,4 +12,11 @@
 		INSERT INTO CAREER
 		VALUES(#{ca_num},#{ca_mid},#{ca_term},#{ca_company},#{ca_rank})
 	</insert>
+	
+	<select id="getFreelancerList" resultType="member">
+		SELECT * FROM MEMBER WHERE M_KIND='F'
+	</select>
+	<select id="getFreelancerDetail" parameterType="String" resultType="member">
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
 </mapper>

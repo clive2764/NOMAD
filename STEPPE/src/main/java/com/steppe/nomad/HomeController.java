@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.EmailManagement;
+import com.steppe.nomad.service.FreelancerManegement;
 import com.steppe.nomad.service.MemberManagement;
 @Controller
 public class HomeController {
@@ -20,6 +21,10 @@ public class HomeController {
 
 	private MemberManagement mm;	//페이지 처음 진입용
 
+	@Autowired
+	
+	private FreelancerManegement fm;
+	
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
@@ -89,7 +94,21 @@ public class HomeController {
 		mav = mm.execute(mb,1);
 		return mav;
 	}
-	
+	//로그아웃
+	   @RequestMapping(value = "/logout")
+	   public ModelAndView logout(Member mb) {
+	      System.out.println("로그아웃");
+	      mav = mm.execute(mb,2);
+	      return mav;
+	   }
+	//
+	   @RequestMapping(value="/goIntro")
+	   public ModelAndView Intro(){
+		   System.out.println("소개 페이지로 이동");
+		   mav= new ModelAndView();
+		   mav.setViewName("intro");
+		   return mav;
+	   }
 	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
 	public String fstMm(Model model) {
 		return "fstMm";
@@ -111,6 +130,24 @@ public class HomeController {
 		mav.setViewName("myPageCI");
 		return mav;
 	}
+	
+	
+	//프리랜서 페이지로 이동
+	@RequestMapping(value="/goFreelancer")
+	public ModelAndView goFreelancer(){
+		System.out.println("프리랜서 페이지로 이동");
+		mav = new ModelAndView();
+		mav=fm.showList();
+		return mav;
+	}
+	@RequestMapping(value="/goFreelancerDetail")
+	public ModelAndView goFreelancerDetail(){
+		System.out.println("프리랜서상세 페이지로 이동");
+		mav = new ModelAndView();
+		mav=fm.showDetail();
+		return mav;
+	}
+	
 	
 	
 }

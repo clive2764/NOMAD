@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.steppe.nomad.bean.Career;
+import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.bean.Test;
 import com.steppe.nomad.dao.FreelancerDao;
@@ -151,6 +152,53 @@ public class FreelancerManegement {
 		}
 		view="careerInfo";
 		mav.setViewName(view);
+	}
+
+	public ModelAndView showList() {
+		mav=new ModelAndView();
+		String view=null;
+		List<Member> flist=null;
+		System.out.println(flist);
+		flist=fDao.getFreelancer();
+		System.out.println(flist);
+		
+		if(flist!=null){
+			StringBuilder sb=new StringBuilder();
+				sb.append("<div class='container'>");
+				for(int i=0; i<flist.size(); i++){
+					Member f=flist.get(i);
+					sb.append("<div class='col-md-3 col-sm-6 hero-feature'>");
+					sb.append("<div class='thumbnail'>");
+					sb.append("<img src='http://placehold.it/800x500' alt=''>");
+					sb.append("<div class='caption'>");
+					sb.append("<h3 style='text-align:center;'>"+f.getM_name()+"</h3>");
+					sb.append("<p style='text-align:center;'>"+f.getM_email()+"</p>");
+                    sb.append("<p style='text-align:center;'><a style='color:white;' class='btn btn-default' href='goFreelancerDetail?m_id="+f.getM_id()+"'>"+"상세보기"+"</a>"+"</p>");
+                    sb.append("</div>");
+                    sb.append("</div>");
+                    sb.append("</div>");
+				}
+			sb.append("</div>");
+			mav.addObject("flist", sb.toString());
+		}
+		
+		view="freelancer";
+		mav.setViewName(view);
+		return mav;
+		
+	}
+
+	public ModelAndView showDetail() {
+		mav=new ModelAndView();
+		String view=null;
+		String m_id=(String)req.getParameter("m_id");
+		System.out.println(m_id);
+		//fDao.getFreelancerDetail(m_id);
+		mav.addObject("member",fDao.getFreelancerDetail(m_id));
+		view="freelancerDetail";
+		mav.setViewName(view);
+		
+		return mav;
 	}
 
 }

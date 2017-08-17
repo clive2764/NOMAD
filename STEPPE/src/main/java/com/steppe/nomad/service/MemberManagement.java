@@ -53,11 +53,16 @@ public class MemberManagement {
 	private void logout(Member mb) {
 		mav = new ModelAndView();
 		String view = null;
-		session.invalidate();
-
+		System.out.println(session.getAttribute("m_id"));
+		if(session !=null){
+			session.invalidate();
+			System.out.println("session="+session);
+			System.out.println("세션 제거 완료");
+			System.out.println(session.getAttribute("m_id"));
+		}	
 		view = "home";
 		mav.setViewName(view);
-
+		
 	}
 	
 	private ModelAndView memberAccess(Member mb) {
