@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Answer;
@@ -38,6 +39,9 @@ public class FstManagrment implements Action{
 		case 3 :
 			checkTest();
 			break;
+		case 4 :
+			fst();
+			break;
 		}
 		return mav;
 	}
@@ -65,6 +69,34 @@ public class FstManagrment implements Action{
 			break;
 		}
 		return mav;
+	}
+	
+	private void fst() {
+		String view = null;
+		mav = new ModelAndView();
+		String a_mid = (String) ss.getAttribute("id");
+		List<Answer> alist = null;
+		Answer ans = new Answer();
+		StringBuilder sb = new StringBuilder();
+		ans.setA_mid(a_mid);
+		alist = tDao.findName(ans);
+		if(tDao.findName(ans)!=null){
+			for(int i=0; i<alist.size();i++){
+				Answer a = alist.get(i);
+				ans.setA_tname(a.getA_tname());
+				int a_check = tDao.getSum(ans);
+				System.out.println(a.getA_tname());
+				System.out.println(a_check);
+				if(a_check>5){
+					sb.append("<tr><td>"+a.getA_tname()+"</td><td>"+(a_check*10)+"%</td><td>합격입니다.</td></tr>");
+				}else{
+					sb.append("<tr><td>"+a.getA_tname()+"</td><td>"+(a_check*10)+"%</td><td>불합격입니다.</td></tr>");
+				}
+			}
+		}
+			mav.addObject("alist", sb.toString());
+			view="fst";
+			mav.setViewName(view);
 	}
 	
 	private void checkTest() {
@@ -112,12 +144,12 @@ public class FstManagrment implements Action{
 				sb.append("<tr><td>4번 : </td><td colspan = '2'>"+t.getT_no4()+"<input type='radio' name='answer' id='answer4' value='4'/></td></tr>");
 				sb.append("<tr><td colspan = '3'><input id = 'a_tnum' 'type='hidden' name='a_tnum' value="+t.getT_num()+" readonly='readonly' /><input type = 'button' value = '입력' id='check'/></td></tr>");
 				
-			}
+			} 
 			if(tCnt==10) {
 				System.out.println("결과");
 				int sum = tDao.getSum(ans);
 				sb.append("<tr><td>시험이 끝났습니다. 정답 비율 "+(sum*10)+"% 입니다.</td></tr>");
-				sb.append("<tr><td colspan = '3'><a href='goFst'>시험종료</a></td></tr>");
+				sb.append("<tr><td colspan = '3'><a href='fst'>시험종료</a></td></tr>");
 			}
 		}
 			view = "fstTestContent";
@@ -183,9 +215,14 @@ public class FstManagrment implements Action{
 			System.out.println(req.getParameter("t_name"));
 			String view = null;
 			mav = new ModelAndView();
+			if(ss!=null && ss.getAttribute("id")!=null){
 			String t_name = req.getParameter("t_name");
 			mav.addObject("test",t_name);
-			view = "fstTest";
+				view = "fstTest";
+			}else{
+				mav.addObject("msg", "로그인을 해주세요");
+				view = "home";
+			}
 			mav.setViewName(view);
 		}
 
@@ -193,17 +230,20 @@ public class FstManagrment implements Action{
 			String view = null;
 			mav = new ModelAndView();
 			System.out.println("계정명:"+ss.getAttribute("id"));
-			if(ss.equals("admin") || ss.getAttribute("id").equals("admin")){
+			if(ss!=null && ss.getAttribute("id").equals("admin")){
 				int t_num = Integer.parseInt(req.getParameter("t_num"));
 				if(tDao.deleteFst(t_num)!=0){
 					System.out.println("문제 삭제 성공");
+					mav.addObject("msg", "문제 삭제 성공");
 				}else{
 					System.out.println("문제 삭제 실패");
+					mav.addObject("msg", "문제 삭제 실패");
 				}
 				view = "fstMm";
 			}else{
-				view = "fstMm";
 				System.out.println("관리자가 아닙니다.");
+				mav.addObject("msg", "관리자가 아닙니다.");
+				view = "home";
 			}
 			mav.setViewName(view);
 		}
@@ -212,7 +252,7 @@ public class FstManagrment implements Action{
 			String view = null;
 			mav = new ModelAndView();
 			Test test = new Test();
-			if(ss.equals("admin") || ss.getAttribute("id").equals("admin")){
+			if(ss!=null && ss.getAttribute("id").equals("admin")){
 				int t_answer = Integer.parseInt(req.getParameter("t_answer"));
 				int t_num = Integer.parseInt(req.getParameter("t_num"));
 				test.setT_num(t_num);
@@ -225,13 +265,17 @@ public class FstManagrment implements Action{
 				test.setT_no4(req.getParameter("t_no4"));
 				if(tDao.updateFst(test)!=0){
 					System.out.println("문제수정성공");
+					mav.addObject("msg", "문제수정성공");
 				}else{
 					System.out.println("문제수정실패");
+					mav.addObject("msg", "문제수정실패");
 				}
+				view = "fstMm";
 			}else{
+				mav.addObject("msg", "관리자가 아닙니다.");
 				System.out.println("관리자가 아닙니다.");
+				view = "home";
 			}
-			view = "fstMm";
 			mav.setViewName(view);
 		}
 
@@ -248,7 +292,7 @@ public class FstManagrment implements Action{
 			String view = null;
 			mav = new ModelAndView();
 			Test test = new Test();
-			if(ss.equals("admin") || ss.getAttribute("id").equals("admin")){
+			if(ss!=null && ss.getAttribute("id").equals("admin")){
 				int t_answer = Integer.parseInt(req.getParameter("t_answer"));
 				test.setT_num(tDao.getTestMaxNum()+1);
 				test.setT_name(req.getParameter("t_name"));
@@ -261,13 +305,18 @@ public class FstManagrment implements Action{
 				System.out.println(test);
 				if(tDao.insertFst(test)!=0){
 					System.out.println("문제추가성공");
+					mav.addObject("msg", "문제추가성공");
 				}else{
 					System.out.println("문제추가실패");
+					mav.addObject("msg", "문제추가실패");
 				}
+				view = "fstMm";
 			}else{
+				mav.addObject("msg", "관리자가 아닙니다.");
 				System.out.println("관리자가 아닙니다.");
+				view = "home";
+				
 			}
-			view = "fstMm";
 			mav.setViewName(view);
 		}
 
@@ -288,6 +337,7 @@ public class FstManagrment implements Action{
 			System.out.println(t_name);
 			tlist = tDao.getTestList(t_name);
 			System.out.println(tlist);
+			if(ss!=null && ss.getAttribute("id").equals("admin")){
 			if(tlist!=null){
 				StringBuilder sb = new StringBuilder();
 				for(int i=0; i<tlist.size(); i++){
@@ -298,8 +348,13 @@ public class FstManagrment implements Action{
 					sb.append("<td><a href='goUpdateFst?t_num="+t.getT_num()+"'>수정</a></td></tr>");
 				}
 				mav.addObject("tlist", sb.toString());
+				mav.addObject("tname", t_name);
 			}
-			view="fstMm";
+				view="fstMm";
+			}else{
+				mav.addObject("msg", "관리자가 아닙니다.");
+				view="home";
+			}
 			mav.setViewName(view);
 		}
 

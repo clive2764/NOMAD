@@ -66,6 +66,10 @@ public class TestDao {
 		return sqlSession.delete("test.deleteAnswer", ans);
 	}
 
+	public List<Answer> findName(Answer ans) {
+		return sqlSession.selectList("test.findName",ans);
+	}
+
 	
 
 	

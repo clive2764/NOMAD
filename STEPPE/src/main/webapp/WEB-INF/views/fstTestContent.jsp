@@ -18,7 +18,7 @@
 </style>
 <body>
 	<div id = "Test">
-		<form action = "ajax(checkTest)" name = "checkTest" id = "checkTest" method = 'post'>
+		<form action = "ajax(checkTest)" name = "checkTest" id = "checkTest" method="post">
 			<table border = "1">
 				${tlist}
 			</table>
@@ -31,7 +31,7 @@
 		var FormData = $('#checkTest').serialize();
 		$.ajax({
 			url : 'checkTest',
-			type : 'get',
+			type : 'post',
 			data : FormData,
 		success : function(data) {
 			$('#Test').html(data);

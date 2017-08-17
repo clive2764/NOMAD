@@ -17,6 +17,10 @@
 		SELECT COUNT(*) FROM ANSWER WHERE A_TNAME = #{a_tname} AND A_MID = #{a_mid} AND A_CHECK = 1
 	</select>
 	
+	<select id = "findName" parameterType = "String" resultType = "answer">
+		SELECT DISTINCT(A_TNAME) FROM ANSWER WHERE A_MID = #{a_mid}
+	</select>
+	
 	<select id = "getFstTest" parameterType = "Integer" resultType = "test">
 		SELECT * FROM TEST WHERE T_NUM = #{t_num}
 	</select>

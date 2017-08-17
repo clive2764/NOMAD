@@ -81,7 +81,7 @@ public class TestController {
 	public ModelAndView fst() {
 		System.out.println("자격시험 페이지");
 		mav=new ModelAndView();
-		mav.setViewName("fst");		
+		mav=fm.userExecute(4); 		
 		return mav;
 	}
 	
@@ -93,7 +93,7 @@ public class TestController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/doTest")
+	@RequestMapping(value = "/doTest", method = RequestMethod.POST)
 	public ModelAndView doTest() {
 		System.out.println("시험 테스트 시작");
 		mav=new ModelAndView();
@@ -101,7 +101,7 @@ public class TestController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/checkTest")
+	@RequestMapping(value = "/checkTest", method = RequestMethod.POST)
 	public ModelAndView checkTest() {
 		System.out.println("시험 문제 푸는중");
 		mav=new ModelAndView();
@@ -109,11 +109,4 @@ public class TestController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/goFst")
-	public ModelAndView goFst() {
-		System.out.println("시험종료");
-		mav=new ModelAndView();
-		mav.setViewName("fst");		
-		return mav;
-	}
 }

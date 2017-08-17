@@ -6,9 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	#tname{
+		border: 1px solid white;
+		font-size: x-large;
+	}
+</style>
 <body>
-	<form action="doTest">
-		<h3><input type = "text" readonly="readonly" name = "t_name" value = "${test}"/></h3>
+	<form action="doTest" method="post">
+		<input type = "text" readonly="readonly" name = "t_name" id="tname" value = "${test}"/>
 		<h4 style ="color: red;">시험을 치루기에 앞서 꼭 읽어주세요</h4>
 		1. 모든문제는 객관식 입니다.<br/>
 		2. 모든문제는 단수 정답입니다.<br/>

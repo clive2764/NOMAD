@@ -18,7 +18,7 @@
 		<input type = "submit" value="확인">
 	</form>
 	<br/><br/>
-	
+			<h3>${tname}</h3>
 			<table border = "1">
 			<tr><td id = t1>문제 번호</td><td id = t2>문제 내용</td><td id = t3>답</td><td id = t4>수정 & 삭제</td></tr>
 			${tlist}
@@ -28,4 +28,10 @@
 	
 		<button><a href="goInsertFst">문제 추가</a></button>
 </body>
+<script type="text/javascript"> 
+var message = '${msg}';
+if(message!=""){
+alert(message); 
+}
+</script>
 </html>
