@@ -14,12 +14,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.steppe.nomad.bean.Catagory;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Required_Skill;
 import com.steppe.nomad.dao.CatagoryDao;
 import com.steppe.nomad.dao.ProjectDao;
-import com.steppe.nomad.userClass.UploadFile;
+import com.steppe.nomad.userClass.*;
 @Repository
 public class ClientManagement {
 

@@ -16,7 +16,8 @@ public class PmsController {
 	@Autowired
 	private PmsManagement pmm;
 	@RequestMapping(value = "/goPms")
-	public ModelAndView goPms(){
+	public ModelAndView goPms(Project project){
+		mav=pmm.execute(1, project);
 		mav.setViewName("pms");
 		return mav;
 	}
@@ -39,8 +40,8 @@ public class PmsController {
 	}
 	@RequestMapping(value = "/goProjectMemberMM")
 	public ModelAndView goProjectMemberMM(){
-		mav = new ModelAndView();
-		mav.setViewName("team");
+		mav = pmm.execute(3);
+		//mav.setViewName("team");
 		return mav;
 	}
 	@RequestMapping(value = "/showMyProjectList")

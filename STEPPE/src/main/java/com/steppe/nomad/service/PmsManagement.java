@@ -84,6 +84,7 @@ public class PmsManagement {
 	}
 
 	private void showMyProjectList() {
+		//session.getAttribute("id");
 		mav = new ModelAndView();
 		//session.getAttribute("");
 		
