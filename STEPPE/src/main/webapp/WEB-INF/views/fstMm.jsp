@@ -34,7 +34,7 @@
 	<jsp:include page="header.jsp" />
     <div class="about">
     	<div class="container">
-		<form  action="showFstList" method="post">
+		<form  action="showFstList">
 			<select name = "FstList">
 				<option value="java">JAVA</option>
 				<option value="html">HTML</option>
@@ -45,7 +45,7 @@
 			<input type = "submit" value="확인">
 		</form>
 		<br/><br/>
-		
+			<h3>${tname}</h3>
 				<table class="table table-striped">
 				<tr><td id = t1>문제 번호</td><td id = t2>문제 내용</td><td id = t3>답</td><td id = t4>수정 & 삭제</td></tr>
 				${tlist}

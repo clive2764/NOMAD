@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.steppe.nomad.bean.Answer;
+import com.steppe.nomad.bean.Result;
 import com.steppe.nomad.bean.Test;
 
 @Service
@@ -34,6 +35,10 @@ public class TestDao {
 		return sqlSession.update("test.updateFst", test);
 	}
 
+	public int deleteAnsNum(int t_num) {
+		return sqlSession.delete("test.deleteAnsNum", t_num);
+	}
+	
 	public int deleteFst(int t_num) {
 		return sqlSession.delete("test.deleteFst", t_num);
 	}
@@ -66,11 +71,25 @@ public class TestDao {
 		return sqlSession.delete("test.deleteAnswer", ans);
 	}
 
-	public List<Answer> findName(Answer ans) {
-		return sqlSession.selectList("test.findName",ans);
+	public int getResultMaxNum() {
+		return sqlSession.selectOne("test.getResultMaxNum");
 	}
 
-	
+	public int insertResult(Result res) {
+		return sqlSession.insert("test.insertResult", res);
+	}
+
+	public int selectResult(Result res) {
+		return sqlSession.selectOne("test.selectResult", res);
+	}
+
+	public int updateResult(Result res) {
+		return sqlSession.update("test.updateResult", res);
+	}
+
+	public List<Result> findName(Result res) {
+		return sqlSession.selectList("test.findName",res);
+	}
 
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Answer;
+import com.steppe.nomad.bean.Result;
 import com.steppe.nomad.bean.Test;
 import com.steppe.nomad.dao.TestDao;
 
@@ -74,27 +75,23 @@ public class FstManagrment implements Action{
 	private void fst() {
 		String view = null;
 		mav = new ModelAndView();
-		String a_mid = (String) ss.getAttribute("id");
-		List<Answer> alist = null;
-		Answer ans = new Answer();
+		String a_mid = (String) ss.getAttribute("m_id");
+		List<Result> rlist = null;
+		Result res = new Result();
 		StringBuilder sb = new StringBuilder();
-		ans.setA_mid(a_mid);
-		alist = tDao.findName(ans);
-		if(tDao.findName(ans)!=null){
-			for(int i=0; i<alist.size();i++){
-				Answer a = alist.get(i);
-				ans.setA_tname(a.getA_tname());
-				int a_check = tDao.getSum(ans);
-				System.out.println(a.getA_tname());
-				System.out.println(a_check);
-				if(a_check>5){
-					sb.append("<tr><td>"+a.getA_tname()+"</td><td>"+(a_check*10)+"%</td><td>합격입니다.</td></tr>");
-				}else{
-					sb.append("<tr><td>"+a.getA_tname()+"</td><td>"+(a_check*10)+"%</td><td>불합격입니다.</td></tr>");
+		res.setRs_mid(a_mid);
+		rlist = tDao.findName(res);
+		if(rlist!=null){
+			for(int i=0; i<rlist.size();i++){
+				Result rs = rlist.get(i);
+				System.out.println(rs.getRs_tname());
+				System.out.println(rs.getRs_pc());
+				if(rs.getRs_pc()>50){
+					sb.append("<tr><td>"+rs.getRs_tname()+"</td><td>"+rs.getRs_pc()+"%</td><td>합격입니다.</td></tr>");
+				}
 				}
 			}
-		}
-			mav.addObject("alist", sb.toString());
+			mav.addObject("rslist", sb.toString());
 			view="fst";
 			mav.setViewName(view);
 	}
@@ -113,7 +110,7 @@ public class FstManagrment implements Action{
 		test.setT_name(a_tname);
 		test.setT_num(a_tnum);
 		int t_answer = tDao.getT_answer(test);
-		String a_mid = (String) ss.getAttribute("id");
+		String a_mid = (String) ss.getAttribute("m_id");
 		System.out.println(a_insertnum);
 		System.out.println(a_tnum);
 		ans.setA_num(tDao.getAnswerMaxNum()+1);
@@ -148,7 +145,24 @@ public class FstManagrment implements Action{
 			if(tCnt==10) {
 				System.out.println("결과");
 				int sum = tDao.getSum(ans);
-				sb.append("<tr><td>시험이 끝났습니다. 정답 비율 "+(sum*10)+"% 입니다.</td></tr>");
+				Result res = new Result();
+				res.setRs_num(tDao.getResultMaxNum()+1);
+				res.setRs_mid(a_mid);
+				res.setRs_tname(a_tname);
+				int rs_pc = (sum*10);
+				res.setRs_pc(rs_pc);
+				System.out.println(rs_pc);
+				if(sum>5){
+					int r_num = tDao.selectResult(res);
+					System.out.println(r_num);
+					if(r_num==0){
+						tDao.insertResult(res);
+					}
+					if(r_num<rs_pc){
+						tDao.updateResult(res);
+					}
+				}
+				sb.append("<tr><td>시험이 끝났습니다. 정답 비율 "+rs_pc+"% 입니다.</td></tr>");
 				sb.append("<tr><td colspan = '3'><a href='fst'>시험종료</a></td></tr>");
 			}
 		}
@@ -162,19 +176,19 @@ public class FstManagrment implements Action{
 			mav = new ModelAndView();
 			System.out.println(req.getParameter("t_name"));
 			String t_name = req.getParameter("t_name");
-			String a_mid = (String) ss.getAttribute("id");
+			String a_mid = (String) ss.getAttribute("m_id");
 			Answer ans = new Answer();
 			ans.setA_tname(t_name);
 			ans.setA_mid(a_mid);
 			System.out.println(t_name);
 			System.out.println(a_mid);
-			int deAns = tDao.deleteAnswer(ans);
+			tDao.deleteAnswer(ans);
 			int tCnt = tDao.getTestCnt(ans);
 			List<Test> tlist = null;
 			int a[] = new int[10];
 			Random r = new Random();
 			StringBuilder sb = new StringBuilder();
-			if(ss!=null && ss.getAttribute("id")!=null){
+			if(ss!=null && ss.getAttribute("m_id")!=null){
 				tlist = tDao.getTestList(t_name);
 				if(ss.getAttribute("No"+tCnt+"a")==null){
 					for(int i=0; i<10; i++){
@@ -215,7 +229,7 @@ public class FstManagrment implements Action{
 			System.out.println(req.getParameter("t_name"));
 			String view = null;
 			mav = new ModelAndView();
-			if(ss!=null && ss.getAttribute("id")!=null){
+			if(ss!=null && ss.getAttribute("m_id")!=null){
 			String t_name = req.getParameter("t_name");
 			mav.addObject("test",t_name);
 				view = "fstTest";
@@ -229,15 +243,22 @@ public class FstManagrment implements Action{
 		private void deleteFst() { //관리자 시험 문제 삭제
 			String view = null;
 			mav = new ModelAndView();
-			System.out.println("계정명:"+ss.getAttribute("id"));
-			if(ss!=null && ss.getAttribute("id").equals("admin")){
-				int t_num = Integer.parseInt(req.getParameter("t_num"));
-				if(tDao.deleteFst(t_num)!=0){
-					System.out.println("문제 삭제 성공");
-					mav.addObject("msg", "문제 삭제 성공");
+			System.out.println("계정명:"+ss.getAttribute("m_id"));
+			int t_num = Integer.parseInt(req.getParameter("t_num"));
+			if(ss!=null && ss.getAttribute("m_id").equals("admin")){
+				System.out.println(t_num);
+				if(tDao.deleteAnsNum(t_num)!=0){
+					if(tDao.deleteFst(t_num)!=0){
+						mav.addObject("msg", "문제 삭제 성공");
+					}else{
+						mav.addObject("msg", "문제 삭제 실패");
+					}
 				}else{
-					System.out.println("문제 삭제 실패");
-					mav.addObject("msg", "문제 삭제 실패");
+					if(tDao.deleteFst(t_num)!=0){
+						mav.addObject("msg", "문제 삭제 성공");
+					}else{
+						mav.addObject("msg", "문제 삭제 실패");
+					}
 				}
 				view = "fstMm";
 			}else{
@@ -252,7 +273,7 @@ public class FstManagrment implements Action{
 			String view = null;
 			mav = new ModelAndView();
 			Test test = new Test();
-			if(ss!=null && ss.getAttribute("id").equals("admin")){
+			if(ss!=null && ss.getAttribute("m_id").equals("admin")){
 				int t_answer = Integer.parseInt(req.getParameter("t_answer"));
 				int t_num = Integer.parseInt(req.getParameter("t_num"));
 				test.setT_num(t_num);
@@ -292,7 +313,7 @@ public class FstManagrment implements Action{
 			String view = null;
 			mav = new ModelAndView();
 			Test test = new Test();
-			if(ss!=null && ss.getAttribute("id").equals("admin")){
+			if(ss!=null && ss.getAttribute("m_id").equals("admin")){
 				int t_answer = Integer.parseInt(req.getParameter("t_answer"));
 				test.setT_num(tDao.getTestMaxNum()+1);
 				test.setT_name(req.getParameter("t_name"));
@@ -337,7 +358,7 @@ public class FstManagrment implements Action{
 			System.out.println(t_name);
 			tlist = tDao.getTestList(t_name);
 			System.out.println(tlist);
-			if(ss!=null && ss.getAttribute("id").equals("admin")){
+			if(ss!=null && ss.getAttribute("m_id").equals("admin")){
 			if(tlist!=null){
 				StringBuilder sb = new StringBuilder();
 				for(int i=0; i<tlist.size(); i++){
