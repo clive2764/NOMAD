@@ -128,10 +128,11 @@ public class FstManagrment implements Action{
 		if(tDao.insertAnswer(ans)!=0){
 			int tCnt = tDao.getTestCnt(ans);
 			tlist = tDao.getTestList(a_tname);
-			System.out.println(ss.getAttribute("No"+tCnt+"a"));
+			System.out.println("세션"+tCnt+"의 값 : "+ss.getAttribute("No"+tCnt+"a"));
 			int No = (Integer) ss.getAttribute("No"+tCnt+"a");
 			System.out.println("문제번호 : "+tCnt);
 			if(tCnt<=9){
+				ss.removeAttribute("No"+(tCnt-1)+"a");
 				Test t = tlist.get(No);
 				System.out.println("번호 : "+t.getT_num());
 				sb.append("<tr><td><input type = 'text' id = 'a_tname' name = 'a_tname' value="+t.getT_name()+" readonly='readonly'/> 문제"+(tCnt+1)+"</td><td colspan = '2'>"+t.getT_content()+"</td></tr>");
@@ -144,6 +145,8 @@ public class FstManagrment implements Action{
 			} 
 			if(tCnt==10) {
 				System.out.println("결과");
+				ss.removeAttribute("No"+(tCnt-1)+"a");
+				System.out.println("세션"+tCnt+"의 값 : "+ss.getAttribute("No"+tCnt+"a"));
 				int sum = tDao.getSum(ans);
 				Result res = new Result();
 				res.setRs_num(tDao.getResultMaxNum()+1);
