@@ -18,9 +18,16 @@
 			.about{
 				color:black;
 				height: -webkit-fill-available;
+				width:80%; 
+				margin: 10%; 
+				margin-top: 0% ; 
+				margin-bottom: 20%
 			}
 			table{
 				text-align: center;
+			}
+			.insertButton{
+				margin-left: 80%;
 			}
 		</style>	
 	    <!-- =======================================================
@@ -33,7 +40,6 @@
 <body>
 	<jsp:include page="header.jsp" />
     <div class="about">
-    	<div class="container">
 		<form  action="showFstList">
 			<select name = "FstList">
 				<option value="java">JAVA</option>
@@ -50,11 +56,11 @@
 				<tr><td id = t1>문제 번호</td><td id = t2>문제 내용</td><td id = t3>답</td><td id = t4>수정 & 삭제</td></tr>
 				${tlist}
 				</table>
-				
+				<br/>
+				<div class = "insertButton">
+				<button><a href="goInsertFst">문제 추가</a></button>
+				</div>
 		<br/><br/>
-		
-			<button><a href="goInsertFst">문제 추가</a></button>
-		</div>
 	</div>
 	<div class="row"></div>
 	<div class="sub-footer">

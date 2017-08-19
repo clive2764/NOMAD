@@ -3,25 +3,96 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="resources/css/font-awesome.min.css">
+      <link rel="stylesheet" href="resources/css/animate.css">
+      <link href="resources/css/animate.min.css" rel="stylesheet"> 
+      <link href="resources/css/style.css" rel="stylesheet" />   
 </head>
 <style>
 	#tname{
 		border: 1px solid white;
-		font-size: x-large;
+		font-size: xx-large;
+	}
+	.fstTest{
+		margin-top: 10%;
+		margin-left: 35%;
+		color: black;
+		height: -webkit-fill-available;
+	}
+	.StartButton{
+	margin-left: 30%;
 	}
 </style>
 <body>
-	<form action="doTest" method="post">
-		<input type = "text" readonly="readonly" name = "t_name" id="tname" value = "${test}"/>
-		<h4 style ="color: red;">시험을 치루기에 앞서 꼭 읽어주세요</h4>
-		1. 모든문제는 객관식 입니다.<br/>
-		2. 모든문제는 단수 정답입니다.<br/>
-		3. 문제를 풀고 다음 문제로 넘어갈시 이전 문제로 되돌아갈수 없습니다.<br/>
-		4. 합격은 60%이상의 정답을 획득시에 주어지며, 점수역시 %로 표시됩니다.<br/>
-		5. 문제를 단푼후 답은 공개하지 않으며 맞은 문제수만을 알려드립니다.<br/><br/><br/>
-		<button>시험 시작</button>
-	</form>
+	<header id="header">
+        <nav class="navbar navbar-default navbar-static-top" role="banner">
+            <div class="container" style="width: 100%; padding-bottom: 30px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                   <div class="navbar-brand">
+						<a href="main"><h1>steppe</h1></a>
+					</div>
+                </div>				
+                <div class="navbar-collapse collapse">							
+				</div>		
+            </div>
+        </nav>	
+    </header>
+	<div class="fstTest">
+		<form action="doTest" method="post">
+			<input type = "text" readonly="readonly" name = "t_name" id="tname" value = "${test}"/><br/><br/>
+			<h3 style ="color: red;">시험을 치루기에 앞서 꼭 읽어주세요</h4><br/><br/>
+			<h4>1. 모든문제는 객관식 입니다.</h4><br/>
+			<h4>2. 모든문제는 단수 정답입니다.</h4><br/>
+			<h4>3. 이전 문제로 되돌아갈수 없습니다.</h4><br/>
+			<h4>4. 합격은 60%이상의 정답을 맞춰야 합니다.</h4><br/>
+			<h4>5. 문제를 다 풀면 맞은 %만을 알려드립니다.</h4><br/><br/><br/>
+			<button class="StartButton">시험 시작</button>
+		</form>
+	</div>
+	<div class="sub-footer">
+      <div class="container">
+         <div class="social-icon">
+            <div class="col-md-4">
+                  
+            </div>
+         </div>
+         
+         <div class="col-md-4 col-md-offset-4">
+            <div class="copyright">
+               &copy; Day Theme. All Rights Reserved.
+                    <div class="credits">
+                        <!-- 
+                            All the links in the footer should remain intact. 
+                            You can delete the links only if you purchased the pro version.
+                            Licensing information: https://bootstrapmade.com/license/
+                            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Day
+                        -->
+                        <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
+                        <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                        <br/>
+                        <a href="#">공지사항</a>&nbsp;&nbsp;&nbsp;
+                        <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
+                        <a href="#">이용약관</a>
+                    </div>
+            </div>
+         </div>                  
+      </div>            
+   </div>
 </body>
+ <script src="resources/js/jquery-3.2.1.min.js"></script>      
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="resources/js/bootstrap.min.js"></script>   
+   <script src="resources/js/wow.min.js"></script>
+   <script>wow = new WOW({}).init();</script>
 </html>

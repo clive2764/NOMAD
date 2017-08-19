@@ -14,6 +14,11 @@
 	.container{
 		color: black;
 	}
+	.t_content{
+		width:80%;
+		height:300px;
+		resize: none;
+	}
 </style>
 </head>
 <body>
@@ -31,7 +36,7 @@
 				<table class="table table-striped">		
 					<tr>
 						<td width="100">문제내용</td>
-						<td><input type="text" name="t_content"/></td>
+						<td><textarea name="t_content" class="t_content">문제를 입력하시오.</textarea></td>
 					</tr>
 					<tr>
 						<td width="100">1번</td>
