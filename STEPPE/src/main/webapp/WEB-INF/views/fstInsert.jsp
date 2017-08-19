@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
 	<link href="resources/css/style.css" rel="stylesheet" />
+	<script src="resources/js/jquery-3.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
@@ -19,13 +20,29 @@
 		height:300px;
 		resize: none;
 	}
+	#submitC,button{
+				width:85px;
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+				text-align: center;
+			}
+			a{
+				color:#fff;
+			}
 </style>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
 	<div class="about" style="height: -webkit-fill-available;">
 		<div class="container">
-			<form  action="insertFst" method="post">
+			<form  action="insertFst" method="post" id="insertFstForm">
 				<select name = "t_name">
 					<option value="java">JAVA</option>
 					<option value="html">HTML</option>
@@ -36,23 +53,23 @@
 				<table class="table table-striped">		
 					<tr>
 						<td width="100">문제내용</td>
-						<td><textarea name="t_content" class="t_content">문제를 입력하시오.</textarea></td>
+						<td><textarea name="t_content" class="t_content" id="t_content">문제를 입력하시오.</textarea></td>
 					</tr>
 					<tr>
 						<td width="100">1번</td>
-						<td><input type="text" name="t_no1"/></td>
+						<td><input type="text" name="t_no1" id="t_no1"/></td>
 					</tr>
 					<tr>
 						<td width="100">2번</td>
-						<td><input type="text" name="t_no2"/></td>
+						<td><input type="text" name="t_no2" id="t_no2"/></td>
 					</tr>
 					<tr>
 						<td width="100">3번</td>
-						<td><input type="text" name="t_no3"/></td>
+						<td><input type="text" name="t_no3" id="t_no3"/></td>
 					</tr>
 					<tr>
 						<td width="100">4번</td>
-						<td><input type="text" name="t_no4"/></td>
+						<td><input type="text" name="t_no4" id="t_no4"/></td>
 					</tr>
 					<tr>
 						<td width="100">정답번호</td>
@@ -66,7 +83,8 @@
 						</td>
 					</tr>
 				</table>
-				<input type = "submit" value="확인">
+				<input type = "button" value="확인" id="submitC">
+			<button><a href="javascript:history.go(-1)">뒤로가기</a></button>
 			</form>
 		</div>
 	</div><div class="row"></div>
@@ -99,6 +117,19 @@
 		</div>				
 	</div>
 </body>
+<script>
+	$("#submitC").click(function(){
+		if($("#t_content").val() == "" || 
+				$("#t_no1").val() == "" || 
+				$("#t_no2").val() == "" || 
+				$("#t_no3").val() == "" || 
+				$("#t_no4").val() == ""){
+		alert("빈 공간을 모두 채워주세요");	
+	}else{
+			$("#insertFstForm").submit();
+		}
+});
+</script>
 	<script src="resources/js/jquery-3.2.1.min.js"></script>		
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="resources/js/bootstrap.min.js"></script>	

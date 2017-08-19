@@ -81,6 +81,7 @@ public class FstManagrment implements Action{
 		StringBuilder sb = new StringBuilder();
 		res.setRs_mid(a_mid);
 		rlist = tDao.findName(res);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
 		if(rlist!=null){
 			for(int i=0; i<rlist.size();i++){
 				Result rs = rlist.get(i);
@@ -93,6 +94,10 @@ public class FstManagrment implements Action{
 			}
 			mav.addObject("rslist", sb.toString());
 			view="fst";
+		}else{
+			mav.addObject("msg", "로그인을 해주세요");
+			view = "home";
+		}
 			mav.setViewName(view);
 	}
 	
@@ -132,7 +137,7 @@ public class FstManagrment implements Action{
 			int No = (Integer) ss.getAttribute("No"+tCnt+"a");
 			System.out.println("문제번호 : "+tCnt);
 			if(tCnt<=9){
-				ss.removeAttribute("No"+(tCnt-1)+"a");
+				ss.removeAttribute("No"+tCnt+"a");
 				Test t = tlist.get(No);
 				System.out.println("번호 : "+t.getT_num());
 				sb.append("<tr class = 'tr01'><td class='tdName'><input type = 'text' id = 'a_tname' name = 'a_tname' value="+t.getT_name()+" readonly='readonly'/></td><td colspan = '3' class='fstContent'>"+t.getT_content()+"</td></tr>");
@@ -144,7 +149,7 @@ public class FstManagrment implements Action{
 				} 
 			if(tCnt==10) {
 				System.out.println("결과");
-				ss.removeAttribute("No"+(tCnt-1)+"a");
+				ss.removeAttribute("No"+tCnt+"a");
 				System.out.println("세션"+tCnt+"의 값 : "+ss.getAttribute("No"+tCnt+"a"));
 				int sum = tDao.getSum(ans);
 				Result res = new Result();
@@ -164,8 +169,8 @@ public class FstManagrment implements Action{
 						tDao.updateResult(res);
 					}
 				}
-				sb.append("<tr><td>시험이 끝났습니다. 정답 비율 "+rs_pc+"% 입니다.</td></tr>");
-				sb.append("<tr><td colspan = '3'><a href='fst'>시험종료</a></td></tr>");
+				sb.append("<tr><td class='lastTd'>시험이 끝났습니다. 정답 비율 "+rs_pc+"% 입니다.</td></tr>");
+				sb.append("<tr><td colspan = '3' class='lastA'><button class='endButton'><a href='fst' class='AA'>시험종료</a></button></td></tr>");
 			}
 		}
 			view = "fstTestContent";
@@ -209,6 +214,9 @@ public class FstManagrment implements Action{
 					}
 					ss.setAttribute("No"+10+"a", 10);
 				}
+			}else{
+				mav.addObject("msg", "로그인을 해주세요");
+				view = "home";
 			}
 			System.out.println(ss.getAttribute("No"+tCnt+"a"));
 			int No = (Integer) ss.getAttribute("No"+tCnt+"a");
@@ -221,6 +229,7 @@ public class FstManagrment implements Action{
 				sb.append("<tr><td class='td01'>3번 : </td><td class='td02'>"+t.getT_no3()+"</td><td class='td03'><input type='radio' name='answer' id='answer3' value='3'/></td></tr>");
 				sb.append("<tr class = 'tr01'><td class='td01'>4번 : </td><td class='td02'>"+t.getT_no4()+"</td><td class='td03'><input type='radio' name='answer' id='answer4' value='4'/></td></tr>");
 				sb.append("<tr><td colspan = '4' style='text-align:right;'><input id = 'a_tnum' 'type='hidden' name='a_tnum' value="+t.getT_num()+" readonly='readonly' /><input type = 'button' value = '입력' id='check'/></td></tr>");
+				ss.removeAttribute("No"+tCnt+"a");
 				view = "fstTestContent";
 			}
 			mav.addObject("tlist", sb.toString());

@@ -23,7 +23,19 @@
 		margin-left: 35%;
 	}
 	.StartButton{
-	margin-left: 30%;
+		margin-left: 15%;
+		width: 150px;
+		height: 70px;
+		font-size:20px;
+		background: #0f1c34;
+		box-sizing: border-box;
+		border-radius: 5px;
+		border: 1px solid white;
+		color: #fff;
+		font-weight: bold;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
 	}
 	.about{
 		padding-top: 10px;

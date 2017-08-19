@@ -29,6 +29,22 @@
 			.insertButton{
 				margin-left: 80%;
 			}
+			.buttonB,.buttonA{
+				width:85px;
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+				text-align: center;
+			}
+			.AA{
+				color:#fff;
+			}
 		</style>	
 	    <!-- =======================================================
 	        Theme Name: Day
@@ -48,17 +64,19 @@
 				<option value="c">C</option>
 				<option value="android">Android</option>
 			</select>
-			<input type = "submit" value="확인">
+			<input type = "submit" value="확인" class="buttonB">
 		</form>
 		<br/><br/>
 			<h3>${tname}</h3>
-				<table class="table table-striped">
-				<tr><td id = t1>문제 번호</td><td id = t2>문제 내용</td><td id = t3>답</td><td id = t4>수정 & 삭제</td></tr>
-				${tlist}
-				</table>
+				<div style="overflow:scroll; width:100%; height:100%;">
+					<table class="table table-striped">
+					<tr><td id = t1>문제 번호</td><td id = t2>문제 내용</td><td id = t3>답</td><td id = t4>수정 & 삭제</td></tr>
+					${tlist}
+					</table>
+				</div>
 				<br/>
 				<div class = "insertButton">
-				<button><a href="goInsertFst">문제 추가</a></button>
+				<button class='buttonA'><a href="goInsertFst" class='AA'>문제 추가</a></button>
 				</div>
 		<br/><br/>
 	</div>

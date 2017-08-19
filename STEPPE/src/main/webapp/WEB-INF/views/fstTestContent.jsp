@@ -29,13 +29,14 @@
 	}
 	
 	.about{
-		padding-top: 20px;
-	    padding-bottom: 100px;
+		padding-top: 50px;
+	    padding-bottom: 50px;
 	    color:black;
 	}
 	.tableFst{
-		margin-left: 10%;
-		width: 80%;
+		width: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
 	}
 	.fstContent{
 		text-align: center;
@@ -47,6 +48,7 @@
 		text-align: center;
 		font-size:25px;
 		width: 10%;
+		color: black;
 	}
 	.td00{
 		text-align: center;
@@ -70,11 +72,47 @@
 		height: 80px;
 	}
 	.tr01{
-		background-color: #edfffd;
+		background-color: #c9c9c9;
 	}
 	#check{
 		width: 100px;
 		height: 50px;
+		font-size:20px;
+		background: #0f1c34;
+		box-sizing: border-box;
+		border-radius: 5px;
+		border: 1px solid white;
+		color: #fff;
+		font-weight: bold;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+	}
+	.lastTd{
+		height: 400px;
+		text-align: center;
+		font-size:30px;
+	}
+	.lastA{
+		height: 200px;
+		text-align: right;
+		font-size:20px;
+	}
+	.endButton{
+		width: 100px;
+		height: 50px;
+		background: #0f1c34;
+		box-sizing: border-box;
+		border-radius: 5px;
+		border: 1px solid white;
+		color: #fff;
+		font-weight: bold;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+	}
+	.AA{
+		color: white;
 	}
 </style>
 <body>

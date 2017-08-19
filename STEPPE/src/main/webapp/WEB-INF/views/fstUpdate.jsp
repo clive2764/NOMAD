@@ -87,6 +87,7 @@
 			</table>
 			<br/>
 			<input type = "submit" value="수정 확인" id="submitC">
+			<button><a href="javascript:history.go(-1)">뒤로가기</a></button>
 		</form>
 			<button><a href="deleteFst?t_num=${test.t_num}">삭제</a></button>
 		</div>
