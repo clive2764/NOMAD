@@ -19,32 +19,62 @@
 		height: 10%;
 	}
 	#a_tname{
-		width: 50px;
 		border: 1px solid white;
+		text-align: center;
+		font-size:25px;
+		width: 100px;
 	}
 	#a_tnum{
 		display: none;
 	}
-	.textFst{
-		margin-top:10%;
-		color:black;
-		height: 50%;
-	}
-	.sub-footer{
-	margin-top:50%;
+	
+	.about{
+		padding-top: 20px;
+	    padding-bottom: 100px;
+	    color:black;
 	}
 	.tableFst{
 		margin-left: 10%;
 		width: 80%;
 	}
+	.fstContent{
+		text-align: center;
+		font-size:30px;
+		height: 200px;
+	}
+	.tdName{
+		background-color: white;
+		text-align: center;
+		font-size:25px;
+		width: 10%;
+	}
+	.td00{
+		text-align: center;
+		font-size:20px;
+		width: 10%;
+	}
 	.td01{
-	width: 10%;
+		width: 5%;
+		font-size:20px;
+		text-align: center;
 	}
 	.td02{
-	width: 70%;
+		width: 70%;
+		font-size:20px;
+		text-align: center;
 	}
 	.td03{
-	width: 10%;
+		width: 10%;
+	}
+	tr{
+		height: 80px;
+	}
+	.tr01{
+		background-color: #edfffd;
+	}
+	#check{
+		width: 100px;
+		height: 50px;
 	}
 </style>
 <body>
@@ -68,13 +98,16 @@
             </div>
         </nav>	
     </header>
-    	<div class = "textFst">
-			<form action = "ajax(checkTest)" name = "checkTest" id = "checkTest" method="post">
-				<table class="tableFst">
-					${tlist}
-				</table>
-			</form>
+    	<div class="about">
+	    	<div class = "textFst">
+				<form action = "ajax(checkTest)" name = "checkTest" id = "checkTest" method="post">
+					<table class="tableFst">
+						${tlist}
+					</table>
+				</form>
+			</div>
 		</div>
+		<div class="row"></div>
 		<div class="sub-footer">
       <div class="container">
          <div class="social-icon">

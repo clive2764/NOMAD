@@ -19,13 +19,16 @@
 		font-size: xx-large;
 	}
 	.fstTest{
-		margin-top: 10%;
+		margin-top: 3%;
 		margin-left: 35%;
-		color: black;
-		height: -webkit-fill-available;
 	}
 	.StartButton{
 	margin-left: 30%;
+	}
+	.about{
+		padding-top: 10px;
+	    padding-bottom: 110px;
+	    color:black;
 	}
 </style>
 <body>
@@ -48,17 +51,19 @@
             </div>
         </nav>	
     </header>
-	<div class="fstTest">
-		<form action="doTest" method="post">
-			<input type = "text" readonly="readonly" name = "t_name" id="tname" value = "${test}"/><br/><br/>
-			<h3 style ="color: red;">시험을 치루기에 앞서 꼭 읽어주세요</h4><br/><br/>
-			<h4>1. 모든문제는 객관식 입니다.</h4><br/>
-			<h4>2. 모든문제는 단수 정답입니다.</h4><br/>
-			<h4>3. 이전 문제로 되돌아갈수 없습니다.</h4><br/>
-			<h4>4. 합격은 60%이상의 정답을 맞춰야 합니다.</h4><br/>
-			<h4>5. 문제를 다 풀면 맞은 %만을 알려드립니다.</h4><br/><br/><br/>
-			<button class="StartButton">시험 시작</button>
-		</form>
+    <div class="about">
+		<div class="fstTest">
+			<form action="doTest" method="post">
+				<input type = "text" readonly="readonly" name = "t_name" id="tname" value = "${test}"/><br/><br/>
+				<h3 style ="color: red;">시험을 치루기에 앞서 꼭 읽어주세요</h4><br/><br/>
+				<h4>1. 모든문제는 객관식 입니다.</h4><br/>
+				<h4>2. 모든문제는 단수 정답입니다.</h4><br/>
+				<h4>3. 이전 문제로 되돌아갈수 없습니다.</h4><br/>
+				<h4>4. 합격은 60%이상의 정답을 맞춰야 합니다.</h4><br/>
+				<h4>5. 문제를 다 풀면 맞은 %만을 알려드립니다.</h4><br/><br/><br/>
+				<button class="StartButton">시험 시작</button>
+			</form>
+		</div>
 	</div>
 	<div class="sub-footer">
       <div class="container">
