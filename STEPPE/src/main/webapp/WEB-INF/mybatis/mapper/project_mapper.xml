@@ -41,4 +41,35 @@
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
       							,#{sysFileName},#{p_deadline},#{p_plnum},#{p_person},#{p_status})
    </insert>
+	<select id="getProjectList" parameterType="Integer" resultType="project">
+		<![CDATA[
+		SELECT * FROM PLIST WHERE RNUM>=#{pageNum}*10-9 AND RNUM<=#{pageNum}*10 ORDER BY P_NUM
+		]]>
+		<!-- select * from project -->
+	</select>
+	
+	<select id="getProjectCount" resultType="Integer">
+		SELECT COUNT(*) FROM PLIST
+	</select>
+	
+	<delete id="projectDelete" parameterType="Integer">
+		DELETE FROM PROJECT WHERE p_num = #{pnum}
+	</delete>
+	
+	<select id="getDevelopList" resultType="project">
+		select * from project where p_pc1name = '개발'
+	</select>
+	
+	<select id="getDesignList" resultType="project">
+		select * from project where p_pc1name = '디자인'
+	</select>
+	<select id="getSearchResult" parameterType="String" resultType="project">
+	SELECT * FROM PROJECT WHERE P_MID LIKE '%'||#{keyword}||'%' OR
+	P_PC1NAME LIKE '%'||#{keyword}||'%' OR P_PC2NAME LIKE
+	'%'||#{keyword}||'%' OR P_PLNUM0 LIKE '%'||#{keyword}||'%' OR P_PLNUM1
+	LIKE '%'||#{keyword}||'%' OR P_PLNUM2 LIKE '%'||#{keyword}||'%'
+</select>
+   
 </mapper>
+
+

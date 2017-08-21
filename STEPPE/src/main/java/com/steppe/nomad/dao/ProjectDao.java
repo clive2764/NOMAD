@@ -39,5 +39,25 @@ public class ProjectDao {
 		return sqlSession.insert("project.insertProject",fMap);
 	}
 
+	public List<Project> getProjectList(int pageNum) {
+		return sqlSession.selectList("project.getProjectList",pageNum);
+	}
+	
+	public int getProjectCount() {
+		return sqlSession.selectOne("project.getProjectCount");
+	}
+	
+	public List<Project> getDevelopList(int pageNum) {
+		return sqlSession.selectList("project.getDevelopList");
+	}
+
+	public List<Project> getDesignList(int pageNum) {
+		return sqlSession.selectList("project.getDesignList");
+	}
+
+	public List<Project> getSearchResult(String keyword) {
+		return sqlSession.selectList("project.getSearchResult", keyword);
+	}
+
 
 }

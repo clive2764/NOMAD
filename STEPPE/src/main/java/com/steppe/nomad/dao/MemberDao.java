@@ -1,10 +1,16 @@
 package com.steppe.nomad.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import com.steppe.nomad.bean.Member;
+import com.steppe.nomad.bean.Notice;
 
 
 @Repository 
@@ -13,12 +19,27 @@ public class MemberDao {
 	//마이바티스 설정
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
-	public boolean isEmail(String email) {//로그인한 사람의 모든 정보를 가져온다
-
-		return sqlSession.selectOne("member.isEmail", email);
+	
+	public String getId(Member member) {
+		return sqlSession.selectOne("member.getId", member);
+	}
+	
+	public String getPwds(Member member) {
+		return sqlSession.selectOne("member.getPwds", member);
 	}
 
+	public String isId(String id) {
+		return sqlSession.selectOne("member.isId", id);
+	}
+	public String isName(String name) {
+		return sqlSession.selectOne("member.isName", name);
+	}
+	
+	public String isEmail(String email) {
+		System.out.println("MemberDao email="+email);
+		return sqlSession.selectOne("member.isEmail", email);
+	}
+	
 	public int getLoginResult(Member mb) { //id, pw 넘김
 
 		return sqlSession.selectOne("member.getLoginResult",mb);
@@ -31,47 +52,86 @@ public class MemberDao {
 
 		return sqlSession.selectOne("member.getPwd",m_id);
 	}
+
+	@Transactional
+	public int memberInsert(Member member, Map<String, String> fMap) {
+		//게시판 테이블에 글을 입력
+		int m = memberInsert(member);
+		//파일 테이블에 파일을 입력
+		int mfnum = getMFMaxNum()+1;
+		System.out.println("mfnum="+mfnum);
+		String id = member.getM_id();
+		System.out.println("id="+id);
+		fMap.put("mfnum", String.valueOf(mfnum));
+		fMap.put("id", id);
+		int f = fileInsert(fMap);
+
+		if(m!=0 && f!=0){
+			return 1; //Transactional 성공시
+		}return 0; //Transactional 실패시 
+
+
+	}
+
+	private int getMFMaxNum() {
+		return sqlSession.selectOne("member.getMFMaxNum");
+	}
+
+	private int fileInsert(Map<String, String> fMap) {
+		return sqlSession.insert("member.fileInsert",fMap);
+	}
+
+	public int memberInsert(Member member) {
+		System.out.println("m_id = " + member.getM_id());
+		int result = sqlSession.insert("member.memberInsert",member);
+		System.out.println("result="+result);
+		return result;
+
+	}
 	public String getKind(String m_id) {
-		
+
 		return sqlSession.selectOne("member.getKind",m_id);
+
+	}
+
+	public List<Member> getMemberList(int pageNum) {
+		return sqlSession.selectList("member.getMemberList",pageNum);
+	}
+
+	public int addBlackList(String m_id) {
+		return sqlSession.update("member.addBlackList", m_id);		
+	}
+
+	public List<Member> getBlackList(int pageNum) {
+		return sqlSession.selectList("member.getBlackList",pageNum);
+	}
+
+	public int goBlackUpdate(String m_id) {
+		return sqlSession.update("member.goBlackUpdate", m_id);
+
+	}
+
+	public List<Member> getClientList(int pageNum) {
+		return sqlSession.selectList("member.getClientList",pageNum);
+	}
+
+	public List<Member> getFreeLancerList(int pageNum) {
+		return sqlSession.selectList("member.getFreeLancerList",pageNum);
+	}
+
+	public List<Member> getSearchResult(String keyword) {
+		return sqlSession.selectList("member.getSearchResult", keyword);
+	}
+
+	public int memberDelete(String m_id) {
+		return sqlSession.delete("member.memberDelete",m_id);
 		
 	}
 
+	public int getMemberCount() {
+		return sqlSession.selectOne("member.getMemberCount");
+	}
 
-	/*Connection con;
-	PreparedStatement pstmt;
-	ResultSet rs;
-	DataSource ds;
 
-	public boolean isEmail(String email)
-	{
-		boolean result = false;
-
-		try
-		{
-			String sql = "SELECT * FROM MEMBER WHERE EMAIL=?";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setNString(1, email);
-
-			rs = pstmt.executeQuery();
-
-			if(rs.next())
-			{
-				result = true;
-				System.out.println("사용중인 EMAIL");
-			}
-			else
-				System.out.println("사용 할 수 있는 EMAIL");
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			System.out.println("isMember 실패");
-		}
-
-		return result;
-	}*/
-
+	
 }

@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>steppe 샘플페이지</title>
+<title>steppe</title>
 <!-- Bootstrap -->
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -86,31 +86,7 @@ input {
    </div>
    <div class="row"></div>
    <!--푸터 영역 시작-->
-   <div class="sub-footer">
-      <div class="container">
-         <div class="social-icon">
-            <div class="col-md-4"></div>
-         </div>
-
-         <div class="col-md-4 col-md-offset-4">
-            <div class="copyright">
-               &copy; Day Theme. All Rights Reserved.
-               <div class="credits">
-                  <!-- 
-                            All the links in the footer should remain intact. 
-                            You can delete the links only if you purchased the pro version.
-                            Licensing information: https://bootstrapmade.com/license/
-                            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Day
-                        -->
-                  <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by
-                  <a href="https://bootstrapmade.com/">BootstrapMade</a> <br /> <a
-                     href="#">공지사항</a>&nbsp;&nbsp;&nbsp; <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-                  <a href="#">이용약관</a>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+   <jsp:include page="footer.jsp" />
    <!--푸터 영역 끝-->
 
 

@@ -33,19 +33,16 @@
 		}
 		
 		table {
-			color:black;
 			margin: 0 auto;
+			color: black;
 		}
 		
-		td,th {
-			text-align: center;
-			color:black;
+		td {
 			padding: 3px;
 		}
 		
 		input {
 			color: black;
-			
 		}
 		
 		.btn {
@@ -59,62 +56,42 @@
 			margin-top: 0px;
 		}
 		
-		.radio {
-			color: black;
-		}
 		
-		label {
-			color: black;
-		}
-		
-		#image_preview img {
-			width: 250px;
-			height: 250px;
-		}
-		#userImage{
-			margin:0 auto;
-			width: 250px;
-		}
-		ui{
-			width: 150px;
-			list-style: none;
-			
-		}
-		li{
-			display: inline;
-			
-		}
-		#choseClient{
-			width: 150px;
-		}
 		
 	</style>
 </head>
 <body>
-	<!--상단 메뉴바-->
+	<!-- 헤더 영역 -->  
 	<jsp:include page="header.jsp" />
 	
-	<div align="center">
-		<h3>공지사항</h3><br/>
-		<div class="container" style="height: -webkit-fill-available;">
-			<table class="table table-responsive">
-				${nlist}
+	<form action="noticeInsert" method="post">
+			<table>
 				<tr>
-					<td colspan="6" align="center">${paging}</td>
+					<td><h3>공지사항 쓰기</h3></td>
 				</tr>
+				<tr>
+					<td><input type="text" name="n_title" placeholder="글 제목"/></td>
+				</tr>
+				<tr>
+					<td><textarea rows="20" cols="100" name="n_content" style="resize: none;" placeholder="글 내용"></textarea></td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" class="btn"  value="글작성"/>
+						<input type="reset"  class="btn" value="취소"/>
+						<input type="button" class="btn" onClick="location.href='./goNotice'" value="리스트 보기"/>
+					</td>
+				</tr>
+				
 			</table>
-				<br />
-			<form action="noticeWrite">
-				<button class="btn" >글쓰기</button>
-			</form>
-			
-		</div>
-	</div>
-
-	<div class="row"></div>
-	<!--푸터 영역 시작-->
+		</form>
 	
+		
+	<div class="row"></div>
+	<!-- 푸터 영역 -->  
 	<jsp:include page="footer.jsp" />
+
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -124,4 +101,9 @@
 	
 </body>
 </html>
+
+
+
+
+
 
