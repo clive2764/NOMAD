@@ -114,6 +114,10 @@
 	.AA{
 		color: white;
 	}
+	#ViewTimer{
+		font-size: 25px;
+		margin-left: 15%;
+	}
 </style>
 <body>
 	<div id = "Test">
@@ -139,9 +143,7 @@
     	<div class="about">
 	    	<div class = "textFst">
 				<form action = "ajax(checkTest)" name = "checkTest" id = "checkTest" method="post">
-					<table class="tableFst">
 						${tlist}
-					</table>
 				</form>
 			</div>
 		</div>
@@ -177,6 +179,10 @@
    </div>
 	</div>	
 </body>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="resources/js/bootstrap.min.js"></script>   
+   <script src="resources/js/wow.min.js"></script>
+   <script>wow = new WOW({}).init();</script>
 <script>
 	function ajax(url) {
 		var FormData = $('#checkTest').serialize();
@@ -203,9 +209,29 @@
 		$("goFst").submit;
 	});
 </script>
- <script src="resources/js/jquery-3.2.1.min.js"></script>      
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="resources/js/bootstrap.min.js"></script>   
-   <script src="resources/js/wow.min.js"></script>
-   <script>wow = new WOW({}).init();</script>
+<script>
+	
+		var SetTime = 10;		// 최초 설정 시간(기본 : 초)
+
+		function msg_time() {	// 1초씩 카운트
+			
+			m = Math.floor(SetTime % 60) + "초";	// 남은 시간 계산
+			
+			var msg = "현재 남은 시간은 <font color='red'>" + m + "</font> 입니다.";
+			
+			document.all.ViewTimer.innerHTML = msg;		// div 영역에 보여줌 
+					
+			SetTime--;					// 1초씩 감소
+			
+			if (SetTime < 0) {			// 시간이 종료 되었으면..
+				
+				$(ajax(checkTest)).submit;
+				alert("시간초과");
+			}
+			
+		}
+
+		window.onload = function TimerStart(){ tid=setInterval('msg_time()',1000) };
+		
+	</script>
 </html>
