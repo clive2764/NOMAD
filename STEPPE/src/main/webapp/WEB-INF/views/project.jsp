@@ -59,78 +59,9 @@
 		
 		<!--메인페이지 영역-->
 		
-			<div class="container">
-				
-				<div class="row">
-					
-		            <form class="pull-right">
-		                <input type="text" name="search" placeholder="검색어를 입력해 주세요"/>
-		                <input type="button" id="searchBtn" value="검색"/>
-		            </form>    
-	                
-	        	</div>
-	        	
-					<div class="col-sm-6 col-lg-6 col-md-6">
-						<div class="thumbnail">
-							<a href="#"><img src="http://placehold.it/320x150" alt=""></a>
-							<div class="caption">
-								<h4>
-									<a href="goProjectDetail">홈페이지 제작</a>
-								</h4>
-								<span class="pull-right">지원자 수 표기 구간입니다.</span><br /> <span>프로젝트
-									공고기간.
-									</h4> <span class="pull-right">예상기간 작성구간 입니다.</span>
-									<p>필요언어 작성구간 입니다.</p>
-							</div>
-		
-						</div>
-					</div>
-				
-				<div class="col-sm-6 col-lg-6 col-md-6">
-					<div class="thumbnail">
-						<img src="http://placehold.it/320x150" alt="">
-						<div class="caption">
-							<h4>
-								<a href="#">홈페이지 제작</a>
-							</h4>
-							<span class="pull-right">지원자 수 표기 구간입니다.</span><br /> <span>프로젝트
-								공고기간.
-								</h4> <span class="pull-right">예상기간 작성구간 입니다.</span>
-								<p>필요언어 작성구간 입니다.</p>
-						</div>
-	
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-6 col-md-6">
-					<div class="thumbnail">
-						<img src="http://placehold.it/320x150" alt="">
-						<div class="caption">
-							<h4>
-								<a href="#">홈페이지 제작</a>
-							</h4>
-							<span class="pull-right">지원자 수 표기 구간입니다.</span><br /> <span>프로젝트
-								공고기간.
-								</h4> <span class="pull-right">예상기간 작성구간 입니다.</span>
-								<p>필요언어 작성구간 입니다.</p>
-						</div>
-	
-					</div>
-				</div>
-				<div class="col-sm-6 col-lg-6 col-md-6">
-					<div class="thumbnail">
-						<img src="http://placehold.it/320x150" alt="">
-						<div class="caption">
-							<h4>
-								<a href="#">홈페이지 제작</a>
-							</h4>
-							<span class="pull-right">지원자 수 표기 구간입니다.</span><br /> <span>프로젝트
-								공고기간.
-								</h4> <span class="pull-right">예상기간 작성구간 입니다.</span>
-								<p>필요언어 작성구간 입니다.</p>
-						</div>
-	
-					</div>
-				</div>
+			<div class="about">
+				${plist}
+				${splist}
 			</div>
 		
 		<hr>
@@ -172,4 +103,16 @@
 		<script>wow = new WOW({}).init();</script>
 	
 	</body>
+	<script>
+		$("#searchBtn").click(function(){
+			var keyword=$("#keyword").val();
+			if(keyword==null || keyword==""){
+				alert("검색어를 입력하시오");
+			}
+			else{
+				$("#search").submit();
+			}
+		});
+	
+	</script>
 </html>

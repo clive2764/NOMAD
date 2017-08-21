@@ -154,13 +154,14 @@ public class FreelancerManegement {
 		mav.setViewName(view);
 	}
 
+	
+	//프리랜서 페이지 프리랜서 리스트 표출
 	public ModelAndView showList() {
 		mav=new ModelAndView();
 		String view=null;
 		List<Member> flist=null;
-		System.out.println(flist);
+		
 		flist=fDao.getFreelancer();
-		System.out.println(flist);
 		
 		if(flist!=null){
 			StringBuilder sb=new StringBuilder();
@@ -187,17 +188,72 @@ public class FreelancerManegement {
 		return mav;
 		
 	}
-
+	
+	//프리랜서 상세보기 메소드
 	public ModelAndView showDetail() {
+		
 		mav=new ModelAndView();
 		String view=null;
 		String m_id=(String)req.getParameter("m_id");
+		List<Career> career=null;
 		System.out.println(m_id);
 		//fDao.getFreelancerDetail(m_id);
 		mav.addObject("member",fDao.getFreelancerDetail(m_id));
+		career = fDao.getCareer(m_id);
+		if(career!=null){
+			StringBuilder sb=new StringBuilder();
+			sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+			sb.append("<tr>");
+			sb.append("<th style='text-align:center;'>"+"경력"+"</th>");
+			sb.append("<th style='text-align:center;'>"+"회사"+"</th>");
+			sb.append("<th style='text-align:center;'>"+"직급"+"</th>");
+			sb.append("</tr>");
+			for(int i=0; i<career.size(); i++){
+				Career c=career.get(i);
+				sb.append("<tr>");
+				sb.append("<td>"+c.getCa_term()+"</td>");
+				sb.append("<td>"+c.getCa_company()+"</td>");
+				sb.append("<td>"+c.getCa_rank()+"</td>");
+				sb.append("</tr>");
+			}
+			sb.append("</table>");
+			mav.addObject("career",sb.toString());	
+		}
 		view="freelancerDetail";
 		mav.setViewName(view);
 		
+		return mav;
+	}
+	//프리랜서 페이지에서 검색 메소드
+	public ModelAndView searchFreelancer() {
+		mav=new ModelAndView();
+		String view=null;
+		String keyword=req.getParameter("keyword");
+		System.out.println(keyword);
+		List<Member> slist=null;
+		slist=fDao.getSearchResult(keyword);
+		System.out.println("검색결과:"+slist);
+		if(slist!=null){
+			StringBuilder sb=new StringBuilder();
+			sb.append("<div class='container'>");
+			for(int i=0; i<slist.size(); i++){
+				Member r=slist.get(i);
+				sb.append("<div class='col-md-3 col-sm-6 hero-feature'>");
+				sb.append("<div class='thumbnail'>");
+				sb.append("<img src='http://placehold.it/800x500' alt=''>");
+				sb.append("<div class='caption'>");
+				sb.append("<h3 style='text-align:center;'>"+r.getM_name()+"</h3>");
+				sb.append("<p style='text-align:center;'>"+r.getM_email()+"</p>");
+                sb.append("<p style='text-align:center;'><a style='color:white;' class='btn btn-default' href='goFreelancerDetail?m_id="+r.getM_id()+"'>"+"상세보기"+"</a>"+"</p>");
+                sb.append("</div>");
+                sb.append("</div>");
+                sb.append("</div>");
+			}
+		sb.append("</div>");
+		mav.addObject("slist", sb.toString());
+		}
+		view="freelancer";
+		mav.setViewName(view);
 		return mav;
 	}
 

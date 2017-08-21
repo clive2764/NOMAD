@@ -121,6 +121,5 @@
     <script src="resources/js/bootstrap.min.js"></script>	
 	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>	
-    
 </body>
 </html>

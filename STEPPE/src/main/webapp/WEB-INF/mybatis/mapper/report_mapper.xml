@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="report">
+	<select	id="insertProject" parameterType="report">
+		INSERT INTO REPORT VALUES(#{r_num},#{r_mid},#{r_kind},#{r_content},#{r_url})
+	</select>
+	<select id="selectMaxNum" resultType="int">
+		select NVL(MAX(r_num),0) FROM report
+	</select>
+	<select id="getReportList" resultType="report">
+		SELECT * FROM REPORT ORDER BY R_NUM ASC
+	</select>
+	<select id="getProjectList" resultType="project">
+		SELECT * FROM PROJECT
+	</select>
+	<select id="getProjectDetail" parameterType="int" resultType="project">
+		SELECT * FROM PROJECT WHERE P_NUM=#{p_num}
+	</select>
+	<delete id="deleteReport" parameterType="Integer">
+		DELETE FROM REPORT WHERE R_NUM=#{r_num}
+	</delete>
+	<select id="searchProject" parameterType="String" resultType="project">
+		SELECT * FROM PROJECT WHERE P_TITLE LIKE '%'||#{keyword}||'%'
+	</select>
+</mapper>

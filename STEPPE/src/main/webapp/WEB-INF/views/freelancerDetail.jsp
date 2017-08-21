@@ -14,50 +14,75 @@
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
 	<link href="resources/css/style.css" rel="stylesheet" />	
+	<style>
+		input#report{
+			background: #0f1c34;
+		   	box-sizing: border-box;
+		   	border-radius: 5px;
+		   	border: 1px solid white;
+		   	color: #fff;
+		   	font-weight: bold;
+		   	font-size: 14px;
+		   	outline: none;
+		   	cursor: pointer;
+		}
+		input#estimate{
+			background: #0f1c34;
+		   	box-sizing: border-box;
+		   	border-radius: 5px;
+		   	border: 1px solid white;
+		   	color: #fff;
+		   	font-weight: bold;
+		   	font-size: 14px;
+		   	outline: none;
+		   	cursor: pointer;
+		}
+	</style>
   </head>
   <body>
   	<jsp:include page="header.jsp" />
     
 	<div class="about">
 			<div class="container">
-				<h1 style="color: black;">${member.m_id}</h1>
-			
+			<div class="row">
+				<form action="goReportWrite" method="get">
+					<input type="hidden" name="m_id" value="${member.m_id}"/>
+					<c:set var="m_id" value="${m_id}"/>
+					
+					<c:if test="${!empty m_id}">
+    					<input id="report" type="submit" value="신고하기"/>
+    				</c:if>
+    			</form>
+    			<c:set var="m_kind" value="${m_kind}"/>
+    			<c:if test="${m_kind eq 'C'}">
+    				<a href="goInsertEstimate"><input id="estimate" type="button" value="견적 요청"/></a>
+    			</c:if>
+   			</div>
+				<table class="table table-striped" style="color: black; text-align: center;">
+					<tr style="text-align:center;">
+						<td colspan="2">
+							<img style="width: 400px; height: 250px;;" src="resources/upload/${member.m_image}.jpg"/>
+						</td>
+					</tr>
+					<tr>
+						<td>이름</td>
+						<td>${member.m_name}</td>
+					</tr>
+					<tr>
+						<td>이메일 주소</td>
+						<td>${member.m_email}</td>
+					</tr>
+					
+					
+				</table>
+				<hr/>
+				${career}
 			</div>
 	</div>			
 	<hr>
     <div class="row"></div>
       
-    <!--푸터 영역 시작-->
-	<div class="sub-footer">
-		<div class="container">
-			<div class="social-icon">
-				<div class="col-md-4">
-						
-				</div>
-			</div>
-			
-			<div class="col-md-4 col-md-offset-4">
-				<div class="copyright">
-					&copy; Day Theme. All Rights Reserved.
-                    <div class="credits">
-                        <!-- 
-                            All the links in the footer should remain intact. 
-                            You can delete the links only if you purchased the pro version.
-                            Licensing information: https://bootstrapmade.com/license/
-                            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Day
-                        -->
-                        <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
-                        <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                        <br/>
-                        <a href="#">공지사항</a>&nbsp;&nbsp;&nbsp;
-                        <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
-                        <a href="#">이용약관</a>
-                    </div>
-				</div>
-			</div>						
-		</div>				
-	</div>
-	<!--푸터 영역 끝-->
+    <jsp:include page="footer.jsp" />
     
     <script src="resources/js/jquery-3.2.1.min.js"></script>		
     <script src="resources/js/bootstrap.min.js"></script>	

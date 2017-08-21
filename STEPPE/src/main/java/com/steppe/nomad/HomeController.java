@@ -11,6 +11,7 @@ import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.EmailManagement;
 import com.steppe.nomad.service.FreelancerManegement;
 import com.steppe.nomad.service.MemberManagement;
+import com.steppe.nomad.service.ReportManagement;
 @Controller
 public class HomeController {
 
@@ -24,6 +25,10 @@ public class HomeController {
 	@Autowired
 	
 	private FreelancerManegement fm;
+	
+	@Autowired
+	
+	private ReportManagement rm;
 	
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
@@ -49,16 +54,19 @@ public class HomeController {
 		mav.setViewName("join"); //join.jsp �쉶�썝媛��엯 �럹�씠吏�
 		return mav;
 	}
+	
+	//프로젝트 페이지로 이동
 	@RequestMapping(value="/goProject", method = RequestMethod.GET)
 	public ModelAndView goProject(){
-		mav = new ModelAndView();
-		mav.setViewName("project"); //join.jsp �쉶�썝媛��엯 �럹�씠吏�
+		//프로젝트 리스트 추출후 표기를 위한 서비스로 이동
+		mav=rm.showProjectList();
 		return mav;
 	}
+	
+	
 	@RequestMapping(value="/goProjectDetail", method = RequestMethod.GET)
 	public ModelAndView goProjectDetail(){
-		mav = new ModelAndView();
-		mav.setViewName("projectDetail"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
+		mav=rm.showProjcetDetail();
 		return mav;
 	}
 
@@ -140,11 +148,20 @@ public class HomeController {
 		mav=fm.showList();
 		return mav;
 	}
+	//프리랜서 상세보기 페이지로 이동
 	@RequestMapping(value="/goFreelancerDetail")
 	public ModelAndView goFreelancerDetail(){
 		System.out.println("프리랜서상세 페이지로 이동");
 		mav = new ModelAndView();
 		mav=fm.showDetail();
+		return mav;
+	}
+	//견적문의 페이지로 이동
+	@RequestMapping(value="/goInsertEstimate")
+	public ModelAndView goInsertEstimate(){
+		System.out.println("견적 문의 페이지로 이동");
+		mav=new ModelAndView();
+		mav.setViewName("estimate");
 		return mav;
 	}
 	

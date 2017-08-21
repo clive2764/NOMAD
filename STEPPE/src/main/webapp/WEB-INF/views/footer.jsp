@@ -13,33 +13,7 @@
 			<div class="social-icon">
 				<div class="col-md-4">
 				
-						<c:if test="${m_id eq 'admin'}">
-							<a href="goMemberMM" style="color: white;">
-								회원관리			
-							</a>&nbsp;&nbsp;&nbsp;
-							
-						</c:if>
-						<c:if test="${m_id eq 'admin'}">
-							<a href="goProjectMM" style="color: white;">
-								프로젝트 관리
-							</a>&nbsp;&nbsp;&nbsp;
-						</c:if>
-						<c:if test="${m_id eq 'admin'}">
-							<a href="goReportList" style="color: white;">
-								신고 관리
-							</a>
-						</c:if>
-						<br/>
-						<c:if test="${m_id eq 'admin'}">
-							<a href="goFstMM" style="color: white;">
-								자격 시험 관리
-							</a>&nbsp;&nbsp;&nbsp;
-						</c:if>
-						<c:if test="${m_id eq 'admin'}">
-							<a href="goPuchaseMM" style="color: white;">
-								결제 관리
-							</a>
-						</c:if>
+						
 				</div>
 			</div>
 			

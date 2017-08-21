@@ -19,4 +19,10 @@
 	<select id="getFreelancerDetail" parameterType="String" resultType="member">
 		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
 	</select>
+	<select id="getCareer" parameterType="String" resultType="career">
+		SELECT * FROM CAREER WHERE CA_MID=#{m_id}
+	</select>
+	<select id="getSearchResult" parameterType="String" resultType="member">
+		SELECT * FROM MEMBER WHERE M_KIND='F' AND M_NAME LIKE '%'||#{keyword}||'%'
+	</select>
 </mapper>

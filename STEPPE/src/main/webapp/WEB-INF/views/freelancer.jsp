@@ -22,6 +22,20 @@
 			.about{
 				height: -webkit-fill-available;
 			}
+			input{
+				color: black;
+			}
+			input#search{
+			background: #0f1c34;
+		   	box-sizing: border-box;
+		   	border-radius: 5px;
+		   	border: 1px solid white;
+		   	color: #fff;
+		   	font-weight: bold;
+		   	font-size: 14px;
+		   	outline: none;
+		   	cursor: pointer;
+		}
 		</style>
 	</head>
 	<body>
@@ -30,7 +44,14 @@
 		<!--메인페이지 영역-->
 		
 			<div class="about">
+				<div class="container">
+					<form style="float: right" action="searchKeywordFr" id="searchForm" method="get">
+						<input type="text" id="keyword" name="keyword" placeholder="프리랜서 이름"/>
+						<input type="button" id="search" value="검색"> 
+					</form>
+				</div>
 				${flist}
+				${slist}
 			</div>	
 	        	
 					
@@ -76,7 +97,18 @@
 		
 	</body>
 	<script>
-		console.log("${flist}");
+	
+		$("#search").click(function(){
+			var keyword=$("#keyword").val();
+			if(keyword=="" || keyword==null){
+				alert("프리랜서의 이름을 입력하세요.");
+			}
+			if(keyword!="" && keyword!=null){
+				$("#searchForm").submit();
+			}
+		});
+		
+		
 	</script>
 	
 </html>

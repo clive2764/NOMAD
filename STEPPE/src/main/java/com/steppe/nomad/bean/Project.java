@@ -12,8 +12,13 @@ public class Project {
 	private String p_filename; //프로젝트 첨부파일
 	private String p_deadline; //프로젝트 마감일
 	private String p_plnum; //프로젝트 필요 언어
+	private String p_plnum0;
+	private String p_plnum1;
+	private String p_plnum2;
 	private int p_person; //프로젝트 인원
 	private int p_status; //프로젝트 상태
+	private String p_status2;
+	private int p_vol;
 	
 	public int getP_num() {
 		return p_num;
@@ -81,6 +86,24 @@ public class Project {
 	public void setP_plnum(String p_plnum) {
 		this.p_plnum = p_plnum;
 	}
+	public String getP_plnum0() {
+		return p_plnum0;
+	}
+	public void setP_plnum0(String p_plnum0) {
+		this.p_plnum0 = p_plnum0;
+	}
+	public String getP_plnum1() {
+		return p_plnum1;
+	}
+	public void setP_plnum1(String p_plnum1) {
+		this.p_plnum1 = p_plnum1;
+	}
+	public String getP_plnum2() {
+		return p_plnum2;
+	}
+	public void setP_plnum2(String p_plnum2) {
+		this.p_plnum2 = p_plnum2;
+	}
 	public int getP_person() {
 		return p_person;
 	}
@@ -93,6 +116,19 @@ public class Project {
 	public void setP_status(int p_status) {
 		this.p_status = p_status;
 	}
+	public String getP_status2() {
+		return p_status2;
+	}
+	public void setP_status2(String p_status2) {
+		this.p_status2 = p_status2;
+	}
+	public int getP_vol() {
+		return p_vol;
+	}
+	public void setP_vol(int p_vol) {
+		this.p_vol = p_vol;
+	}
+	
 	
 	
 	
