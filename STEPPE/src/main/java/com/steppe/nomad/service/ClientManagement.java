@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,6 +20,7 @@ import com.steppe.nomad.bean.Catagory;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Required_Skill;
 import com.steppe.nomad.dao.CatagoryDao;
+import com.steppe.nomad.dao.ClientDao;
 import com.steppe.nomad.dao.ProjectDao;
 import com.steppe.nomad.userClass.UploadFile;
 @Repository
@@ -25,24 +28,27 @@ public class ClientManagement {
 
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private HttpServletRequest req;
 	@Autowired
 	private HttpServletResponse res;
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	@Autowired	
 	private CatagoryDao cDao;
-	
+
 	@Autowired	
 	private ProjectDao pDao;
+	
+	@Autowired	
+	private ClientDao clDao;
 
 	private ModelAndView mav;
 	private String jsonStr;
-	
+
 	public ModelAndView execute(int cmd) {
 		switch(cmd){
 		case 1:
@@ -51,16 +57,39 @@ public class ClientManagement {
 		case 2:
 			setRequired_Skill();
 			break;
-		//case 3:
+			//case 3:
 			//secondCatagory1();
 			//break;
-		//case 4:
+			//case 4:
 			//secondCatagory2();
 			//break;
 		}
 		return mav;
 	}
-/*
+
+	public ModelAndView execute(String mid, String e_title, String e_content, int cmd) {
+		switch(cmd){
+		case 1:
+			sendEstimate(mid,e_title,e_content);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+	
+	public ModelAndView execute(String mid, int cmd) {
+		switch(cmd){
+		case 1:
+			goInsertEstimate(mid);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+
+	/*
 	private void secondCatagory2() {
 		String view=null;
 		mav=new ModelAndView();
@@ -76,11 +105,11 @@ public class ClientManagement {
 			}
 			mav.addObject("cList2", sb.toString());
 		}
-		
+
 		List<Required_Skill> slist=null;
 		slist=pDao.getRequired_SkillList();
 		System.out.println(slist);
-		
+
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<slist.size(); i++){
@@ -92,12 +121,12 @@ public class ClientManagement {
 			mav.addObject("slist", sb.toString());
 			System.out.println(sb);
 		}
-		
+
 		view="projectInsert";
 		mav.setViewName(view);
 		view="projectInsert";
 		mav.setViewName(view);
-		
+
 	}*/
 	/*
 	private void setRequired_Skill() {
@@ -106,7 +135,7 @@ public class ClientManagement {
 		List<Required_Skill> slist=null;
 		slist=pDao.getRequired_SkillList();
 		System.out.println(slist);
-		
+
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<slist.size(); i++){
@@ -121,7 +150,7 @@ public class ClientManagement {
 		view="projectInsert";
 		mav.setViewName(view);
 	}*/
-/*
+	/*
 	private void secondCatagory1() {
 		String view=null;
 		mav=new ModelAndView();
@@ -136,11 +165,11 @@ public class ClientManagement {
 			}
 			mav.addObject("cList2", sb.toString());
 		}
-		
+
 		List<Required_Skill> slist=null;
 		slist=pDao.getRequired_SkillList();
 		System.out.println(slist);
-		
+
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<slist.size(); i++){
@@ -152,13 +181,14 @@ public class ClientManagement {
 			mav.addObject("slist", sb.toString());
 			System.out.println(sb);
 		}
-		
+
 		view="projectInsert";
 		mav.setViewName(view);
-		
+
 		view="projectInsert";
 		mav.setViewName(view);
 	}*/
+
 
 	private void setRequired_Skill() {
 		String view=null;
@@ -166,7 +196,7 @@ public class ClientManagement {
 		List<Required_Skill> slist=null;
 		slist=pDao.getRequired_SkillList();
 		System.out.println(slist);
-		
+
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<slist.size(); i++){
@@ -180,16 +210,16 @@ public class ClientManagement {
 		}
 		view="projectInsert";
 		mav.setViewName(view);
-		}
+	}
 
-		//setRequired_Skill();
-		//view="projectInsert";
-		//mav.setViewName(view);
-		/*
+	//setRequired_Skill();
+	//view="projectInsert";
+	//mav.setViewName(view);
+	/*
 		List<Required_Skill> slist=null;
 		slist=pDao.getRequired_SkillList();
 		System.out.println(slist);
-		
+
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<slist.size(); i++){
@@ -201,9 +231,9 @@ public class ClientManagement {
 			mav.addObject("slist", sb.toString());
 			System.out.println(sb);
 		}*/
-		
-		//view="projectInsert";
-		//mav.setViewName(view);
+
+	//view="projectInsert";
+	//mav.setViewName(view);
 	//}
 
 	private void goAddProject() {
@@ -211,7 +241,7 @@ public class ClientManagement {
 		mav=new ModelAndView();
 		view="redirect:/firstCatagory";
 		mav.setViewName(view);
-		
+
 	}
 
 	public ModelAndView execute(MultipartHttpServletRequest multi, int cmd) {
@@ -219,7 +249,7 @@ public class ClientManagement {
 		case 1:
 			insertProject(multi);
 			break;
-		
+
 		}
 		return mav;
 	}
@@ -237,14 +267,14 @@ public class ClientManagement {
 		String p_deadline=multi.getParameter("p_deadline");
 		String p_plnum=multi.getParameter("p_plnum");
 		int p_person=Integer.parseInt(multi.getParameter("p_person"));
-		
+
 		System.out.println("check="+check);//1이면 첨부됨
 		Map<Object,Object> fMap=new HashMap<Object, Object>();
 		if(check==1){
 			UploadFile upload=new UploadFile();
 			//서버에 파일을 업로드 한 뒤, 
 			//오리지널 파일명, 시스템 파일명을 리턴 후 Map에 저장
-			fMap=upload.fileUp(multi);//
+			fMap=upload.fileUp(multi);
 			System.out.println(fMap);
 		}
 		Project project=new Project();
@@ -260,7 +290,7 @@ public class ClientManagement {
 		project.setP_plnum(p_plnum);
 		project.setP_person(p_person);
 		project.setP_status(1);
-		
+
 		fMap.put("p_num", project.getP_num());
 		fMap.put("pc1_name", project.getP_pc1name());
 		fMap.put("pc2_name", project.getP_pc2name());
@@ -276,15 +306,64 @@ public class ClientManagement {
 		mav=new ModelAndView();
 		String view=null;
 		System.out.println(fMap);
-		
+
 		if(pDao.insertProject(fMap)!=0){
 			view="redirect:goMyPageCI";
-			
+
 		}else{
 			view="redirect:goAddProject";
 		}
 		mav.setViewName(view);
 	}
 	
+	private void goInsertEstimate(String mid) {
+		mav = new ModelAndView();
+		
+		String reciver_mid = req.getParameter("mid");
+		
+		mav.addObject("mid",reciver_mid);
+		mav.setViewName("estimate");
+	}
+	
+	@Autowired
+	private JavaMailSenderImpl javaMailSenderImpl;
+	private void sendEstimate(String mid, String e_title, String e_content) {
+		mav = new ModelAndView();
+		
+		String sender = (String) session.getAttribute("m_id");
+		System.out.println("sender="+sender);
+		String reciver = req.getParameter("mid");
+		System.out.println("reciver="+reciver);
+		String title = req.getParameter("e_title");
+		String content = req.getParameter("e_content");
+		
+		String sendEmail = clDao.getSenderEmail(sender);
+		String reciveEmail = clDao.getReciverEmail(reciver);
+
+		//일반 텍스트메일
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		simpleMailMessage.setFrom(sendEmail);
+		simpleMailMessage.setTo(reciveEmail);
+		simpleMailMessage.setSubject("Steppe: "+sender+"의 견적요청 입니다.");
+		simpleMailMessage.setText("제목: "+title+"\n\n"+"보낸이: "+sendEmail+"\n\n"+content);
+
+		javaMailSenderImpl.send(simpleMailMessage);
+
+		mav.setViewName("main");
+	}
+
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

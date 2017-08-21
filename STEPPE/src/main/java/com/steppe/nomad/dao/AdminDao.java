@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Notice;
 @Repository
 public class AdminDao {
@@ -48,6 +49,13 @@ public class AdminDao {
 		return sqlSession.update("notice.noticeUpdate",notice);
 		
 	}
+
+	public int projectDelete(int pnum) {
+		return sqlSession.delete("project.projectDelete",pnum);
+		
+	}
+
+	
 	
 
 }

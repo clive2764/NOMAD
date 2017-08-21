@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,29 +15,29 @@
             
                   <c:if test="${m_id eq 'admin'}">
                      <a href="goMemberMM" style="color: white;">
-                        회원관리         
+                        	회원관리         
                      </a>&nbsp;&nbsp;&nbsp;
                      
                   </c:if>
                   <c:if test="${m_id eq 'admin'}">
                      <a href="goProjectMM" style="color: white;">
-                        프로젝트 관리
+                        	프로젝트 관리
                      </a>&nbsp;&nbsp;&nbsp;
                   </c:if>
                   <c:if test="${m_id eq 'admin'}">
                      <a href="goReportList" style="color: white;">
-                        신고 관리
+                       		 신고 관리
                      </a>
                   </c:if>
                   <br/>
                   <c:if test="${m_id eq 'admin'}">
                      <a href="goFstMM" style="color: white;">
-                        자격 시험 관리
+                        	자격 시험 관리
                      </a>&nbsp;&nbsp;&nbsp;
                   </c:if>
                   <c:if test="${m_id eq 'admin'}">
                      <a href="goPuchaseMM" style="color: white;">
-                        결제 관리
+                       		 결제 관리
                      </a>
                   </c:if>
             </div>
