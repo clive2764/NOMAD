@@ -2,23 +2,23 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-	<head>
-	    <meta charset="utf-8">
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	    <title>steppe 샘플페이지</title>
-	    <!-- Bootstrap -->
-	    <link href="resources/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
-		<link rel="stylesheet" href="resources/css/animate.css">
-		<link href="resources/css/animate.min.css" rel="stylesheet"> 
-		<link href="resources/css/style.css" rel="stylesheet" />	
-	    <style>
-	    	table{
-	    		color: black;
-	    	}
-	    </style>
+   <head>
+       <meta charset="utf-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+       <title>steppe 샘플페이지</title>
+       <!-- Bootstrap -->
+       <link href="resources/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="resources/css/font-awesome.min.css">
+      <link rel="stylesheet" href="resources/css/animate.css">
+      <link href="resources/css/animate.min.css" rel="stylesheet"> 
+      <link href="resources/css/style.css" rel="stylesheet" />   
+       <style>
+          table{
+             color: black;
+          }
+       </style>
   </head>
 <body>
 	<jsp:include page="header.jsp" />
@@ -34,7 +34,7 @@
 				<td>퍼센트</td>
 				<td>합격여부</td>
 			</tr>
-			${alist}
+			${rslist}
 		</table>
 		<div class="row">
 			<hr style="width: 80%; color: grey;"/>
@@ -68,9 +68,9 @@
 		<!-- 푸터 영역 -->  
 		<jsp:include page="footer.jsp" />
 </body>
-	<script src="resources/js/jquery-3.2.1.min.js"></script>		
+   <script src="resources/js/jquery-3.2.1.min.js"></script>      
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="resources/js/bootstrap.min.js"></script>	
-	<script src="resources/js/wow.min.js"></script>
-	<script>wow = new WOW({}).init();</script>
+    <script src="resources/js/bootstrap.min.js"></script>   
+   <script src="resources/js/wow.min.js"></script>
+   <script>wow = new WOW({}).init();</script>
 </html>

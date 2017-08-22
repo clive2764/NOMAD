@@ -13,7 +13,7 @@ public class UploadFile {
 	//파일 업로드 메소드	
 	//String fullPath="C:/Users/pc/Documents/NOMAD/STEPPE/src/main/webapp/resources/upload/";
 
-	public Map<String,String> fileUp(MultipartHttpServletRequest multi){
+	public Map<String,Object> fileUp(MultipartHttpServletRequest multi){
 		System.out.println("fileUp");
 		//1.저장경로 찾기
 		String root=multi.getSession().getServletContext().getRealPath("/");
@@ -26,7 +26,7 @@ public class UploadFile {
 		}
 		//3.파일을 가져오기-일태그 이름들 반환
 		Iterator<String> files=multi.getFileNames();
-		Map<String,String> fMap=new HashMap<String, String>();
+		Map<String,Object> fMap=new HashMap<String, Object>();
 		while(files.hasNext()){
 			String fileTagName=files.next();
 			//파일 메모리에 저장
@@ -48,7 +48,7 @@ public class UploadFile {
 		}
 		return fMap;
 	}
-	public Map<String,Object> fileUppr(MultipartHttpServletRequest multi){
+	public Map<String,String> fileUppr(MultipartHttpServletRequest multi){
 		System.out.println("fileUp");
 		//1.저장경로 찾기
 		String root=multi.getSession().getServletContext().getRealPath("/");
@@ -61,7 +61,7 @@ public class UploadFile {
 		}
 		//3.파일을 가져오기-일태그 이름들 반환
 		Iterator<String> files=multi.getFileNames();
-		Map<String,Object> fMap=new HashMap<String, Object>();
+		Map<String,String> fMap=new HashMap<String, String>();
 		while(files.hasNext()){
 			String fileTagName=files.next();
 			//파일 메모리에 저장

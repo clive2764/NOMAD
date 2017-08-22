@@ -13,7 +13,12 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
+
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,6 +31,7 @@ import com.steppe.nomad.bean.Required_Skill;
 import com.steppe.nomad.bean.Volunteer;
 import com.steppe.nomad.dao.AccountingDao;
 import com.steppe.nomad.dao.CatagoryDao;
+import com.steppe.nomad.dao.ClientDao;
 import com.steppe.nomad.dao.ProjectDao;
 import com.steppe.nomad.dao.VolunteerDao;
 import com.steppe.nomad.userClass.UploadFile;
@@ -35,23 +41,24 @@ public class ClientManagement {
 
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private HttpServletRequest req;
 	
 	@Autowired
 	private HttpServletResponse res;
-	
+
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-	
+
 	@Autowired	
 	private CatagoryDao cDao;
-	
+
 	@Autowired	
 	private ProjectDao pDao;
 	
 	@Autowired	
+
 	private VolunteerDao vDao;
 	
 	@Autowired	
@@ -60,7 +67,10 @@ public class ClientManagement {
 	private ModelAndView mav;
 	private String jsonStr;
 	
-	public ModelAndView execute(int cmd){
+	private ClientDao clDao;
+
+
+	public ModelAndView execute(int cmd) {
 		switch(cmd){
 		case 1:
 			goAddProject();
@@ -80,132 +90,9 @@ public class ClientManagement {
 		case 6:
 			deleteProject();
 			break;
-		//case 7:
-			//purchase();
-			//break;
 		}
 		return mav;
 	}
-
-/*
-	private void secondCatagory2() {
-		String view=null;
-		mav=new ModelAndView();
-		List<Catagory> cList22=null;
-		cList22=cDao.getCatagorycList22();
-		System.out.println(cList22);
-		if(cList22!=null){
-			StringBuilder sb = new StringBuilder();
-			for(int i=0; i<cList22.size(); i++){
-				Catagory ca=cList22.get(i);
-				sb.append("<option value='"+ca.getPc2_name()+"'>"+ca.getPc2_name());
-				sb.append("</option>");
-			}
-			mav.addObject("cList2", sb.toString());
-		}
-		
-		List<Required_Skill> slist=null;
-		slist=pDao.getRequired_SkillList();
-		System.out.println(slist);
-		
-		if(slist!=null){
-			StringBuilder sb = new StringBuilder();
-			for(int i=0; i<slist.size(); i++){
-				Required_Skill rs=slist.get(i);
-				sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='"+rs.getRs_plnum()+"' id='inter' "
-						+ " onClick='CountChecked(this)'/>"+rs.getRs_plnum());
-				sb.append("/");
-			}
-			mav.addObject("slist", sb.toString());
-			System.out.println(sb);
-		}
-		
-		view="projectInsert";
-		mav.setViewName(view);
-		view="projectInsert";
-		mav.setViewName(view);
-		
-	}*/
-	
-/*
-	private void secondCatagory1() {
-		String view=null;
-		mav=new ModelAndView();
-		List<Catagory> cList21=null;
-		cList21=cDao.getCatagorycList21();
-		if(cList21!=null){
-			StringBuilder sb = new StringBuilder();
-			for(int i=0; i<cList21.size(); i++){
-				Catagory ca=cList21.get(i);
-				sb.append("<option value='"+ca.getPc2_name()+"'>"+ca.getPc2_name());
-				sb.append("</option>");
-			}
-			mav.addObject("cList2", sb.toString());
-		}
-		
-		List<Required_Skill> slist=null;
-		slist=pDao.getRequired_SkillList();
-		System.out.println(slist);
-		
-		if(slist!=null){
-			StringBuilder sb = new StringBuilder();
-			for(int i=0; i<slist.size(); i++){
-				Required_Skill rs=slist.get(i);
-				sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='"+rs.getRs_plnum()+"' id='inter' "
-						+ " onClick='CountChecked(this)'/>"+rs.getRs_plnum());
-				sb.append("/");
-			}
-			mav.addObject("slist", sb.toString());
-			System.out.println(sb);
-		}
-		
-		view="projectInsert";
-		mav.setViewName(view);
-		
-		view="projectInsert";
-		mav.setViewName(view);
-	}*/
-	/*
-	private void goPurchase() {
-		mav=new ModelAndView();
-		String view=null;
-		System.out.println("결제하러 가자");
-		int p_status=Integer.parseInt(req.getParameter("p_status"));
-		System.out.println(p_status);
-		if(p_status==0){
-			res.setCharacterEncoding("UTF-8");
-			res.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out;
-			try {
-				out = res.getWriter();
-				out.println("<script language='javascript'>");
-				out.println("alert('결제할 수 없습니다.');");
-				out.println("history.back()");
-				out.println("</script>");
-				out.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}else if(p_status==2){
-			res.setCharacterEncoding("UTF-8");
-			res.setContentType("text/html; charset=UTF-8"); 
-			PrintWriter out;
-			try {
-				out = res.getWriter();
-				out.println("<script language='javascript'>");
-				out.println("alert('완료된 프로젝트 입니다.');");
-				out.println("history.back()");
-				out.println("</script>");
-				out.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}else{
-			System.out.println("결제 해 보자");
-			
-		}
-	}*/
-
 	private void deleteProject() {
 		mav=new ModelAndView();
 		String view=null;
@@ -286,18 +173,6 @@ public class ClientManagement {
 		mav.setViewName(view);
 		
 	}
-/*
-	private int makeSum(List<Volunteer> vList2) {
-		 int result = 0;
-		 for(int a=0; a<vList2.size(); a++){
-			 Volunteer vl=vList2.get(a);
-			 int i = vl.getV_bid();
-			 int sum = i;
-			 result += sum;
-		 }
-		 
-		return result;
-	}*/
 
 	private void showApplyList() {
 		mav=new ModelAndView();
@@ -345,7 +220,7 @@ public class ClientManagement {
 			//if(session!=null && session.getAttribute("m_id")!=null ){
 				//plist=pDao.getProjectList(session.getAttribute("m_id"));//합치면 이것으로
 				String m_id=session.getAttribute("m_id").toString();
-				plist=pDao.getProjectList(m_id);
+				plist=pDao.getProjectList2(m_id);
 				System.out.println(plist);
 				if(plist!=null){
 					StringBuilder sb = new StringBuilder();
@@ -374,13 +249,14 @@ public class ClientManagement {
 		mav.setViewName(view);
 	}
 
+
 	private void setRequired_Skill() {
 		String view=null;
 		mav=new ModelAndView();
 		List<Required_Skill> slist=null;
 		slist=pDao.getRequired_SkillList();
 		System.out.println(slist);
-		
+
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<slist.size(); i++){
@@ -393,38 +269,14 @@ public class ClientManagement {
 		}
 		view="projectInsert";
 		mav.setViewName(view);
-		}
-
-		//setRequired_Skill();
-		//view="projectInsert";
-		//mav.setViewName(view);
-		/*
-		List<Required_Skill> slist=null;
-		slist=pDao.getRequired_SkillList();
-		System.out.println(slist);
-		
-		if(slist!=null){
-			StringBuilder sb = new StringBuilder();
-			for(int i=0; i<slist.size(); i++){
-				Required_Skill rs=slist.get(i);
-				sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='"+rs.getRs_plnum()+"' id='inter' "
-						+ " onClick='CountChecked(this)'/>"+rs.getRs_plnum());
-				sb.append("/");
-			}
-			mav.addObject("slist", sb.toString());
-			System.out.println(sb);
-		}*/
-		
-		//view="projectInsert";
-		//mav.setViewName(view);
-	//}
+	}
 
 	private void goAddProject() {
 		String view=null;
 		mav=new ModelAndView();
 		view="redirect:/firstCatagory";
 		mav.setViewName(view);
-		
+
 	}
 
 	public ModelAndView execute(MultipartHttpServletRequest multi, int cmd) {
@@ -432,7 +284,7 @@ public class ClientManagement {
 		case 1:
 			insertProject(multi);
 			break;
-		
+
 		}
 		return mav;
 	}
@@ -452,14 +304,15 @@ public class ClientManagement {
 		String p_plnum1=multi.getParameter("p_plnum1");
 		String p_plnum2=multi.getParameter("p_plnum2");
 		int p_person=Integer.parseInt(multi.getParameter("p_person"));
-		//session.setAttribute("m_id", "client");
 		System.out.println("check="+check);//1이면 첨부됨
 		Map<String, Object> fMap=new HashMap<String, Object>();
 		if(check==1){
 			UploadFile upload=new UploadFile();
 			//서버에 파일을 업로드 한 뒤, 
 			//오리지널 파일명, 시스템 파일명을 리턴 후 Map에 저장
-			fMap=upload.fileUppr(multi);//
+			
+			fMap=upload.fileUp(multi);
+
 			System.out.println(fMap);
 		}
 		Project project=new Project();
@@ -476,8 +329,12 @@ public class ClientManagement {
 		project.setP_plnum1(p_plnum1);
 		project.setP_plnum2(p_plnum2);
 		project.setP_person(p_person);
+
 		project.setP_status(0);
 		
+
+		project.setP_status(1);
+
 		fMap.put("p_num", project.getP_num());
 		fMap.put("pc1_name", project.getP_pc1name());
 		fMap.put("pc2_name", project.getP_pc2name());
@@ -494,57 +351,18 @@ public class ClientManagement {
 		fMap.put("p_status", project.getP_status());
 		mav=new ModelAndView();
 		String view=null;
-		
+
+		System.out.println(fMap);
+
 		if(pDao.insertProject(fMap)!=0){
 			view="redirect:goMyPageCI";
-			
+
 		}else{
 			view="redirect:goAddProject";
 		}
 		mav.setViewName(view);
 	}
-	/*
-	public ModelAndView execute(int cmd, Project pr) {
-		switch(cmd){
-		case 1:
-			showApplyList(pr);
-			break;
-		}
-		return mav;
-	}*/
-/*
-	private void showApplyList(Project pr) {
-		mav=new ModelAndView();
-		int p_num=Integer.parseInt(req.getParameter("p_num"));
-		//int check=Integer.parseInt(multi.getParameter("fileCheck"));//확인
-		String view=null;
-		List<Volunteer> vList=null;
-		System.out.println(p_num);
-		vList=vDao.showApplyList(p_num);
-		System.out.println(vList);
-		if(vList!=null){
-			StringBuilder sb = new StringBuilder();
-			sb.append("<table border='1' align='center'>");
-			sb.append("<tr><th>지원자</th><th>선정</th></tr>");
-			System.out.println("ddddd");
-			for(int i=0; i<vList.size(); i++){
-				System.out.println("ddddd");
-				Volunteer vl=vList.get(i);
-				sb.append("<tr><td>"+vl.getV_num()+"</td>");
-				sb.append("<td>"+vl.getV_mid()+"</td>");
-				sb.append("<td>"+vl.getV_bid()+"</td>");
-				sb.append("<input type='checkbox' value='"+vl.getV_num()+"' name='v_ptteam' id='v_ptteam'"
-						+ " onClick='CountChecked(this)'/>");
-			}
-			sb.append("</table>");
-			System.out.println(sb);
-			mav.addObject("vList", sb.toString());
-		}
-		view="applyList";
-		mav.setViewName(view);
-	}
-*/
-
+	
 	public ModelAndView execute(Accounting ac, int cmd) {//결제 테이블, 결제 내역 테이블에 insert하는 메서드
 		switch(cmd){
 		case 1:
@@ -559,5 +377,77 @@ public class ClientManagement {
 		
 	}
 	
+	public ModelAndView execute(String mid, int cmd) {
+	      switch(cmd){
+	      case 1:
+	         goInsertEstimate(mid);
+	         break;
+	      default:
+	         break;
+	      }
+	      return mav;
+	   }
 	
+	private void goInsertEstimate(String mid) {
+		mav = new ModelAndView();
+		
+		String reciver_mid = req.getParameter("mid");
+		
+		mav.addObject("mid",reciver_mid);
+		mav.setViewName("estimate");
+	}
+	
+	public ModelAndView execute(String mid, String e_title, String e_content, int cmd) {
+	      switch(cmd){
+	      case 1:
+	         sendEstimate(mid,e_title,e_content);
+	         break;
+	      default:
+	         break;
+	      }
+	      return mav;
+	   }
+	
+	@Autowired
+	private JavaMailSenderImpl javaMailSenderImpl;
+	private void sendEstimate(String mid, String e_title, String e_content) {
+		mav = new ModelAndView();
+		
+		String sender = (String) session.getAttribute("m_id");
+		System.out.println("sender="+sender);
+		String reciver = req.getParameter("mid");
+		System.out.println("reciver="+reciver);
+		String title = req.getParameter("e_title");
+		String content = req.getParameter("e_content");
+		
+		String sendEmail = clDao.getSenderEmail(sender);
+		String reciveEmail = clDao.getReciverEmail(reciver);
+
+		//일반 텍스트메일
+		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		simpleMailMessage.setFrom(sendEmail);
+		simpleMailMessage.setTo(reciveEmail);
+		simpleMailMessage.setSubject("Steppe: "+sender+"의 견적요청 입니다.");
+		simpleMailMessage.setText("제목: "+title+"\n\n"+"보낸이: "+sendEmail+"\n\n"+content);
+
+		javaMailSenderImpl.send(simpleMailMessage);
+
+		mav.setViewName("main");
+	}
+	
+	   
+	   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

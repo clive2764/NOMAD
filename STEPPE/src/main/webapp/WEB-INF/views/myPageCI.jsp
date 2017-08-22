@@ -30,6 +30,7 @@
 		 
 		<!-- 푸터 영역 -->  
 		<jsp:include page="footer.jsp" />
+
 	<script>
 	function P_teamCheck(p_status2){
 		alert(p_status2);

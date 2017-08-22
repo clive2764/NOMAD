@@ -16,9 +16,7 @@
 	<link href="resources/css/style.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
 	<style>
-		#body{
-			margin-top: 50px;
-		}
+
         table{
             color: black;
         }
@@ -43,22 +41,7 @@
 		   	outline: none;
 		   	cursor: pointer;
        	}
-       	#replyForm{
-       		margin-bottom: 50px;
-       	}
-       	input#replyInsert{
-       		background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-		   	float: right;
-       	}
-       	input#list{
+       	input#replyInsert,input#list{
        		background: #0f1c34;
 		   	box-sizing: border-box;
 		   	border-radius: 5px;
@@ -78,33 +61,35 @@
   </head>
   <body>
     <jsp:include page="header.jsp" />
-		<div class="col-md-12 col-xs-12 col-lg-12 col-sm-12" id="body">
+    	<div class="about">
+		<div class="container">
             <table class="table table-responsive">
                 <tr>
                     <td>제목</td>
-                    <td colspan="3">홈페이지 제작</td>
+                    <td colspan="3" style="text-align: center;">${project.p_title}</td>
                 </tr>
                 <tr>
                     <td>프로젝트 기간</td>
-                    <td>예상 기간</td>
-                    
-                    <td colspan="2">지원자</td>
+                    <td colspan="2" style="text-align: center;">지원자</td>
+                    <td style="text-align: right;">마감일</td>
                 </tr>
                 <tr>
-                    <td>프로젝트기간 표기 영역</td>
-                    <td>예상기간 표기 영역</td>
-                    <td>지원자 수 표기 영역</td>
+                    <td>${project.p_term}일</td>
+                    <td colspan="2" style="text-align: center;">${project.p_vol}명</td>
+                    <td colspan="2" style="text-align: right;">${project.p_deadline}</td>
                 </tr>
                 <tr>
                     <td>필요언어</td>
-                    <td>필요언어 표기 영역</td>
-                    <td>
+                    <td>${project.p_plnum0},${project.p_plnum1},${project.p_plnum2}</td>
+                    <td colspan="2" style="text-align: center;">
                         <form action="" method="post" id="priceForm">
-                            <input type="text" placeholder="입찰가격을 입력하세요." id="price" name="price">
-                            <input type="button" value="입찰 가격 결정" id="check"/>
+                            <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="price">
+                            <input type="button" value="결정" id="check"/>
+                            <a href="goProject"><input type="button" value="목록보기" id="list"></a>
                         </form>
+                        
                     </td>
-                    <td><a href="goProject"><input type="button" value="목록보기" id="list"></a></td>
+                    
                 </tr>
             
             </table>
@@ -112,72 +97,16 @@
     
 	<hr>
     <div class="container">
-            <h1 style="text-align:center; color:black;">프로젝트 상세 설명 영역</h1>
+            <h1 style="text-align:center; color:black;">프로젝트 설명</h1>
             <p>
-                ※ 프로젝트 진행 방식
-                - 초기 오프라인 미팅 1회 
-                - 원격 / 재택근무 
-                - PMS 관리 / 이메일,유선 소통
-            </p>
-            <p>
-                ※프로젝트의 현재 상황
-
-                - 스타트업 기업 팀구축 완료된 상태로 서비스 시작을 위한 초기 단계 
-
-                - 화면 설계 문서는 아직 없으며, 대략적인 기능 정의 정도 있음
-            </p>
-
-            <p>
-                ※상세한 업무 내용
-
-                [ 일용직 중개 웹서비스 1차모델 개발 ]
-
-                - 개발 분류 : 서버 및 웹관리자 , 클라이언트 ( PC WEB ) , 디자인
-
-                + 서비스 간략 소개 
-
-                   - 역경매 방식으로 돌봄이 시터, 가사도우미와 의뢰인을 연결하는 중개 웹서비스 
-            </p>
-            <p>
-                + 개발 내용 
-
-                   - 회원가입, 로그인 ( 실명인증 ) 
-
-                   - 구인공고 등록 , 상세 페이지 
-
-                   - 지역별, 카테고리별, 급여별 검색 
-
-                   - 역경매 방식의 지원하기 / 지원내역 보기 
-
-                   - 의뢰인 도우미 선택 , 연락처 열람 
-
-                   - 초기에는 결제 기능 없음 ( 무료 ) 추후 BM 모델 탑재 
-
-                     :: 추후 회원제 모델로 고려중 
-
-                   - 전체 메일 ,SMS 발송 
-
-                   - 특정 영역 광고 배너 등록, 관리 
-
-                   - 가사/육아 관련 컨텐츠 게시판 
-
-                - 초기 PC 웹 버전으로 시작하여 추후 앱으로 고도화 진행 예정 
-
-                - 사업자등록증이 있는 개인 / 팀 단위 지원 희망 ( 일반 개인 불가 ) 
-
-                - 개발 언어 무관
-            </p>
-            <p>
-
-                # 킥오프일정 : 8월 4째주 
-
-                # IT 개발이 처음이기에 많은 조언/컨설팅 부탁드립니다.
+                ${project.p_content}
             </p>    
            
     </div>
+    </div>
     <hr/>
     <div class="container">
-        <h1 style="color:black; text-align:center;">댓글 영역으로 활용</h1>
+        <h1 style="color:black; text-align:center;">댓글</h1>
         <div class="row"></div>
         <table class="table table-responsive">
             <tr>
@@ -205,7 +134,6 @@
     <div class="row"></div>
     <!-- 푸터 영역 -->  
 	<jsp:include page="footer.jsp" />
-      
       
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--<script src="js/jquery.js"></script>-->		

@@ -39,12 +39,8 @@ public class ProjectDao {
 		return sqlSession.insert("project.insertProject",fMap);
 	}
 
-	//public String getProjectInfo(String m_id) {
-		//return sqlSession.selectOne("project.getProjectInfo",m_id);
-	//}
-
-	public List<Project> getProjectList(String m_id) {
-		return sqlSession.selectList("project.getProjectList", m_id);
+	public List<Project> getProjectList2(String m_id) {
+		return sqlSession.selectList("project.getProjectList2", m_id);
 	}
 
 	public int UpdateProject(int v_pnum) {
@@ -63,16 +59,24 @@ public class ProjectDao {
 		return sqlSession.selectOne("project.getPerson", v_pnum);
 	}
 
-	/*public List<Project> getProjectList(Object attribute) {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
-
+	public List<Project> getProjectList(int pageNum) {
+		return sqlSession.selectList("project.getProjectList",pageNum);
+	}
 	
-
+	public int getProjectCount() {
+		return sqlSession.selectOne("project.getProjectCount");
+	}
 	
+	public List<Project> getDevelopList(int pageNum) {
+		return sqlSession.selectList("project.getDevelopList");
+	}
 
-	
+	public List<Project> getDesignList(int pageNum) {
+		return sqlSession.selectList("project.getDesignList");
+	}
 
+	public List<Project> getSearchResult(String keyword) {
+		return sqlSession.selectList("project.getSearchResult", keyword);
+	}
 
 }

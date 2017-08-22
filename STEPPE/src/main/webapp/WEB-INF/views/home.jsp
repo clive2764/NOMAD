@@ -15,6 +15,7 @@
 		<link href="resources/css/animate.min.css" rel="stylesheet"> 
 		<link href="resources/css/style.css" rel="stylesheet" />   
 	</head>
+
   <body>
     <jsp:include page="header.jsp" />
     <!--carousel 영역-->
@@ -44,20 +45,6 @@
                   </div>
                 </div>
          
-                <div class="item">
-                  <img src="resources/img/slide.jpg" class="img-responsive" alt=""> 
-                  <div class="carousel-caption">
-                     <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="1.0s">                        
-                        <h2>Fully Responsive</h2>
-                     </div>
-                     <div class="col-md-10 col-md-offset-1">
-                        <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">                        
-                           <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                        </div>
-                     </div>
-                     
-                  </div>
-                </div> 
                 <div class="item">
                   <img src="resources/img/slide.jpg" class="img-responsive" alt=""> 
                   <div class="carousel-caption">
@@ -97,26 +84,9 @@
                     <h3>${sessionScope.m_kind}</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
               </div>
-                <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <i class="fa fa-heart-o"></i>
-                    <h3>프로젝트 영역</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
-                </div>
-                <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <i class="fa fa-heart-o"></i>
-                    <h3>프로젝트 영역</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
-                </div>
-                <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <i class="fa fa-heart-o"></i>
-                    <h3>프로젝트 영역</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
-                </div>
-		
 				<div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">								
 				    <a href="#" style="background-color:cornflowerblue; height:250px;" >프로젝트 바로가기</a>
 				</div>
-                
 			</div>	
 	</div>			
 	<hr>
@@ -125,13 +95,16 @@
     <!-- 푸터 영역 -->  
     <jsp:include page="footer.jsp" />
       
-     
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
     <script src="resources/js/jquery-3.2.1.min.js"></script>		
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="resources/js/bootstrap.min.js"></script>	
 	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>	
-    
 </body>
+<script type="text/javascript"> 
+var message = '${msg}';
+if(message!=""){
+alert(message); 
+}
+</script>
 </html>

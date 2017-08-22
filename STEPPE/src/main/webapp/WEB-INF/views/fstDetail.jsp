@@ -14,9 +14,26 @@
 	table{
 		color: black;
 	}
-	.tcontent{
-		text-align: right;
+	td{
+		text-align: center;
+		font-size: 20px;
 	}
+	.buttonA{
+				width:85px;
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+				text-align: center;
+			}
+			.AA{
+				color:#fff;
+			}
 </style>
 </head>
 <body>
@@ -32,7 +49,11 @@
 				<tr><td>정답</td><td class="tcontent">${test.t_answer}</td></tr>
 			</table>
 		</div>
-	</div>
+			<br/>
+			<button class='buttonA'><a href="javascript:history.go(-1)" class='AA'>뒤로가기</a></button>
+			</div>
+
+
 	<div class="row"></div>
 	<hr/>
 		 

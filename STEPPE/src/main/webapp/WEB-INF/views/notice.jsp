@@ -95,10 +95,13 @@
 	<jsp:include page="header.jsp" />
 	
 	<div align="center">
-		<h3>공지사항</h3>
+		<h3>공지사항</h3><br/>
 		<div class="container" style="height: -webkit-fill-available;">
 			<table class="table table-responsive">
 				${nlist}
+				<tr>
+					<td colspan="6" align="center">${paging}</td>
+				</tr>
 			</table>
 				<br />
 			<form action="noticeWrite">
@@ -108,11 +111,6 @@
 		</div>
 	</div>
 
-	<div align="center">
-		<br /> ${paging}
-	</div>
-	
-		
 	<div class="row"></div>
 	<!--푸터 영역 시작-->
 	
