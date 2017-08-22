@@ -5,22 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.EmailManagement;
 import com.steppe.nomad.service.MemberManagement;
-
 @Controller
-@SessionAttributes("member")
 public class HomeController {
 
 	private ModelAndView mav;
 	private EmailManagement em;
 
 	@Autowired
+
 	private MemberManagement mm;	//페이지 처음 진입용
+
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
@@ -41,32 +40,29 @@ public class HomeController {
 	//회원가입용
 	@RequestMapping(value = "/goJoin")
 	public ModelAndView goJoin() {
-		System.out.println("회원가입 페이지로 이동");
 		mav = new ModelAndView();
 		mav.setViewName("join"); //join.jsp �쉶�썝媛��엯 �럹�씠吏�
 		return mav;
 	}
-	@RequestMapping(value="/goProject")
+	@RequestMapping(value="/goProject", method = RequestMethod.GET)
 	public ModelAndView goProject(){
 		mav = new ModelAndView();
 		mav.setViewName("project"); //join.jsp �쉶�썝媛��엯 �럹�씠吏�
 		return mav;
 	}
-	@RequestMapping(value="/goProjectDetail")
+	@RequestMapping(value="/goProjectDetail", method = RequestMethod.GET)
 	public ModelAndView goProjectDetail(){
 		mav = new ModelAndView();
 		mav.setViewName("projectDetail"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
 		return mav;
 	}
+
 	@RequestMapping(value="/goAddProject")
 	public ModelAndView goAddProject(){
 		mav = new ModelAndView();
 		mav.setViewName("projectInsert"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
 		return mav;
 	}
-
-
-
 
 	//이메일 인증
 	@RequestMapping(value = "/sendCode")
@@ -76,8 +72,6 @@ public class HomeController {
 		mm.sendCode();
 		return mav;
 	}
-
-
 	
 	//로그인 페이지 이동
 	@RequestMapping(value = "/goLogin", method = RequestMethod.GET)
@@ -96,19 +90,10 @@ public class HomeController {
 		return mav;
 	}
 	
-	//로그아웃
-    @RequestMapping(value = "/logout")
-    public ModelAndView logout(Member mb) {
-       System.out.println("로그아웃");
-       mav = mm.execute(mb,2);
-       return mav;
-    }
-
 	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
 	public String fstMm(Model model) {
 		return "fstMm";
 	}
-
 	
 	//이용방법 페이지로 이동
 	@RequestMapping(value= "/goManual")
@@ -119,5 +104,13 @@ public class HomeController {
 		return mav;
 	}
 	
-
+	@RequestMapping(value= "/goMyPageCI")
+	public ModelAndView goMyPageCI(){
+		System.out.println("마이 페이지로 이동");
+		mav = new ModelAndView();
+		mav.setViewName("myPageCI");
+		return mav;
+	}
+	
+	
 }

@@ -60,94 +60,50 @@ public class MemberManagement {
 		mav.setViewName(view);
 	}
 	
-	private void memberAccess(Member mb) {
-		System.out.println("memberAccess(Member mb) 시작");
-		mav = new ModelAndView();
-		String view = null;
+	private ModelAndView memberAccess(Member mb) {
+		mav=new ModelAndView();
+		String view=null;
 		
-		session.setAttribute("pwd", mb.getM_pw());
-		String pwd = (String)session.getAttribute("pwd");
+		String m_id=request.getParameter("m_id");
+		String m_pass=request.getParameter("m_pw");
 		
-		session.setAttribute("id", mb.getM_id());
-		String id = (String)session.getAttribute("id");
-		
-		String pw = mDao.getPwd(mb.getM_id());
-		System.out.println("pw= "+pw);
-		
-		if(pwd!=null){
-			if(pwd.equals(pw)){
+		String passC=mDao.getPwd(m_id);
+		System.out.println(m_pass);
+		System.out.println(passC);
+		if(m_pass!=null){
+			if(m_pass.equals(passC)){
 				
-				System.out.println("로그인 성공");
-				System.out.println("입력 id = "+id);
-				System.out.println("입력 pwd = "+pwd);
-				view = "home";
+				String m_kind=mDao.getKind(m_id);
+				session.setAttribute("m_kind", m_kind);
+				session.getAttribute("m_kind");
+				
+				System.out.println("로그인성공");
+				session.setAttribute("m_id",m_id);
+				session.getAttribute("m_id");
+				
+				session.setAttribute("m_pw", m_pass);
+				session.getAttribute("m_pw");
+				
+				session.setAttribute("member", mb);
+				session.getAttribute("member");
+
+				System.out.println(mDao.getKind(m_id));
+				System.out.println("아이디:"+session.getAttribute("m_id"));
+				System.out.println("패스워드:"+session.getAttribute("m_pw"));
+				System.out.println("회원종류:"+session.getAttribute("m_kind"));
+				System.out.println("세션:"+session.getId());
+
+				view="redirect:/";
 				mav.setViewName(view);
-				return;
-		
 				
 			}
-		
-		}
-		System.out.println("로그인 실패");
-		view = "login";
-		mav.setViewName(view);
-
-		/*//필요할때마다 잠깐 생성해서 쓰고 없애버리기 때문에 method에서 새로 생성한다.
-		mav = new ModelAndView();
-		String view = null;
-		//비밀번호를 암호화(Encoding) 할 수는 있지만 복호화(Decoding)는 불가능하다.
-		BCryptPasswordEncoder pwdEncoder = new BCryptPasswordEncoder();
-		//암호화된 코드 얻어오기
-		String pwdEncode = mDao.getSecurityPwd(mb.getM_id());
-		System.out.println("pwdEncode="+pwdEncode);
-		if(pwdEncode!=null){
-			if(pwdEncoder.matches(mb.getM_id(), pwdEncode)){
-				session.setAttribute("id", mb.getM_id());
-				//로그인 성공시(pw, id 일치시) 멤버의 정보를 반환
-				mb = mDao.getMemberInfo(mb.getM_id());
-
-				//로그인 되어있는 동안 회원 정보를 화면에 출력
-				//밑의 두줄이 같은 의미
-				//mav.addObject("mb",mb);//회원정보를 화면에 출력
-				session.setAttribute("mb", mb);
-				//DB에서 게시글 리스트를 가져와야 한다.
-				//mav.addObject("test","redirect Test");
-
-				//jsp방식
-				//view = "boardList";//boardList.jsp로 이동
-
-				//redirect/forward 방식
-				//url을 발생 시킨다
-				//DB에서 게시글 리스트를 가져와야 되지
-				//이미 처리된 잡이있으므로 url로 요청함
-				//view = "redirect:/boardList" //redirect:url GET 방식만 가능;//dispatcher forwarding
-				//dispatcher fowarding 이기 때문에 addObject의 값을 가져갈 수있다.
-				//view = "forward:/boardList" //forward:url POST 방식만 가능;
-				//view = "redirect:/boardList";//redirect:url
-
-				view = "home";
+			else{
+				view="login";
 				mav.setViewName(view);
-				return;
 			}
 		}
-		mav.addObject("check",2);//로그인 실패
-		view = "home";
-		mav.setViewName(view);*/
-
-
-		/*if(mDao.getLoginResult(mb)!=0){//true 성공하면
-			session.setAttribute("id", mb.getM_id());
-			//로그인 성공시(pw, id 일치시) 멤버의 정보를 반환
-			mb = mDao.getMemberInfo(mb.getM_id());
-			mav.addObject("mb",mb);//회원정보를 화면에 출력
-			view = "boardList";//boardList.jsp로 이동 //id, pw, ...g_name까지 출력
-		}else{
-			mav.addObject("check",2);//로그인 실패
-			view = "home";
-
-		}
-		mav.setViewName(view);*/
-
+		return mav;
+		
 	}
 	public void sendCode() {
 		System.out.println("mm.sendCode() 시작");

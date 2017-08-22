@@ -1,9 +1,9 @@
 package com.steppe.nomad.bean;
 
 public class Project {
-	private String p_num; //프로젝트 번호
-	private int p_pc1id; //1차 카테고리 아이디
-	private int p_pc2id; //2차 카테고리 아이디
+	private int p_num; //프로젝트 번호
+	private String p_pc1name; //1차 카테고리 아이디
+	private String p_pc2name; //2차 카테고리 아이디
 	private String p_mid; //회원 아이디
 	private int p_budget; //프로젝트 예산
 	private String p_term; //프로젝트 기간
@@ -15,23 +15,23 @@ public class Project {
 	private int p_person; //프로젝트 인원
 	private int p_status; //프로젝트 상태
 	
-	public String getP_num() {
+	public int getP_num() {
 		return p_num;
 	}
-	public void setP_num(String p_num) {
+	public void setP_num(int p_num) {
 		this.p_num = p_num;
 	}
-	public int getP_pc1id() {
-		return p_pc1id;
+	public String getP_pc1name() {
+		return p_pc1name;
 	}
-	public void setP_pc1id(int p_pc1id) {
-		this.p_pc1id = p_pc1id;
+	public void setP_pc1name(String p_pc1name) {
+		this.p_pc1name = p_pc1name;
 	}
-	public int getP_pc2id() {
-		return p_pc2id;
+	public String getP_pc2name() {
+		return p_pc2name;
 	}
-	public void setP_pc2id(int p_pc2id) {
-		this.p_pc2id = p_pc2id;
+	public void setP_pc2name(String p_pc2name) {
+		this.p_pc2name = p_pc2name;
 	}
 	public String getP_mid() {
 		return p_mid;
@@ -93,5 +93,7 @@ public class Project {
 	public void setP_status(int p_status) {
 		this.p_status = p_status;
 	}
+	
+	
 	
 }
