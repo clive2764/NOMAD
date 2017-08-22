@@ -5,5 +5,4 @@
 	<insert id="chatSubmit">
 		INSERT INTO chat VALUES()
 	</insert>
-	<select id=""></select>
 </mapper>

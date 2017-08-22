@@ -128,11 +128,13 @@ public class PmsManagement {
 		String chatContent = request.getParameter("chatContent");
 		String pnum = request.getParameter("pnum");
 		String mid = session.getAttribute("m_id").toString();
+		Gson jsonObj = new Gson();
 		if(mid == null || mid.equals("") || chatContent == null || chatContent.equals("")
 				|| pnum == null || pnum.equals("")){
+			jsonStr = "";
+		}else{
 			
 		}
-		Gson jsonObj = new Gson();
 		//jsonStr = jsonObj.toJson();
 	}
 
