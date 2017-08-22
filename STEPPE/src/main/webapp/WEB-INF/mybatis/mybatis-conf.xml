@@ -24,11 +24,8 @@
 		<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
 		<typeAlias alias="required_skill" type="com.steppe.nomad.bean.Required_Skill"/>
 		<typeAlias alias="volunteer" type="com.steppe.nomad.bean.Volunteer"/>
-<<<<<<< HEAD
 		<typeAlias alias="chat" type="com.steppe.nomad.bean.Chat"/>
-=======
 		<typeAlias alias="accounting" type="com.steppe.nomad.bean.Accounting"/>
 		<typeAlias alias="report" type="com.steppe.nomad.bean.Report"/>
->>>>>>> 7c495fb382ade8e50076fe94a993f44797a79af1
 	</typeAliases> 
 </configuration> 
