@@ -32,7 +32,27 @@
                 <a class="navbar-brand" href="main">Steppe</a>
             </div>
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
+            <ul class="nav navbar-right top-nav">   
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                    <ul class="dropdown-menu alert-dropdown">
+                        <li>
+                            <a href="javascript:Ajax('progress?code=0&prog=0','#printP')">전체</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:Ajax('progress?code=1&prog=1','#printP')">대기</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:Ajax('progress?code=2&prog=2','#printP')">작업중</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="javascript:Ajax('progress?code=3&prog=3','#printP')">완료</a>
+                        </li>
+                    </ul>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -69,6 +89,7 @@
                         <h1 class="page-header">
                             PMS <small>Project Management Service</small>
                         </h1>
+                        
                     </div>
                 </div>
                 <!-- /.row -->
@@ -87,47 +108,23 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">
                                     <i class="fa fa-long-arrow-right fa-fw"></i>
-                               			     내 프로젝트
+                       			       	실시간 채팅
                                 </h3>
                             </div>
-                            <nav class="navbar navbar-default">
-	                            <div class="container-fluid">
-				                    <ul class="nav navbar-nav">
-				                        <li>
-				                            <a href="javascript:Ajax('progress?code=0&prog=0','#printP')">전체</a>
-				                        </li>
-				                        <li class="divider"></li>
-				                        <li>
-				                            <a href="javascript:Ajax('progress?code=1&prog=1','#printP')">대기</a>
-				                        </li>
-				                        <li class="divider"></li>
-				                        <li>
-				                            <a href="javascript:Ajax('progress?code=2&prog=2','#printP')">작업전</a>
-				                        </li>
-				                        <li class="divider"></li>
-				                        <li>
-				                            <a href="javascript:Ajax('progress?code=3&prog=3','#printP')">작업중</a>
-				                        </li>
-				                        <li class="divider"></li>
-				                        <li>
-				                            <a href="javascript:Ajax('progress?code=4&prog=4','#printP')">작업 완료</a>
-				                        </li>
-				                    </ul>
-					            </div>
-					        </nav>
                             <div class="panel-body">
-                                <h1 style="text-align:center;">프로젝트 그래프 표기 구간입니다.</h1>
                                 <div id="printP" class="col-lg-12">
 									${makeList}
-				                </div>
+				            	</div>
                             </div>
+                            <div id="chatPrint" class='panel panel-default'>
+				            		
+				            </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
-     </div>
+            </div>
     <!-- jQuery -->
     <script src="resources/js/jquery-3.2.1.min.js"></script>
 
@@ -167,6 +164,32 @@
 					}
 				});
 				location.reload();
+			}
+			function chatStart(pnum){
+				alert(pnum);
+				$.ajax({
+					type: 'post',
+					url: "startChat",
+					data: {pnum:pnum},
+					success: function(data){
+						$('#chatPrint').html(data);
+					},
+					error: function(error){
+						console.log(error);
+					}
+				});
+			}
+			function submitFunction(pnum){
+				var chatContent = $('#chatContent').val();
+				$.ajax({
+					type: 'post',
+					url: 'sendChat',
+					data: {chatContent:chatContent, pnum:pnum},
+					success: function(data){
+						
+					}
+				});	
+				$('#chatContent').val('');
 			}
 		</script>
 </html>

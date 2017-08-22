@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -95,27 +96,13 @@
 	<div class="about">
 		<div class="container">
 			<div id="join">
-				<h3 style="color: black;">회원 가입</h3>
+				<h3 style="color: black;">회원 수정</h3>
 				<!-- <form name="join" action ="memberInsert" method="post" enctype="multipart/form-data"> -->
-				<form action ="memberInsert" method="post" enctype="multipart/form-data">
+				<form action ="memberUpdate" method="post" enctype="multipart/form-data">
 					<table>
 						<tr>
-							<td>
-								<ul>
-									<li><input type="radio" id="choseClient" class="radio" name="m_kind" value="C" /></li>
-									<li><label for="choseClient">클라이언트</label></li>
-								</ul>
-							</td>
-							<td>
-								<ul>
-									<li><input type="radio" id="choseFreelancer" class="radio" name="m_kind" value="F" /></li>
-									<li><label for="choseFreelancer">프리랜서</label></li>
-								</ul>
-							</td>
-						</tr>
-						<tr>
 							<td colspan="2">
-								<input type="text" id="userId" name="userId" placeholder="아이디" /> 
+								<input type="text" id="userId" name="userId" value="${mbUpdate.m_id}" placeholder="아이디" disabled/> 
 								<span id="notiId"></span>
 							</td>
 						</tr>
@@ -148,7 +135,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="text" id="userName" name="userName" placeholder="이름" /> 
+								<input type="text" id="userName" name="userName" value="${mbUpdate.m_name}" placeholder="이름" disabled/> 
 								<span id="notiName"></span>
 							</td>
 						</tr>
@@ -162,25 +149,13 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<input type="button" class="btn" onClick="sendCode()" value="인증번호 발송" /> 
-								<span id="notiCode"></span>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<input type="text" id="userCode" name="userCode" placeholder="인증번호" />
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
 								<!-- <input type="button" class="btn" onClick="join()" value="회원가입" /> -->
-								<input type="submit" class="btn" value="회원가입" />
+								<input type="submit" class="btn" value="수정완료" />
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
 								<input type="button" class="btn" onClick="location.href='./'" value="돌아가기" />
-								
 							</td>
 						</tr>
 
@@ -204,13 +179,13 @@
 </body>
 
 <script language="javascript">
-		var checked_radio = $('input:radio[name=m_kind]:checked').val(); // 선택된 radio의 value 가져오기
+		/* var checked_radio = $('input:radio[name=m_kind]:checked').val(); // 선택된 radio의 value 가져오기
 		if(checked_radio === undefined) // 선택을 하지 않았을 경우
 		{
 		    alert('옵션을 선택해주세요.');
 		} else {
 		    alert(checked_radio + "를 선택하셨습니다.");
-		}
+		} */
 
 		/* 비밀번호 중복 검사 */
 		function passwordCheckk(){

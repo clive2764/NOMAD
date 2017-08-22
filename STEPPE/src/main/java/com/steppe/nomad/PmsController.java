@@ -58,4 +58,19 @@ public class PmsController {
 		mav = pmm.execute(4);
 		return mav;
 	}
+	@RequestMapping(value = "/goLiveChat")
+	public ModelAndView goLiveChat(){
+		mav = pmm.execute(5);
+		return mav;
+	}
+	@RequestMapping(value = "/startChat")
+	public ModelAndView startChat(){
+		mav = pmm.execute(6);
+		return mav;
+	}
+	@RequestMapping(value = "/sendChat")
+	public @ResponseBody String sendChat(){
+		String jsonStr = pmm.executeAjax(2);
+		return jsonStr;
+	}
 }

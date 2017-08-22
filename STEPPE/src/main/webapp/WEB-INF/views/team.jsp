@@ -63,15 +63,6 @@
 						<h1 class="page-header">
 							PMS <small>Project Management Service</small>
 						</h1>
-						<div>
-							${makeList}
-						</div>
-						<div>
-							<table class="table">
-								<thead id="print">
-								</thead>
-							</table>
-						</div>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -86,8 +77,30 @@
 					</div>
 				</div>
 				<!-- /.row -->
+				 <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <i class="fa fa-long-arrow-right fa-fw"></i>
+                               			    멤버 관리
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="printP" class="col-lg-12">
+									${makeList}
+				                </div>
+				                <div>
+									<table class="table">
+										<thead id="print">
+										</thead>
+									</table>
+								</div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
 			</div>
-
 		</div>
 	</div>
 	<!-- jQuery -->

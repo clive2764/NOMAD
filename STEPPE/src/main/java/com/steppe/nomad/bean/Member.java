@@ -4,10 +4,17 @@ public class Member {
 	private String m_id;
 	private String m_pw;
 	private String m_name;
-	private String m_image;
 	private String m_email;
 	private String m_kind;
 	private String m_status;
+	private String mf_file;
+	
+	public String getMf_file() {
+		return mf_file;
+	}
+	public void setMf_file(String mf_file) {
+		this.mf_file = mf_file;
+	}
 	public String getM_id() {
 		return m_id;
 	}
@@ -25,12 +32,6 @@ public class Member {
 	}
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
-	}
-	public String getM_image() {
-		return m_image;
-	}
-	public void setM_image(String m_image) {
-		this.m_image = m_image;
 	}
 	public String getM_email() {
 		return m_email;
@@ -50,6 +51,7 @@ public class Member {
 	public void setM_status(String m_status) {
 		this.m_status = m_status;
 	}
+	
 	
 	
 }

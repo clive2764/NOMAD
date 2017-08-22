@@ -9,9 +9,9 @@
 4. resultType도 1개만 올 수 있는데 selectList인 경우 List로 변환한다. -->
 
 <mapper namespace="member">
-	<!-- <insert id = "memberInsert" parameterType = "member">
-		INSERT INTO M VALUES(#{m_id},#{m_pwd},#{m_name},#{m_birth},#{m_addr},#{m_phone},default)
-	</insert> -->
+	<insert id = "memberInsert" parameterType = "member">
+		INSERT INTO MEMBER(M_ID, M_PW, M_NAME,M_EMAIL,M_KIND,M_STATUS) VALUES(#{m_id,jdbcType=VARCHAR},#{m_pw,jdbcType=VARCHAR},#{m_name,jdbcType=VARCHAR},#{m_email,jdbcType=VARCHAR},#{m_kind,jdbcType=CHAR},'N')
+	</insert>
 	<select id="getLoginResult" parameterType = "member" resultType="Integer">
 		SELECT COUNT(*) FROM MEMBER WHERE M_ID=#{m_id} AND M_PW=#{m_pw}
 	</select>
@@ -21,15 +21,25 @@
 	<select id="getPwd" parameterType = "String" resultType="String">
 		SELECT M_PW FROM MEMBER WHERE M_ID=#{m_id}
 	</select> 
+
 	<select resultType="String" parameterType="String" id="getKind">
 	 	SELECT M_KIND FROM MEMBER WHERE M_ID=#{m_id}
 	</select>
-	<!-- HashMap 테스트 -->
-	<!-- <select id="hashMapTest" parameterType = "HashMap" resultType="Integer">
-		SELECT COUNT(*) FROM M WHERE M_ID=#{id} AND M_PWD=#{pwd}
-	</select> -->
-	
+
 	<select id="isEmail" parameterType = "String" resultType="String">
-		SELECT * FROM MEMBER WHERE M_EMAIL=#{email}
+		SELECT M_EMAIL FROM MEMBER WHERE M_EMAIL=#{email}
 	</select>
+	<insert id="fileInsert" parameterType="Map">
+		INSERT INTO MEMBERFILE VALUES(#{mfnum},#{id},#{sysFileName})
+	</insert>
+	<select id="getMFMaxNum" resultType="Integer">
+		<!-- 만약에 MAX(R_NUM)이 NULL이면 NVL(NULL VALUE)를 0으로 세팅해준다. -->
+		SELECT NVL(MAX(MF_NUM),0) FROM MEMBERFILE
+	</select>
+	<update id="updateMemberInfo" parameterType="member">
+		UPDATE member SET m_pw = #{m_pw}, m_email = #{m_email} WHERE m_id = #{m_id}
+	</update>
+	<update id="updateMFile" parameterType="Map">
+		UPDATE memberFile SET mf_sysname = #{sysFileName} WHERE mf_mid = #{m_id}
+	</update>
 </mapper>

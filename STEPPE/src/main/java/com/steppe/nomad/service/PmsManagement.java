@@ -14,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Volunteer;
 import com.steppe.nomad.dao.ProjectDao;
+import com.steppe.nomad.dao.VolunteerDao;
 
 @Service
 public class PmsManagement {
@@ -25,8 +27,12 @@ public class PmsManagement {
 	private HttpSession session;
 	@Autowired
 	private ProjectDao pDao;
+	@Autowired
+	private VolunteerDao vDao;
+	
 	private String jsonStr;
 	private Map<String, Integer> map = new HashMap<String, Integer>();
+	
 	public ModelAndView execute(int code, Project project) {
 		if(code == 1){
 			showProcess(project);
@@ -44,9 +50,65 @@ public class PmsManagement {
 			showMyProjectList();
 		}else if(code==4){
 			deleteTeamMember();
+		}else if(code==5){
+			goLiveChat();
+		}else if(code==6){
+			startChat();
 		}
 		return mav;
 	}
+	private void startChat() {
+		mav = new ModelAndView();
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		String chatRoom = chatRoomMake(pnum); 
+		mav.addObject("chatRoomHtml", chatRoom);
+		mav.setViewName("chatRoom");
+	}
+	private String chatRoomMake(int pnum) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y: auto; width: 350px; height: 600px;'>");
+		sb.append("<div class='col-lg-12'>");
+		sb.append("</div>");
+		sb.append("</div>");
+		sb.append("<div class='portlet-footer'>");
+		sb.append("<div class='row' style='height: 90px;'>");
+		sb.append("<div class='form-group col-xs-10'>");
+		sb.append("<textarea style='height:80px;' id='chatContent' class='form-control' placeholder='메시지를 입력하세요' maxlength='100'></textarea>");
+		sb.append("</div>");
+		sb.append("<div class='form-group col-xs-2'>");
+		sb.append("<button type='button' class='btn btn-default pull-right' onclick='submitFunction("+pnum+")' style='width: 150px; height:80px;'>전송</button>");
+		sb.append("</div>");
+		sb.append("</div>");
+		sb.append("</div>");
+		return sb.toString();
+	}
+
+	//채팅방리스트
+	private void goLiveChat() {
+		System.out.println("chatRoom실행");
+		mav = new ModelAndView();
+		String m_id = session.getAttribute("m_id").toString();
+		if(session.getAttribute("m_id")!=null && session != null){
+			List<Volunteer> chatRoomList = vDao.chatRoomList(m_id);
+			String chatRoomListMake = chatRoomListMake(chatRoomList); 
+			mav.addObject("makeList", chatRoomListMake);
+		}
+		mav.setViewName("chat");
+	}
+
+	private String chatRoomListMake(List<Volunteer> chatRoomList) {
+		StringBuilder sb = new StringBuilder();
+		Volunteer volunteer = null;
+		for(int i=0; i<chatRoomList.size(); i++){
+			volunteer = chatRoomList.get(i);
+			sb.append("<div class='panel panel-default' style='width:250px;'>");
+			sb.append("<h4 class='panel-heading'>"+volunteer.getP_title()+"</h4><br/>");
+			sb.append("<div style='text-align:center;'><input type='button' onclick='chatStart(\""+volunteer.getV_pnum()+"\")' value='채팅하기' /></div>");
+			sb.append("</div>");
+		}
+		return sb.toString();
+	}
+
 	private void deleteTeamMember() {
 		mav = new ModelAndView();
 		String mid = request.getParameter("mid");
@@ -56,11 +118,25 @@ public class PmsManagement {
 	public String executeAjax(int code){
 		if(code==1){
 			showMyMemberList();
+		}else if(code==2){
+			sendChat();
 		}
 		return jsonStr;
 	}
+
+	private void sendChat() {
+		String chatContent = request.getParameter("chatContent");
+		String pnum = request.getParameter("pnum");
+		String mid = session.getAttribute("m_id").toString();
+		if(mid == null || mid.equals("") || chatContent == null || chatContent.equals("")
+				|| pnum == null || pnum.equals("")){
+			
+		}
+		Gson jsonObj = new Gson();
+		//jsonStr = jsonObj.toJson();
+	}
+
 	private void showMyMemberList() {
-		mav = new ModelAndView();
 		Map<Object, Object> mapList = new HashMap<Object, Object>();
 		String title = request.getParameter("title");
 		String pNum = request.getParameter("pNum");
@@ -68,11 +144,10 @@ public class PmsManagement {
 		mapList.put("title", title);
 		mapList.put("pNum", pNum);
 		List<Member> memberList = pDao.showMyMemberList(mapList);
-		//String makeMemberList = makeMemberList(memberList);
+	
 		Gson jsonObj = new Gson();
 		jsonStr = jsonObj.toJson(memberList);
-		//mav.addObject("memberList",makeMemberList);
-		//mav.setViewName("");
+	
 	}
 
 	private void showMyProjectList() {
@@ -81,7 +156,7 @@ public class PmsManagement {
 		mav = new ModelAndView();
 		//session.getAttribute("");
 		if(session!=null && session.getAttribute("m_id")!=null){
-			List<Project> list = pDao.showMyProjectList("test2");
+			List<Project> list = pDao.showMyProjectList(session.getAttribute("m_id").toString());
 			String makeList = makeMyProjectList(list);
 			mav.addObject("makeList", makeList);
 			view = "team";
@@ -186,16 +261,17 @@ public class PmsManagement {
 			sb.append(project.getP_title()+"<br/>");
 			progNum = project.getP_status();
 		
-			sb.append("<progress value="+progNum+" max='3'></progress>");
 			sb.append("<div class='row'>"
 					+ "<div class='col-lg-12'>");
+			sb.append("<progress value="+progNum+" max='4' style='height: 30px; width:400px;'></progress>&nbsp;&nbsp;&nbsp;");
 			sb.append("<select name='prog' id='prog"+number+"'>");
 			sb.append("<option value='0'>전체</option>");
 			sb.append("<option value='1'>대기</option>");
-			sb.append("<option value='2'>작업중</option>");
-			sb.append("<option value='3'>완료</option>");
-			sb.append("</select>");
-			sb.append("<input type='button' onclick=\"javascript:Ajax2('progressUpdate?num="+project.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
+			sb.append("<option value='2'>작업전</option>");
+			sb.append("<option value='3'>작업중</option>");
+			sb.append("<option value='4'>작업 완료</option>");
+			sb.append("</select>&nbsp;");
+			sb.append("<input type='button' class='btn btn-default' onclick=\"javascript:Ajax2('progressUpdate?num="+project.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
 			sb.append("</div>"
 					+ "</div>");
 			number++;

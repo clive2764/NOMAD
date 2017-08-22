@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="volunteer">
+	<select id="chatRoomList" parameterType="String" resultType="Volunteer">
+		SELECT p.p_title, v.v_pnum FROM project p INNER JOIN volunteer v ON p.p_num = v.v_pnum 
+		WHERE v.v_ptteam = 1 AND v.v_mid = #{mid}
+	</select>
+</mapper>
