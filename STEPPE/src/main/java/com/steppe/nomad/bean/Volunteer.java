@@ -1,6 +1,7 @@
 package com.steppe.nomad.bean;
 
 public class Volunteer {
+
 	private int v_num;
 	private int v_ptteam;
 	private int v_pnum;
@@ -8,7 +9,7 @@ public class Volunteer {
 	private int v_bid;
 	private String v_time;
 	private String p_title;
-	
+
 	public int getV_num() {
 		return v_num;
 	}

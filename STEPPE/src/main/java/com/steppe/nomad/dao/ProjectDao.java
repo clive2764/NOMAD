@@ -50,9 +50,48 @@ public class ProjectDao {
 		return sqlSession.selectOne("project.getProjectMaxNum");
 	}
 	
-	public int insertProject(Map<Object, Object> fMap) {
+	public int insertProject(Map<String, Object> fMap) {
 		return sqlSession.insert("project.insertProject",fMap);
 	}
 
+	public List<Project> getProjectList2(String m_id) {
+		return sqlSession.selectList("project.getProjectList2", m_id);
+	}
+
+	public int UpdateProject(int v_pnum) {
+		return sqlSession.update("project.UpdateProject", v_pnum);
+	}
+
+	public int checkedProject(int p_num) {
+		return sqlSession.selectOne("project.checkedProject", p_num);
+	}
+
+	public int deleteProject(int p_num) {
+		return sqlSession.delete("project.deleteProject", p_num);
+	}
+
+	public int getPerson(int v_pnum) {
+		return sqlSession.selectOne("project.getPerson", v_pnum);
+	}
+
+	public List<Project> getProjectList(int pageNum) {
+		return sqlSession.selectList("project.getProjectList",pageNum);
+	}
+	
+	public int getProjectCount() {
+		return sqlSession.selectOne("project.getProjectCount");
+	}
+	
+	public List<Project> getDevelopList(int pageNum) {
+		return sqlSession.selectList("project.getDevelopList");
+	}
+
+	public List<Project> getDesignList(int pageNum) {
+		return sqlSession.selectList("project.getDesignList");
+	}
+
+	public List<Project> getSearchResult(String keyword) {
+		return sqlSession.selectList("project.getSearchResult", keyword);
+	}
 
 }

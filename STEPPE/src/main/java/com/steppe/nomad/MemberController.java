@@ -9,12 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.MemberManagement;
 
+
 @Controller
 public class MemberController {
 
 	private ModelAndView mav;
+
 	@Autowired
 	private MemberManagement mm;
+
 	@RequestMapping(value="/goUpdateUserInfo")
 	public ModelAndView goUpdateUserInfo(){
 		mav = new ModelAndView();
@@ -28,7 +31,7 @@ public class MemberController {
 		mav.setViewName("#");
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/updateInfo")
 	public ModelAndView updateInfo(Member mb){
 		mav = mm.execute(mb, 3);
@@ -39,4 +42,5 @@ public class MemberController {
 		mav = mm.execute(multi, 2);
 		return mav;
 	}
+
 }

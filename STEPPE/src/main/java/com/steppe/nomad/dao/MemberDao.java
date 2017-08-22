@@ -1,5 +1,6 @@
 package com.steppe.nomad.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.steppe.nomad.bean.Member;
+import com.steppe.nomad.bean.Notice;
 
 
 @Repository 
@@ -16,12 +18,27 @@ public class MemberDao {
 	//마이바티스 설정
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	public String getId(Member member) {
+		return sqlSession.selectOne("member.getId", member);
+	}
+	
+	public String getPwds(Member member) {
+		return sqlSession.selectOne("member.getPwds", member);
+	}
 
+	public String isId(String id) {
+		return sqlSession.selectOne("member.isId", id);
+	}
+	public String isName(String name) {
+		return sqlSession.selectOne("member.isName", name);
+	}
+	
 	public String isEmail(String email) {
 		System.out.println("MemberDao email="+email);
 		return sqlSession.selectOne("member.isEmail", email);
 	}
-
+	
 	public int getLoginResult(Member mb) { //id, pw 넘김
 
 		return sqlSession.selectOne("member.getLoginResult",mb);
@@ -96,4 +113,42 @@ public class MemberDao {
 	public int updateMFile(Map<String,String> map){
 		return sqlSession.update("member.updateMFile", map);
 	}
+	public List<Member> getMemberList(int pageNum) {
+		return sqlSession.selectList("member.getMemberList",pageNum);
+	}
+
+	public int addBlackList(String m_id) {
+		return sqlSession.update("member.addBlackList", m_id);		
+	}
+
+	public List<Member> getBlackList(int pageNum) {
+		return sqlSession.selectList("member.getBlackList",pageNum);
+	}
+
+	public int goBlackUpdate(String m_id) {
+		return sqlSession.update("member.goBlackUpdate", m_id);
+
+	}
+
+	public List<Member> getClientList(int pageNum) {
+		return sqlSession.selectList("member.getClientList",pageNum);
+	}
+
+	public List<Member> getFreeLancerList(int pageNum) {
+		return sqlSession.selectList("member.getFreeLancerList",pageNum);
+	}
+
+	public List<Member> getSearchResult(String keyword) {
+		return sqlSession.selectList("member.getSearchResult", keyword);
+	}
+
+	public int memberDelete(String m_id) {
+		return sqlSession.delete("member.memberDelete",m_id);
+		
+	}
+
+	public int getMemberCount() {
+		return sqlSession.selectOne("member.getMemberCount");
+	}
+
 }

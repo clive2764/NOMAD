@@ -18,14 +18,14 @@
 	</select>
 	<select id="getNoticeList" parameterType="Integer" resultType="notice">
 		
-		<!-- <![CDATA[
-		SELECT * FROM NOTICE WHERE N_NUM>=#{pageNum}*10-9 AND N_NUM<=#{pageNum}*10
-		]]> -->
-		SELECT * FROM NOTICE ORDER BY N_NUM
+		<![CDATA[
+		SELECT * FROM NLIST WHERE RNUM>=#{pageNum}*10-9 AND RNUM<=#{pageNum}*10 ORDER BY N_NUM
+		]]>
+		<!-- SELECT * FROM NOTICE ORDER BY N_NUM -->
 	</select>
 	
 	<select id="getNoticeCount" resultType="Integer">
-		SELECT COUNT(*) FROM NOTICE
+		SELECT COUNT(*) FROM NLIST
 	</select>
 	
 	<select id="getName" resultType="String">
@@ -42,54 +42,7 @@
 	<update id="noticeUpdate" parameterType="notice">
 		UPDATE NOTICE SET n_title = #{n_title}, n_content = #{n_content}  WHERE n_num = #{n_num}
 	</update>
-
 		
-	<!-- <select id="getBoardList" parameterType="Integer" resultType="board">
-		게시글을 한페이지에 10개의 글을 출력하는법
-		부등호가 tag로 인식하지 않게 하는법
-		<![CDATA[
-		SELECT * FROM BLIST_1 WHERE RNUM>=#{pageNum}*10-9 AND RNUM<=#{pageNum}*10
-		]]>
-	</select>
-	<select id="getBoardCount" resultType="Integer">
-		SELECT COUNT(*) FROM
-		BLIST_1
-	</select>
-	<select id="getContents" parameterType="Integer" resultType="board">
-		SELECT * FROM BLIST_1 WHERE BNUM=#{bnum}
-	</select>
-	<select id="getReplyList" parameterType="Integer" resultType="reply">
-		SELECT * FROM RLIST WHERE R_BNUM=#{bnum}
-	</select>
-	
-	<insert id="replyInsert" parameterType="reply">
-		INSERT INTO R
-		VALUES(#{r_num},#{r_bnum},#{r_contents},#{r_id},default)
-	</insert>
-	<select id="getRlistCount" resultType="Integer">
-		SELECT COUNT(*) FROM RLIST
-	</select>
-	<select id="getReplyNum" resultType="Integer">
-		SELECT NVL(MAX(R_NUM),0)
-		FROM RLIST
-	</select>
-	<delete id="replyDelete" parameterType="Integer">
-		DELETE FROM R WHERE
-		R_BNUM = #{bnum}
-	</delete>
-	<delete id="articleDelete" parameterType="Integer">
-		DELETE FROM B WHERE
-		B_NUM = #{bnum}
-	</delete>
-	
-	
-	<select id="getBoardMaxNum" resultType="Integer">
-		SELECT MAX(BNUM) FROM BLIST_1
-	</select>
-	<insert id="fileInsert" parameterType="Map">
-		INSERT INTO BF VALUES(BOARDFILE_SEQ.NEXTVAL,#{bnum},#{oriFileName},#{sysFileName})
-	</insert>
-	 -->
 </mapper>
 
 

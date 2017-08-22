@@ -18,14 +18,30 @@
 	<select id="getMemberInfo" parameterType = "String" resultType="member">
 		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
 	</select>
+	
+	<select id="getId" parameterType = "member" resultType="String">
+		SELECT M_ID FROM MEMBER WHERE M_NAME =#{m_name} AND M_EMAIL = #{m_email}
+	</select> 
+	
 	<select id="getPwd" parameterType = "String" resultType="String">
 		SELECT M_PW FROM MEMBER WHERE M_ID=#{m_id}
-	</select> 
+	</select>
+	<select id="getPwds" parameterType = "member" resultType="String">
+		SELECT M_PW FROM MEMBER WHERE M_ID=#{m_id} AND M_EMAIL = #{m_email}
+	</select>  
 
 	<select resultType="String" parameterType="String" id="getKind">
 	 	SELECT M_KIND FROM MEMBER WHERE M_ID=#{m_id}
 	</select>
 
+	<select id="isId" parameterType = "String" resultType="String">
+		SELECT M_ID FROM MEMBER WHERE M_ID=#{id}
+	</select>
+	
+	<select id="isName" parameterType = "String" resultType="String">
+		SELECT M_NAME FROM MEMBER WHERE M_NAME=#{m_name}
+	</select>
+	
 	<select id="isEmail" parameterType = "String" resultType="String">
 		SELECT M_EMAIL FROM MEMBER WHERE M_EMAIL=#{email}
 	</select>
@@ -42,4 +58,55 @@
 	<update id="updateMFile" parameterType="Map">
 		UPDATE memberFile SET mf_sysname = #{sysFileName} WHERE mf_mid = #{m_id}
 	</update>
+	<select id="getMemberList" parameterType="Integer" resultType="member">
+		
+		<![CDATA[
+		SELECT * FROM MLIST WHERE RNUM>=#{pageNum}*10-9 AND RNUM<=#{pageNum}*10
+		]]>
+	</select>
+	
+	<select id="getMemberCount" resultType="Integer">
+		SELECT COUNT(*) FROM MLIST
+	</select>
+	
+	<update id="addBlackList" parameterType="String">
+		UPDATE MEMBER SET m_status = 'B'  WHERE m_id = #{mid}
+	</update>
+	
+	<select id="getBlackList" parameterType="Integer" resultType="member">
+		
+		<!-- <![CDATA[
+		SELECT * FROM NOTICE WHERE N_NUM>=#{pageNum}*10-9 AND N_NUM<=#{pageNum}*10
+		]]> -->
+		SELECT * FROM MEMBER WHERE M_STATUS = 'B'
+	</select>
+	
+	<update id="goBlackUpdate" parameterType="String">
+		UPDATE MEMBER SET m_status = 'N' WHERE m_id = #{mid}
+	</update>
+	
+	<select id="getClientList" parameterType="Integer" resultType="member">
+		
+		<!-- <![CDATA[
+		SELECT * FROM NOTICE WHERE N_NUM>=#{pageNum}*10-9 AND N_NUM<=#{pageNum}*10
+		]]> -->
+		SELECT * FROM MEMBER WHERE M_KIND = 'C'
+	</select>
+	
+	<select id="getFreeLancerList" parameterType="Integer" resultType="member">
+		
+		<!-- <![CDATA[
+		SELECT * FROM NOTICE WHERE N_NUM>=#{pageNum}*10-9 AND N_NUM<=#{pageNum}*10
+		]]> -->
+		SELECT * FROM MEMBER WHERE M_KIND = 'F'
+	</select>
+	
+	<select id="getSearchResult" parameterType="String" resultType="member">
+      SELECT * FROM MEMBER WHERE M_ID LIKE '%'||#{keyword}||'%' OR M_NAME LIKE '%'||#{keyword}||'%'
+   </select>
+   
+   <delete id="memberDelete" parameterType="String">
+		DELETE FROM MEMBER WHERE m_id = #{m_id}
+   </delete>
+   
 </mapper>
