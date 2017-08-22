@@ -16,10 +16,13 @@
       <link href="resources/css/style.css" rel="stylesheet" />
       <link href="resources/css/heroic-features.css" rel="stylesheet" />
       <style>
+      	
          body{
             padding-top: 0px;
          }
-         
+         .about{
+            height: -webkit-fill-available;
+         }
          input{
             color: black;
          }
@@ -41,15 +44,10 @@
       
       <!--메인페이지 영역-->
       
-         <div class="about">
-
+         
+            
             ${flist}
-            ${slist}
-         </div>   
-              
-               
-         </div>
-      
+            ${slist}               
       <hr>
    
       <!--푸터 영역 시작-->

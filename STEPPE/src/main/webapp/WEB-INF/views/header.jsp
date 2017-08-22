@@ -29,8 +29,7 @@
 </style>
 </head>
 <body>
-
-	<!--상단 메뉴바-->
+<!--상단 메뉴바-->
 	<header id="header">
 	 <nav class="navbar navbar-default navbar-static-top" role="banner">
 	<div class="container" style="width: 100%;">
@@ -79,17 +78,17 @@
 
 								</c:if>
 								<c:if test="${m_id eq 'admin'}">
-									<a href="goProjectMM""> 프로젝트 관리 </a>
+									<a href="goProjectMM"> 프로젝트 관리 </a>
 								</c:if>
 								<c:if test="${m_id eq 'admin'}">
-									<a href="goReportList""> 신고 관리 </a>
+									<a href="goReportList"> 신고 관리 </a>
 								</c:if>
 
 								<c:if test="${m_id eq 'admin'}">
-									<a href="goFstMM""> 자격 시험 관리 </a>
+									<a href="goFstMM"> 자격 시험 관리 </a>
 								</c:if>
 								<c:if test="${m_id eq 'admin'}">
-									<a href="goPuchaseMM""> 결제 관리 </a>
+									<a href="goPuchaseMM"> 결제 관리 </a>
 								</c:if>
 								<a href="logout">logout</a>
 							</div>

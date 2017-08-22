@@ -1,15 +1,15 @@
 package com.steppe.nomad.bean;
 
 public class Career {
-private String ca_num;
+private int ca_num;
 private String m_id;
 private String ca_term;
 private String ca_company;
 private String ca_rank;
-public String getCa_num() {
+public int getCa_num() {
 	return ca_num;
 }
-public void setCa_num(String ca_num) {
+public void setCa_num(int ca_num) {
 	this.ca_num = ca_num;
 }
 public String getM_id() {

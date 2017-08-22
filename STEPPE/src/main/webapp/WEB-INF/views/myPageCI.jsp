@@ -18,14 +18,29 @@
 		<jsp:include page="header.jsp" />
 		<!--메인페이지 영역-->
 		<div class="about">
+
 			<form name="pinsert" action="goAddProject" method="get">
 			<button>프로젝트 등록</button>
 			</form>
+
+		<button id="showProcessAll" name="showProcessAll" onclick="location.href='./showProcessAll ' ">프로젝트 관리</button>
+		<button  id="pinsert" name="pinsert" onclick="location.href='./goAddProject' ">프로젝트 등록</button>
+		<button  id="updateUserInfo" name="updateUserInfo" onclick="location.href='./goUpdateUserInfo' ">회원정보 수정</button>
+		<button  id="deleteMember" name="deleteMember" onclick="location.href='./deleteMember' ">회원탈퇴</button>
+		<h2>프로젝트 목록</h2>
+		${plist}
+
 		</div>
 		<hr>
 		<div class="row"></div>
 		 
 		<!-- 푸터 영역 -->  
 		<jsp:include page="footer.jsp" />
+	<script>
+	function P_teamCheck(p_status2){
+		alert(p_status2);
+	}
+	</script>
+
 </body>
 </html>

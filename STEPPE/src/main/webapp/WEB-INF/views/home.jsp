@@ -48,20 +48,6 @@
                 <div class="item">
                   <img src="resources/img/slide.jpg" class="img-responsive" alt=""> 
                   <div class="carousel-caption">
-                     <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="1.0s">                        
-                        <h2>Fully Responsive</h2>
-                     </div>
-                     <div class="col-md-10 col-md-offset-1">
-                        <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">                        
-                           <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
-                        </div>
-                     </div>
-                     
-                  </div>
-                </div> 
-                <div class="item">
-                  <img src="resources/img/slide.jpg" class="img-responsive" alt=""> 
-                  <div class="carousel-caption">
                      <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">                        
                         <h2>Modern Design</h2>
                      </div>
@@ -113,9 +99,6 @@
                     <h3>프로젝트 영역</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
                 </div>
-
-				                
-
 			</div>	
 	</div>			
 	<hr>
@@ -125,6 +108,7 @@
     <jsp:include page="footer.jsp" />
       
      
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
     <script src="resources/js/jquery-3.2.1.min.js"></script>		
     <script src="resources/js/bootstrap.min.js"></script>	
