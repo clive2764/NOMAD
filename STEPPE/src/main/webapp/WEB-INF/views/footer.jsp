@@ -9,6 +9,7 @@
 </head>
 <body>
 <div class="sub-footer">
+
       <div class="container">
          <div class="social-icon">
             <div class="col-md-4">
@@ -44,8 +45,8 @@
          </div>
          
          <div class="col-md-4 col-md-offset-4">
-            <div class="copyright">
-               &copy; Day Theme. All Rights Reserved.
+           <div class="copyright">
+					&copy; Day Theme. All Rights Reserved.
                     <div class="credits">
                         <!-- 
                             All the links in the footer should remain intact. 
@@ -56,13 +57,23 @@
                         <a href="https://bootstrapmade.com/">Free Bootstrap Themes</a> by 
                         <a href="https://bootstrapmade.com/">BootstrapMade</a>
                         <br/>
+
                         <a href="goNotice">공지사항</a>&nbsp;&nbsp;&nbsp;
                         <a href="#">faq</a>&nbsp;&nbsp;&nbsp;
                         <a href="#">이용약관</a>
                     </div>
             </div>
-         </div>                  
+				<div class="social-icon">
+				<div class="col-md-4">
+				
+						
+				</div>
+				</div>
+			</div>
+			                
       </div>            
    </div>
+  
+
 </body>
 </html>

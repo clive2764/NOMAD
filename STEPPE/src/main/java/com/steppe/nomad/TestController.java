@@ -108,5 +108,12 @@ public class TestController {
 		mav=fm.userExecute(3);	
 		return mav;
 	}
+	//자격시험 관리
+	@RequestMapping(value="/goFstMM")
+	public ModelAndView goFstMM(){
+		mav=new ModelAndView();
+		mav.setViewName("fstMm");
+		return mav;
+	}
 	
 }

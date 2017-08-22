@@ -15,6 +15,7 @@
 		<link href="resources/css/animate.min.css" rel="stylesheet"> 
 		<link href="resources/css/style.css" rel="stylesheet" />   
 	</head>
+
   <body>
     <jsp:include page="header.jsp" />
     <!--carousel 영역-->
@@ -112,11 +113,9 @@
                     <h3>프로젝트 영역</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
                 </div>
-		
-				<div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">								
-				    <a href="#" style="background-color:cornflowerblue; height:250px;" >프로젝트 바로가기</a>
-				</div>
-                
+
+				                
+
 			</div>	
 	</div>			
 	<hr>
@@ -126,13 +125,11 @@
     <jsp:include page="footer.jsp" />
       
      
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
     <script src="resources/js/jquery-3.2.1.min.js"></script>		
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="resources/js/bootstrap.min.js"></script>	
 	<script src="resources/js/wow.min.js"></script>
 	<script>wow = new WOW({}).init();</script>	
-    
 </body>
 <script type="text/javascript"> 
 var message = '${msg}';

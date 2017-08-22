@@ -25,5 +25,6 @@
 		<typeAlias type="com.steppe.nomad.bean.Notice" alias="notice"/>
 		<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
 		<typeAlias alias="required_skill" type="com.steppe.nomad.bean.Required_Skill"/>
+		<typeAlias alias="report" type="com.steppe.nomad.bean.Report"/>
 	</typeAliases> 
 </configuration> 

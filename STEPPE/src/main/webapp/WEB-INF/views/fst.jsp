@@ -34,7 +34,7 @@
 				<td>퍼센트</td>
 				<td>합격여부</td>
 			</tr>
-			${alist}
+			${rslist}
 		</table>
 		<div class="row">
 			<hr style="width: 80%; color: grey;"/>

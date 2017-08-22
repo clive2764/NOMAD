@@ -43,17 +43,25 @@ public class FreelancerDao {
 
 	public Member getFreelancerDetail(String m_id) {
 
+
 		return sqlSession.selectOne("Career.getFreelancerDetail", m_id);
 
 	}
 
 	public List<Career> getCareer(String m_id) {
 
+		
 		return sqlSession.selectList("Career.getCareer", m_id);
+		
 	}
 
-	public List<Member> getSearchResult(String keyword) {
 
+	public List<Member> getSearchResult(String keyword){
+
+		
 		return sqlSession.selectList("Career.getSearchResult", keyword);
 	}
+
+	
+
 }
