@@ -1,24 +1,32 @@
 package com.steppe.nomad.bean;
 
 public class Portfolio {
-private String pf_num;
-private String m_id;
+private int pf_num;
+private String pf_mid;
 private String pf_title;
 private String pf_term;
 private String pf_contribute;
 private String pf_content;
-private String pf_image;
-public String getPf_num() {
+private String pt_sysname;
+
+public String getPt_sysname() {
+	return pt_sysname;
+}
+public void setPt_sysname(String pt_sysname) {
+	this.pt_sysname = pt_sysname;
+}
+public int getPf_num() {
 	return pf_num;
 }
-public void setPf_num(String pf_num) {
+public void setPf_num(int pf_num) {
 	this.pf_num = pf_num;
 }
-public String getM_id() {
-	return m_id;
+
+public String getPf_mid() {
+	return pf_mid;
 }
-public void setM_id(String m_id) {
-	this.m_id = m_id;
+public void setPf_mid(String pf_mid) {
+	this.pf_mid = pf_mid;
 }
 public String getPf_title() {
 	return pf_title;
@@ -43,12 +51,6 @@ public String getPf_content() {
 }
 public void setPf_content(String pf_content) {
 	this.pf_content = pf_content;
-}
-public String getPf_image() {
-	return pf_image;
-}
-public void setPf_image(String pf_image) {
-	this.pf_image = pf_image;
 }
 
 

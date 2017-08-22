@@ -100,7 +100,37 @@ td.category{
 </style>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
+	<!--상단 메뉴바-->
+	<header id="header"> <nav
+		class="navbar navbar-default navbar-static-top" role="banner">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<div class="navbar-brand">
+				<a href="main"><h1>steppe</h1></a>
+			</div>
+		</div>
+		<div class="navbar-collapse collapse">
+			<div class="menu">
+				<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs" role="tablist">
+							<li role="presentation"><a href="goIntro">steppe?</a></li>
+							<li role="presentation"><a href="goProject">프로젝트</a></li>
+							<li role="presentation"><a href="goFreelancer">프리랜서</a></li>
+							<li role="presentation"><a href="goManual">이용방법</a></li>
+                            <li role="presentation"><a href="goPms">프로젝트 관리</a></li>
+					</ul>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</nav> 
+	</header>
 	<div class="row"></div>
 	<div class="container">
 		<form action="insertProject" method="post" id="insertForm" name="form1" enctype="multipart/form-data" onsubmit="return check()">
@@ -173,6 +203,9 @@ td.category{
                      			<legend>세부기술 선택(최대3개)</legend>
                      				${slist}
                      		</fieldset>
+                     		<input id="p_plnum0" type="hidden" name="p_plnum0"/>
+                     		<input id="p_plnum1" type="hidden" name="p_plnum1"/>
+                     		<input id="p_plnum2" type="hidden" name="p_plnum2"/>
                   		</td>
                		</tr>
 
@@ -213,9 +246,25 @@ td.category{
 </div>
 
 <script>
+
+/*
+$("#inter").click(function(){
+	$("input[name=p_plnum]:checked").each(function(idx){
+		var value=$(this).val();
+		var eqValue=$("input[name=p_plnum]:eq("+idx+")").val();
+		console.log(value+":"+eqValue);
+		//console.log(test);
+		//$("#inter").attr({
+			//"name":"test"	
+		//});
+	});
+});*/
 	$("input[name=p_plnum]:checked").each(function(){
 		var test=$(this).val();
 		console.log(test);
+		$("#inter").attr({
+			"name":"test"	
+		});
 		
 	});
 	
@@ -322,6 +371,7 @@ td.category{
  			}else{
  				$("#p_filename").val(1);//파일첨부 함
  			}
+ 			
  		}
  		
  		function typing(){
@@ -413,6 +463,7 @@ td.category{
 		var totalChecked=0;
  		
  		function CountChecked(obj){
+ 			
  			if(obj.checked)
  				totalChecked+=1;
  			else
@@ -423,10 +474,50 @@ td.category{
  				obj.checked=false;
  				totalChecked-=1;
  			}
+ 			
+ 			/*var valueArr=[];
+ 			var list=$("input[name='p_plnum']");
+ 			for(var i=0; i<list.length; i++){
+ 				if(list[i].checked){
+ 					valueArr.push(list[i].value);
+ 				}
+ 			}
+ 			var str='';
+ 			for(var i in valueArr){
+ 				str+=valueArr[i]+",";
+ 			}
+ 			console.log(str); 	
+ 			$("#inter").attr({
+ 				value : str
+ 			});*/
+ 			var valueArr=[];
+ 	 		var list=document.getElementsByName("p_plnum");		
+ 	 		var listi=document.getElementById("inter");
+ 	 		var p_plnum0=document.getElementById("p_plnum0");
+ 	 		var p_plnum1=document.getElementById("p_plnum1");
+ 	 		var p_plnum2=document.getElementById("p_plnum2");
+ 	 		for(var i=0; i<list.length; i++){
+ 	 			if(list[i].checked){
+ 	 				valueArr.push(list[i].value);
+ 	 			}
+ 	 		}
+ 	 		var str='';
+ 	 		for(var i in valueArr){
+ 				str+=valueArr[i]+",";
+ 			}
+ 	 		console.log(str); 
+ 	 		listi.setAttribute("value",str);
+ 	 		var newArr=str.split(",");
+ 	 		console.log(newArr);
+ 	 		console.log(newArr[0]);
+ 	 		p_plnum0.setAttribute("value",newArr[0]);
+ 	 		p_plnum1.setAttribute("value",newArr[1]);
+ 	 		p_plnum2.setAttribute("value",newArr[2]);
+ 	 		
  		}
-
+ 		/*
  		function check(){
- 			var frm=document.joinFrm;
+ 			var frm=document.form1;
  			var length=frm.length-1;//마지막 회원가입은 하면 않되어 -1을 함
  			for(var i=0; i<length; i++){//하나라도 빠지면 작동이 않되게 하기 위해 필요
  				if(frm[i].value=="" || frm[i]==null){
@@ -436,7 +527,7 @@ td.category{
  				}
  			}
  			return true;//성공시
- 		}
+ 		}*/
     //$("#complete").click(function(){
     	//	$("#replyForm").submit();
   //  });

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- member_mapper.xml : 회원(member)관리 관련 쿼리문이 들어간다. -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accounting">
+
+	<select id="Countpunum" resultType="Integer" parameterType = "Integer">
+		select count(*) from purchase where PU_PNUM=#{v_pnum}
+	</select>
+	
+	<select id="getPrice" resultType="Integer" parameterType = "Integer">
+		select MAX(v_bid) from volunteer where V_PNUM=#{v_pnum}
+	</select>	
+</mapper>

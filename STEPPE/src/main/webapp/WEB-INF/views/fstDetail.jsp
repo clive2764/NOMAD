@@ -48,10 +48,12 @@
 				<tr><td>4번</td><td class="tcontent">${test.t_no4}</td></tr>
 				<tr><td>정답</td><td class="tcontent">${test.t_answer}</td></tr>
 			</table>
+		</div>
+	</div>
 			<br/>
 			<button class='buttonA'><a href="javascript:history.go(-1)" class='AA'>뒤로가기</a></button>
 			</div>
-	</div>
+
 	<div class="row"></div>
 	<hr/>
 		 

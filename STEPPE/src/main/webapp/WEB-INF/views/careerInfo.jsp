@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
@@ -26,7 +26,9 @@
 .container {
    color: black;
 }
-
+input{
+color:black;
+}
 table {
    text-align: center;
    vertical-align: middle;
@@ -53,38 +55,47 @@ input {
 <body>
    <jsp:include page="header.jsp" />
    <div class="container">
-      <!--style="height:-webkit-fill-available;"-->
-      <form action="" method="post" id="career">
-         <table class="table">
-            <tr>
-               <td><p>경력 기간</p></td>
-               <td colspan="2"><input style="width: 40%;" type="text"
-                  placeholder="경력기간을 입력해주세요" name="ca_term" id="term"></td>
-            </tr>
-            <tr>
-               <td><p>회사명</p></td>
-               <td colspan="2"><input style="width: 40%;" type="text"
-                  placeholder="회사명을 입력해주세요" name="ca_company" id="company"></td>
-            </tr>
-            <tr>
-               <td><p>근무직급</p></td>
-               <td colspan="2"><input style="width: 40%;" type="text"
-                  placeholder="근무 직급을 입력해주세요" name="ca_rank" id="rank"></td>
-            </tr>
-            <tr rowspan="3" colspan="3">
-               <td colspan="3"><input type="button" id="complete"
-                  value="작성완료" /></td>
-            </tr>
-         </table>
-      </form>
-   </div>
-
-   <hr>
-   <div class="container">
-      <!--style="height:-webkit-fill-available;"-->
-      <h1 style="text-align: center;">경력정보 출력 영역으로 사용예정</h1>
-   </div>
-   <div class="row"></div>
+		<!--style="height:-webkit-fill-available;"-->
+		<form action="addCareerInfo" method="post" id="career">
+			<table class="table">
+				<tr>
+					<td><p>경력 기간</p></td>
+					<td colspan="2"><input style="width: 40%;" type="text"
+						placeholder="경력기간을 입력해주세요" name="ca_term" id="term"></td>
+				</tr>
+				<tr>
+					<td><p>회사명</p></td>
+					<td colspan="2"><input style="width: 40%;" type="text"
+						placeholder="회사명을 입력해주세요" name="ca_company" id="company"></td>
+				</tr>
+				<tr>
+					<td><p>근무직급</p></td>
+					<td colspan="2"><input style="width: 40%;" type="text"
+						placeholder="근무 직급을 입력해주세요" name="ca_rank" id="rank"></td>
+				</tr>
+				<tr rowspan="3" colspan="3">
+					<td colspan="3"><input type="button" id="complete"
+						value="작성완료" /></td>
+				</tr>
+			</table>
+		</form>
+		<table>
+			<tr align="center" height="25">
+				<td width="200">경력기간</td>
+				<td width="200">회사명</td>
+				<td width="200">직급</td>
+			</tr>
+		</table>
+		<table id="cTable">
+			<c:forEach var="career" items="${clist}">
+				<tr align="center" height="25">
+					<td width="200">${c.ca_term}</td>
+					<td width="200">${c.ca_company}</td>
+					<td width="200">${c.ca_rank}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
    <!--푸터 영역 시작-->
    <jsp:include page="footer.jsp" />
    <!--푸터 영역 끝-->
@@ -98,33 +109,115 @@ input {
    <script>wow = new WOW({}).init();</script>
 </body>
 <script>
-    $("#complete").click(function(){
-        var term = $("#term").val();
-        var company = $("#company").val();
-        var rank= $("#rank").val();
-        console.log(term);
-        console.log(company);
-        if(term == "" || company == "" || rank == ""){
-          alert("빈항목이 존재합니다!");      
-        } 
-          
-        if(term != "" && company != "" && rank != ""){
-            $("#career").submit();
-        }    
-    });
-    /*function complete(){
-        var term = $("#term").val();
-        var company = $("#company").val();
-        var rank= $("#rank").val();
-        console.log(term);
-        console.log(company);
-        if(term == "" || company == "" || rank == ""){
-          alert("빈항목이 존재합니다!");      
-        } 
-          
-        if(term != "" && company != "" && rank != ""){
-            $("#career").submit();
-        }    
-   }*/
+    /* $("#complete").click(function(){
+	    var term = $("#term").val();
+	    var company = $("#company").val();
+	    var rank= $("#rank").val();
+	    console.log(term);
+	    console.log(company);
+	    if(term == "" || company == "" || rank == ""){
+	      alert("빈항목이 존재합니다!");      
+	    } 
+	      
+	    if(term != "" && company != "" && rank != ""){
+	        $("#career").submit();
+	    }
+	}); */
+	$(document).ready(function(){
+		var clist=''; 	
+		$.ajax({
+			type : 'get',
+			url : 'showMyCareer',
+			data : $('#career').serialize(),
+			//$('#rForm').serialize(), 폼 전체 데이터 전송
+			dataType : 'json',
+			success : function(data) { //댓글 리스트 json형태 반환
+				console.log(data); //json 구조파악
+				for(var i=0;i<data.length;i++){
+					clist+='<tr height="25" align="center">'
+					+'<td width="200">'+data[i].ca_term+'</td>'
+					+'<td width="200">'+data[i].ca_company+'</td>'
+					+'<td width="200">'+data[i].ca_rank+'</td>'
+					+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+			}
+			$('#cTable').html(clist);
+			},
+			error : function(error) {
+				alert("error");
+				console.log(error);
+			}
+		});
+
+	$("#complete").click(function() {
+				var clist='';
+		$.ajax({
+			type : 'get',
+			url : 'addCareerInfo',
+			data : $('#career').serialize(),
+			//$('#rForm').serialize(), 폼 전체 데이터 전송
+			dataType : 'json',
+			success : function(data) { //댓글 리스트 json형태 반환
+				console.log(data); //json 구조파악
+				for(var i=0;i<data.length;i++){
+					clist+='<tr height="25" align="center">'
+					+'<td width="200">'+data[i].ca_term+'</td>'
+					+'<td width="200">'+data[i].ca_company+'</td>'
+					+'<td width="200">'+data[i].ca_rank+'</td>'
+				 	+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+			}
+			$('#cTable').html(clist);
+			},
+			error : function(error) {
+				alert("error");
+				console.log(error);
+			}
+		});
+	});
+	});
+	function memberDelete(num){
+		var number = num;
+		var clist='';
+		$.ajax({
+			type : 'get',
+			url : 'deleteCareerInfo',
+			data : {num:num},
+			//$('#rForm').serialize(), 폼 전체 데이터 전송
+			dataType : 'json',
+			success : function(data) { //댓글 리스트 json형태 반환
+				console.log(data); //json 구조파악
+				for(var i=0;i<data.length;i++){
+					clist+='<tr height="25" align="center">'
+					+'<td width="200">'+data[i].ca_term+'</td>'
+					+'<td width="200">'+data[i].ca_company+'</td>'
+					+'<td width="200">'+data[i].ca_rank+'</td>'
+					+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+			}
+			$('#cTable').html(clist);
+			},
+			error : function(error) {
+				console.log(error);
+			} 
+	});
+		location.reload();
+	}
+	
+
+	/* function(){
+		
+	} */
+	/*function complete(){
+	    var term = $("#term").val();
+	    var company = $("#company").val();
+	    var rank= $("#rank").val();
+	    console.log(term);
+	    console.log(company);
+	    if(term == "" || company == "" || rank == ""){
+	      alert("빈항목이 존재합니다!");      
+	    } 
+	      
+	    if(term != "" && company != "" && rank != ""){
+	        $("#career").submit();
+	    }    
+	}*/
 </script>
 </html>
