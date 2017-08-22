@@ -4,30 +4,49 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Career">
 	<select id="getCareerMaxNum" resultType="Integer">
-		SELECT NVL(MAX(CA_NUM),0) FROM CAREER
+		SELECT
+		NVL(MAX(CA_NUM),0) FROM CAREER
 	</select>
-	
+
 	<select id="getCareerList" parameterType="String" resultType="career">
 		SELECT * FROM CAREER WHERE CA_MID = #{m_id}
 	</select>
-	
+
 	<insert id="insertCareer" parameterType="career">
-		INSERT INTO CAREER VALUES(#{ca_num},#{m_id},#{ca_term},#{ca_company},#{ca_rank})
+		INSERT INTO CAREER
+		VALUES(#{ca_num},#{m_id},#{ca_term},#{ca_company},#{ca_rank})
 	</insert>
-	
+
 	<delete id="deleteCareer" parameterType="career">
-		DELETE FROM CAREER WHERE CA_NUM = #{ca_num}
+		DELETE FROM CAREER WHERE
+		CA_NUM = #{ca_num}
 	</delete>
+
+	<select id="getFreelancerList" resultType="member">
+		SELECT * FROM MLIST WHERE M_KIND='F'
+	</select>
+
+	<select id="getFreelancerDetail" parameterType="String"
+		resultType="member">
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
+
+	<select id="getCareer" parameterType="String" resultType="career">
+		SELECT
+		* FROM CAREER WHERE CA_MID=#{m_id}
+	</select>
+
+	<select id="getSearchResult" parameterType="String" resultType="member">
+		SELECT * FROM MLIST WHERE M_KIND='F' AND M_NAME LIKE
+		'%'||#{keyword}||'%'
+	</select>
+
+	<select id="getProfilePhoto" parameterType="String" resultType="String">
+		SELECT MF_SYSNAME FROM MLIST WHERE M_ID=#{m_id}
+	</select>
 	
-	<select resultType="member" id="getFreelancerList">
-		SELECT * FROM MEMBER WHERE M_KIND='F'
+	<select id="getPhoto" resultType="member">
+		SELECT MF_SYSNAME FROM MLIST WHERE M_ID=#{m_id}
 	</select>
 
-	<select resultType="member" id="getFreelancerDetail" parameterType="String"> 
-		SELECT * FROM MEMBER WHERE M_ID=#{m_id} 
-	</select>
-
-	<select resultType="career" id="getCareer" parameterType="String">
-	 	SELECT * FROM CAREER WHERE CA_MID=#{m_id} 
-	 </select>
 </mapper>

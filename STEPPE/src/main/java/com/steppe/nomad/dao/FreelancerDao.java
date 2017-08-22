@@ -13,7 +13,6 @@ import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.bean.Skill;
-import com.steppe.nomad.bean.Test;
 
 @Repository
 public class FreelancerDao {
@@ -24,6 +23,7 @@ public class FreelancerDao {
 	public List<Career> getCareerList(String m_id) {
 		return sqlSession.selectList("Career.getCareerList", m_id);
 	}
+
 	
 	public int getCareerMaxNum() {
 		return sqlSession.selectOne("Career.getCareerMaxNum");
@@ -33,6 +33,7 @@ public class FreelancerDao {
 		return sqlSession.insert("Career.insertCareer", career);	
 	}
 	
+
 	public int deleteCareer(int ca_num) {
 		return sqlSession.delete("Career.deleteCareer", ca_num);
 	}
@@ -126,11 +127,32 @@ public class FreelancerDao {
 	public Member getFreelancerDetail(String m_id) {
 		
 		return sqlSession.selectOne("Career.getFreelancerDetail", m_id);
-		
+	}
+
+	public List<Career> getCareerList(int ca_num) {
+		return sqlSession.selectList("Career.getCareerList", ca_num);
 	}
 
 	public List<Career> getCareer(String m_id) {
 		
 		return sqlSession.selectList("Career.getCareer", m_id);
 	}
+
+	public List<Member> getSearchResult(String keyword){
+
+		
+		return sqlSession.selectList("Career.getSearchResult", keyword);
+	}
+	
+	//사진가져오기
+	public String getProfilePhoto(String m_id) {
+		return sqlSession.selectOne("Career.getProfilePhoto", m_id);
+
+	}
+
+	public List<Member> getPhoto() {
+		return sqlSession.selectList("Career.getPhoto");
+	}
+	
+
 }

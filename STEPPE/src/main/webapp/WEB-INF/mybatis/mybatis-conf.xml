@@ -17,9 +17,17 @@
 		<typeAlias alias="profile" type="com.steppe.nomad.bean.Profile"/>
 		<typeAlias alias="skill" type="com.steppe.nomad.bean.Skill"/>
 		<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
-		<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
+		<typeAlias alias="test"  type="com.steppe.nomad.bean.Test"/>
+		<typeAlias alias="answer" type="com.steppe.nomad.bean.Answer"/>
+		<typeAlias alias="result" type="com.steppe.nomad.bean.Result"/>
+		<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
 		<typeAlias alias="project" type="com.steppe.nomad.bean.Project" />
+		<typeAlias alias="notice" type="com.steppe.nomad.bean.Notice" />
 		<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
 		<typeAlias alias="required_skill" type="com.steppe.nomad.bean.Required_Skill"/>
+		<typeAlias alias="volunteer" type="com.steppe.nomad.bean.Volunteer"/>
+		<typeAlias alias="chat" type="com.steppe.nomad.bean.Chat"/>
+		<typeAlias alias="accounting" type="com.steppe.nomad.bean.Accounting"/>
+		<typeAlias alias="report" type="com.steppe.nomad.bean.Report"/>
 	</typeAliases> 
 </configuration> 

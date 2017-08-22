@@ -29,11 +29,11 @@
 	<context:component-scan base-package="com.steppe.nomad" />
 	
 	<!-- dbcp Bean -->
-		<beans:bean class="org.springframework.jndi.JndiObjectFactoryBean"
-			id="dataSource"><!-- 커넷션풀 설정 -->
-			<beans:property name="jndiName" value="jdbc/OracleDB"/>
-			<beans:property name="resourceRef" value="true"/>
-		</beans:bean>
+	<beans:bean class="org.springframework.jndi.JndiObjectFactoryBean"
+		id="dataSource"><!-- 커넷션풀 설정 -->
+		<beans:property name="jndiName" value="jdbc/OracleDB"/>
+		<beans:property name="resourceRef" value="true"/>
+	</beans:bean>
 	
 	<!--sqlSessionFactory & sqlSession  -->
 	<beans:bean class="org.mybatis.spring.SqlSessionFactoryBean"
@@ -64,4 +64,5 @@
   		<beans:property name="maxInMemorySize" value="10000000" /><!-- 
    		10MB -->
  	</beans:bean>
+ 	
 </beans:beans>

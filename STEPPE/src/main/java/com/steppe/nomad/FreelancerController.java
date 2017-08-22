@@ -143,4 +143,14 @@ public class FreelancerController {
 		return mav;
 	}
 	
+
+
+	//프리랜서 검색
+	@RequestMapping(value ="/searchKeywordFr")
+	public ModelAndView searchFreelancer(){
+		mav=new ModelAndView();
+		mav=fm.searchFreelancer();
+		return mav;
+	}
+
 }

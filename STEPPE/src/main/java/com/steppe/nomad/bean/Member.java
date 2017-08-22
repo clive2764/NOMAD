@@ -8,6 +8,36 @@ public class Member {
 	private String m_kind;
 	private String m_status;
 	private String mf_file;
+	private String mf_sysname;
+	private String eid;//이메일의 아이디부분
+	private String dotb;//이메일의 도메인 부분
+	public String getMf_sysname() {
+		return mf_sysname;
+	}
+	public void setMf_sysname(String mf_sysname) {
+		this.mf_sysname = mf_sysname;
+	}
+	private String dota;//이메일의 도메인 부분
+	
+	public String getDotb() {
+		return dotb;
+	}
+	public void setDotb(String dotb) {
+		this.dotb = dotb;
+	}
+	public String getDota() {
+		return dota;
+	}
+	public void setDota(String dota) {
+		this.dota = dota;
+	}
+	public String getEid() {
+		return eid;
+	}
+	public void setEid(String eid) {
+		this.eid = eid;
+	}
+	
 	public String getMf_file() {
 		return mf_file;
 	}
@@ -50,6 +80,7 @@ public class Member {
 	public void setM_status(String m_status) {
 		this.m_status = m_status;
 	}
+	
 	
 	
 }
