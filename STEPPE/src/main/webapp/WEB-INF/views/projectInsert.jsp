@@ -540,8 +540,9 @@ $("#inter").click(function(){
  	 		p_plnum2.setAttribute("value",newArr[2]);
  	 		
  		}
+ 		/*
  		function check(){
- 			var frm=document.joinFrm;
+ 			var frm=document.form1;
  			var length=frm.length-1;//마지막 회원가입은 하면 않되어 -1을 함
  			for(var i=0; i<length; i++){//하나라도 빠지면 작동이 않되게 하기 위해 필요
  				if(frm[i].value=="" || frm[i]==null){
@@ -551,7 +552,7 @@ $("#inter").click(function(){
  				}
  			}
  			return true;//성공시
- 		}
+ 		}*/
     //$("#complete").click(function(){
     	//	$("#replyForm").submit();
   //  });

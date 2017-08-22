@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<link href="resources/css/bootstrap.min.css" rel="stylesheet">
@@ -20,41 +20,11 @@
 </style>
 </head>
 <body>
-	<!--상단 메뉴바-->
-	<header id="header">
-        <nav class="navbar navbar-default navbar-static-top" role="banner">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                   <div class="navbar-brand">
-						<a href="main"><h1>steppe</h1></a>
-					</div>
-                </div>				
-                <div class="navbar-collapse collapse">							
-					<div class="menu">
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation"><a href="goIntro">steppe?</a></li>
-							<li role="presentation"><a href="goProject">프로젝트</a></li>
-							<li role="presentation"><a href="goFreelancer">프리랜서</a></li>
-							<li role="presentation"><a href="goManual">이용방법</a></li>
-                            <li role="presentation"><a href="goPms">프로젝트 관리</a></li>
-                            <li><a href="logout">로그아웃</a></li>
-						</ul>
-					</div>
-				</div>		
-            </div>
-        </nav>	
-    </header>
-	<!--상단 메뉴바 영역 끝-->
-	<div class="about">
+	<jsp:include page="header.jsp" />
+	<div class="about" style="height: -webkit-fill-available;">
 		<div class="container">
-			<table class="table table-responsive">
-				<tr><td>${test.t_num}</td><td>${test.t_content}</td></tr>
+			<table class="table table-striped">
+				<tr><td>${test.t_num}</td><td style="text-align: center;">${test.t_content}</td></tr>
 				<tr><td>1번</td><td class="tcontent">${test.t_no1}</td></tr>
 				<tr><td>2번</td><td class="tcontent">${test.t_no2}</td></tr>
 				<tr><td>3번</td><td class="tcontent">${test.t_no3}</td></tr>
@@ -63,5 +33,15 @@
 			</table>
 		</div>
 	</div>
+	<div class="row"></div>
+	<hr/>
+		 
+		<!-- 푸터 영역 -->  
+		<jsp:include page="footer.jsp" />
 </body>
+	<script src="resources/js/jquery-3.2.1.min.js"></script>		
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="resources/js/bootstrap.min.js"></script>	
+	<script src="resources/js/wow.min.js"></script>
+	<script>wow = new WOW({}).init();</script>
 </html>

@@ -2,7 +2,6 @@ package com.steppe.nomad;
 
 import javax.servlet.http.HttpSession;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.service.ClientManagement;
-import com.steppe.nomad.service.EmailManagement;
+
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.steppe.nomad.bean.Member;
+import com.steppe.nomad.bean.Notice;
+import com.steppe.nomad.service.AdminManagement;
 import com.steppe.nomad.service.MemberManagement;
 @Controller
 @SessionAttributes("member")
@@ -23,8 +26,10 @@ public class HomeController {
 	private HttpSession session;
 	
 	private ModelAndView mav;
-	private EmailManagement em;
 
+	@Autowired
+	private AdminManagement am;
+	
 	@Autowired
 	private MemberManagement mm;	//페이지 처음 진입용
 	
@@ -45,8 +50,6 @@ public class HomeController {
 		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
 		return mav;
 	}
-
-
 
 	//회원가입용
 	@RequestMapping(value = "/goJoin")
@@ -73,7 +76,34 @@ public class HomeController {
 	public ModelAndView sendCode() {
 		System.out.println("ModelAndView sendCode �떆�옉");
 		mav = new ModelAndView(); 
-		mm.sendCode();
+		try {
+			mm.sendCode();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+
+	//공지사항 페이지 이동
+	@RequestMapping(value = "/goNotice", method = RequestMethod.GET)
+	public ModelAndView goNotice() {
+		System.out.println("공지사항 페이지로 이동");
+		mav = new ModelAndView();
+		//mav.setViewName("notice"); //notice.jsp 로그인 페이지
+		mav = am.execute(1);
+		return mav;
+	}
+	
+	//공지사항쓰기 페이지 이동
+	@RequestMapping(value = "/noticeWrite")
+	public ModelAndView noticeWrite() {
+		System.out.println("공지사항 페이지로 이동");
+		if(session!=null && session.getAttribute("id")!=null&&session.getAttribute("id").equals("admin")){
+		mav = new ModelAndView();
+		mav.setViewName("noticeWrite"); //noticeWrite.jsp 로그인 페이지
+		}
 		return mav;
 	}
 	
@@ -85,7 +115,7 @@ public class HomeController {
 		mav.setViewName("login"); //login.jsp 로그인 페이지
 		return mav;
 	}
-	
+
 	//로그인
 	@RequestMapping(value = "/access", method = RequestMethod.POST)
 	public ModelAndView access(Member mb) {
@@ -93,7 +123,22 @@ public class HomeController {
 		mav = mm.execute(mb,1);
 		return mav;
 	}
-	
+
+	//로그아웃
+	@RequestMapping(value = "/logout")
+	public ModelAndView logout(Member mb) {
+		System.out.println("로그아웃");
+		mav = mm.execute(mb,2);
+		return mav;
+	}
+
+	//회원가입
+	@RequestMapping(value = "/memberInsert", method = RequestMethod.POST)
+	public ModelAndView memberInsert(MultipartHttpServletRequest multi) {
+		mav = mm.execute(multi,1);
+		return mav;
+	}
+
 	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
 	public String fstMm(Model model) {
 		return "fstMm";
@@ -116,7 +161,4 @@ public class HomeController {
 	}
 		
 		
-		
-	
-	
 }

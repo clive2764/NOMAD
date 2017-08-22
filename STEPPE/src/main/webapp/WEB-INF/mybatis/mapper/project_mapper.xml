@@ -39,12 +39,26 @@
 	
 	<insert id="insertProject" parameterType = "Map">
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
-      							,#{sysFileName},#{p_deadline},#{p_plnum0}, #{p_plnum1}, #{p_plnum2},#{p_person},#{p_status},default)
+      							,#{sysFileName},#{p_deadline},#{p_plnum0},#{p_person}, #{p_status}, #{p_plnum1}, #{p_plnum2},default)
    </insert>
   
     <select id="getProjectList" resultType="project" parameterType="String">
-    SELECT p_num, p_title, p_vol, case when p_status=0 then '대기중' when p_status=1 then '진행중' else '완료' end as p_status2 from project where p_mid=#{m_id}
+    SELECT p_num, p_title, p_vol, p_status,case when p_status=0 then '대기중' when p_status=1 then '진행중' else '완료' end as p_status2 from project where p_mid=#{m_id}
     </select>
  
+ 	<update id="UpdateProject" parameterType="Integer">
+  	 update project set p_status=1 where p_num = #{v_pnum}
+    </update>
     
+    <select id="checkedProject" parameterType="Integer" resultType="Integer">
+		select p_status FROM project where p_num=#{p_num}
+	</select>
+    
+    <delete id="deleteProject" parameterType="Integer">
+		delete from project where p_num=#{p_num}
+	</delete>
+	
+	<select id="getPerson" parameterType="Integer" resultType="Integer">
+		select p_person FROM project where p_num=#{p_num}
+	</select>
 </mapper>

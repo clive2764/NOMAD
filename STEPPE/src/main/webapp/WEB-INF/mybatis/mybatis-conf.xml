@@ -16,8 +16,11 @@
 		<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
 		<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
 		<typeAlias alias="test" type="com.steppe.nomad.bean.Test"/>
-		<typeAlias alias="project" type="com.steppe.nomad.bean.Project" />
+		<typeAlias type="com.steppe.nomad.bean.Project" alias="project"/>
+		<typeAlias type="com.steppe.nomad.bean.Notice" alias="notice"/>
 		<typeAlias alias="catagory" type="com.steppe.nomad.bean.Catagory"/>
 		<typeAlias alias="required_skill" type="com.steppe.nomad.bean.Required_Skill"/>
+		<typeAlias alias="volunteer" type="com.steppe.nomad.bean.Volunteer"/>
+		<typeAlias alias="accounting" type="com.steppe.nomad.bean.Accounting"/>
 	</typeAliases> 
 </configuration> 
