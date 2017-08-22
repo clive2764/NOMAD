@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-<title>공지사항</title>
+<title>공지사항 상세</title>
 <!-- Bootstrap -->
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -37,15 +38,14 @@
 			margin: 0 auto;
 		}
 		
-		td,th {
-			text-align: center;
+		td {
 			color:black;
 			padding: 3px;
 		}
 		
 		input {
 			color: black;
-			
+			width: 250px;
 		}
 		
 		.btn {
@@ -59,64 +59,35 @@
 			margin-top: 0px;
 		}
 		
-		.radio {
-			color: black;
-		}
-		
-		label {
-			color: black;
-		}
-		
-		#image_preview img {
-			width: 250px;
-			height: 250px;
-		}
-		#userImage{
-			margin:0 auto;
-			width: 250px;
-		}
-		ui{
-			width: 150px;
-			list-style: none;
-			
-		}
-		li{
-			display: inline;
-			
-		}
-		#choseClient{
-			width: 150px;
-		}
 		
 	</style>
 </head>
 <body>
-	<!--상단 메뉴바-->
+	<!-- 헤더 영역 -->  
 	<jsp:include page="header.jsp" />
-	
-	<div align="center">
-		<h3>공지사항</h3>
+	<div class="about">
 		<div class="container" style="height: -webkit-fill-available;">
-			<table class="table table-responsive">
-				${nlist}
-			</table>
-				<br />
-			<form action="noticeWrite">
-				<button class="btn" >글쓰기</button>
+			<form action="noticeUpdate" method="post">
+				<table class="table table-responsive">
+						<tr>
+							<td>글번호&nbsp;&nbsp;&nbsp;${ndlist.n_num}</td>
+							<td>제목&nbsp;&nbsp;&nbsp;<input type="text" value="${ndlist.n_title}" name="n_title" /></td>
+						</tr>
+						<tr>
+							<td colspan="2"><textarea rows="20" cols="100" name="n_content" style="resize: none;">${ndlist.n_content}</textarea></td>
+						</tr>
+						<tr>
+							<td><button>수정</button></td>
+						</tr>
+				</table>
 			</form>
-			
 		</div>
 	</div>
-
-	<div align="center">
-		<br /> ${paging}
-	</div>
-	
 		
 	<div class="row"></div>
-	<!--푸터 영역 시작-->
-	
+	<!-- 푸터 영역 -->  
 	<jsp:include page="footer.jsp" />
+
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -126,4 +97,9 @@
 	
 </body>
 </html>
+
+
+
+
+
 

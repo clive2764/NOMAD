@@ -5,10 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.EmailManagement;
+import com.steppe.nomad.service.FreelancerManagement;
 import com.steppe.nomad.service.MemberManagement;
 @Controller
 public class HomeController {
@@ -20,9 +22,14 @@ public class HomeController {
 
 	private MemberManagement mm;	//페이지 처음 진입용
 
+	@Autowired
+	
+	private FreelancerManagement fm;
+	
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
+		System.out.println(System.getProperty("user.home"));
 		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
 		return mav;
 	}
@@ -66,13 +73,20 @@ public class HomeController {
 
 	//이메일 인증
 	@RequestMapping(value = "/sendCode")
-	public ModelAndView sendCode() {
+	public ModelAndView sendCode() throws Exception {
 		System.out.println("ModelAndView sendCode �떆�옉");
 		mav = new ModelAndView(); 
 		mm.sendCode();
 		return mav;
 	}
 	
+	//회원가입
+	   @RequestMapping(value = "/memberInsert", method = RequestMethod.POST)
+	   public ModelAndView memberInsert(MultipartHttpServletRequest multi) {
+	      mav = mm.execute(multi,1);
+	      return mav;
+	   }
+	   
 	//로그인 페이지 이동
 	@RequestMapping(value = "/goLogin", method = RequestMethod.GET)
 	public ModelAndView goLogin() {
@@ -89,7 +103,21 @@ public class HomeController {
 		mav = mm.execute(mb,1);
 		return mav;
 	}
-	
+	//로그아웃
+	   @RequestMapping(value = "/logout")
+	   public ModelAndView logout(Member mb) {
+	      System.out.println("로그아웃");
+	      mav = mm.execute(mb,2);
+	      return mav;
+	   }
+	//
+	   @RequestMapping(value="/goIntro")
+	   public ModelAndView Intro(){
+		   System.out.println("소개 페이지로 이동");
+		   mav= new ModelAndView();
+		   mav.setViewName("intro");
+		   return mav;
+	   }
 	@RequestMapping(value = "/fstMm", method = RequestMethod.GET)
 	public String fstMm(Model model) {
 		return "fstMm";
@@ -111,6 +139,25 @@ public class HomeController {
 		mav.setViewName("myPageCI");
 		return mav;
 	}
+	
+	
+	//프리랜서 페이지로 이동
+	@RequestMapping(value="/goFreelancer")
+	public ModelAndView goFreelancer(){
+		System.out.println("프리랜서 페이지로 이동");
+		mav = new ModelAndView();
+		mav=fm.showList();
+		return mav;
+	}
+	//프리랜서 상세보기 페이지로 이동
+	@RequestMapping(value="/goFreelancerDetail")
+	public ModelAndView goFreelancerDetail(){
+		System.out.println("프리랜서상세 페이지로 이동");
+		mav = new ModelAndView();
+		mav=fm.showDetail();
+		return mav;
+	}
+	
 	
 	
 }

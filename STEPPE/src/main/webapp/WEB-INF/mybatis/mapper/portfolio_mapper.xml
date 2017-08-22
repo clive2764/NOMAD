@@ -7,15 +7,19 @@
 	</select>
 	
 	<select id="getPortfolioList" parameterType="String" resultType="portfolio">
-		SELECT * FROM PORTFOLIO WHERE PF_MID = #{m_id}
+		SELECT * FROM PORTFOLIO INNER JOIN PORTFOLIOFILE ON PF_NUM = PT_PFNUM AND PT_NUM = (SELECT MIN(PT_NUM) FROM PORTFOLIOFILE WHERE PT_PFNUM=PF_NUM) WHERE PF_MID = #{m_id}
 	</select>
-	
+	 
 	<select id="getPortfolioCount" resultType="Integer">
 		SELECT COUNT(*) FROM PORTFOLIO
 	</select>
 	
+	<select id="getPortfolioDetail" parameterType="String" resultType="portfolio">
+		SELECT * FROM PORTFOLIO WHERE PF_NUM = #{pf_num}
+	</select>
+	
 	<insert id="insertPortfolio" parameterType="portfolio">
-		INSERT INTO PORTFOLIO VALUES(#{pf_num},#{m_id},#{pf_title},#{pf_term},#{pf_contribute},#{pf_content})
+		INSERT INTO PORTFOLIO VALUES(#{pf_num},#{pf_mid},#{pf_title},#{pf_term},#{pf_contribute},#{pf_content})
 	</insert>
 	
 	<insert id="portfolioFileInsert" parameterType="Map">

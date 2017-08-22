@@ -18,4 +18,16 @@
 	<delete id="deleteCareer" parameterType="career">
 		DELETE FROM CAREER WHERE CA_NUM = #{ca_num}
 	</delete>
+	
+	<select resultType="member" id="getFreelancerList">
+		SELECT * FROM MEMBER WHERE M_KIND='F'
+	</select>
+
+	<select resultType="member" id="getFreelancerDetail" parameterType="String"> 
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id} 
+	</select>
+
+	<select resultType="career" id="getCareer" parameterType="String">
+	 	SELECT * FROM CAREER WHERE CA_MID=#{m_id} 
+	 </select>
 </mapper>

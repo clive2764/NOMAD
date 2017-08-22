@@ -9,9 +9,6 @@
 4. resultType도 1개만 올 수 있는데 selectList인 경우 List로 변환한다. -->
 
 <mapper namespace="member">
-	<!-- <insert id = "memberInsert" parameterType = "member">
-		INSERT INTO M VALUES(#{m_id},#{m_pwd},#{m_name},#{m_birth},#{m_addr},#{m_phone},default)
-	</insert> -->
 	<select id="getLoginResult" parameterType = "member" resultType="Integer">
 		SELECT COUNT(*) FROM MEMBER WHERE M_ID=#{m_id} AND M_PW=#{m_pw}
 	</select>
@@ -30,6 +27,19 @@
 	</select> -->
 	
 	<select id="isEmail" parameterType = "String" resultType="String">
-		SELECT * FROM MEMBER WHERE M_EMAIL=#{email}
+      SELECT M_EMAIL FROM MEMBER WHERE M_EMAIL=#{email}
+   </select>
+	
+	<select id="getMimage" parameterType = "String" resultType="String">
+		SELECT MF_SYSNAME FROM MEMBERFILE WHERE MF_MID = {m_id}
 	</select>
+
+	<select id="getMFMaxNum" resultType="Integer">
+		SELECT NVL(MAX(MF_NUM),0) FROM MEMBERFILE
+	</select>
+	
+	<insert id = "memberInsert" parameterType = "member">
+      INSERT INTO MEMBER(M_ID, M_PW, M_NAME,M_EMAIL,M_KIND,M_STATUS) VALUES(#{m_id,jdbcType=VARCHAR},#{m_pw,jdbcType=VARCHAR},#{m_name,jdbcType=VARCHAR},#{m_email,jdbcType=VARCHAR},#{m_kind,jdbcType=CHAR},'N')
+   </insert>
+	
 </mapper>

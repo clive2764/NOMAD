@@ -1,8 +1,11 @@
 package com.steppe.nomad.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.steppe.nomad.bean.Member;
 
@@ -18,7 +21,6 @@ public class MemberDao {
 
 		return sqlSession.selectOne("member.isEmail", email);
 	}
-
 	public int getLoginResult(Member mb) { //id, pw 넘김
 
 		return sqlSession.selectOne("member.getLoginResult",mb);
@@ -34,44 +36,39 @@ public class MemberDao {
 	public String getKind(String m_id) {
 		
 		return sqlSession.selectOne("member.getKind",m_id);
-		
+	}
+	
+	@Transactional
+	   public int memberInsert(Member member, Map<String, String> fMap) {
+	      //게시판 테이블에 글을 입력
+	      int m = memberInsert(member);
+	      //파일 테이블에 파일을 입력
+	      int mfnum = getMFMaxNum()+1;
+	      System.out.println("mfnum="+mfnum);
+	      String id = member.getM_id();
+	      System.out.println("id="+id);
+	      fMap.put("mfnum", String.valueOf(mfnum));
+	      fMap.put("id", id);
+	      int f = fileInsert(fMap);
+
+	      if(m!=0 && f!=0){
+	         return 1; //Transactional 성공시
+	      }return 0; //Transactional 실패시 
+
+
+	}
+	public int memberInsert(Member member) {
+		System.out.println("m_id = " + member.getM_id());
+		int result = sqlSession.insert("member.memberInsert",member);
+		System.out.println("result="+result);
+		return result;
+
+	}
+	private int getMFMaxNum() {
+		return sqlSession.selectOne("member.getMFMaxNum");
 	}
 
-
-	/*Connection con;
-	PreparedStatement pstmt;
-	ResultSet rs;
-	DataSource ds;
-
-	public boolean isEmail(String email)
-	{
-		boolean result = false;
-
-		try
-		{
-			String sql = "SELECT * FROM MEMBER WHERE EMAIL=?";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setNString(1, email);
-
-			rs = pstmt.executeQuery();
-
-			if(rs.next())
-			{
-				result = true;
-				System.out.println("사용중인 EMAIL");
-			}
-			else
-				System.out.println("사용 할 수 있는 EMAIL");
-		}
-		catch(SQLException e)
-		{
-			e.printStackTrace();
-			System.out.println("isMember 실패");
-		}
-
-		return result;
-	}*/
-
+	private int fileInsert(Map<String, String> fMap) {
+		return sqlSession.insert("member.fileInsert",fMap);
+	}
 }

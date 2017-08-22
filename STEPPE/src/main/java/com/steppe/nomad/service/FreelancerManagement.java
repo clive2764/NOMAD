@@ -112,27 +112,11 @@ public class FreelancerManagement {
 		return mav;
 	}
 
-	private void showPortfolioList(Portfolio portfolio) {
-		
-	}
-
-	private void showPortfolioDetail(Portfolio portfolio) {
-
-	}
-
-	private void updatePortfolio(Portfolio portfolio) {
-
-	}
-
-	private void deletePortfolio(Portfolio portfolio) {
-
-	}
-
 	private void addSkill(Skill skill) {
 		String view = null;
 		mav =new ModelAndView();
-		if(ss!=null && ss.getAttribute("id")!=null){
-			String id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String id = (String) ss.getAttribute("m_id");
 			skill.setSk_num(fDao.getSkillMaxNum()+1);
 			skill.setM_id(id);
 			skill.setSk_name(req.getParameter("sk_name"));
@@ -162,8 +146,8 @@ public class FreelancerManagement {
 		String view = null;
 		List<Skill> sklist = null;
 		System.out.println("기술정보 들어옴");
-		if(ss!=null && ss.getAttribute("id")!=null){
-			String m_id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String m_id = (String) ss.getAttribute("m_id");
 			System.out.println(m_id);
 			sklist = fDao.getSkillList(m_id);
 			System.out.println(sklist);
@@ -183,7 +167,7 @@ public class FreelancerManagement {
 		System.out.println("기술정보 삭제 들어옴");
 		String view=null;
 		mav=new ModelAndView();
-		if(ss!=null && ss.getAttribute("id")!=null){
+		if(ss!=null && ss.getAttribute("m_id")!=null){
 			int sk_num=Integer.parseInt(req.getParameter("num"));
 			if(fDao.deleteSKill(sk_num)!=0){
 				System.out.println("기술정보 삭제 성공");
@@ -198,8 +182,8 @@ public class FreelancerManagement {
 	private void insertProfile(Profile profile) {
 		String view = null;
 		mav =new ModelAndView();
-		if(ss!=null && ss.getAttribute("id")!=null){
-			String id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String id = (String) ss.getAttribute("m_id");
 			profile.setPro_num(fDao.getProfileMaxNum()+1);
 			profile.setM_id(id);
 			System.out.println(id);
@@ -226,8 +210,8 @@ public class FreelancerManagement {
 		String view = null;
 		List<Profile> prlist = null;
 		System.out.println("프로필들어옴");
-		if(ss!=null && ss.getAttribute("id")!=null){
-			String m_id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String m_id = (String) ss.getAttribute("m_id");
 			System.out.println(m_id);
 			prlist = fDao.getProfileList(m_id);
 			System.out.println(prlist);
@@ -256,7 +240,7 @@ public class FreelancerManagement {
 		System.out.println("프로필 삭제 들어옴");
 		String view=null;
 		mav=new ModelAndView();
-		if(ss!=null && ss.getAttribute("id")!=null){
+		if(ss!=null && ss.getAttribute("m_id")!=null){
 			int pro_num=Integer.parseInt(req.getParameter("num"));
 			if(fDao.deleteProfile(pro_num)!=0){
 				System.out.println("프로필 삭제 성공");
@@ -272,8 +256,8 @@ public class FreelancerManagement {
 		System.out.println("경력인서트들어옴");
 		String view = null;
 		mav =new ModelAndView();
-		if(ss!=null && ss.getAttribute("id")!=null){
-			String id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String id = (String) ss.getAttribute("m_id");
 			career.setCa_num(fDao.getCareerMaxNum()+1);
 			/*career.setCa_num(String.valueOf(fDao.getCareerMaxNum()+1));*/
 			career.setM_id(id.toString());
@@ -303,8 +287,8 @@ public class FreelancerManagement {
 		String view = null;
 		List<Career> clist = null;
 		System.out.println("경력 출력 들어옴");
-		if(ss!=null && ss.getAttribute("id")!=null){
-			String m_id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String m_id = (String) ss.getAttribute("m_id");
 			System.out.println(m_id);
 			clist = fDao.getCareerList(m_id);
 			System.out.println(clist);
@@ -336,7 +320,7 @@ public class FreelancerManagement {
 		System.out.println("경력 삭제 들어옴");
 		String view=null;
 		mav=new ModelAndView();
-		if(ss!=null && ss.getAttribute("id")!=null){
+		if(ss!=null && ss.getAttribute("m_id")!=null){
 			int ca_num=Integer.parseInt(req.getParameter("num"));
 			if(fDao.deleteCareer(ca_num)!=0){
 				System.out.println("경력 삭제 성공");
@@ -350,9 +334,10 @@ public class FreelancerManagement {
 
 	private void insertPortfolio(MultipartHttpServletRequest multi, MultipartFile[] files) {
 		mav = new ModelAndView();
+		String view = null;
 		//MultipartFile[] files = request.getParameter("pf_image[]");
-		if(ss!=null && ss.getAttribute("id")!=null){
-		String m_id = (String) ss.getAttribute("id");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+		String pf_mid = (String) ss.getAttribute("m_id");
 		String pf_title = multi.getParameter("pf_title");
 		String pf_term = multi.getParameter("pf_term");
 		String pf_contribute = multi.getParameter("pf_contribute");
@@ -364,7 +349,7 @@ public class FreelancerManagement {
 		//List<Map<String, Object>> mapList = upload.fileUp(multi, files);
 		List<String> mapList = upload.fileUp(multi, files);
 		Portfolio portfolio = new Portfolio();
-		portfolio.setM_id(m_id);
+		portfolio.setPf_mid(pf_mid);
 		if(fDao.getPortfolioCount()!=0){
 			portfolio.setPf_num(fDao.getPortfolioCount()+1);
 		}else{
@@ -376,12 +361,178 @@ public class FreelancerManagement {
 		portfolio.setPf_content(pf_content);
 		//insert 값 부족
 		System.out.println("portfolio num:"+ portfolio.getPf_num());
-		fDao.insertPortfolio(portfolio);
+		if(fDao.insertPortfolio(portfolio)!=0){
+			List<Portfolio> pflist = fDao.getPortfolioList(pf_mid);
+			Gson jsonObj=new Gson();
+			jsonStr = jsonObj.toJson(pflist);
+			System.out.println("jsonStr : "+jsonStr);
+			//jsonObj=new HashMap<String,List<Reply>>();
+			//jsonObj.put("rlist", rlist); //hashMap에 저장
+			mav.addObject("pflist",jsonStr);
+			view = "portfolio";
+		}
 		//pfDao.portFolioInsert(portfolio);
 		int pfNum = fDao.getPortfolioMaxNum();
 		fDao.portfolioFileInsert(mapList,pfNum);
+		System.out.println(mapList);
 		mav.setViewName("portfolio");
 		}
+	}
+	
+	private void showPortfolioList(Portfolio portfolio) {
+		mav=new ModelAndView();
+		String view = null;
+		List<Portfolio> pflist = null;
+		System.out.println("포트폴리오 출력 들어옴");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String m_id = (String) ss.getAttribute("m_id");
+			System.out.println(m_id);
+			pflist = fDao.getPortfolioList(m_id);
+			System.out.println(pflist);
+			if(pflist!=null){
+				Gson jsonObj=new Gson();
+				jsonStr = jsonObj.toJson(pflist);
+				System.out.println("jsonStr : "+jsonStr);
+				//jsonObj=new HashMap<String,List<Reply>>();
+				//jsonObj.put("rlist", rlist); //hashMap에 저장
+				/*StringBuilder sb = new StringBuilder();
+				for(int i=0; i<clist.size(); i++){
+					Career c=clist.get(i);
+					sb.append("<tr><td>"+c.getCa_num()+"</td>");
+					sb.append("<tr><td>"+c.getCa_term()+"</td>");
+					sb.append("<td>"+c.getCa_company()+"</td>");
+					sb.append("<td>"+c.getCa_rank()+"</td>");
+					sb.append("<td><a href='deleteCareerInfo?Ca_num="+c.getCa_num()+"'>"+"삭제"+"</a></td></tr>");
+				}
+				mav.addObject("clist", sb.toString());*/
+			}
+		}
+	}
+
+	private void showPortfolioDetail(Portfolio portfolio) {
+		mav=new ModelAndView();
+		String view = null;
+		List<Portfolio> pflist = null;
+		System.out.println("포트폴리오 상세 들어옴");
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			int pf_num = Integer.parseInt(req.getParameter("num"));
+			System.out.println(pf_num);
+			if(fDao.getPortfolioDetail(pf_num)!=0){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"기간"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"참여율"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"내용"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"포트폴리오"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<pflist.size(); i++){
+					Portfolio p=pflist.get(i);
+					sb.append("<tr>");
+					sb.append("<td>"+p.getPf_title()+"</td>");
+					sb.append("<td>"+p.getPf_term()+"</td>");
+					sb.append("<td>"+p.getPf_contribute()+"</td>");
+					sb.append("<td>"+p.getPf_content()+"</td>");
+					sb.append("<td>"+p.getPt_sysname()+"</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("portfolio",sb.toString());	
+				System.out.println("대따");
+			}
+			view="portfolio";
+			mav.setViewName(view);
+		}
+	}
+
+	private void updatePortfolio(Portfolio portfolio) {
+
+	}
+
+	private void deletePortfolio(Portfolio portfolio) {
+		System.out.println("포트폴리오 삭제 들어옴");
+		String view=null;
+		mav=new ModelAndView();
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			int pf_num=Integer.parseInt(req.getParameter("num"));
+			if(fDao.deleteCareer(pf_num)!=0){
+				System.out.println("포트폴리오 삭제 성공");
+			}else{
+				System.out.println("포트폴리오 삭제 실패");
+			}
+			view="portfolioUpdate";
+			mav.setViewName(view);
+		}
+	}
+	
+	public ModelAndView showList() {
+		mav=new ModelAndView();
+		String view=null;
+		List<Member> flist=null;
+		System.out.println(flist);
+		flist=fDao.getFreelancer();
+		System.out.println(flist);
+		
+		if(flist!=null){
+			StringBuilder sb=new StringBuilder();
+				sb.append("<div class='container'>");
+				for(int i=0; i<flist.size(); i++){
+					Member f=flist.get(i);
+					sb.append("<div class='col-md-3 col-sm-6 hero-feature'>");
+					sb.append("<div class='thumbnail'>");
+					sb.append("<img src='http://placehold.it/800x500' alt=''>");
+					sb.append("<div class='caption'>");
+					sb.append("<h3 style='text-align:center;'>"+f.getM_name()+"</h3>");
+					sb.append("<p style='text-align:center;'>"+f.getM_email()+"</p>");
+                    sb.append("<p style='text-align:center;'><a style='color:white;' class='btn btn-default' href='goFreelancerDetail?m_id="+f.getM_id()+"'>"+"상세보기"+"</a>"+"</p>");
+                    sb.append("</div>");
+                    sb.append("</div>");
+                    sb.append("</div>");
+				}
+			sb.append("</div>");
+			mav.addObject("flist", sb.toString());
+		}
+		
+		view="freelancer";
+		mav.setViewName(view);
+		return mav;
+		
+	}
+
+	public ModelAndView showDetail() {
+		
+		mav=new ModelAndView();
+		String view=null;
+		String m_id=(String)req.getParameter("m_id");
+		List<Career> career=null;
+		System.out.println(m_id);
+		//fDao.getFreelancerDetail(m_id);
+		mav.addObject("member",fDao.getFreelancerDetail(m_id));
+		career = fDao.getCareer(m_id);
+		if(career!=null){
+			StringBuilder sb=new StringBuilder();
+			sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+			sb.append("<tr>");
+			sb.append("<th style='text-align:center;'>"+"경력"+"</th>");
+			sb.append("<th style='text-align:center;'>"+"회사"+"</th>");
+			sb.append("<th style='text-align:center;'>"+"직급"+"</th>");
+			sb.append("</tr>");
+			for(int i=0; i<career.size(); i++){
+				Career c=career.get(i);
+				sb.append("<tr>");
+				sb.append("<td>"+c.getCa_term()+"</td>");
+				sb.append("<td>"+c.getCa_company()+"</td>");
+				sb.append("<td>"+c.getCa_rank()+"</td>");
+				sb.append("</tr>");
+			}
+			sb.append("</table>");
+			mav.addObject("career",sb.toString());	
+		}
+		view="freelancerDetail";
+		mav.setViewName(view);
+		
+		return mav;
 	}
 }
 

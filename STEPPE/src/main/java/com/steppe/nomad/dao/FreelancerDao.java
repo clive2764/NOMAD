@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.steppe.nomad.bean.Career;
+import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.bean.Skill;
@@ -69,8 +70,12 @@ public class FreelancerDao {
 		return sqlSession.delete("Skill.deleteSkill", sk_num);
 	}
 
-	public List<Portfolio> getPortfolioList(String m_id) {
-		return sqlSession.selectList("Portfolio.getPortfolioList", m_id);
+	public List<Portfolio> getPortfolioList(String pf_mid) {
+		return sqlSession.selectList("Portfolio.getPortfolioList", pf_mid);
+	}
+	
+	public int getPortfolioDetail(int pf_num) {
+		return sqlSession.selectOne("Portfolio.getPortfolioDetail", pf_num);
 	}
 	
 	public int getPortfolioMaxNum() {
@@ -113,4 +118,19 @@ public class FreelancerDao {
 	      }*/
 	      return result;
 	   }
+	
+	public List<Member> getFreelancer() {
+		return sqlSession.selectList("Career.getFreelancerList");
+	}
+
+	public Member getFreelancerDetail(String m_id) {
+		
+		return sqlSession.selectOne("Career.getFreelancerDetail", m_id);
+		
+	}
+
+	public List<Career> getCareer(String m_id) {
+		
+		return sqlSession.selectList("Career.getCareer", m_id);
+	}
 }
