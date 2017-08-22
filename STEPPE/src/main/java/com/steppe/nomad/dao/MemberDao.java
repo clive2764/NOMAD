@@ -1,6 +1,6 @@
 package com.steppe.nomad.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
