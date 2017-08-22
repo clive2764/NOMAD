@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id = "getTestList" parameterType = "String" resultType = "test">
-		SELECT * FROM TEST WHERE T_NAME = #{t_name}
+		SELECT * FROM TEST WHERE T_NAME = #{t_name} ORDER BY T_NUM
 	</select>
 	
 	<select id = "findName" parameterType = "String" resultType = "result">

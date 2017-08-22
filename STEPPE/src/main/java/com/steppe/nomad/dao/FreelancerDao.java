@@ -61,6 +61,16 @@ public class FreelancerDao {
 		
 		return sqlSession.selectList("Career.getSearchResult", keyword);
 	}
+	//사진가져오기
+	public String getProfilePhoto(String m_id) {
+		
+		return sqlSession.selectOne("Career.getProfilePhoto", m_id);
+		
+	}
+
+	public List<Member> getPhoto() {
+		return sqlSession.selectList("Career.getPhoto");
+	}
 
 	
 

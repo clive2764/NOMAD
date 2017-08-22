@@ -144,7 +144,7 @@ public class ReportManagement {
 			sb.append("</div>");
 			for(int i=0; i<plist.size(); i++){
 				Project p=plist.get(i);
-				sb.append("<div class='col-sm-6 col-lg-6 col-md-6'>");
+				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
 				sb.append("<div class='thumbnail'>");
 				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
 				sb.append("<img src='http://placehold.it/320x150' alt=''>");

@@ -34,7 +34,7 @@ public class FreelancerManegement {
 	public ModelAndView execute(Career career,int cmd) {
 		switch(cmd){
 		case 1 :
-			showCareer(career);
+			/*showFreelancerCareer(career);*/
 			break;
 		case 2 :
 			insertCareer(career);
@@ -130,7 +130,8 @@ public class FreelancerManegement {
 		 */
 		mav.setViewName(view);
 	}
-	private void showCareer(Career career) {
+	//프리랜서 상세보기내 경력정보 추출 메소드
+	private void showFreelancerCareer(Career career) {
 		mav=new ModelAndView();
 		String view = null;
 		List<Career> clist = null;
@@ -153,22 +154,28 @@ public class FreelancerManegement {
 		view="careerInfo";
 		mav.setViewName(view);
 	}
-	//프리랜서 페이지 프리랜서 리스트 표출
+	
+	//프리랜서 페이지 프리랜서 리스트 표출 메소드
 	public ModelAndView showList() {
 		mav=new ModelAndView();
 		String view=null;
 		List<Member> flist=null;
-
 		flist=fDao.getFreelancer();
-
 		if(flist!=null){
 			StringBuilder sb=new StringBuilder();
 			sb.append("<div class='container'>");
+			sb.append("<div class='row'>");
+			sb.append("<form style='float: right' action='searchKeywordFr' id='searchForm' method='get'>");
+			sb.append("<input type='text' id='keyword' name='keyword' placeholder='프리랜서 이름'/>");
+			sb.append("<input type='button' id='search' value='검색'>");
+			sb.append("</form>");
+			sb.append("</div>");
 			for(int i=0; i<flist.size(); i++){
 				Member f=flist.get(i);
 				sb.append("<div class='col-md-3 col-sm-6 hero-feature'>");
 				sb.append("<div class='thumbnail'>");
-				sb.append("<img src='http://placehold.it/800x500' alt=''>");
+				sb.append("<img src='resources/upload/"+f.getMf_sysname()+"' alt=''>");
+				System.out.println(f.getMf_sysname());
 				sb.append("<div class='caption'>");
 				sb.append("<h3 style='text-align:center;'>"+f.getM_name()+"</h3>");
 				sb.append("<p style='text-align:center;'>"+f.getM_email()+"</p>");
@@ -196,8 +203,10 @@ public class FreelancerManegement {
 		List<Career> career=null;
 		System.out.println(m_id);
 		//fDao.getFreelancerDetail(m_id);
-		mav.addObject("member",fDao.getFreelancerDetail(m_id));
+		mav.addObject("photo",fDao.getProfilePhoto(m_id));
+		mav.addObject("freelancer",fDao.getFreelancerDetail(m_id));
 		career = fDao.getCareer(m_id);
+		FreelancerManegement showFreelancerCareer;
 		if(career!=null){
 			StringBuilder sb=new StringBuilder();
 			sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
@@ -235,11 +244,18 @@ public class FreelancerManegement {
 		if(slist!=null){
 			StringBuilder sb=new StringBuilder();
 			sb.append("<div class='container'>");
+			sb.append("<div class='row'>");
+			sb.append("<form style='float: right' action='searchKeywordFr' id='searchForm' method='get'>");
+			sb.append("<input type='text' id='keyword' name='keyword' placeholder='프리랜서 이름'/>");
+			sb.append("<input type='button' id='search' value='검색'>");
+			sb.append("</form>");
+			sb.append("</div>");
 			for(int i=0; i<slist.size(); i++){
 				Member r=slist.get(i);
 				sb.append("<div class='col-md-3 col-sm-6 hero-feature'>");
 				sb.append("<div class='thumbnail'>");
-				sb.append("<img src='http://placehold.it/800x500' alt=''>");
+				sb.append("<img src='resources/upload/"+r.getMf_sysname()+"' alt=''>");
+				
 				sb.append("<div class='caption'>");
 				sb.append("<h3 style='text-align:center;'>"+r.getM_name()+"</h3>");
 				sb.append("<p style='text-align:center;'>"+r.getM_email()+"</p>");

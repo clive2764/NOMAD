@@ -13,7 +13,7 @@
 	</insert>
 
 	<select id="getFreelancerList" resultType="member">
-		SELECT * FROM MEMBER WHERE M_KIND='F'
+		SELECT * FROM MLIST WHERE M_KIND='F'
 	</select>
 	<select id="getFreelancerDetail" parameterType="String" resultType="member">
 
@@ -23,6 +23,12 @@
 		SELECT * FROM CAREER WHERE CA_MID=#{m_id}
 	</select>
 	<select id="getSearchResult" parameterType="String" resultType="member">
-		SELECT * FROM MEMBER WHERE M_KIND='F' AND M_NAME LIKE '%'||#{keyword}||'%'
+		SELECT * FROM MLIST WHERE M_KIND='F' AND M_NAME LIKE '%'||#{keyword}||'%'
+	</select>
+	<select id="getProfilePhoto" parameterType="String" resultType="String">
+		SELECT MF_SYSNAME FROM MLIST WHERE M_ID=#{m_id}
+	</select>
+	<select id="getPhoto" resultType="member">
+		SELECT MF_SYSNAME FROM MLIST WHERE M_ID=#{m_id}
 	</select>
 </mapper>
