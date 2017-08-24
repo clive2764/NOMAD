@@ -8,8 +8,15 @@ public class Member {
 	private String m_kind;
 	private String m_status;
 	private String mf_file;
+	private String mf_sysname;
 	private String eid;//이메일의 아이디부분
 	private String dotb;//이메일의 도메인 부분
+	public String getMf_sysname() {
+		return mf_sysname;
+	}
+	public void setMf_sysname(String mf_sysname) {
+		this.mf_sysname = mf_sysname;
+	}
 	private String dota;//이메일의 도메인 부분
 	
 	public String getDotb() {

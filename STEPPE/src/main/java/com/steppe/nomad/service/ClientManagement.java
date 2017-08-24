@@ -3,7 +3,6 @@ package com.steppe.nomad.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -13,19 +12,13 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Component;
-
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Accounting;
-import com.steppe.nomad.bean.Catagory;
-import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Purchase_detail;
 import com.steppe.nomad.bean.Required_Skill;
@@ -38,6 +31,7 @@ import com.steppe.nomad.dao.VolunteerDao;
 import com.steppe.nomad.userClass.UploadFile;
 
 @Component
+
 public class ClientManagement {
 
 	@Autowired

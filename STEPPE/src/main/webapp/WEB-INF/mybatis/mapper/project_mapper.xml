@@ -8,30 +8,43 @@
 3. parameterType에 Map<key, value>타입인 경우 #{key}로 쓴다.
 4. resultType도 1개만 올 수 있는데 selectList인 경우 List로 변환한다. -->
 <mapper namespace="project">
-	<select id="showProcess" parameterType="Integer" resultType="Project"> 
+	<select id="showProcess" parameterType="Map" resultType="Project"> 
 		<choose>
-    		<when test='value == "0"'>
-    		SELECT * FROM project
+    		<when test='p_status == "0"'>
+    		SELECT * FROM project WHERE p_mid = #{m_id}
     		</when>
-    		<when test='value == "1"'>
-      		SELECT * FROM project WHERE p_status = #{value}
+    		<when test='p_status == "1"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
-    		<when test='value == "2"'>
-      		SELECT * FROM project WHERE p_status = #{value}
+    		<when test='p_status == "2"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
-    		<when test='value == "3"'>
-      		SELECT * FROM project WHERE p_status = #{value}
+    		<when test='p_status == "3"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
     	</choose>
 	</select>
-	
+
+	<update id="progressUpdate" parameterType="java.util.Map">
+		UPDATE project SET p_status = #{progNum} where p_num = #{btnNum}
+	</update>
+	<select id="showMyProjectList" parameterType="String" resultType="Project">
+		SELECT * FROM project WHERE p_mid = #{id}
+	</select>
+	<select id="showMyMemberList" parameterType="Map" resultType="Member">
+		SELECT m_id, m_name, m_email FROM member where m_id IN (SELECT v_mid FROM volunteer where v_pnum = #{pNum})
+		<!-- SELECT * FROM project WHERE p_title = #{title} AND p_num = #{pNum} -->
+	</select>
+	<delete id="deleteTeamMember" parameterType="String">
+		DELETE FROM volunteer WHERE v_mid = #{mid}
+	</delete>
 	<select id="getRequired_SkillList" resultType="required_skill">
 		select * from required_skills
 	</select>
 	
-	<update id="progressUpdate" parameterType="Integer">
+	<!-- <update id="progressUpdate" parameterType="Integer">
 		UPDATE project SET p_status = #{progNum}
-	</update>
+	</update> -->
 	
 	<select id="getProjectMaxNum" resultType="Integer">
 		select NVL(MAX(p_num),0) FROM project

@@ -52,7 +52,12 @@
 		<!-- 만약에 MAX(R_NUM)이 NULL이면 NVL(NULL VALUE)를 0으로 세팅해준다. -->
 		SELECT NVL(MAX(MF_NUM),0) FROM MEMBERFILE
 	</select>
-	
+	<update id="updateMemberInfo" parameterType="member">
+		UPDATE member SET m_pw = #{m_pw}, m_email = #{m_email} WHERE m_id = #{m_id}
+	</update>
+	<update id="updateMFile" parameterType="Map">
+		UPDATE memberFile SET mf_sysname = #{sysFileName} WHERE mf_mid = #{m_id}
+	</update>
 	<select id="getMemberList" parameterType="Integer" resultType="member">
 		
 		<![CDATA[
@@ -111,5 +116,5 @@
    <delete id="deleteMemberMake" parameterType="String">
       delete FROM MEMBER WHERE m_id=#{m_id}
    </delete>
-	
+
 </mapper>

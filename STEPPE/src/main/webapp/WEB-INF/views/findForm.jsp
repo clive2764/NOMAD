@@ -44,9 +44,10 @@
 	<body>
 		<jsp:include page="header.jsp" />
 		<!--메인페이지 영역-->
-	  
 		<div class="about">
+
 	<!-- 
+>>>>>>> 7c495fb382ade8e50076fe94a993f44797a79af1
 			<form action="findId" method="post">
 				<table>
 					<tr>
@@ -59,6 +60,16 @@
 				<table>
 					<tr>
 						<td></td>
+<<<<<<< HEAD
+					</tr>
+				</table>
+			</form>
+		
+		</div>
+		<hr>
+		<div class="row"></div>
+		 
+=======
 -->
 			<h4 align="center">아이디 찾기</h4>
 			<form action="findId" method="post">
@@ -122,6 +133,7 @@
 		</div>
 		<hr>
 		<div class="row"></div>
+
 		<!-- 푸터 영역 -->  
 		<jsp:include page="footer.jsp" />
 		
@@ -133,7 +145,6 @@
 		<script src="resources/js/wow.min.js"></script>
 		<script>wow = new WOW({}).init();</script>	
 	</body>
-
 	<script>
 		/* 이메일 인증 */
 		function sendCodes(){

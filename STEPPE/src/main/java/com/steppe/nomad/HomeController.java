@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.AdminManagement;
 import com.steppe.nomad.service.ClientManagement;
-import com.steppe.nomad.service.FreelancerManegement;
+import com.steppe.nomad.service.FreelancerManagement;
 import com.steppe.nomad.service.MemberManagement;
 import com.steppe.nomad.service.ReportManagement;
 @Controller
@@ -39,7 +39,7 @@ public class HomeController {
 	 private ReportManagement rm;
 
 	@Autowired
-	 private FreelancerManegement fm;
+	 private FreelancerManagement fm;
 
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
@@ -81,6 +81,17 @@ public class HomeController {
 		mav = new ModelAndView();
 		mav.setViewName("projectDetail"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
 		return mav;
+	}
+
+	@RequestMapping(value="/goAddProject")
+	public ModelAndView goAddProject(){
+		mav = new ModelAndView();
+
+		mav.setViewName("projectInsert"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
+		return mav;
+	}
+
+	//이메일 인증
 	}*/
 
 	//이메일 인증
@@ -91,12 +102,10 @@ public class HomeController {
 		try {
 			mm.sendCode();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return mav;
 	}
-
 
 	//공지사항 페이지 이동
 	@RequestMapping(value = "/goNotice", method = RequestMethod.GET)

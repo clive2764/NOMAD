@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,6 +56,9 @@ public class MemberManagement {
 		case 2:
 			logout(mb);//로그아웃
 			break;
+		case 3:
+			updateInfo(mb);
+			break;
 		default:
 			break;
 		}
@@ -85,10 +87,29 @@ public class MemberManagement {
 	}
 
 
+	private void updateInfo(Member mb) {
+		mav = new ModelAndView();
+		String view = null;
+		String m_id = session.getAttribute("m_id").toString();
+		System.out.println("아이디는="+m_id);
+		if(m_id!=null&&!m_id.equals(" ")){
+			Member mbUpdate = mDao.getMemberInfo(m_id);
+			mav.addObject("mbUpdate",mbUpdate);
+			view = "updateUserInfo";
+		}else{
+			view = "main";
+		}
+		mav.setViewName(view);
+	}
+
+
 	public ModelAndView execute(MultipartHttpServletRequest multi, int cmd){
 		switch (cmd) {
 		case 1:
 			memberInsert(multi);//회원가입
+			break;
+		case 2:
+			memberUpdate(multi);
 			break;
 		default:
 			break;
@@ -112,6 +133,7 @@ public class MemberManagement {
 		return mav;
 	}
 
+
 	private void goMyPage() {//회원의 종류에 따라 다른 URL발생해 마이페이지로 이동
 		String view=null;
 		mav=new ModelAndView();
@@ -126,6 +148,31 @@ public class MemberManagement {
 		mav.setViewName(view);
 		
 	}
+	private void memberUpdate(MultipartHttpServletRequest multi) {
+		mav = new ModelAndView();
+		String m_id = session.getAttribute("m_id").toString();
+		System.out.println("엠아이디="+m_id);
+		String view = null;
+		Map<String, String> map = null;
+		if(session!=null && session.getAttribute("m_id")!=null){
+			Member mb = new Member();
+			UploadFile upload = new UploadFile();
+			map = upload.fileUppr(multi);
+			String userPw = multi.getParameter("pw");
+			String userName = multi.getParameter("userName");
+			String userEmail = multi.getParameter("userEmail");
+			mb.setM_id(m_id);
+			mb.setM_pw(userPw);
+			mb.setM_name(userName);
+			mb.setM_email(userEmail);
+			mDao.updateInfo(mb, map);
+			view = "home";
+		}else{
+			view = "updateUserInfo";
+		}
+		mav.setViewName(view);
+	}
+
 	private void memberInsert(MultipartHttpServletRequest multi) {
 		mav = new ModelAndView();
 		String view = null;

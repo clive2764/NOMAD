@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Notice;
 
@@ -94,6 +93,26 @@ public class MemberDao {
 
 	}
 
+	public void updateInfo(Member member, Map<String,String> map){
+		System.out.println("실행");
+		String m_pw = member.getM_pw();
+		String m_name = member.getM_name();
+		String m_id = member.getM_id();
+		String m_email = member.getM_email();
+		map.put("m_id", m_id);
+		map.put("m_pw", m_pw);
+		map.put("m_name", m_name);
+		map.put("m_email", m_email);
+		updateMemberInfo(member);
+		updateMFile(map);
+		
+	}
+	public int updateMemberInfo(Member member){
+		return sqlSession.update("member.updateMemberInfo", member);
+	}
+	public int updateMFile(Map<String,String> map){
+		return sqlSession.update("member.updateMFile", map);
+	}
 	public List<Member> getMemberList(int pageNum) {
 		return sqlSession.selectList("member.getMemberList",pageNum);
 	}
@@ -141,6 +160,4 @@ public class MemberDao {
 		
 	}
 
-
-	
 }

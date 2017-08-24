@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.steppe.nomad.bean.Volunteer;
 
@@ -20,6 +21,11 @@ public class VolunteerDao {
 	public int UpdateVolunteer(int v_pnum) {
 		System.out.println("DAO확인");
 		return sqlSession.update("volunteer.UpdateVolunteer",v_pnum);
+
+	}
+
+	public List<Volunteer> chatRoomList(String mid) {
+		return sqlSession.selectList("volunteer.chatRoomList",mid);
 	}
 
 	public int volunteerCheck(String p_mid) {

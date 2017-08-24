@@ -84,9 +84,21 @@
                     <h3>${sessionScope.m_kind}</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
               </div>
-				<div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">								
-				    <a href="#" style="background-color:cornflowerblue; height:250px;" >프로젝트 바로가기</a>
-				</div>
+                <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <i class="fa fa-heart-o"></i>
+                    <h3>프로젝트 영역</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
+                </div>
+                <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <i class="fa fa-heart-o"></i>
+                    <h3>프로젝트 영역</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
+                </div>
+                <div class="col-md-3 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <i class="fa fa-heart-o"></i>
+                    <h3>프로젝트 영역</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
+                </div>
 			</div>	
 	</div>			
 	<hr>
@@ -95,6 +107,8 @@
     <!-- 푸터 영역 -->  
     <jsp:include page="footer.jsp" />
       
+     
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
     <script src="resources/js/jquery-3.2.1.min.js"></script>		
     <script src="resources/js/bootstrap.min.js"></script>	

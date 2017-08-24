@@ -16,6 +16,7 @@
       <link href="resources/css/style.css" rel="stylesheet" />
       <link href="resources/css/heroic-features.css" rel="stylesheet" />
       <style>
+      	
          body{
             padding-top: 0px;
          }
@@ -43,20 +44,10 @@
       
       <!--메인페이지 영역-->
       
-         <div class="about">
-            <div class="container">
-               <form style="float: right" action="searchKeywordFr" id="searchForm" method="get">
-                  <input type="text" id="keyword" name="keyword" placeholder="프리랜서 이름"/>
-                  <input type="button" id="search" value="검색"> 
-               </form>
-            </div>
+         
+            
             ${flist}
-            ${slist}
-         </div>   
-              
-               
-         </div>
-      
+            ${slist}               
       <hr>
    
       <!--푸터 영역 시작-->

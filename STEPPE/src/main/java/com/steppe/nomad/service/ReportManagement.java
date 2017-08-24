@@ -198,7 +198,7 @@ public class ReportManagement {
 			StringBuilder sb = new StringBuilder();
 			sb.append("<div class='container'>");
 			sb.append("<div class='row'>");
-			sb.append("<form action='searchProject' id='search' class='pull-right'>");
+			sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
 			sb.append("<input type='text' id='keyword' name='keyword' placeholder='프로젝트명을 입력하세요'/>");
 			sb.append("<input type='button' id='searchBtn' value='검색'>");
 			sb.append("</form>");

@@ -134,7 +134,7 @@
     <div class="row"></div>
     <!-- 푸터 영역 -->  
 	<jsp:include page="footer.jsp" />
-      
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--<script src="js/jquery.js"></script>-->		
     <!-- Include all compiled plugins (below), or include individual files as needed -->

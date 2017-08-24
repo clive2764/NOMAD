@@ -68,16 +68,16 @@
             <table class="table table-striped" style="color: black; text-align: center;">
                <tr style="text-align:center;">
                   <td colspan="2">
-                     <img style="width: 400px; height: 250px;;" src="resources/upload/<%-- ${member.m_image} --%>.jpg"/>
+                     <img style="width: 400px; height: 250px;" src="resources/upload/${photo}"/>
                   </td>
                </tr>
                <tr>
                   <td>이름</td>
-                  <td>${member.m_name}</td>
+                  <td>${freelancer.m_name}</td>
                </tr>
                <tr>
                   <td>이메일 주소</td>
-                  <td>${member.m_email}</td>
+                  <td>${freelancer.m_email}</td>
                </tr>
                
                
