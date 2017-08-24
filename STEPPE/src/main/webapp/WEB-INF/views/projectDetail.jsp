@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,7 +16,9 @@
 	<link href="resources/css/style.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
 	<style>
-
+		.about{
+			padding-bottom: 0px;
+		}
         table{
             color: black;
         }
@@ -57,81 +59,86 @@
        		color:black;
        		width: 100%;
        	}
+       	#reply{
+       		margin-top: 10%;
+       	}
+       	
     </style>
   </head>
   <body>
     <jsp:include page="header.jsp" />
     	<div class="about">
-		<div class="container">
-            <table class="table table-responsive">
-                <tr>
-                    <td>제목</td>
-                    <td colspan="3" style="text-align: center;">${project.p_title}</td>
-                </tr>
-                <tr>
-                    <td>프로젝트 기간</td>
-                    <td colspan="2" style="text-align: center;">지원자</td>
-                    <td style="text-align: right;">마감일</td>
-                </tr>
-                <tr>
-                    <td>${project.p_term}일</td>
-                    <td colspan="2" style="text-align: center;">${project.p_vol}명</td>
-                    <td colspan="2" style="text-align: right;">${project.p_deadline}</td>
-                </tr>
-                <tr>
-                    <td>필요언어</td>
-                    <td>${project.p_plnum0},${project.p_plnum1},${project.p_plnum2}</td>
-                    <td colspan="2" style="text-align: center;">
-                        <form action="" method="post" id="priceForm">
-                            <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="price">
-                            <input type="button" value="결정" id="check"/>
-                            <a href="goProject"><input type="button" value="목록보기" id="list"></a>
-                        </form>
-                        
-                    </td>
-                    
-                </tr>
-            
-            </table>
-        </div>
-    
-	<hr>
-    <div class="container">
-            <h1 style="text-align:center; color:black;">프로젝트 설명</h1>
-            <p>
-                ${project.p_content}
-            </p>    
-           
-    </div>
-    </div>
-    <hr/>
-    <div class="container">
-        <h1 style="color:black; text-align:center;">댓글</h1>
-        <div class="row"></div>
-        <table class="table table-responsive">
-            <tr>
-                <td>작성자</td>
-                <td colspan="5">작성 내용</td>
-            </tr>
-            <tr>
-                <td><p>핫산</p></td>
-                <td colspan="5"><p>싸잔님 월급 주쎄오 쩨발</p></td>
-            </tr>
-            <tr>
-                <td><p>핫산</p></td>
-                <td colspan="5"><p>3달째 밀렸어오 싸잔님</p></td>
-            </tr>
-            <tr>
-                <td><p>핫산</p></td>
-                <td colspan="5"><p>가족들 굶어요 싸잔님</p></td>
-            </tr>
-        </table>
-        <form action="insertComment" method="post" id="replyForm">
-        	<textarea name="r_content" id="r_content"></textarea><br/>
-        	<input type="button" id="replyInsert" value="댓글작성"/>
-        </form>
-    </div>
-    <div class="row"></div>
+    		<div class="container">
+	            <table class="table table-responsive">
+	                <tr>
+	                    <td>
+	                    	제목
+	                    </td>
+	                    <td colspan="3" style="text-align: center;">
+	                   		 ${project.p_title}
+	                    </td>
+	                </tr>
+	                <tr>
+	                    <td>프로젝트 기간</td>
+	                    <td colspan="2" style="text-align: center;">지원자</td>
+	                    <td style="text-align: right;">마감일</td>
+	                </tr>
+	                <tr>
+	                    <td>${project.p_term}일</td>
+	                    <td colspan="2" style="text-align: center;">${project.p_vol}명</td>
+	                    <td colspan="2" style="text-align: right;">${project.p_deadline}</td>
+	                </tr>
+	                <tr>
+	                    <td>필요언어</td>
+	                    <td>${project.p_plnum0},${project.p_plnum1},${project.p_plnum2}</td>
+	                    <td colspan="2" style="text-align: center;">
+	                        <form action="" method="post" id="priceForm">
+	                            <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="price">
+	                            <input type="button" value="결정" id="check"/>
+	                            <a href="goProject"><input type="button" value="목록보기" id="list"></a>
+	                        </form>
+	                        
+	                        
+	                    </td>
+	                    
+	                </tr>
+	            
+	            </table>
+	            </div>
+		<hr>
+	    		
+		            
+		            <div class="container">
+		            <h1 style="text-align:center; color:black;">프로젝트 설명</h1>
+		                <p>${project.p_content}</p>
+		            </div>    
+		           <hr/>
+		           
+		           <div class="container" id="reply">
+		           <h1 style="color:black; text-align:center;">댓글</h1>
+		           <form name="replyForm" method="post">
+		           <table class="table table-striped">
+		           <tr>
+		           <th style="text-align:center; width:20%;">작성자</th>
+		           <th colspan="5" style="text-align:center;">작성내용</th>
+		           <th colspan="2" style="text-align:center; width:20%;">작성날짜</th>
+		           </tr>
+		           ${reply}
+		           </table>
+		           <input type="hidden" name="p_num" value="${p_num }" />
+		           <input type="hidden" name="r_num" id="r_num" />
+		           <input type="hidden" name="r_mid" value="${r_mid}"/>
+		           </form>
+		           <form action="insertComment" method="post" id="insertReplyForm">
+						<input name="p_num" type="hidden" value="${project.p_num}"/>
+						<textarea name="r_content" id="r_content"></textarea><br/>
+						<input type="button" id="replyInsert" value="댓글작성"/>
+						</form>
+		           </div>
+			        </div>
+			        
+			        <div class="row"></div>
+		      </div>
     <!-- 푸터 영역 -->  
 	<jsp:include page="footer.jsp" />
 
@@ -143,7 +150,8 @@
 	<script>wow = new WOW({}).init();</script>	
 </body>
 <script>
-    $("#check").click(function(){
+	
+   $("#check").click(function(){
         var price = $("#price").val();
         
         
@@ -162,8 +170,14 @@
     		alert("댓글을 입력하세요!");
     	}
     	if(r_content != ""){
-    		$("#replyForm").submit();
+    		$("#insertReplyForm").submit();
     	}
     });
+    
+    function deleteReply(num) {
+    	$('#r_num').val(num);
+    	document.replyForm.action="./deleteReply";
+    	document.replyForm.submit();
+    }
 </script>
 </html>

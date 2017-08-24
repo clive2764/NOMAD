@@ -212,44 +212,55 @@ public class MemberManagement {
 		String m_pass=request.getParameter("m_pw");
 
 		String passC=mDao.getPwd(m_id);
-		System.out.println(m_pass);
-		System.out.println(passC);
+		
+		//System.out.println("입력 비밀번호:"+m_pass);
+		//System.out.println("비밀번호:"+passC);
+		
+		//블랙리스트 판별하기 위함
+		String black="B";
+		
 		if(m_pass!=null){
+			
+			
 			if(m_pass.equals(passC)){
-
-				String m_kind=mDao.getKind(m_id);
-				session.setAttribute("m_kind", m_kind);
-				session.getAttribute("m_kind");
-
-				System.out.println("로그인성공");
-				session.setAttribute("m_id",m_id);
-				session.getAttribute("m_id");
-
-				session.setAttribute("m_pw", m_pass);
-				session.getAttribute("m_pw");
-
-				session.setAttribute("member", mb);
-				session.getAttribute("member");
-
-				System.out.println(mDao.getKind(m_id));
-				System.out.println("아이디:"+session.getAttribute("m_id"));
-				System.out.println("패스워드:"+session.getAttribute("m_pw"));
-				System.out.println("회원종류:"+session.getAttribute("m_kind"));
-				System.out.println("세션:"+session.getId());
-
-				view="redirect:/";
-				mav.setViewName(view);
-
-
-			}else{
-				view="login";
-				mav.setViewName(view);
-
+				String status=mDao.getStatus(m_id);
+				if(!status.equals(black)){
+					String m_kind=mDao.getKind(m_id);
+					session.setAttribute("m_kind", m_kind);
+					session.getAttribute("m_kind");
+	
+					System.out.println("로그인성공");
+					session.setAttribute("m_id",m_id);
+					session.getAttribute("m_id");
+	
+					session.setAttribute("m_pw", m_pass);
+					session.getAttribute("m_pw");
+	
+					session.setAttribute("member", mb);
+					session.getAttribute("member");
+	
+					System.out.println(mDao.getKind(m_id));
+					//System.out.println("아이디:"+session.getAttribute("m_id"));
+					//System.out.println("패스워드:"+session.getAttribute("m_pw"));
+					//System.out.println("회원종류:"+session.getAttribute("m_kind"));
+					//System.out.println("세션:"+session.getId());
+					//System.out.println("상태:"+status);
+					view="redirect:/";
+					mav.setViewName(view);
+				}
+				if(status.equals(black)){
+					mav.addObject("msg","로그인시도한 계정은 블랙리스트입니다.");
+					mav.setViewName("login");
+				}
+			}
+			if(passC==null){
+				mav.addObject("msg","존재하지 않는 계정입니다.");
+				mav.setViewName("login");
 			}
 
 
-
-		}	return mav;
+		}	
+		return mav;
 	}
 	@Autowired
 	private JavaMailSenderImpl javaMailSenderImpl;

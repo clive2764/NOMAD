@@ -42,7 +42,7 @@
   <body>
      <jsp:include page="header.jsp" />
     
-   <div class="about">
+   <div class="about" style="height: 100%;">
          <div class="container">
          <div class="row">
             <form action="goReportWrite" method="get">

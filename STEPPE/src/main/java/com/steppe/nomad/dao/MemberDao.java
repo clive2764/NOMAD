@@ -151,4 +151,8 @@ public class MemberDao {
 		return sqlSession.selectOne("member.getMemberCount");
 	}
 
+	public String getStatus(String m_id) {
+		return sqlSession.selectOne("member.getStatus", m_id);
+	}
+
 }
