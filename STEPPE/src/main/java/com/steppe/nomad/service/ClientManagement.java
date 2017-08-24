@@ -210,7 +210,7 @@ public class ClientManagement {
 				System.out.println(pd_money);
 				System.out.println(pd_catagory);
 				
-				Accounting accounting2 = new Accounting(pd_num,pd_punum,pd_mid,pd_money,pd_catagory);
+                Accounting accounting2 = new Accounting(pd_num,pd_punum,pd_mid,pd_money,pd_catagory);
 				if(aDao.insertPurchase_detail(accounting2)!=0){
 					int v_pnum1=vDao.UpdateVolunteer(pu_pnum);//지원자 업데이트
 					System.out.println(v_pnum1);
