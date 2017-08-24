@@ -51,13 +51,6 @@ public class FreelancerController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/goPortfolioUpdate")
-	public ModelAndView portfolioUpdate() {
-		mav=new ModelAndView();
-		mav.setViewName("portfolioUpdate");
-		return mav;
-	}
-	
 	@RequestMapping(value = "/addCareerInfo")
 	public @ResponseBody String addCareerInfo(Career career) {
 		String jsonStr=fm.executeAjax(career, 1);
@@ -126,20 +119,28 @@ public class FreelancerController {
 	}
 	
 	@RequestMapping(value = "/showPortfolioDetail")
-	public @ResponseBody String showPortfolioDetail(Portfolio portfolio) {
-		String jsonStr=fm.executeAjax(portfolio, 2);
-		return jsonStr;
+	public ModelAndView showPortfolioDetail(Portfolio portfolio) {
+		System.out.println("쇼포폴디");
+		mav = fm.execute(portfolio, 1);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/goPortfolioUpdate")
+	public ModelAndView goPortfolioUpdate(Portfolio portfolio) {
+		mav = fm.execute(portfolio, 2);
+		return mav;
 	}
 	
 	@RequestMapping(value = "/updatePortfolio")
 	public ModelAndView updatePortfolio(Portfolio portfolio){
-		mav = fm.execute(portfolio, 1);
+		mav = fm.execute(portfolio, 3);
 		return mav;
 	}
 	
 	@RequestMapping(value = "/deletePortfolio")
 	public ModelAndView deletePortfolio(Portfolio portfolio){
-		mav = fm.execute(portfolio, 2);
+		System.out.println("왔냐?");
+		mav = fm.execute(portfolio, 4);
 		return mav;
 	}
 	

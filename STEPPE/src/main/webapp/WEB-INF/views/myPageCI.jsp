@@ -19,10 +19,6 @@
 		<!--메인페이지 영역-->
 		<div class="about">
 
-			<form name="pinsert" action="goAddProject" method="get">
-			<button>프로젝트 등록</button>
-			</form>
-
 		<button id="showProcessAll" name="showProcessAll" onclick="location.href='./showProcessAll ' ">프로젝트 관리</button>
 		<button  id="pinsert" name="pinsert" onclick="location.href='./goAddProject' ">프로젝트 등록</button>
 		<button  id="updateUserInfo" name="updateUserInfo" onclick="location.href='./goUpdateUserInfo' ">회원정보 수정</button>

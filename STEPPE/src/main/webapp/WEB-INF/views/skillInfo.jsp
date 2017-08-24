@@ -59,7 +59,8 @@ input {
 <body>
    <!-- 헤더 영역 -->  
 	<jsp:include page="header.jsp" />
-
+	<jsp:include page="mypagefrmenu.jsp" />
+   	<jsp:include page="profilemenu.jsp" />
    <div class="container">
       <!--style="height:-webkit-fill-available;"-->
       <form action="addSkill" method="post" id="skill">

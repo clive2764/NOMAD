@@ -75,8 +75,8 @@ public class FreelancerDao {
 		return sqlSession.selectList("Portfolio.getPortfolioList", pf_mid);
 	}
 	
-	public int getPortfolioDetail(int pf_num) {
-		return sqlSession.selectOne("Portfolio.getPortfolioDetail", pf_num);
+	public List<Portfolio> getPortfolioDetailList(int pf_num) {
+		return sqlSession.selectList("Portfolio.getPortfolioDetailList", pf_num);
 	}
 	
 	public int getPortfolioMaxNum() {
@@ -92,6 +92,7 @@ public class FreelancerDao {
 	}
 	
 	public int updatePortfolio(Portfolio portfolio) {
+		System.out.println("DAO");
 		return sqlSession.update("Portfolio.updatePortfolio", portfolio);
 	}
 	

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.metadata.GenericTableMetaDataProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -85,9 +86,6 @@ public class FreelancerManagement {
 		case 1 :
 			showPortfolioList(portfolio);
 			break;
-		case 2 :
-			showPortfolioDetail(portfolio);
-			break;
 		}
 		return jsonStr;
 	}
@@ -103,9 +101,15 @@ public class FreelancerManagement {
 	public ModelAndView execute(Portfolio portfolio, int cmd) {
 		switch(cmd){
 		case 1: 
-			updatePortfolio(portfolio);
+			showPortfolioDetail(portfolio);
 			break;
 		case 2: 
+			goPortfolioUpdate(portfolio);
+			break;
+		case 3 :
+			updatePortfolio(portfolio);
+			break;
+		case 4 :
 			deletePortfolio(portfolio);
 			break;
 		}
@@ -351,7 +355,7 @@ public class FreelancerManagement {
 		Portfolio portfolio = new Portfolio();
 		portfolio.setPf_mid(pf_mid);
 		if(fDao.getPortfolioCount()!=0){
-			portfolio.setPf_num(fDao.getPortfolioCount()+1);
+			portfolio.setPf_num(fDao.getPortfolioMaxNum()+1);
 		}else{
 			portfolio.setPf_num(1);
 		}
@@ -409,59 +413,133 @@ public class FreelancerManagement {
 		}
 	}
 
-	private void showPortfolioDetail(Portfolio portfolio) {
+	private ModelAndView showPortfolioDetail(Portfolio portfolio) {
 		mav=new ModelAndView();
 		String view = null;
-		List<Portfolio> pflist = null;
+		//List<Portfolio> pflist = null;
 		System.out.println("포트폴리오 상세 들어옴");
 		if(ss!=null && ss.getAttribute("m_id")!=null){
-			int pf_num = Integer.parseInt(req.getParameter("num"));
+			int pf_num = Integer.parseInt(req.getParameter("pfnum"));
+			String pf_mid = (String) ss.getAttribute("m_id");
 			System.out.println(pf_num);
-			if(fDao.getPortfolioDetail(pf_num)!=0){
+			System.out.println(pf_mid);
+			//pflist = fDao.getPortfolioList(pf_mid);
+			List<Portfolio> pf=fDao.getPortfolioDetailList(pf_num);
+			System.out.println(pf);
+			if(pf!=null){
 				StringBuilder sb=new StringBuilder();
-				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
-				sb.append("<tr>");
-				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"기간"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"참여율"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"내용"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"포트폴리오"+"</th>");
-				sb.append("</tr>");
-				for(int i=0; i<pflist.size(); i++){
-					Portfolio p=pflist.get(i);
-					sb.append("<tr>");
-					sb.append("<td>"+p.getPf_title()+"</td>");
-					sb.append("<td>"+p.getPf_term()+"</td>");
-					sb.append("<td>"+p.getPf_contribute()+"</td>");
-					sb.append("<td>"+p.getPf_content()+"</td>");
-					sb.append("<td>"+p.getPt_sysname()+"</td>");
-					sb.append("</tr>");
+				for(int i=0; i<pf.size(); i++){
+					Portfolio pf1=pf.get(i);
+					if(i<1){
+						sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+						sb.append("<tr><th style='text-align:center;'>"+"제목"+"</th></tr>");
+						sb.append("<tr><td>"+pf1.getPf_title()+"</td></tr>");
+						sb.append("<tr><th style='text-align:center;'>"+"기간"+"</th></tr>");
+						sb.append("<tr><td>"+pf1.getPf_term()+"</td></tr>");
+						sb.append("<tr><th style='text-align:center;'>"+"참여율"+"</th></tr>");
+						sb.append("<tr><td>"+pf1.getPf_contribute()+"</td></tr>");
+						sb.append("<tr><th style='text-align:center;'>"+"내용"+"</th></tr>");
+						sb.append("<tr><td>"+pf1.getPf_content()+"</td></tr>");
+						sb.append("<tr><th style='text-align:center;'>"+"포트폴리오"+"</th></tr>");
+						sb.append("<tr><td><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+						sb.append("</table>");
+					}else{
+						sb.append("<table class='table table-responsive' style='text-align:center; color:black;'");
+						sb.append("<tr><td><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+						sb.append("</table>");
+					}
 				}
-				sb.append("</table>");
-				mav.addObject("portfolio",sb.toString());	
+				sb.append("<form action='deletePortfolio' method='post' id='portfolio'>");
+				sb.append("<input type='hidden' name='pfnum' value="+pf_num+" />");
+				mav.addObject("portfolio",sb.toString());
+				mav.addObject("pf_num",pf_num);
 				System.out.println("대따");
 			}
-			view="portfolio";
+			view="portfolioDetail";
 			mav.setViewName(view);
+			
 		}
+		return mav;
+	}
+	
+	private void goPortfolioUpdate(Portfolio portfolio) {
+		mav=new ModelAndView();
+		String view = null;
+		System.out.println("가자 업데이트로!");
+		int pf_num = Integer.parseInt(req.getParameter("pf_num"));
+		System.out.println(pf_num);
+		mav.addObject("pf_num",pf_num);
+		view="portfolioUpdate";
+		mav.setViewName(view);
 	}
 
 	private void updatePortfolio(Portfolio portfolio) {
-
+		System.out.println("포트폴리오 업데이트!!");
+		String view=null;
+		mav=new ModelAndView();
+		int pf_num = Integer.parseInt(req.getParameter("pfnum"));
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String pf_mid = (String) ss.getAttribute("m_id");
+			System.out.println(pf_num);
+			System.out.println(pf_mid);
+			
+			String pf_title=req.getParameter("pf_title");
+			System.out.println(pf_title);
+			String pf_term=req.getParameter("pf_term");
+			String pf_contribute=req.getParameter("pf_contribute");
+			String pf_content=req.getParameter("pf_content");
+			portfolio.setPf_num(pf_num);
+			portfolio.setPf_title(pf_title);
+			portfolio.setPf_term(pf_term);
+			portfolio.setPf_contribute(pf_contribute);
+			portfolio.setPf_content(pf_content);
+			
+			fDao.updatePortfolio(portfolio);
+			mav.addObject("portfolio",portfolio);
+		}
+		List<Portfolio> pf=fDao.getPortfolioDetailList(pf_num);
+		StringBuilder sb=new StringBuilder();
+		for(int i=0; i<pf.size(); i++){
+			Portfolio pf1=pf.get(i);
+			if(i<1){
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr><th style='text-align:center;'>"+"제목"+"</th></tr>");
+				sb.append("<tr><td>"+pf1.getPf_title()+"</td></tr>");
+				sb.append("<tr><th style='text-align:center;'>"+"기간"+"</th></tr>");
+				sb.append("<tr><td>"+pf1.getPf_term()+"</td></tr>");
+				sb.append("<tr><th style='text-align:center;'>"+"참여율"+"</th></tr>");
+				sb.append("<tr><td>"+pf1.getPf_contribute()+"</td></tr>");
+				sb.append("<tr><th style='text-align:center;'>"+"내용"+"</th></tr>");
+				sb.append("<tr><td>"+pf1.getPf_content()+"</td></tr>");
+				sb.append("<tr><th style='text-align:center;'>"+"포트폴리오"+"</th></tr>");
+				sb.append("<tr><td><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+				sb.append("</table>");
+			}else{
+				sb.append("<table class='table table-responsive' style='text-align:center; color:black;'");
+				sb.append("<tr><td><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+				sb.append("</table>");
+			}
+		}
+		sb.append("<form action='deletePortfolio' method='post' id='portfolio'>");
+		sb.append("<input type='hidden' name='pfnum' value="+pf_num+" />");
+		mav.addObject("portfolio",sb.toString());
+		view="portfolioDetail";
+		mav.setViewName(view);
 	}
 
 	private void deletePortfolio(Portfolio portfolio) {
 		System.out.println("포트폴리오 삭제 들어옴");
 		String view=null;
 		mav=new ModelAndView();
+		System.out.println(req.getParameter("pfnum"));
 		if(ss!=null && ss.getAttribute("m_id")!=null){
-			int pf_num=Integer.parseInt(req.getParameter("num"));
-			if(fDao.deleteCareer(pf_num)!=0){
+			int pf_num=Integer.parseInt(req.getParameter("pfnum"));
+			if(fDao.deletePortfolio(pf_num)!=0){
 				System.out.println("포트폴리오 삭제 성공");
 			}else{
 				System.out.println("포트폴리오 삭제 실패");
 			}
-			view="portfolioUpdate";
+			view="portfolio";
 			mav.setViewName(view);
 		}
 	}

@@ -41,10 +41,16 @@ input#complete {
 	outline: none;
 	cursor: pointer;
 }
+.proimg{
+	width: auto;
+	height: 400px;
+}
 </style>
 </head>
   <body>
     <jsp:include page="header.jsp" />
+   	<jsp:include page="mypagefrmenu.jsp" />
+   	<jsp:include page="profilemenu.jsp" />
 	<!--메인페이지 영역-->
 	<div class="about">
          <div class="container">
@@ -55,7 +61,7 @@ input#complete {
                   <td class="category">
                      <span>프로필 사진
                   </span>
-                     <img style="width: 250px; height: 250px;" src="resources/upload/1503122012599.jpg"/>
+                     <img style="width: 250px; height: 250px;" src=""/>
                   </td>
                </tr>
                <tr>
@@ -76,16 +82,16 @@ input#complete {
             <table>
 			<tr align="center" height="25">
 				<td width="200">이름</td>
-				<td width="200">사진</td>
-				<td width="200">자기소개서</td>
+				<td width="auto">사진</td>
+				<td width="600">자기소개서</td>
 			</tr>
 		</table>
 		<table id="prTable">
 			<c:forEach var="profile" items="${prlist}">
 				<tr align="center" height="25">
 					<td width="200">${prlist.m_name}</td>
-					<td width="200"><img src="resources/upload/1503108730932.jpg"/></td>
-					<td width="200">${prlist.pro_content}</td>
+					<td width="auto"><img src="resources/upload/1503108730932.jpg"/></td>
+					<td width="600">${prlist.pro_content}</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -122,8 +128,8 @@ $(document).ready(function(){
 			for(var i=0;i<data.length;i++){
 				prlist+='<tr height="25" align="center">'
 				+'<td width="200">'+data[i].m_name+'</td>'
-				+'<td width="200">'+'<img src="resources/upload/'+data[i].mf_sysname+'"/>'+'</td>'
-				+'<td width="200">'+data[i].pro_content+'</td>'
+				+'<td width="auto">'+'<img class="proimg" src="resources/upload/'+data[i].mf_sysname+'"/>'+'</td>'
+				+'<td width="600">'+data[i].pro_content+'</td>'
 				+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].pro_num+")'/></td></tr>"
 		}
 		/* for(var i=0;i<data.rlist.length;i++){
@@ -152,8 +158,8 @@ $(document).ready(function(){
 			for(var i=0;i<data.length;i++){
 				prlist+='<tr height="25" align="center">'
 				+'<td width="200">'+data[i].m_name+'</td>'
-				+'<td width="200">'+'<img src="resources/upload/'+data[i].mf_sysname+'"/>'+'</td>'
-				+'<td width="200">'+data[i].pro_content+'</td>'
+				+'<td width="auto">'+'<img class="proimg" src="resources/upload/'+data[i].mf_sysname+'"/>'+'</td>'
+				+'<td width="600">'+data[i].pro_content+'</td>'
 				+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].pro_num+")'/></td></tr>"
 		}
 		/* for(var i=0;i<data.rlist.length;i++){
@@ -185,8 +191,8 @@ function memberDelete(num){
 			for(var i=0;i<data.length;i++){
 				prlist+='<tr height="25" align="center">'
 				+'<td width="200">'+data[i].m_name+'</td>'
-				+'<td width="200">'+'<img src="resources/upload/'+data[i].mf_sysname+'"/>'+'</td>'
-				+'<td width="200">'+data[i].pro_content+'</td>'
+				+'<td width="auto">'+'<img class="proimg" src="resources/upload/'+data[i].mf_sysname+'"/>'+'</td>'
+				+'<td width="600">'+data[i].pro_content+'</td>'
 				+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].pro_num+")'/></td></tr>"
 		}
 		$('#prTable').html(prlist);
