@@ -7,7 +7,7 @@ public class Volunteer {
 	private int v_pnum;
 	private String v_mid;
 	private int v_bid;
-	private String date;
+	private String v_time;
 	
 	public int getV_num() {
 		return v_num;
@@ -39,12 +39,13 @@ public class Volunteer {
 	public void setV_bid(int v_bid) {
 		this.v_bid = v_bid;
 	}
-	public String getDate() {
-		return date;
+	public String getV_time() {
+		return v_time;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setV_time(String v_time) {
+		this.v_time = v_time;
 	}
+	
 	
 	
 	

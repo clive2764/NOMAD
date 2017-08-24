@@ -73,6 +73,7 @@
 									<a href="goPms">프로젝트 관리</a>
 								</c:if>
 								<a href="goMyProfile">프로필</a>
+								<a href="goMyPage">마이페이지</a>
 								<c:if test="${m_id eq 'admin'}">
 									<a href="goMemberMM"> 회원관리 </a>
 

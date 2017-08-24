@@ -132,6 +132,15 @@ public class MemberDao {
 		return sqlSession.selectOne("member.getMemberCount");
 	}
 
+	public String CheckPw(String m_id) {
+		return sqlSession.selectOne("member.CheckPw",m_id);
+	}
+
+	public int deleteMemberMake(String m_id) {
+		return sqlSession.delete("member.deleteMemberMake",m_id);
+		
+	}
+
 
 	
 }

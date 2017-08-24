@@ -21,4 +21,12 @@ public class VolunteerDao {
 		System.out.println("DAO확인");
 		return sqlSession.update("volunteer.UpdateVolunteer",v_pnum);
 	}
+
+	public int volunteerCheck(String p_mid) {
+		return sqlSession.selectOne("volunteer.volunteerCheck",p_mid);
+	}
+
+	public int getPerson(int v_pnum) {
+		return sqlSession.selectOne("volunteer.getPerson",v_pnum);
+	}
 }
