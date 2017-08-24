@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.steppe.nomad.bean.Accounting;
 import com.steppe.nomad.bean.Volunteer;
 
 @Repository
@@ -22,5 +23,14 @@ public class AccountingDao {
 
 	public int getPrice(int v_pnum) {
 		return sqlSession.selectOne("accounting.getPrice",v_pnum);
+	}
+
+
+	public List<Accounting> getPurchaseList(int pageNum) {
+		return sqlSession.selectList("accounting.getPurchaseList",pageNum);
+	}
+	
+	public List<Accounting> getPurchaseDList(int pd_punum) {
+		return sqlSession.selectList("accounting.getPurchaseDList",pd_punum);
 	}
 }

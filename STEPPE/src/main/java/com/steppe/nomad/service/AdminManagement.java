@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.userClass.Paging;
+import com.steppe.nomad.bean.Accounting;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Notice;
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.dao.AccountingDao;
 import com.steppe.nomad.dao.AdminDao;
 import com.steppe.nomad.dao.MemberDao;
 import com.steppe.nomad.dao.ProjectDao;
@@ -44,6 +46,10 @@ public class AdminManagement {
 	//싱글톤
 	@Autowired
 	private ProjectDao pDao;
+
+	//싱글톤
+	@Autowired
+	private AccountingDao acDao;
 
 	private ModelAndView mav;
 
@@ -107,11 +113,15 @@ public class AdminManagement {
 		case 8:
 			getDesignList();
 			break;
+		case 9:
+			getPurchaseList();
+			break;
 		default:
 			break;
 		}
 		return mav;
 	}
+
 
 	public ModelAndView execute(String mid, int cmd) {
 		switch (cmd) {
@@ -134,6 +144,17 @@ public class AdminManagement {
 		switch (cmd) {
 		case 1:
 			projectDelete(pnum);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+
+	public ModelAndView executess(int punum, int cmd) {
+		switch (cmd) {
+		case 1:
+			getPurchaseDList(punum);
 			break;
 		default:
 			break;
@@ -364,9 +385,10 @@ public class AdminManagement {
 		int maxNum = mDao.getMemberCount(); //전체 게시글의 수
 		int listCount = 10; //페이지당 글의 수
 		int pageCount = 2; //그룹당 페이지 수
+		String boardName = "goMemberMM";
 
 
-		Paging paging = new Paging(maxNum,  pageNum,  listCount,  pageCount);
+		Paging paging = new Paging(maxNum,  pageNum,  listCount,  pageCount, boardName);
 		return paging.makeHtmlPaging();
 
 	}
@@ -418,7 +440,7 @@ public class AdminManagement {
 
 	//블랙리스트 페이지 번호
 	private String getPagingB(int pageNum) { //현재 페이지 번호
-		int maxNum = aDao.getNoticeCount(); //전체 게시글의 수
+		int maxNum = mDao.getMemberCount();  //전체 게시글의 수
 		int listCount = 10; //페이지당 글의 수
 		int pageCount = 2; //그룹당 페이지 수
 
@@ -476,7 +498,7 @@ public class AdminManagement {
 
 	//클라이언트 리스트 페이지 번호
 	private String getPagingC(int pageNum) { //현재 페이지 번호
-		int maxNum = aDao.getNoticeCount(); //전체 게시글의 수
+		int maxNum = mDao.getMemberCLCount();  //전체 게시글의 수
 		int listCount = 10; //페이지당 글의 수
 		int pageCount = 2; //그룹당 페이지 수
 
@@ -521,7 +543,7 @@ public class AdminManagement {
 
 	//프리랜서 리스트 페이지 번호
 	private String getPagingP(int pageNum) { //현재 페이지 번호
-		int maxNum = aDao.getNoticeCount(); //전체 게시글의 수
+		int maxNum = mDao.getMemberFRCount();  //전체 게시글의 수
 		int listCount = 10; //페이지당 글의 수
 		int pageCount = 2; //그룹당 페이지 수
 
@@ -672,7 +694,7 @@ public class AdminManagement {
 
 	//프로젝트 개발 리스트 페이지 번호
 	private String getPagingV(int pageNum) { //현재 페이지 번호
-		int maxNum = aDao.getNoticeCount(); //전체 게시글의 수
+		int maxNum = pDao.getProjectDVCount(); //전체 게시글의 수
 		int listCount = 10; //페이지당 글의 수
 		int pageCount = 2; //그룹당 페이지 수
 
@@ -726,7 +748,7 @@ public class AdminManagement {
 
 	//프로젝트 디자인 리스트 페이지 번호
 	private String getPagingD(int pageNum) { //현재 페이지 번호
-		int maxNum = aDao.getNoticeCount(); //전체 게시글의 수
+		int maxNum = pDao.getProjectDSCount(); //전체 게시글의 수
 		int listCount = 10; //페이지당 글의 수
 		int pageCount = 2; //그룹당 페이지 수
 
@@ -773,6 +795,77 @@ public class AdminManagement {
 		}
 		mav.setViewName("projectMM");
 		return mav;
+	}
+
+	//결제 관리 페이지 리스트 보기
+	private void getPurchaseList() {
+		mav = new ModelAndView();
+		List<Accounting> prlist =null;
+
+		int pageNum = (request.getParameter("pageNum")!=null)
+				? Integer.parseInt(request.getParameter("pageNum"))
+						: 1;//만약에 게시글이 없을경우 1페이지를 보여준다.
+				prlist = acDao.getPurchaseList(pageNum);
+				StringBuilder sb = new StringBuilder();
+
+				for(int i=0;i<prlist.size();i++){
+					Accounting ac = prlist.get(i);
+					sb.append("<tr>");
+					sb.append("<td>"+ac.getPu_num()+"</td>");
+					sb.append("<td>"+ac.getPu_money()+"</td>");
+					sb.append("<td>"+ac.getPu_mid()+"</td>");
+					sb.append("<td>"+ac.getPu_pnum()+"</td>");
+					sb.append("<td><input type='button' class='btn' onclick=\"location.href='./purchaseDetail?punum="+ ac.getPu_num() + "'\" value='상세보기'/></td>");
+					sb.append("</tr>");
+				}
+
+				mav.addObject("prlist",sb.toString());
+
+				String pagingHtml = getPagingPR(pageNum);
+				mav.addObject("paging",getPagingPR(pageNum));
+				mav.setViewName("purchaseMM");
+
+
+	}
+
+	//결제 상세 리스트 보기
+	private void getPurchaseDList(int pd_punum) {
+		mav = new ModelAndView();
+		List<Accounting> prdlist =null;
+		pd_punum = Integer.parseInt(request.getParameter("punum"));
+		System.out.println("pd_punum="+pd_punum);
+
+		prdlist = acDao.getPurchaseDList(pd_punum);
+		StringBuilder sb = new StringBuilder();
+
+		for(int i=0;i<prdlist.size();i++){
+			Accounting prd = prdlist.get(i);
+			sb.append("<tr>");
+			sb.append("<td>"+prd.getPd_num()+"</td>");
+			sb.append("<td>"+prd.getPd_punum()+"</td>");
+			sb.append("<td>"+prd.getPd_mid()+"</td>");
+			sb.append("<td>"+prd.getPd_money()+"</td>");
+			sb.append("<td>"+prd.getPd_catagory()+"</td>");
+			sb.append("</tr>");
+		}
+
+		mav.addObject("prdlist",sb.toString());
+
+		mav.setViewName("purchaseDetail");
+
+
+	}
+
+	//결제 내역 리스트 페이지 번호
+	private String getPagingPR(int pageNum) { //현재 페이지 번호
+		int maxNum = aDao.getPurchaseCount(); //전체 게시글의 수
+		int listCount = 10; //페이지당 글의 수
+		int pageCount = 2; //그룹당 페이지 수
+
+
+		Paging paging = new Paging(maxNum,  pageNum,  listCount,  pageCount);
+		return paging.makeHtmlPaging();
+
 	}
 
 }

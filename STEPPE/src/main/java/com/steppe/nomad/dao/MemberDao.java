@@ -150,5 +150,11 @@ public class MemberDao {
 	public int getMemberCount() {
 		return sqlSession.selectOne("member.getMemberCount");
 	}
+	public int getMemberCLCount() {
+		return sqlSession.selectOne("member.getMemberCLCount");
+	}
+	public int getMemberFRCount() {
+		return sqlSession.selectOne("member.getMemberFRCount");
+	}
 
 }

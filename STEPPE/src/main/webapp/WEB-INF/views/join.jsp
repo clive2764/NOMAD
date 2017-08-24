@@ -75,7 +75,6 @@
 			width: 250px;
 		}
 		ui{
-			width: 150px;
 			list-style: none;
 			
 		}
@@ -84,7 +83,10 @@
 			
 		}
 		#choseClient{
-			width: 150px;
+			width: 100px;
+		}
+		#choseFreelancer{
+			width: 100px;
 		}
 		
 	</style>
@@ -204,14 +206,6 @@
 </body>
 
 <script language="javascript">
-		var checked_radio = $('input:radio[name=m_kind]:checked').val(); // 선택된 radio의 value 가져오기
-		if(checked_radio === undefined) // 선택을 하지 않았을 경우
-		{
-		    alert('옵션을 선택해주세요.');
-		} else {
-		    alert(checked_radio + "를 선택하셨습니다.");
-		}
-
 		/* 비밀번호 중복 검사 */
 		function passwordCheckk(){
 			var password = document.getElementById("userPassword").value;

@@ -37,7 +37,7 @@
                      </a>&nbsp;&nbsp;&nbsp;
                   </c:if>
                   <c:if test="${m_id eq 'admin'}">
-                     <a href="goPuchaseMM" style="color: white;">
+                     <a href="goPurchaseMM" style="color: white;">
                        		 결제 관리
                      </a>
                   </c:if>

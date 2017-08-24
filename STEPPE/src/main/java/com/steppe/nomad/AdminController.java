@@ -160,6 +160,22 @@ public class AdminController {
 		return mav;
 	}
 
+	//결제 관리 페이지로 이동
+	@RequestMapping(value ="/goPurchaseMM")
+	public ModelAndView goPurchaseMM(){
+		mav=new ModelAndView();
+		mav = am.execute(9);
+		return mav;
+	}
+
+	//결제 상세 이동
+	@RequestMapping(value ="/purchaseDetail")
+	public ModelAndView purchaseDetail(int punum){
+		mav=new ModelAndView();
+		mav = am.executess(punum, 1);
+		return mav;
+	}
+
 }
 
 

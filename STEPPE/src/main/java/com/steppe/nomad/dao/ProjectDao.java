@@ -81,6 +81,12 @@ public class ProjectDao {
 	public int getProjectCount() {
 		return sqlSession.selectOne("project.getProjectCount");
 	}
+	public int getProjectDVCount() {
+		return sqlSession.selectOne("project.getProjectDVCount");
+	}
+	public int getProjectDSCount() {
+		return sqlSession.selectOne("project.getProjectDSCount");
+	}
 	
 	public List<Project> getDevelopList(int pageNum) {
 		return sqlSession.selectList("project.getDevelopList");

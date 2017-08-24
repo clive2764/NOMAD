@@ -55,7 +55,8 @@ public class AdminDao {
 		
 	}
 
-	
-	
+	public int getPurchaseCount() {
+		return sqlSession.selectOne("accounting.getPurchaseCount");
+	}
 
 }

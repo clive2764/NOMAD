@@ -88,7 +88,7 @@
 									<a href="goFstMM"> 자격 시험 관리 </a>
 								</c:if>
 								<c:if test="${m_id eq 'admin'}">
-									<a href="goPuchaseMM"> 결제 관리 </a>
+									<a href="goPurchaseMM"> 결제 관리 </a>
 								</c:if>
 								<a href="logout">logout</a>
 							</div>
