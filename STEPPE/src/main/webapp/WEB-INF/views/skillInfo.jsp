@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
@@ -62,35 +62,51 @@ input {
 
    <div class="container">
       <!--style="height:-webkit-fill-available;"-->
-      <form action="addCareerInfo" method="post" id="career">
+      <form action="addSkill" method="post" id="skill">
+      	 <h3 align="center">기술 정보</h3>		
          <table class="table">
-			<tr>
-				<th>
-					<select name="language">
-						<option value="">언어 선택</option>
-						<option value="JAVA">JAVA</option>
-						<option value="HTML">HTML</option>
-						<option value="CSS">CSS</option>
-					</select>
-				</th>
-				<th>
-					<select name="grade">
-						<option value="">등급 선택</option>
-						<option value="초급">초급</option>
-						<option value="중급">중급</option>
-						<option value="상급">상급</option>
-					</select>
-				</th>
-				<th>
-					<input type="text" name="career" placeholder="경력"/>
-				</th>
-				<th>
-					<button>추가</button>
-				</th>
-			</tr>
-		</table>		
+         <tr>
+            <th>
+               <select name="sk_name">
+                  <option value="">언어 선택</option>
+                  <option value="JAVA">JAVA</option>
+                  <option value="HTML">HTML</option>
+                  <option value="CSS">CSS</option>
+               </select>
+            </th>
+            <th>
+               <select name="sk_grade">
+                  <option value="">등급 선택</option>
+                  <option value="초급">초급</option>
+                  <option value="중급">중급</option>
+                  <option value="상급">상급</option>
+               </select>
+            </th>
+            <th>
+               <input type="text" name="sk_career" placeholder="경력"/>
+            </th>
+            <th>
+               <input type="button" id="complete" value="추가"/>
+            </th>
+         </tr>
+      </table>      
       </form>
-      
+      <table>
+			<tr align="center" height="25">
+				<td width="200">사용언어</td>
+				<td width="200">등급</td>
+				<td width="200">경력기간</td>
+			</tr>
+		</table>
+		<table id="skTable">
+			<c:forEach var="skill" items="${sklist}">
+				<tr align="center" height="25">
+					<td width="200">${data[i].sk_name}</td>
+					<td width="200">${data[i].sk_grade}</td>
+					<td width="200">${data[i].sk_career}</td>
+				</tr>
+			</c:forEach>
+		</table>
    </div>
 
    <hr>
@@ -128,23 +144,23 @@ input {
        }
    }); */
    $(document).ready(function(){
-      var clist='';    
+      var sklist='';    
       $.ajax({
          type : 'get',
-         url : 'showMyCareer',
-         data : $('#career').serialize(),
+         url : 'showMySkill',
+         data : $('#skill').serialize(),
          //$('#rForm').serialize(), 폼 전체 데이터 전송
          dataType : 'json',
          success : function(data) { //댓글 리스트 json형태 반환
             console.log(data); //json 구조파악
             for(var i=0;i<data.length;i++){
-               clist+='<tr height="25" align="center">'
-               +'<td width="200">'+data[i].ca_term+'</td>'
-               +'<td width="200">'+data[i].ca_company+'</td>'
-               +'<td width="200">'+data[i].ca_rank+'</td>'
-               +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+               sklist+='<tr height="25" align="center">'
+               +'<td width="200">'+data[i].sk_name+'</td>'
+               +'<td width="200">'+data[i].sk_grade+'</td>'
+               +'<td width="200">'+data[i].sk_career+'</td>'
+               +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
-         $('#cTable').html(clist);
+         $('#skTable').html(sklist);
          },
          error : function(error) {
             alert("error");
@@ -153,23 +169,23 @@ input {
       });
 
    $("#complete").click(function() {
-            var clist='';
+            var sklist='';
       $.ajax({
          type : 'get',
-         url : 'addCareerInfo',
-         data : $('#career').serialize(),
+         url : 'addSkill',
+         data : $('#skill').serialize(),
          //$('#rForm').serialize(), 폼 전체 데이터 전송
          dataType : 'json',
          success : function(data) { //댓글 리스트 json형태 반환
             console.log(data); //json 구조파악
             for(var i=0;i<data.length;i++){
-               clist+='<tr height="25" align="center">'
-               +'<td width="200">'+data[i].ca_term+'</td>'
-               +'<td width="200">'+data[i].ca_company+'</td>'
-               +'<td width="200">'+data[i].ca_rank+'</td>'
-                +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+               sklist+='<tr height="25" align="center">'
+               +'<td width="200">'+data[i].sk_name+'</td>'
+               +'<td width="200">'+data[i].sk_grade+'</td>'
+               +'<td width="200">'+data[i].sk_career+'</td>'
+                +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
-         $('#cTable').html(clist);
+         $('#skTable').html(sklist);
          },
          error : function(error) {
             alert("error");
@@ -180,23 +196,23 @@ input {
    });
    function memberDelete(num){
       var number = num;
-      var clist='';
+      var sklist='';
       $.ajax({
          type : 'get',
-         url : 'deleteCareerInfo',
+         url : 'deleteSkill',
          data : {num:num},
          //$('#rForm').serialize(), 폼 전체 데이터 전송
          dataType : 'json',
          success : function(data) { //댓글 리스트 json형태 반환
             console.log(data); //json 구조파악
             for(var i=0;i<data.length;i++){
-               clist+='<tr height="25" align="center">'
-               +'<td width="200">'+data[i].ca_term+'</td>'
-               +'<td width="200">'+data[i].ca_company+'</td>'
-               +'<td width="200">'+data[i].ca_rank+'</td>'
-               +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+               sklist+='<tr height="25" align="center">'
+               +'<td width="200">'+data[i].sk_name+'</td>'
+               +'<td width="200">'+data[i].sk_grade+'</td>'
+               +'<td width="200">'+data[i].sk_career+'</td>'
+               +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
-         $('#cTable').html(clist);
+         $('#skTable').html(sklist);
          },
          error : function(error) {
             console.log(error);

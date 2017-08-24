@@ -1,16 +1,16 @@
 package com.steppe.nomad.bean;
 
 public class Skill {
-private String sk_num;
+private int sk_num;
 private String m_id;
 private String sk_name;
 private String sk_grade;
 private String sk_career;
 
-public String getSk_num() {
+public int getSk_num() {
 	return sk_num;
 }
-public void setSk_num(String sk_num) {
+public void setSk_num(int sk_num) {
 	this.sk_num = sk_num;
 }
 public String getM_id() {

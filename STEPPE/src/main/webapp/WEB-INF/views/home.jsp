@@ -99,10 +99,6 @@
                     <h3>프로젝트 영역</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum nam numquam voluptates cumque inventore, quibusdam corporis consequatur amet.</p>
                 </div>
-
-				<div class="col-md-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">								
-				    <a href="#" style="background-color:cornflowerblue; height:250px;" >프로젝트 바로가기</a>
-				</div>
 			</div>	
 	</div>			
 	<hr>

@@ -14,6 +14,8 @@
 	<typeAliases>
 		<typeAlias alias="member" type="com.steppe.nomad.bean.Member"/>
 		<typeAlias alias="career" type="com.steppe.nomad.bean.Career"/>
+		<typeAlias alias="profile" type="com.steppe.nomad.bean.Profile"/>
+		<typeAlias alias="skill" type="com.steppe.nomad.bean.Skill"/>
 		<typeAlias alias="portfolio" type="com.steppe.nomad.bean.Portfolio"/>
 		<typeAlias alias="test"  type="com.steppe.nomad.bean.Test"/>
 		<typeAlias alias="answer" type="com.steppe.nomad.bean.Answer"/>

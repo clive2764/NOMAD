@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.service.AdminManagement;
 import com.steppe.nomad.service.ClientManagement;
-import com.steppe.nomad.service.FreelancerManegement;
+import com.steppe.nomad.service.FreelancerManagement;
 import com.steppe.nomad.service.MemberManagement;
 import com.steppe.nomad.service.ReportManagement;
 @Controller
@@ -39,7 +39,7 @@ public class HomeController {
 	 private ReportManagement rm;
 
 	@Autowired
-	 private FreelancerManegement fm;
+	 private FreelancerManagement fm;
 
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
