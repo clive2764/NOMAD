@@ -1,6 +1,7 @@
 package com.steppe.nomad.service;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.dao.MemberDao;
+import com.steppe.nomad.dao.ProjectDao;
+import com.steppe.nomad.dao.VolunteerDao;
 import com.steppe.nomad.userClass.UploadFile;
 
 @Service
@@ -36,6 +39,12 @@ public class MemberManagement {
 	//싱글톤
 	@Autowired
 	private MemberDao mDao;
+	
+	@Autowired
+	private ProjectDao pDao;
+	
+	@Autowired
+	private VolunteerDao vDao;
 
 	private ModelAndView mav;
 
@@ -108,7 +117,37 @@ public class MemberManagement {
 		return mav;
 
 	}
+	
+	public ModelAndView execute(int cmd) {
+		switch(cmd){
+		case 1:
+			deleteMember();//회원 탈퇴 조건 검색
+			break;
+		case 2:
+			deleteMemberMake();//회원 탈퇴 실행
+			break;
+		case 3:
+			goMyPage();//마이페이지로 이동
+			break;
+		}
+		return mav;
+	}
 
+
+	private void goMyPage() {//회원의 종류에 따라 다른 URL발생해 마이페이지로 이동
+		String view=null;
+		mav=new ModelAndView();
+		String m_kind=session.getAttribute("m_kind").toString();
+		if(session!=null && session.getAttribute("m_id")!= "" && m_kind.equals("C")){
+			view="redirect:goMyPageCI";
+		}else if(session!=null && session.getAttribute("m_id")!= "" && m_kind.equals("F")){
+			view="redirect:goMyPageFr";
+		}else{
+			view="home";
+		}
+		mav.setViewName(view);
+		
+	}
 	private void memberUpdate(MultipartHttpServletRequest multi) {
 		mav = new ModelAndView();
 		String m_id = session.getAttribute("m_id").toString();
@@ -205,52 +244,61 @@ public class MemberManagement {
 	}
 
 	private ModelAndView memberAccess(Member mb) {
-		mav=new ModelAndView();
-		String view=null;
+	      mav=new ModelAndView();
+	      String view=null;
 
-		String m_id=request.getParameter("m_id");
-		String m_pass=request.getParameter("m_pw");
+	      String m_id=request.getParameter("m_id");
+	      String m_pass=request.getParameter("m_pw");
 
-		String passC=mDao.getPwd(m_id);
-		System.out.println(m_pass);
-		System.out.println(passC);
-		if(m_pass!=null){
-			if(m_pass.equals(passC)){
+	      String passC=mDao.getPwd(m_id);
 
-				String m_kind=mDao.getKind(m_id);
-				session.setAttribute("m_kind", m_kind);
-				session.getAttribute("m_kind");
+	      if(m_pass!=null){
+	         
+	         
+	         if(m_pass.equals(passC)){
+	            String black="B";
+	            String status=mDao.getStatus(m_id);
+	            System.out.println(status);
+	            if(status==null){
+	               String m_kind=mDao.getKind(m_id);
+	               session.setAttribute("m_kind", m_kind);
+	               session.getAttribute("m_kind");
+	   
+	               System.out.println("로그인성공");
+	               session.setAttribute("m_id",m_id);
+	               session.getAttribute("m_id");
+	   
+	               session.setAttribute("m_pw", m_pass);
+	               session.getAttribute("m_pw");
+	   
+	               session.setAttribute("member", mb);
+	               session.getAttribute("member");
+	   
+	               System.out.println(mDao.getKind(m_id));
+	               //System.out.println("아이디:"+session.getAttribute("m_id"));
+	               //System.out.println("패스워드:"+session.getAttribute("m_pw"));
+	               //System.out.println("회원종류:"+session.getAttribute("m_kind"));
+	               //System.out.println("세션:"+session.getId());
+	               //System.out.println("상태:"+status);
+	               view="redirect:/";
+	               mav.setViewName(view);
+	            }
+	         
+	            else{
+	               mav.addObject("msg","로그인시도한 계정은 블랙리스트입니다.");
+	               mav.setViewName("login");
+	            }
+	            
+	         }
+	         if(passC==null){
+	            mav.addObject("msg","존재하지 않는 계정입니다.");
+	            mav.setViewName("login");
+	         }
 
-				System.out.println("로그인성공");
-				session.setAttribute("m_id",m_id);
-				session.getAttribute("m_id");
 
-				session.setAttribute("m_pw", m_pass);
-				session.getAttribute("m_pw");
-
-				session.setAttribute("member", mb);
-				session.getAttribute("member");
-
-				System.out.println(mDao.getKind(m_id));
-				System.out.println("아이디:"+session.getAttribute("m_id"));
-				System.out.println("패스워드:"+session.getAttribute("m_pw"));
-				System.out.println("회원종류:"+session.getAttribute("m_kind"));
-				System.out.println("세션:"+session.getId());
-
-				view="redirect:/";
-				mav.setViewName(view);
-
-
-			}else{
-				view="login";
-				mav.setViewName(view);
-
-			}
-
-
-
-		}	return mav;
-	}
+	      }   
+	      return mav;
+	   }
 	@Autowired
 	private JavaMailSenderImpl javaMailSenderImpl;
 	public String sendCode() throws Exception{
@@ -341,10 +389,6 @@ public class MemberManagement {
 
 		}
 		return null;
-
-
-
-
 
 		/*//HTML 메일
 
@@ -446,6 +490,69 @@ public class MemberManagement {
 		}
 		return null;
 
+	}
+	
+	private void deleteMemberMake() {//회원 탈퇴 싫행
+		mav = new ModelAndView();
+		String view=null;
+		String m_id=request.getParameter("m_id");
+		String m_pw=request.getParameter("password");
+		
+		if(mDao.CheckPw(m_id).equals(m_pw)){//비밀번호 체크
+			int delete=mDao.deleteMemberMake(m_id);
+			System.out.println(delete);
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out;
+			
+			try {
+				out = response.getWriter();
+				out.println("<script language='javascript'>");
+				out.println("alert('그동안 감사했습니다.');");
+				session.invalidate();
+				out.println("window.location.href='/nomad'");
+				out.println("</script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else{
+			String Check="비밀번호가 일치하지 않습니다.";
+			mav.addObject("Check",Check);
+			view="delete";
+		}
+		mav.setViewName(view);
+	}
+	private void deleteMember() {//회원 탈퇴 위한 조건검색
+		mav = new ModelAndView();
+		String view=null;
+		// 회원탈퇴
+		String p_mid=session.getAttribute("m_id").toString();
+
+		int midCheckC=pDao.projectCheck(p_mid);//클라이언트가 제안한 프로젝트가 있는지 검사
+		int midCheckF=vDao.volunteerCheck(p_mid);//프리랜서가 참여신청한 프로젝트가 있는지 검사
+		
+		if(session!=null && session.getAttribute("m_id")!= null && midCheckC==0 && midCheckF==0){
+			String m_id=p_mid;
+			mav.addObject("m_id",m_id);
+			view="delete";
+		}else{
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8"); 
+			PrintWriter out;
+			
+			try {
+				out = response.getWriter();
+				out.println("<script language='javascript'>");
+				out.println("alert('지원 중에는 탈퇴가 불가능 합니다.');");
+				out.println("history.back(-1)");
+				out.println("</script>");
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		mav.setViewName(view);
 	}
 }
 

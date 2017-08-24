@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="report">
-	<select	id="insertProject" parameterType="report">
+	<insert	id="insertReport" parameterType="report">
 		INSERT INTO REPORT VALUES(#{r_num},#{r_mid},#{r_kind},#{r_content},#{r_url})
-	</select>
+	</insert>
 	<select id="selectMaxNum" resultType="int">
 		select NVL(MAX(r_num),0) FROM report
 	</select>
@@ -23,4 +23,16 @@
 	<select id="searchProject" parameterType="String" resultType="project">
 		SELECT * FROM PROJECT WHERE P_TITLE LIKE '%'||#{keyword}||'%'
 	</select>
+	<select id="selectReplyMaxNum" resultType="int">
+		select NVL(MAX(r_num),0) FROM REPLY
+	</select>
+	<insert id="insertReply" parameterType="reply">
+		INSERT INTO REPLY VALUES(#{r_num},#{r_mid},#{r_pnum},#{r_content},default)
+	</insert>
+	<select id="showReply" parameterType="Integer" resultType="reply">
+		SELECT * FROM REPLY WHERE R_PNUM=#{r_pnum} ORDER BY R_NUM ASC
+	</select>
+	<delete id="deleteReply" parameterType="Integer">
+		DELETE FROM REPLY WHERE R_NUM=#{r_num}
+	</delete>
 </mapper>

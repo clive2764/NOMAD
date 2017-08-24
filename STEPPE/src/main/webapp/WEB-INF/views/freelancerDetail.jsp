@@ -42,7 +42,7 @@
   <body>
      <jsp:include page="header.jsp" />
     
-   <div class="about">
+   <div class="about" style="height: 100%;">
          <div class="container">
          <div class="row">
             <form action="goReportWrite" method="get">
@@ -61,7 +61,7 @@
 	             </c:if>
              </form> --%>
              <c:if test="${m_kind eq 'C'}">
-                <a href="goInsertEstimate?mid=${member.m_id}"><input id="estimate" type="button" value="견적 요청"/></a>
+                <a href="goInsertEstimate?mid=${freelancer.m_id}"><input id="estimate" type="button" value="견적 요청"/></a>
              </c:if>
              
             </div>

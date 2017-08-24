@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.steppe.nomad.bean.Reply;
 import com.steppe.nomad.bean.Report;
 import com.steppe.nomad.service.ReportManagement;
 
@@ -58,5 +59,24 @@ public class Reportcontroller {
 		mav=rm.searchProjectList();
 		return mav;
 	}
-
+	//프로젝트 댓글 삽입
+	@RequestMapping(value="/insertComment")
+	public ModelAndView insertComment(Reply reply){
+		mav=rm.insertComment(reply);
+		return mav;
+	}
+	//프로젝트에 포함된 댓글 삭제
+	@RequestMapping(value="/deleteReply")
+	public ModelAndView deleteReply(){
+		mav=rm.deleteReply();
+		return mav;
+	}
+	
+	//Intro(더미)
+	@RequestMapping(value="/goIntro")
+	public ModelAndView goIntro(){
+		mav =new ModelAndView();
+		mav.setViewName("intro");
+		return mav;
+	}
 }
