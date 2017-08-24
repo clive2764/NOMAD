@@ -95,5 +95,10 @@
 	<script>wow = new WOW({}).init();</script>	
     
 </body>
-
+<script>
+var message = '${msg}';
+if(message!=""){
+	alert(message); 
+}
+</script>
 </html>

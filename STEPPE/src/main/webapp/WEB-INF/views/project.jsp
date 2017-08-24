@@ -51,6 +51,7 @@
 		   	font-size: 14px;
 		   	outline: none;
 		   	cursor: pointer;
+		   	float: right;
 		}
 		</style>
 	</head>
@@ -60,7 +61,12 @@
 		<!--메인페이지 영역-->
 		
 			<div class="about">
+			
 				${plist}
+				<c:set var="m_kind" value="${m_kind}" />
+				<c:if test="${m_kind eq 'C'}">
+					<a href="goAddProject"><input type="button" id="insertBtn" value="프로젝트 등록"/></a>
+				</c:if>
 				${splist}
 			</div>
 		

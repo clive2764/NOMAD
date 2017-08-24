@@ -22,6 +22,9 @@
     		<when test='p_status == "3"'>
       		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
+    		<when test='p_status == "4"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
+    		</when>
     	</choose>
 	</select>
 
@@ -56,7 +59,8 @@
    </insert>
    
     <select id="getProjectList2" resultType="project" parameterType="String">
-    SELECT p_num, p_title, p_vol, p_status,case when p_status=0 then '대기중' when p_status=1 then '진행중' else '완료' end as p_status2 from project where p_mid=#{m_id}
+    SELECT p_num, p_title, p_vol, p_status,case when p_status=1 then '대기중' when p_status=2 then '작업전' when p_status=3 then '작업중' 
+    when p_status=4 then '작업완료' when p_status=5 then '결제신청' when p_status=6 then '결제완료' else '전체' end as p_status2 from project where p_mid=#{m_id}
     </select>
  
  	<update id="UpdateProject" parameterType="Integer">
@@ -103,6 +107,18 @@
 	'%'||#{keyword}||'%' OR P_PLNUM0 LIKE '%'||#{keyword}||'%' OR P_PLNUM1
 	LIKE '%'||#{keyword}||'%' OR P_PLNUM2 LIKE '%'||#{keyword}||'%'
 </select>
+
+	<select id="projectCheck" resultType="Integer" parameterType="String">
+		SELECT COUNT(p_mid) FROM project where p_mid=#{p_mid}
+	</select>
+	
+	<select id="CheckStatus" resultType="Integer" parameterType="Integer">
+		SELECT p_status FROM project where p_num=#{p_num}
+	</select>
+	
+	<update id="StatusUpdate" parameterType="Integer">
+		update project set p_status=5 where p_num=#{p_num}
+	</update>
    
 </mapper>
 

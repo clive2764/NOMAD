@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Reply;
 import com.steppe.nomad.bean.Report;
 import com.steppe.nomad.dao.ReportDao;
 
@@ -24,7 +25,6 @@ public class ReportManagement {
 
 	@Autowired
 	private HttpSession session;
-	
 	
 	@Autowired
 	private HttpServletRequest request;
@@ -144,7 +144,7 @@ public class ReportManagement {
 			sb.append("</div>");
 			for(int i=0; i<plist.size(); i++){
 				Project p=plist.get(i);
-				sb.append("<div class='col-sm-6 col-lg-6 col-md-6'>");
+				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
 				sb.append("<div class='thumbnail'>");
 				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
 				sb.append("<img src='http://placehold.it/320x150' alt=''>");
@@ -174,10 +174,12 @@ public class ReportManagement {
 		int p_num=Integer.parseInt(request.getParameter("p_num"));
 		rDao.getProjectDetail(p_num);
 		mav.addObject("project",rDao.getProjectDetail(p_num));
+		showReplyList();
 		view="projectDetail";
 		mav.setViewName(view);
 		return mav;
 	}
+	
 	//신고 삭제
 	public ModelAndView deleteReport() {
 		mav=new ModelAndView();
@@ -227,5 +229,92 @@ public class ReportManagement {
 		return mav;
 
 	}
+	//프로젝트 댓글삽입
+	public ModelAndView insertComment(Reply reply) {
+		//작성자 아이디
+		mav=new ModelAndView();
+		String r_mid=(String) session.getAttribute("m_id");
+		reply.setR_mid(r_mid);
+		//프로젝트 번호
+		int r_pnum=Integer.parseInt(request.getParameter("p_num"));
+		System.out.println("프로젝트 번호:"+r_pnum);
+		reply.setR_pnum(r_pnum);
+		//댓글의 내용
+		String r_content=request.getParameter("r_content");
+		System.out.println("댓글내용:"+r_content);
+		reply.setR_content(r_content);
+		
+		int r_num=rDao.getReplyMaxNum()+1;
+		System.out.println("댓글번호:"+r_num);
+		reply.setR_num(r_num);
+		
+		rDao.insertReply(reply);
+		
+		mav.setViewName("redirect:goProjectDetail?p_num="+r_pnum);
+		return mav;
+	}
+	
+	//댓글 표출 메소드
+		private void showReplyList() {
+			int p_num=Integer.parseInt(request.getParameter("p_num"));
+			List<Reply> replyList=null;
+			replyList=rDao.showReply(p_num);
+			if(replyList!=null){
+				StringBuilder sb=new StringBuilder();
+
+				for(int i=0;i<replyList.size();i++){
+					Reply r=replyList.get(i);
+					sb.append("<tr>");
+					sb.append("<td style='text-align:center;'>"+"<input type='hidden'  name='r_mid' value='"+r.getR_mid()+"'/>"+r.getR_mid()+"</td>");
+					sb.append("<td colspan='5' style='text-align:center;'>"+r.getR_content()+"</td>");
+					sb.append("<td style='text-align:center;'><input type='hidden' name='p_num' value='"+p_num+"'/>"+r.getR_date()+"</td>");
+					sb.append("<td>");
+					//sb.append("<a href='deleteReply?r_num="+r.getR_num()+"'><input type='button' value='삭제'/></a>");
+					sb.append("<input type='button' onclick='deleteReply("+r.getR_num() +")'  value='삭제'/>");
+					/*sb.append("<input type='button' value='삭제'/></a>");*/
+					sb.append("</td>");
+					
+					sb.append("</tr>");
+					//System.out.println(r.getR_num());
+				}
+				mav.addObject("p_num", p_num);
+				mav.addObject("reply",sb.toString());
+			}
+		}
+		
+		
+		//댓글 삭제
+		public ModelAndView deleteReply() {
+			String m_id=(String) session.getAttribute("m_id");
+			String r_mid=request.getParameter("r_mid");
+			System.out.println("현재접속:"+m_id);
+			System.out.println("작성자:"+r_mid);
+			int p_num=Integer.parseInt(request.getParameter("p_num"));
+			System.out.println(p_num);
+			int r_num=Integer.parseInt(request.getParameter("r_num"));
+			System.out.println("리플 번호:"+r_num);
+			//int p_num=Integer.parseInt(request.getParameter("p_num").trim());
+			/*String reportUrl=request.getHeader("REFERER");
+			System.out.println(reportUrl);
+			String CutreportUrl=reportUrl.substring(reportUrl.lastIndexOf("/")+23, reportUrl.length());
+			System.out.println(CutreportUrl);*/
+			if(m_id.equals(r_mid)){
+				rDao.deleteReply(r_num);
+				showReplyList();
+				System.out.println("삭제성공");
+				
+				
+			}
+			else{
+				System.out.println("삭제실패");
+				
+			}
+			mav.setViewName("projectDetail");
+			
+			//mav.setViewName("redirect:goProjectDetail?p_num="+CutreportUrl);
+			
+			return mav;
+		}
+
 	
 }

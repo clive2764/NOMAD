@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="volunteer">
+
 	<select id="chatRoomList" parameterType="String" resultType="Volunteer">
 		SELECT p.p_title, v.v_pnum FROM project p INNER JOIN volunteer v ON p.p_num = v.v_pnum 
 		WHERE v.v_ptteam = 1 AND v.v_mid = #{mid}
@@ -11,8 +12,17 @@
 		select rownum as 작업자, v.v_num, v.v_mid, v.v_bid, v.v_pnum, v.v_ptteam from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} and rownum<=p.p_person order by v.v_mid, v.v_time
 	]]>
 	</select>
-	
-	<update id="UpdateVolunteer" parameterType = "Integer">
-		update volunteer set v_ptteam=1 where v_pnum = #{v_pnum}
+
+	<update id="UpdateVolunteer" parameterType="Integer">
+		update volunteer set
+		v_ptteam=1 where v_pnum = #{v_pnum}
 	</update>
+
+	<select id="volunteerCheck" resultType="Integer" parameterType="String">
+		select Count(v_ptteam) from volunteer where v_mid=#{p_mid}
+	</select>
+	
+	<select id="getPerson" resultType="Integer" parameterType="Integer">
+		select Count(v_mid) from volunteer where v_pnum=#{v_pnum}
+	</select>
 </mapper>

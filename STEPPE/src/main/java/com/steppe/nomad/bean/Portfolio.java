@@ -1,6 +1,7 @@
 package com.steppe.nomad.bean;
 
 public class Portfolio {
+
 private int pf_num;
 private String pf_mid;
 private String pf_title;
@@ -27,6 +28,7 @@ public String getPf_mid() {
 }
 public void setPf_mid(String pf_mid) {
 	this.pf_mid = pf_mid;
+
 }
 public String getPf_title() {
 	return pf_title;
@@ -52,6 +54,5 @@ public String getPf_content() {
 public void setPf_content(String pf_content) {
 	this.pf_content = pf_content;
 }
-
 
 }
