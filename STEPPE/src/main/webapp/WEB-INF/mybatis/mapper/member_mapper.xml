@@ -109,4 +109,12 @@
 		DELETE FROM MEMBER WHERE m_id = #{m_id}
    </delete>
    
+   <select id="CheckPw" parameterType="String" resultType="String">
+      SELECT m_pw FROM MEMBER WHERE m_id=#{m_id}
+   </select>
+   
+   <delete id="deleteMemberMake" parameterType="String">
+      delete FROM MEMBER WHERE m_id=#{m_id}
+   </delete>
+
 </mapper>

@@ -22,7 +22,6 @@ public class ClientController {
 	@Autowired
 	private ClientManagement cm;
 
-	
 	@Autowired
 	private PmsManagement pmm;
 	
@@ -39,13 +38,20 @@ public class ClientController {
 		mav=cm.execute(2); //projectDetail.jsp 프로젝트 상세보기 페이지
 		return mav;
 	}
+	
+	@RequestMapping(value="/goMyPageCI")//클라이언트의 마이페이지로 가기
+	public ModelAndView goMyPageCI(){
+		mav = new ModelAndView();
+		mav=cm.execute(3); 
+		return mav;
+	}
 
 	
-	@RequestMapping(value="/insertProject", method = RequestMethod.POST)
+	@RequestMapping(value="/insertProject", method = RequestMethod.POST)//프로젝트 등록
 		public ModelAndView insertProject(MultipartHttpServletRequest multi){
 			System.out.println("insertProject");
 			mav = new ModelAndView();
-			mav=cm.execute(multi,1); //projectDetail.jsp 프로젝트 상세보기 페이지
+			mav=cm.execute(multi,1);
 			return mav;
 	}
 
@@ -82,12 +88,29 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value="/purchase")
-	public ModelAndView purchase(Accounting ac){
+	public ModelAndView purchase(){
 		System.out.println("Purchase 메서드 실행");
 		mav = new ModelAndView();
-		mav=cm.execute(ac,1);
+		mav=cm.execute(7);
 		return mav;
 	}
+	
+	@RequestMapping(value="/goClientPurchase")
+	public ModelAndView goClientPurchase(){
+		System.out.println("goClientPurchase 메서드 실행");
+		mav = new ModelAndView();
+		mav=cm.execute(8);
+		return mav;
+	}
+	
+	@RequestMapping(value="/payRequest")
+	public ModelAndView payRequest(){
+		System.out.println("payRequest 메서드 실행");
+		mav = new ModelAndView();
+		mav=cm.execute(9);
+		return mav;
+	}
+	
 
 	//견적문의 페이지로 이동
 	@RequestMapping(value="/goInsertEstimate")
