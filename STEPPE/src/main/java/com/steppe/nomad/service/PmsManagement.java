@@ -1,5 +1,7 @@
 package com.steppe.nomad.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.steppe.nomad.bean.Chat;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Volunteer;
+import com.steppe.nomad.dao.ChatDao;
 import com.steppe.nomad.dao.ProjectDao;
 import com.steppe.nomad.dao.VolunteerDao;
 
@@ -29,6 +33,8 @@ public class PmsManagement {
 	private ProjectDao pDao;
 	@Autowired
 	private VolunteerDao vDao;
+	@Autowired
+	private ChatDao chatDao;
 	
 	private String jsonStr;
 	private Map<String, Integer> map = new HashMap<String, Integer>();
@@ -66,9 +72,7 @@ public class PmsManagement {
 	}
 	private String chatRoomMake(int pnum) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y: auto; width: 350px; height: 600px;'>");
-		sb.append("<div class='col-lg-12'>");
-		sb.append("</div>");
+		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y: auto; width: auto; height: 600px;'>");
 		sb.append("</div>");
 		sb.append("<div class='portlet-footer'>");
 		sb.append("<div class='row' style='height: 90px;'>");
@@ -77,6 +81,7 @@ public class PmsManagement {
 		sb.append("</div>");
 		sb.append("<div class='form-group col-xs-2'>");
 		sb.append("<button type='button' class='btn btn-default pull-right' onclick='submitFunction("+pnum+")' style='width: 150px; height:80px;'>전송</button>");
+		sb.append("<input type='hidden' id='pnum' value='"+pnum+"'>");
 		sb.append("</div>");
 		sb.append("</div>");
 		sb.append("</div>");
@@ -101,7 +106,7 @@ public class PmsManagement {
 		Volunteer volunteer = null;
 		for(int i=0; i<chatRoomList.size(); i++){
 			volunteer = chatRoomList.get(i);
-			sb.append("<div class='panel panel-default' style='width:250px;'>");
+			sb.append("<div class='panel panel-default' style='width:250px; float: left;'>");
 			sb.append("<h4 class='panel-heading'>"+volunteer.getP_title()+"</h4><br/>");
 			sb.append("<div style='text-align:center;'><input type='button' onclick='chatStart(\""+volunteer.getV_pnum()+"\")' value='채팅하기' /></div>");
 			sb.append("</div>");
@@ -120,24 +125,113 @@ public class PmsManagement {
 			showMyMemberList();
 		}else if(code==2){
 			sendChat();
+		}else if(code==3){
+			chatList();
 		}
 		return jsonStr;
 	}
 
 	private void sendChat() {
 		String chatContent = request.getParameter("chatContent");
+		System.out.println("chatContent:"+chatContent);
 		String pnum = request.getParameter("pnum");
+		System.out.println("pnum:"+pnum);
 		String mid = session.getAttribute("m_id").toString();
 		Gson jsonObj = new Gson();
+		Map<String, String> map = new HashMap<>();
+		List<Chat> chatList = null;
+		int chatNum = 0;
 		if(mid == null || mid.equals("") || chatContent == null || chatContent.equals("")
 				|| pnum == null || pnum.equals("")){
-			jsonStr = "";
+			jsonStr = "0";
 		}else{
+			if(chatDao.chatCount()!=0){
+				chatNum = chatDao.chatMaxNum()+1;				
+			}else{
+				chatNum = 1;
+			}
+			System.out.println("chatNum:"+chatNum);
+			map.put("pnum", pnum);
+			map.put("chatContent", chatContent);
+			map.put("mid", mid);
+			map.put("chatNum", String.valueOf(chatNum));
+			jsonStr=String.valueOf(chatDao.chatSubmit(map));
+			//chatList = chatDao.chatPrint(map);
+					//chatPrint(chatList);
 			
 		}
 		//jsonStr = jsonObj.toJson();
 	}
 
+	private void chatList(){
+		String pnum = request.getParameter("pnum");
+		String mid = session.getAttribute("m_id").toString();
+		String listType = request.getParameter("listType");
+		System.out.println("listType="+listType);
+		Map<String, String> map = new HashMap<>();
+		try {
+			map.put("mid", URLDecoder.decode(mid,"UTF-8"));
+			map.put("pnum", URLDecoder.decode(pnum,"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("pnum:"+pnum);
+		//Gson jsonObj = new Gson();
+		if(mid == null || mid.equals("") || pnum == null || pnum.equals("") 
+				|| listType == null || listType.equals("")){
+			System.out.println("무한루프");
+			jsonStr = "";
+		}else if(listType.equals("ten")){
+			System.out.println("실행2");
+			try {
+				map.put("listType", URLDecoder.decode(String.valueOf(10),"UTF-8"));
+				List<Chat> tenList = chatDao.getTenList(map);
+				jsonStr = chatTenList(tenList);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else{
+			map.put("listType", listType);
+			List<Chat> chatList = chatDao.getChatList(map);
+			jsonStr = chatList(chatList);
+		}
+		
+	}
+	private String chatTenList(List<Chat> chatList){
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\"result\":[");
+		if(chatList.size() == 0){return "";}
+		for(int i=0; i<chatList.size(); i++){
+			sb.append("[{\"value\": \""+chatList.get(i).getC_mid()+"\"},");
+			sb.append("{\"value\": \""+chatList.get(i).getC_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
+			sb.append("{\"value\": \""+chatList.get(i).getC_date()+"\"}]");
+			if(i != chatList.size()-1){
+				sb.append(",");
+			}
+			
+		}
+		sb.append("], \"last\":\""+chatList.get(chatList.size()-1).getC_id()+"\"}");
+		return sb.toString();
+	}
+	
+	private String chatList(List<Chat> chatList){
+		StringBuilder sb = new StringBuilder();
+		sb.append("{\"result\":[");
+		if(chatList.size() == 0){return "";}
+		for(int i=0; i<chatList.size(); i++){
+			sb.append("[{\"value\": \""+chatList.get(i).getC_mid().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
+			sb.append("{\"value\": \""+chatList.get(i).getC_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
+			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(11, 13)+"\"}]");
+			if(i != chatList.size()-1){
+				sb.append(",");
+			}
+			
+		}
+		sb.append("], \"last\":\""+chatList.get(chatList.size()-1).getC_id()+"\"}");
+		return sb.toString();
+	}
 	private void showMyMemberList() {
 		Map<Object, Object> mapList = new HashMap<Object, Object>();
 		String title = request.getParameter("title");
@@ -220,6 +314,8 @@ public class PmsManagement {
 		}else if(value==3){
 			progNum = 100;
 			code = 3;
+		}else{
+			code = 4;
 		}
 		list = pDao.showProcess(code,m_id);
 		String makeShowList = makeProjectList(list, value);

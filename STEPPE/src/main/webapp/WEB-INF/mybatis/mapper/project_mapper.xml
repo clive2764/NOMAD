@@ -22,6 +22,9 @@
     		<when test='p_status == "3"'>
       		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
     		</when>
+    		<when test='p_status == "4"'>
+      		SELECT * FROM project WHERE p_mid = #{m_id} AND p_status = #{p_status}
+    		</when>
     	</choose>
 	</select>
 
