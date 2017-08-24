@@ -118,6 +118,10 @@
 		font-size: 25px;
 		margin-left: 15%;
 	}
+	#answer1,#answer2,#answer3,#answer4{
+		width: 35px;
+		height: 35px;
+	}
 </style>
 <body>
 	<div id = "Test">

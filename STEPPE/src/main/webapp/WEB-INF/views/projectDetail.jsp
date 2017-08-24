@@ -57,6 +57,10 @@
        		color:black;
        		width: 100%;
        	}
+       	#text1{
+       		color:black;
+       		font-size: 20px;
+       	}
     </style>
   </head>
   <body>
@@ -70,17 +74,19 @@
                 </tr>
                 <tr>
                     <td>프로젝트 기간</td>
-                    <td colspan="2" style="text-align: center;">지원자</td>
+                    <td style="text-align: center;">지원자 (필요인원)</td>
+                    <td style="text-align: center;">예산 금액</td>
                     <td style="text-align: right;">마감일</td>
                 </tr>
                 <tr>
                     <td>${project.p_term}일</td>
-                    <td colspan="2" style="text-align: center;">${project.p_vol}명</td>
-                    <td colspan="2" style="text-align: right;">${project.p_deadline}</td>
+                    <td style="text-align: center;">${project.p_vol}명 (${project.p_person}명)</td>
+                    <td style="text-align: center;">${project.p_budget}만원</td>
+                    <td style="text-align: right;">${project.p_deadline}</td>
                 </tr>
                 <tr>
                     <td>필요언어</td>
-                    <td>${project.p_plnum0},${project.p_plnum1},${project.p_plnum2}</td>
+                    <td>${project.p_plnum0}　${project.p_plnum1}　${project.p_plnum2}</td>
                     <td colspan="2" style="text-align: center;">
                         <form action="" method="post" id="priceForm">
                             <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="price">
@@ -93,6 +99,7 @@
                 </tr>
             
             </table>
+            <div id="text1"></div>
         </div>
     
 	<hr>
@@ -145,13 +152,22 @@
 <script>
     $("#check").click(function(){
         var price = $("#price").val();
-        
-        
-        if(price == "" ){
+        var person=${project.p_person};
+        var vol=${project.p_vol};
+        var budget=${project.p_budget};
+        console.log(person);
+        var money=(budget/person)+(budget%person);
+        console.log(money);
+        if(price == ""){
           alert("입찰가를 입력하세요!");      
-        } 
+        }
+        if(price>money){
+        	alert("1인당 지급가능 금액을 초과하였습니다.");
+        	$("#price").val("최대금액은 : "+money+"만원 입니다");
+        }
           
-        if(price != ""){
+        if(price != "" && price<=money){
+        	//console.log(price);
             $("#priceForm").submit();
         }    
     });
@@ -165,5 +181,49 @@
     		$("#replyForm").submit();
     	}
     });
+</script>
+<script type="text/javascript">
+ 	
+    var date;
+    date = new Date();
+    var yyyy = "${project.p_deadline}".substring(0,4);
+    var mm = "${project.p_deadline}".substring(5,7);
+    var dd = "${project.p_deadline}".substring(8,10);
+    lastDate = new Date(mm+"/"+dd+"/"+yyyy+" 23:59:59");
+    //임시 시간 mm/dd/yyyy hh:mm:ss
+    /* lastDate = new Date(mm+"/23/"+yyyy+" 11:05:30"); */
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    var lastTime = lastDate.getTime();
+ 
+    // 남은 시간 카운터
+    function remain(){
+        var now = new Date();
+        var person=${project.p_person};
+        var vol=${project.p_vol};
+        var budget=${project.p_budget};
+        var money=Math.floor(budget/person);
+        var gap = Math.round((lastTime - now.getTime()) / 1000);
+ 
+        var D = Math.floor(gap / 86400);
+        var H = Math.floor((gap - D * 86400) / 3600 % 3600);
+        var M = Math.floor((gap - H * 3600) / 60 % 60);
+        var S = Math.floor((gap - M * 60) % 60);
+        if(D<0 || H<0 || M<0 || S<0){
+        	if(vol<person){
+        		document.getElementById('text1').innerHTML = '지원자가 부족합니다.';
+        		$("#price").val(money);
+        	}else if(vol>=person){
+        		document.getElementById('text1').innerHTML = '입찰이 마감 되었습니다.';
+        		$("#check").hide();
+        		$("#price").hide();
+        	}
+        }else{
+        	document.getElementById('text1').innerHTML = '입찰 마감 시간이 ' + D + '일 ' + H + '시간 ' + M + '분 ' + S + '초 남았습니다.';	
+        }
+    }
+    remain();
+    setInterval(remain, 1000);
 </script>
 </html>

@@ -151,8 +151,9 @@ public class ReportManagement {
 				sb.append("</a>");
 				sb.append("<div class='caption'>");
 				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
-				sb.append("<span calss='pull-right'>"+p.getP_vol()+"</span>");
-				sb.append("<p>"+p.getP_plnum0()+","+p.getP_plnum1()+","+p.getP_plnum2()+"</p>");
+				sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+				sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+				sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
 				sb.append("</div>");
 				sb.append("</div>");
 				sb.append("</div>");
@@ -213,7 +214,7 @@ public class ReportManagement {
 				sb.append("<div class='caption'>");
 				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
 				sb.append("<span calss='pull-right'>"+p.getP_vol()+"</span>");
-				sb.append("<p>"+p.getP_plnum0()+","+p.getP_plnum1()+","+p.getP_plnum2()+"</p>");
+				sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
 				sb.append("</div>");
 				sb.append("</div>");
 				sb.append("</div>");
