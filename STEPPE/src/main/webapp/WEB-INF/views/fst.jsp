@@ -22,6 +22,7 @@
   </head>
 <body>
 	<jsp:include page="header.jsp" />
+	<jsp:include page="mypagefrmenu.jsp" />
 	<div class="about">
 		<table class="table table-striped" style="width: 80%; margin-left: 10%; text-align: center;">
 			<tr>

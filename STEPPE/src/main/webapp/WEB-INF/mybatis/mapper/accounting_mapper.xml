@@ -11,6 +11,17 @@
 	<select id="getPrice" resultType="Integer" parameterType = "Integer">
 		select MAX(v_bid) from volunteer where V_PNUM=#{v_pnum}
 	</select>	
+	
+	<select id="getPurchaseList" parameterType = "Integer" resultType="accounting" >
+		select * from purchase order by pu_num
+	</select>
+	
+	<select id="getPurchaseDList" parameterType = "Integer" resultType="accounting" >
+		select * from purchase_detail where pd_punum = #{pd_punum} order by pd_num
+	</select>	
+	<select id="getPurchaseCount" resultType="Integer">
+		SELECT COUNT(*) FROM PRLIST
+	</select>	
 	<select id="getPurchaseMaxNum" resultType="Integer">
 		select NVL(MAX(pu_num),0) FROM purchase
 	</select>

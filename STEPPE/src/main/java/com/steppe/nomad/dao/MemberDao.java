@@ -1,6 +1,6 @@
 package com.steppe.nomad.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -150,6 +150,12 @@ public class MemberDao {
 	public int getMemberCount() {
 		return sqlSession.selectOne("member.getMemberCount");
 	}
+	public int getMemberCLCount() {
+		return sqlSession.selectOne("member.getMemberCLCount");
+	}
+	public int getMemberFRCount() {
+		return sqlSession.selectOne("member.getMemberFRCount");
+	}
 
 	public String CheckPw(String m_id) {
 		return sqlSession.selectOne("member.CheckPw",m_id);
@@ -158,6 +164,9 @@ public class MemberDao {
 	public int deleteMemberMake(String m_id) {
 		return sqlSession.delete("member.deleteMemberMake",m_id);
 		
+	}
+	public String getStatus(String m_id) {
+		return sqlSession.selectOne("member.getStatus", m_id);
 	}
 
 }

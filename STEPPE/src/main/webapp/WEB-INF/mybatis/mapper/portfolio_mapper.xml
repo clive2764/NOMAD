@@ -14,8 +14,8 @@
 		SELECT COUNT(*) FROM PORTFOLIO
 	</select>
 	
-	<select id="getPortfolioDetail" parameterType="String" resultType="portfolio">
-		SELECT * FROM PORTFOLIO WHERE PF_NUM = #{pf_num}
+	<select id="getPortfolioDetailList" parameterType="Integer" resultType="portfolio">
+		SELECT * FROM PORTFOLIO INNER JOIN PORTFOLIOFILE ON PF_NUM = PT_PFNUM WHERE PF_NUM = #{pf_num}
 	</select>
 	
 	<insert id="insertPortfolio" parameterType="portfolio">

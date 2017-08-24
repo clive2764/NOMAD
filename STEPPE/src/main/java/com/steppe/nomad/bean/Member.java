@@ -18,7 +18,7 @@ public class Member {
 		this.mf_sysname = mf_sysname;
 	}
 	private String dota;//이메일의 도메인 부분
-	
+
 	public String getDotb() {
 		return dotb;
 	}

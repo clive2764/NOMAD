@@ -54,6 +54,8 @@ input {
 </head>
 <body>
    <jsp:include page="header.jsp" />
+   <jsp:include page="mypagefrmenu.jsp" />
+   	<jsp:include page="profilemenu.jsp" />
    <div class="container">
 		<!--style="height:-webkit-fill-available;"-->
 		<form action="addCareerInfo" method="post" id="career">

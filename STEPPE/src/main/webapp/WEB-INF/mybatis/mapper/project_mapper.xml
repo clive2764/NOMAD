@@ -89,17 +89,23 @@
 	<select id="getProjectCount" resultType="Integer">
 		SELECT COUNT(*) FROM PLIST
 	</select>
+	<select id="getProjectDVCount" resultType="Integer">
+		SELECT COUNT(*) FROM PLIST WHERE p_pc1name = '개발'
+	</select>
+	<select id="getProjectDSCount" resultType="Integer">
+		SELECT COUNT(*) FROM PLIST WHERE p_pc1name = '디자인'
+	</select>
 	
 	<delete id="projectDelete" parameterType="Integer">
 		DELETE FROM PROJECT WHERE p_num = #{pnum}
 	</delete>
 	
 	<select id="getDevelopList" resultType="project">
-		select * from project where p_pc1name = '개발'
+		select * from project where p_pc1name = '개발' ORDER BY P_NUM
 	</select>
 	
 	<select id="getDesignList" resultType="project">
-		select * from project where p_pc1name = '디자인'
+		select * from project where p_pc1name = '디자인' ORDER BY P_NUM
 	</select>
 	<select id="getSearchResult" parameterType="String" resultType="project">
 	SELECT * FROM PROJECT WHERE P_MID LIKE '%'||#{keyword}||'%' OR

@@ -26,6 +26,15 @@ public class AccountingDao {
 		return sqlSession.selectOne("accounting.getPrice",v_pnum);
 	}
 
+
+	public List<Accounting> getPurchaseList(int pageNum) {
+		return sqlSession.selectList("accounting.getPurchaseList",pageNum);
+	}
+	
+	public List<Accounting> getPurchaseDList(int pd_punum) {
+		return sqlSession.selectList("accounting.getPurchaseDList",pd_punum);
+	}
+	
 	public int getPurchaseMaxNum() {
 		return sqlSession.selectOne("accounting.getPurchaseMaxNum");
 	}
@@ -43,7 +52,6 @@ public class AccountingDao {
 	public int insertPurchase_detail(Accounting accounting2) {
 		return sqlSession.insert("accounting.insertPurchase_detail",accounting2);
 	}
-
 
 	public int CheckPurchase(int pu_pnum) {
 		return sqlSession.selectOne("accounting.CheckPurchase",pu_pnum);

@@ -138,7 +138,7 @@ public class PmsManagement {
 		System.out.println("pnum:"+pnum);
 		String mid = session.getAttribute("m_id").toString();
 		Gson jsonObj = new Gson();
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 		List<Chat> chatList = null;
 		int chatNum = 0;
 		if(mid == null || mid.equals("") || chatContent == null || chatContent.equals("")
@@ -168,7 +168,7 @@ public class PmsManagement {
 		String mid = session.getAttribute("m_id").toString();
 		String listType = request.getParameter("listType");
 		System.out.println("listType="+listType);
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 		try {
 			map.put("mid", URLDecoder.decode(mid,"UTF-8"));
 			map.put("pnum", URLDecoder.decode(pnum,"UTF-8"));

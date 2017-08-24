@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+
 .dropmenu {
 	display: none;
 	position: absolute;
@@ -52,6 +53,9 @@
 						<a href="goIntro">steppe?</a>
 					</li>
 					<li role="presentation">
+						<a href="goNotice">공지사항</a>
+					</li>
+					<li role="presentation">
 						<a href="goProject">프로젝트</a>
 					</li>
 					<li role="presentation">
@@ -60,9 +64,7 @@
 					<li role="presentation">
 						<a href="goManual">이용방법</a>
 					</li>
-					<li role="presentation">
-						<a href="goNotice">공지사항</a>
-					</li>
+					
 					<c:if test="${!empty m_id}">
 						<li role="presentation" onclick="myFunction()" class="dropbtn">
 							
@@ -92,7 +94,7 @@
 									<a href="goFstMM"> 자격 시험 관리 </a>
 								</c:if>
 								<c:if test="${m_id eq 'admin'}">
-									<a href="goPuchaseMM"> 결제 관리 </a>
+									<a href="goPurchaseMM"> 결제 관리 </a>
 								</c:if>
 								<a href="logout">logout</a>
 							</div>
