@@ -45,6 +45,7 @@ public class Volunteer {
 	}
 	public void setV_time(String v_time) {
 		this.v_time = v_time;
+
 	}
 	public String getP_title() {
 		return p_title;
@@ -52,5 +53,6 @@ public class Volunteer {
 	public void setP_title(String p_title) {
 		this.p_title = p_title;
 	}
+	
 	
 }

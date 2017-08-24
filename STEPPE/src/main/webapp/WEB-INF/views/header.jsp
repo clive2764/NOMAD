@@ -30,6 +30,7 @@
 </style>
 </head>
 <body>
+
 <!--상단 메뉴바-->
 	<header id="header">
 	 <nav class="navbar navbar-default navbar-static-top" role="banner">
@@ -75,6 +76,9 @@
 									<a href="goPms">프로젝트 관리</a>
 								</c:if>
 								<a href="goMyProfile">프로필</a>
+								<a href="updateInfo">회원수정</a>
+								<a href="goMyPage">마이페이지</a>
+
 								<c:if test="${m_id eq 'admin'}">
 									<a href="goMemberMM"> 회원관리 </a>
 

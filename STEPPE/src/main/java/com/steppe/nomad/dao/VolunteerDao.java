@@ -27,4 +27,12 @@ public class VolunteerDao {
 	public List<Volunteer> chatRoomList(String mid) {
 		return sqlSession.selectList("volunteer.chatRoomList",mid);
 	}
+
+	public int volunteerCheck(String p_mid) {
+		return sqlSession.selectOne("volunteer.volunteerCheck",p_mid);
+	}
+
+	public int getPerson(int v_pnum) {
+		return sqlSession.selectOne("volunteer.getPerson",v_pnum);
+	}
 }
