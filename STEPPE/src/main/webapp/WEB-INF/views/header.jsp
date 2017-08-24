@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style>
+
 .dropmenu {
 	display: none;
 	position: absolute;
@@ -29,6 +30,7 @@
 </style>
 </head>
 <body>
+
 <!--상단 메뉴바-->
 	<header id="header">
 	 <nav class="navbar navbar-default navbar-static-top" role="banner">
@@ -51,6 +53,9 @@
 						<a href="goIntro">steppe?</a>
 					</li>
 					<li role="presentation">
+						<a href="goNotice">공지사항</a>
+					</li>
+					<li role="presentation">
 						<a href="goProject">프로젝트</a>
 					</li>
 					<li role="presentation">
@@ -59,9 +64,7 @@
 					<li role="presentation">
 						<a href="goManual">이용방법</a>
 					</li>
-					<li role="presentation">
-						<a href="goNotice">공지사항</a>
-					</li>
+					
 					<c:if test="${!empty m_id}">
 						<li role="presentation" onclick="myFunction()" class="dropbtn">
 							
@@ -73,6 +76,9 @@
 									<a href="goPms">프로젝트 관리</a>
 								</c:if>
 								<a href="goMyProfile">프로필</a>
+								<a href="updateInfo">회원수정</a>
+								<a href="goMyPage">마이페이지</a>
+
 								<c:if test="${m_id eq 'admin'}">
 									<a href="goMemberMM"> 회원관리 </a>
 

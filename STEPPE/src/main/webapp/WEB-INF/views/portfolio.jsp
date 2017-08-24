@@ -23,10 +23,38 @@
 input,table,tr,td{
 color:black;
 }
+#otd{
+background-color: pink;
+}
+#ttd{
+background-color: skyblue;
+}
+#t1{
+margin-left: 25%;
+}
+html, body{height:100%;margin:0}
+  #articleView_layer {
+   display:none;position:fixed;
+   position:absolute;top:0;left:0;
+   width:100%;height:100%}
+  #articleView_layer.open {display:block;color:red}
+  #articleView_layer #bg_layer {
+      position:absolute;top:0;left:0;
+      width:100%;height:100%;background:#000;
+      opacity:.5;filter:alpha(opacity=50);z-index:100}
+  #contents_layer { position:absolute;top:40%;left:40%;
+     width:450px;height:600px;margin:-150px 0 0 -194px;
+      padding:28px 28px 0 28px;border:2px solid #555;
+        background:#fff;font-size:12px;z-index:200;
+     color:#767676;line-height:normal;white-space:normal;
+     overflow:scroll}
+     
 </style>
 <body>
 	<jsp:include page="header.jsp" />
-
+	<jsp:include page="mypagefrmenu.jsp"/>
+   	<jsp:include page="profilemenu.jsp" />
+	<div class="row"></div>
 	<div class="container">
 		<!--style="height:-webkit-fill-available;"-->
 		<form method="post" id="portfolio" enctype="multipart/form-data">
@@ -65,13 +93,15 @@ color:black;
 		<table>
 			<tr align="center" height="25">
 				<td width="200"></td>
+			</tr>
+			<tr>
 				<td width="200"></td>
 			</tr>
 		</table>
 		<table id="pfTable">
 			<c:forEach var="portfolio" items="${pflist}">
 				<tr align="center" height="25">
-					<td width="200">${pflist.pf_mid}님의 포트폴리오 입니다.</td>
+					<td width="200">님의 포트폴리오 입니다.</td>
 					<td width="200">우억</td>
 				</tr>
 			</c:forEach>
@@ -122,8 +152,8 @@ color:black;
 				console.log(data); //json 구조파악
 				for(var i=0;i<data.length;i++){
 					pflist+='<tr height="25" align="center">'
-					+'<td width="200">'+data[i].pf_mid+"님의 포트폴리오 입니다"+'</td>'
-					+"<td width='200'><a href='showPortfolioDetail?pfnum="+data[i].pf_num+"'><img src='resources/upload/"+data[i].pt_sysname+"'/></a></td></tr>"
+					+'<td width="200">'+data[i].pf_mid+"님의 포트폴리오 입니다"+'</td></tr>'
+					+"<tr><td width='200'><a href='showPortfolioDetail?pfnum="+data[i].pf_num+"'><img src='resources/upload/"+data[i].pt_sysname+"'/></a></td></tr>"
 			}
 			$('#pfTable').html(pflist);
 			},
@@ -156,57 +186,12 @@ color:black;
 			$('#pfTable').html(pflist);
 			},
 			error : function(error) {
-				alert("error");
 				console.log(error);
 			}
 		});
 		$('#portfolio').submit();
+		location.reload();
 	    });
 	 });
-	/*function memberDelete(num){
-		var number = num;
-		var clist='';
-		$.ajax({
-			type : 'get',
-			url : 'deleteCareerInfo',
-			data : {num:num},
-			//$('#rForm').serialize(), 폼 전체 데이터 전송
-			dataType : 'json',
-			success : function(data) { //댓글 리스트 json형태 반환
-				console.log(data); //json 구조파악
-				for(var i=0;i<data.length;i++){
-					clist+='<tr height="25" align="center">'
-					+'<td width="200">'+data[i].ca_term+'</td>'
-					+'<td width="200">'+data[i].ca_company+'</td>'
-					+'<td width="200">'+data[i].ca_rank+'</td>'
-					+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
-			}
-			$('#cTable').html(clist);
-			},
-			error : function(error) {
-				console.log(error);
-			} 
-	});
-		location.reload();
-	} */
-	
-
-	/* function(){
-		
-	} */
-	/*function complete(){
-	    var term = $("#term").val();
-	    var company = $("#company").val();
-	    var rank= $("#rank").val();
-	    console.log(term);
-	    console.log(company);
-	    if(term == "" || company == "" || rank == ""){
-	      alert("빈항목이 존재합니다!");      
-	    } 
-	      
-	    if(term != "" && company != "" && rank != ""){
-	        $("#career").submit();
-	    }    
-	}*/
 </script>
 </html>

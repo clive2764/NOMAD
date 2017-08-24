@@ -100,4 +100,16 @@ public class ProjectDao {
 		return sqlSession.selectList("project.getSearchResult", keyword);
 	}
 
+	public int projectCheck(String p_mid) {
+		return sqlSession.selectOne("project.projectCheck",p_mid);
+	}
+
+	public int CheckStatus(int p_num) {
+		return sqlSession.selectOne("project.CheckStatus",p_num);
+	}
+
+	public int StatusUpdate(int p_num) {
+		return sqlSession.update("project.StatusUpdate",p_num);
+	}
+
 }

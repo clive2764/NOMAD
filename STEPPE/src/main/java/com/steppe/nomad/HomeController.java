@@ -174,10 +174,10 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value= "/goMyPageCI")
+	@RequestMapping(value= "/goMyPage")
 	public ModelAndView goMyPageCI(){
 		mav = new ModelAndView();
-		mav=cm.execute(3); //projectDetail.jsp 프로젝트 상세보기 페이지
+		mav=mm.execute(3); //projectDetail.jsp 프로젝트 상세보기 페이지
 		return mav;
 	}
  

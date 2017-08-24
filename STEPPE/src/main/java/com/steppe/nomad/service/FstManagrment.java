@@ -153,7 +153,7 @@ public class FstManagrment implements Action{
 				sb.append("<tr><td colspan = '4' style='text-align:right;'><input id = 'a_tnum' 'type='hidden' name='a_tnum' value="+t.getT_num()+" readonly='readonly' /><input type = 'button' value = '입력' id='check'/></td></tr></table>");
 				sb.append("<div id='ViewTimer'></div>");
 			} 
-			if(tCnt==10) {
+			if(tCnt>=10) {
 				System.out.println("결과");
 				ss.removeAttribute("No"+tCnt+"a");
 				System.out.println("세션"+tCnt+"의 값 : "+ss.getAttribute("No"+tCnt+"a"));

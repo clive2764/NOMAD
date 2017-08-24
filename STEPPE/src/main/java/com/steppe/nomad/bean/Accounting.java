@@ -2,25 +2,39 @@ package com.steppe.nomad.bean;
 
 public class Accounting {
 	private int pu_num;
-	private long pu_money;
+	private double pu_money;
 	private String pu_mid;
 	private int pu_pnum;
-	private int pd_num;
 	private int pd_punum;
+	private int pd_num;
 	private String pd_mid;
-	private int pd_money;
+	private double pd_money;
 	private String pd_catagory;
 	
+	public Accounting(int pu_num, double pu_money, String pu_mid, int pu_pnum) {
+		this.pu_num=pu_num;
+		this.pu_money=pu_money;
+		this.pu_mid=pu_mid;
+		this.pu_pnum=pu_pnum;
+	}
+	public Accounting(int pd_num, int pd_punum, String pd_mid, double pd_money, String pd_catagory) {
+		this.pd_num=pd_num;
+		this.pd_punum=pd_punum;
+		this.pd_mid=pd_mid;
+		this.pd_money=pd_money;
+		this.pd_catagory=pd_catagory;
+	}
 	public int getPu_num() {
 		return pu_num;
 	}
 	public void setPu_num(int pu_num) {
 		this.pu_num = pu_num;
 	}
-	public long getPu_money() {
+	
+	public double getPu_money() {
 		return pu_money;
 	}
-	public void setPu_money(long pu_money) {
+	public void setPu_money(double pu_money) {
 		this.pu_money = pu_money;
 	}
 	public String getPu_mid() {
@@ -53,10 +67,11 @@ public class Accounting {
 	public void setPd_mid(String pd_mid) {
 		this.pd_mid = pd_mid;
 	}
-	public int getPd_money() {
+	
+	public double getPd_money() {
 		return pd_money;
 	}
-	public void setPd_money(int pd_money) {
+	public void setPd_money(double pd_money) {
 		this.pd_money = pd_money;
 	}
 	public String getPd_catagory() {
@@ -65,9 +80,5 @@ public class Accounting {
 	public void setPd_catagory(String pd_catagory) {
 		this.pd_catagory = pd_catagory;
 	}
-	
-	
-	
-	
 	
 }

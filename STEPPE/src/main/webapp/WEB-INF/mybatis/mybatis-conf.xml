@@ -29,5 +29,7 @@
 		<typeAlias alias="chat" type="com.steppe.nomad.bean.Chat"/>
 		<typeAlias alias="accounting" type="com.steppe.nomad.bean.Accounting"/>
 		<typeAlias alias="report" type="com.steppe.nomad.bean.Report"/>
+		<typeAlias alias="purchase_detail" type="com.steppe.nomad.bean.Purchase_detail"/>
+		<typeAlias alias="reply" type="com.steppe.nomad.bean.Reply"/>
 	</typeAliases> 
 </configuration> 

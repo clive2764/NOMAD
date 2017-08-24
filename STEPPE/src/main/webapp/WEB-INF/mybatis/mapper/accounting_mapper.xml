@@ -22,4 +22,22 @@
 	<select id="getPurchaseCount" resultType="Integer">
 		SELECT COUNT(*) FROM PRLIST
 	</select>	
+	<select id="getPurchaseMaxNum" resultType="Integer">
+		select NVL(MAX(pu_num),0) FROM purchase
+	</select>
+	<insert id="insertPurchase" parameterType = "accounting">
+      INSERT INTO purchase VALUES(#{pu_num},#{pu_money},#{pu_mid},#{pu_pnum})
+   </insert>
+   <select id="getPurchase_detailMaxNum" resultType="Integer">
+		select NVL(MAX(pd_num),0) FROM purchase_detail
+	</select>
+	<insert id="insertPurchase_detail" parameterType = "accounting">
+      INSERT INTO purchase_detail VALUES(#{pd_num},#{pd_punum},#{pd_mid},#{pd_money},#{pd_catagory})
+   </insert>
+    <select id="CheckPurchase" resultType="Integer" parameterType = "Integer">
+	  select Count(pu_pnum) from purchase where pu_pnum=#{pu_pnum}
+	</select>
+	 <select id="getPu_num" resultType="Integer" parameterType = "Integer">
+	  select pu_num from purchase where pu_pnum=#{pu_pnum}
+	</select>
 </mapper>

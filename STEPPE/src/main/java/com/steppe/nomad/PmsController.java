@@ -73,4 +73,9 @@ public class PmsController {
 		String jsonStr = pmm.executeAjax(2);
 		return jsonStr;
 	}
+	@RequestMapping(value = "/chatList")
+	public @ResponseBody String chatList(){
+		String jsonStr = pmm.executeAjax(3);
+		return jsonStr;
+	}
 }

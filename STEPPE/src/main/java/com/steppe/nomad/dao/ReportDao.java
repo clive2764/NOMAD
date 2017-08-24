@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Reply;
 import com.steppe.nomad.bean.Report;
 
 @Repository 
@@ -17,7 +18,7 @@ public class ReportDao {
 
 	public int insertReport(Report report) {
 		
-		return sqlSession.insert("report.insertProject",report);
+		return sqlSession.insert("report.insertReport",report);
 	}
 
 	public int getMaxNum() {
@@ -47,6 +48,30 @@ public class ReportDao {
 
 	public List<Project> searchProject(String keyowrd) {
 		return sqlSession.selectList("report.searchProject", keyowrd);
+	}
+	
+	//테이블내 댓글 최대수 계산
+	public int getReplyMaxNum() {
+		return sqlSession.selectOne("report.selectReplyMaxNum");
+	}
+	
+	//댓글삽입
+	public int insertReply(Reply reply) {
+		return sqlSession.insert("report.insertReply", reply);
+		
+	}
+
+	public List<Reply> showReply(int p_num) {
+		
+		return sqlSession.selectList("report.showReply", p_num);
+		
+		
+	}
+
+	public int deleteReply(int r_num) {
+		
+		return sqlSession.delete("report.deleteReply", r_num);
+		
 	}
 
 }

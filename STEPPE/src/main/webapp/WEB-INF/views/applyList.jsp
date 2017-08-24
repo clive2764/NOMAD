@@ -37,5 +37,8 @@ function check(obj){
 	}
 }
 
+function back(){
+	window.history.back();
+}
 </script>
 </html>

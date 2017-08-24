@@ -102,7 +102,12 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <div class="row">
+                <div class="row" >
+                	 <div class="panel-body" style="float:left;" >
+                        <div class="col-lg-12">
+							${makeList}
+			            </div>
+                     </div>
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -110,12 +115,8 @@
                                     <i class="fa fa-long-arrow-right fa-fw"></i>
                        			       	실시간 채팅
                                 </h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="printP" class="col-lg-12">
-									${makeList}
-				            	</div>
-                            </div>
+							</div>
+                         
                             <div id="chatPrint" class='panel panel-default'>
 				            		
 				            </div>
@@ -178,18 +179,62 @@
 						console.log(error);
 					}
 				});
+				//chatListFunction('ten');
 			}
-			function submitFunction(pnum){
+			var chatNum = 0;
+			/* function submitFunction(pnum){
 				var chatContent = $('#chatContent').val();
 				$.ajax({
 					type: 'post',
 					url: 'sendChat',
 					data: {chatContent:chatContent, pnum:pnum},
+					dataType: 'json',
 					success: function(data){
-						
+						if(data == ""){return;}
+						var parsed = JSON.parse(data);
+						var result = parsed.result;
+						for(var i=0; i<result.length; i++){
+							addChat(result[i][0].value, result[i][1].value, result[i][2].value);
+							alert(result[i][0].value);
+						}
+						chatNum = Number(parsed.last);
 					}
 				});	
 				$('#chatContent').val('');
+			} */
+			/* function addChat(chatName, chatContent, chatTime){
+				$('#chatList').append('<div class="row"'+
+						'<div class="col-lg-12">'+
+						'<div class="media">'+
+						'<a class="pull-left" href="#">'+
+						'<img class="media-object img-circle" style="width: 30px; height: 30px;" src="images/icon.png" alt="">'+
+						'</a>' +
+						'<div class="media-body">'+
+						'<h4 class="media-heading">'+
+						chatName +
+						'<span class="small pull-right">'+
+						chatTime +
+						'</span>' +
+						'</h4>'+
+						'<p>'+
+						chatContent +
+						'</p>' +
+						'</div>'+
+						'</div>'+
+						'</div>'+
+						'</div>'+
+						'<hr>');	
+			
+				$('#chatList').scrollTop($('#chatList')[0].scrollHeight);
 			}
+			function getInfiniteChat(){
+				setInterval(function(){
+					chatListFunction(chatNum);
+				}, 3000);
+			}
+			$(document).ready(function(){
+				chatListFunction('ten');
+				getInfiniteChat();
+			}); */
 		</script>
 </html>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,7 +16,9 @@
 	<link href="resources/css/style.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
 	<style>
-
+		.about{
+			padding-bottom: 0px;
+		}
         table{
             color: black;
         }
@@ -57,12 +59,21 @@
        		color:black;
        		width: 100%;
        	}
+       	#text1{
+       		color:black;
+       		font-size: 20px;
+       	}
+       	#reply{
+       		margin-top: 10%;
+       	}
+       	
     </style>
   </head>
   <body>
     <jsp:include page="header.jsp" />
     	<div class="about">
-		<div class="container">
+    		<div class="container">
+	           	<div class="container">
             <table class="table table-responsive">
                 <tr>
                     <td>제목</td>
@@ -70,17 +81,19 @@
                 </tr>
                 <tr>
                     <td>프로젝트 기간</td>
-                    <td colspan="2" style="text-align: center;">지원자</td>
+                    <td style="text-align: center;">지원자 (필요인원)</td>
+                    <td style="text-align: center;">예산 금액</td>
                     <td style="text-align: right;">마감일</td>
                 </tr>
                 <tr>
                     <td>${project.p_term}일</td>
-                    <td colspan="2" style="text-align: center;">${project.p_vol}명</td>
-                    <td colspan="2" style="text-align: right;">${project.p_deadline}</td>
+                    <td style="text-align: center;">${project.p_vol}명 (${project.p_person}명)</td>
+                    <td style="text-align: center;">${project.p_budget}만원</td>
+                    <td style="text-align: right;">${project.p_deadline}</td>
                 </tr>
                 <tr>
                     <td>필요언어</td>
-                    <td>${project.p_plnum0},${project.p_plnum1},${project.p_plnum2}</td>
+                    <td>${project.p_plnum0}　${project.p_plnum1}　${project.p_plnum2}</td>
                     <td colspan="2" style="text-align: center;">
                         <form action="" method="post" id="priceForm">
                             <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="price">
@@ -93,45 +106,39 @@
                 </tr>
             
             </table>
+            <div id="text1"></div>
         </div>
-    
-	<hr>
-    <div class="container">
-            <h1 style="text-align:center; color:black;">프로젝트 설명</h1>
-            <p>
-                ${project.p_content}
-            </p>    
-           
-    </div>
-    </div>
-    <hr/>
-    <div class="container">
-        <h1 style="color:black; text-align:center;">댓글</h1>
-        <div class="row"></div>
-        <table class="table table-responsive">
-            <tr>
-                <td>작성자</td>
-                <td colspan="5">작성 내용</td>
-            </tr>
-            <tr>
-                <td><p>핫산</p></td>
-                <td colspan="5"><p>싸잔님 월급 주쎄오 쩨발</p></td>
-            </tr>
-            <tr>
-                <td><p>핫산</p></td>
-                <td colspan="5"><p>3달째 밀렸어오 싸잔님</p></td>
-            </tr>
-            <tr>
-                <td><p>핫산</p></td>
-                <td colspan="5"><p>가족들 굶어요 싸잔님</p></td>
-            </tr>
-        </table>
-        <form action="insertComment" method="post" id="replyForm">
-        	<textarea name="r_content" id="r_content"></textarea><br/>
-        	<input type="button" id="replyInsert" value="댓글작성"/>
-        </form>
-    </div>
-    <div class="row"></div>
+		            <div class="container">
+		            <h1 style="text-align:center; color:black;">프로젝트 설명</h1>
+		                <p>${project.p_content}</p>
+		            </div>    
+		           <hr/>
+		           
+		           <div class="container" id="reply">
+		           <h1 style="color:black; text-align:center;">댓글</h1>
+		           <form name="replyForm" method="post">
+		           <table class="table table-striped">
+		           <tr>
+		           <th style="text-align:center; width:20%;">작성자</th>
+		           <th colspan="5" style="text-align:center;">작성내용</th>
+		           <th colspan="2" style="text-align:center; width:20%;">작성날짜</th>
+		           </tr>
+		           ${reply}
+		           </table>
+		           <input type="hidden" name="p_num" value="${p_num }" />
+		           <input type="hidden" name="r_num" id="r_num" />
+		           <input type="hidden" name="r_mid" value="${r_mid}"/>
+		           </form>
+		           <form action="insertComment" method="post" id="insertReplyForm">
+						<input name="p_num" type="hidden" value="${project.p_num}"/>
+						<textarea name="r_content" id="r_content"></textarea><br/>
+						<input type="button" id="replyInsert" value="댓글작성"/>
+						</form>
+		           </div>
+			        </div>
+			        
+			        <div class="row"></div>
+		      </div>
     <!-- 푸터 영역 -->  
 	<jsp:include page="footer.jsp" />
 
@@ -143,15 +150,25 @@
 	<script>wow = new WOW({}).init();</script>	
 </body>
 <script>
-    $("#check").click(function(){
+	
+   $("#check").click(function(){
         var price = $("#price").val();
-        
-        
-        if(price == "" ){
+        var person=${project.p_person};
+        var vol=${project.p_vol};
+        var budget=${project.p_budget};
+        console.log(person);
+        var money=(budget/person)+(budget%person);
+        console.log(money);
+        if(price == ""){
           alert("입찰가를 입력하세요!");      
-        } 
+        }
+        if(price>money){
+        	alert("1인당 지급가능 금액을 초과하였습니다.");
+        	$("#price").val("최대금액은 : "+money+"만원 입니다");
+        }
           
-        if(price != ""){
+        if(price != "" && price<=money){
+        	//console.log(price);
             $("#priceForm").submit();
         }    
     });
@@ -162,8 +179,58 @@
     		alert("댓글을 입력하세요!");
     	}
     	if(r_content != ""){
-    		$("#replyForm").submit();
+    		$("#insertReplyForm").submit();
     	}
     });
+    
+    function deleteReply(num) {
+    	$('#r_num').val(num);
+    	document.replyForm.action="./deleteReply";
+    	document.replyForm.submit();
+    }
+</script>
+<script type="text/javascript">
+ 	
+    var date;
+    date = new Date();
+    var yyyy = "${project.p_deadline}".substring(0,4);
+    var mm = "${project.p_deadline}".substring(5,7);
+    var dd = "${project.p_deadline}".substring(8,10);
+    lastDate = new Date(mm+"/"+dd+"/"+yyyy+" 23:59:59");
+    //임시 시간 mm/dd/yyyy hh:mm:ss
+    /* lastDate = new Date(mm+"/23/"+yyyy+" 11:05:30"); */
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    var lastTime = lastDate.getTime();
+ 
+    // 남은 시간 카운터
+    function remain(){
+        var now = new Date();
+        var person=${project.p_person};
+        var vol=${project.p_vol};
+        var budget=${project.p_budget};
+        var money=Math.floor(budget/person);
+        var gap = Math.round((lastTime - now.getTime()) / 1000);
+ 
+        var D = Math.floor(gap / 86400);
+        var H = Math.floor((gap - D * 86400) / 3600 % 3600);
+        var M = Math.floor((gap - H * 3600) / 60 % 60);
+        var S = Math.floor((gap - M * 60) % 60);
+        if(D<0 || H<0 || M<0 || S<0){
+        	if(vol<person){
+        		document.getElementById('text1').innerHTML = '지원자가 부족합니다.';
+        		$("#price").val(money);
+        	}else if(vol>=person){
+        		document.getElementById('text1').innerHTML = '입찰이 마감 되었습니다.';
+        		$("#check").hide();
+        		$("#price").hide();
+        	}
+        }else{
+        	document.getElementById('text1').innerHTML = '입찰 마감 시간이 ' + D + '일 ' + H + '시간 ' + M + '분 ' + S + '초 남았습니다.';	
+        }
+    }
+    remain();
+    setInterval(remain, 1000);
 </script>
 </html>
