@@ -60,9 +60,22 @@ public class PmsManagement {
 			goLiveChat();
 		}else if(code==6){
 			startChat();
+		}else if(code==7){//평가하러 가기
+			goProjectEvalute();
 		}
 		return mav;
 	}
+	private void goProjectEvalute() {//평가하러 가기
+		String view=null;
+		mav=new ModelAndView();
+		String p_title=request.getParameter("p_title").toString();
+	
+		mav.addObject("p_title", p_title);
+		view="projectEvaluate";
+		mav.setViewName(view);
+		
+	}
+
 	private void startChat() {
 		mav = new ModelAndView();
 		int pnum = Integer.parseInt(request.getParameter("pnum"));

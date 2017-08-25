@@ -13,6 +13,53 @@
 		<link rel="stylesheet" href="resources/css/animate.css">
 		<link href="resources/css/animate.min.css" rel="stylesheet"> 
 		<link href="resources/css/style.css" rel="stylesheet" />   
+		<script src="resources/js/jquery-3.2.1.min.js"></script>
+		<style>
+			 #articleView_layer {
+   					display:none;
+   					position:fixed;
+   					position:absolute;
+  					top:0;
+   					left:0;
+   					width:100%;
+   					height:100%
+   				}
+
+  			#articleView_layer.open {
+  					display:block;
+  					color:red
+  				}
+
+  			#articleView_layer #bg_layer {
+      				position:absolute;
+      				top:0;
+      				left:0;
+      				width:100%;
+      				height:100%;
+      				background:#000;
+      				opacity:.5;
+      				filter:alpha(opacity=50);
+      				z-index:100
+      		}
+
+ 			 #contents_layer { 
+  					position:absolute;
+  					top:40%;
+  					left:40%;
+    				width:400px;
+    				height:400px;
+    				margin:-150px 0 0 -194px;
+   					padding:28px 28px 0 28px;
+    				border:2px solid #555;
+    				background:#fff;
+    				font-size:12px;
+    				z-index:200;
+    				color:#767676;
+    				line-height:normal;
+    				white-space:normal;
+    				overflow:scroll
+     			}
+		</style>
 	</head>
 	<body>
 		<jsp:include page="header.jsp" />
@@ -36,7 +83,30 @@
 	function P_teamCheck(p_status2){
 		alert(p_status2);
 	}
+	
+	function articleView(p_num){//지원자들 라이트 박스 띄우기 위한 ajax
+		$('#articleView_layer').addClass('open');
+		$.ajax({
+			type:'get',
+			url: 'showApplyList',
+			data:{p_num:p_num},
+			timeout:3000,
+			success:function(data){
+				$('#contents_layer').html(data);
+			},
+			error:function(error){
+				alert("error");
+				console.log(error);
+			}
+		});
+	}
+
+			
 	</script>
 
 </body>
+<div id="articleView_layer">
+	<div id="bg_layer"></div>
+	<div id="contents_layer"></div>
+</div>
 </html>

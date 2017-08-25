@@ -94,9 +94,85 @@ public class ClientManagement {
 		case 9:
 			payRequest();
 			break;
+		case 10:
+			payMent();
+			break;
 		}
 		return mav;
 	}
+	private void payMent() {//결제하기
+		mav=new ModelAndView();
+		String view=null;
+		int p_num=Integer.parseInt(req.getParameter("p_num"));
+		if(session!=null && session.getAttribute("m_id")!=null){
+			List<Volunteer> vList=null;
+			System.out.println(p_num);
+			vList=vDao.showApplyList(p_num);
+			System.out.println(vList);
+			if(vList!=null){
+				StringBuilder sb = new StringBuilder();
+				sb.append("<form action='pickMember' name='select' method='get' onsubmit='return check(this)'>");
+				sb.append("<table border='1' align='center'>");
+				sb.append("<tr><th>프로젝트 번호</th><th>지원자 번호</th><th>지원자</th><th>입찰액</th><th>선정</th></tr>");
+				for(int i=0; i<vList.size(); i++){
+					System.out.println("ddddd");
+					Volunteer vl=vList.get(i);
+					sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
+					sb.append("<td>"+vl.getV_num()+"</td>");
+					sb.append("<td>"+vl.getV_mid()+"</td>");
+					sb.append("<td>"+vl.getV_bid()+"</td>");
+					sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid'" 
+							+ " onClick='CountChecked(this)'/></td></tr>");
+				}
+				sb.append("</table>");
+				sb.append("<input type='submit' value='결제하기'/>");
+				sb.append("</form>");
+				sb.append("<input type='button' class='btn' onclick='back()' value='뒤로가기'/>");
+				mav.addObject("vList", sb.toString());
+			}
+				view="applyList";
+			}else{
+				view="home";
+			}
+			mav.setViewName(view);
+		
+	}
+	private void showApplyList() {//지원자 리스트롤 보기 위한 ajax
+		mav=new ModelAndView();
+		String view=null;
+		int v_pnum=Integer.parseInt(req.getParameter("p_num"));
+
+		List<Volunteer> vList=null;
+		
+		vList=vDao.getVolunteerList(v_pnum);
+		System.out.println(vList);
+		if(!vList.equals(" ")){
+			StringBuilder sb = new StringBuilder();
+			sb.append("<table border='1' align='center'>");
+			sb.append("<tr><th>지원자번호</th><th>지원자아이디</th><th>입찰가격</th><th>입찰시간</th></tr>");
+			for(int i=0; i<vList.size(); i++){
+				System.out.println("ddddd");
+				Volunteer v=vList.get(i);
+				sb.append("<tr><td>"+v.getV_num()+"</td>");
+				sb.append("<td><a href='goFreelancerDetail?m_id="+v.getV_mid()+"'>"+v.getV_mid()+"</td>");//누르면 프리랜서 상세페이지로 이동
+				//sb.append("<td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+v.getV_bid()+"</td>");
+				sb.append("<td>"+v.getV_bid()+"만 원"+"</td>");
+				sb.append("<td>"+v.getV_time()+"</td></tr>");
+				//sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
+			}
+			sb.append("</table>");
+			sb.append("<br/><br/>");
+			sb.append("<a href='./goMyPageCI'><button>닫기</button></a>");
+			System.out.println(sb);
+			mav.addObject("vList", sb.toString());
+		}else{
+			view="errorAjax";
+		}
+		view="volunteerWatch";//라이트 박스에서 지원자 리스트 보여주기 위한 jsp
+		mav.setViewName(view);
+		
+}
+		
 	private void payRequest() {//관리자에게 최종 결제 신청
 		mav=new ModelAndView();
 		String view=null;
@@ -110,6 +186,7 @@ public class ClientManagement {
 			System.out.println(statusUp);
 			if(statusUp!=0){
 				view="redirect:goMyPageCI";
+				
 			}
 			
 		}else{//프로젝트 상태가 작업완료가 아니면 돌아가야 함
@@ -190,11 +267,6 @@ public class ClientManagement {
 		String pu_mid=session.getAttribute("m_id").toString();
 		int pu_pnum=Integer.valueOf(req.getParameter("v_pnum"));
 		
-		//System.out.println(pu_num);
-		//System.out.println(pu_money);
-		//System.out.println(pu_mid);
-		//System.out.println(pu_pnum);
-		
 		Accounting accounting = new Accounting(pu_num,pu_money,pu_mid,pu_pnum);
 			if(aDao.insertPurchase(accounting)!=0){
 				
@@ -255,7 +327,6 @@ public class ClientManagement {
 		}
 		}
 
-
 	private void pickMember() {//결제하기로
 		mav=new ModelAndView();
 		String view=null;
@@ -306,43 +377,6 @@ public class ClientManagement {
 		
 	}
 
-	private void showApplyList() {
-		mav=new ModelAndView();
-		String view=null;
-		int p_num=Integer.parseInt(req.getParameter("p_num"));
-		if(session!=null && session.getAttribute("m_id")!=null){
-			List<Volunteer> vList=null;
-			System.out.println(p_num);
-			vList=vDao.showApplyList(p_num);
-			System.out.println(vList);
-			if(vList!=null){
-				StringBuilder sb = new StringBuilder();
-				sb.append("<form action='pickMember' name='select' method='get' onsubmit='return check(this)'>");
-				sb.append("<table border='1' align='center'>");
-				sb.append("<tr><th>프로젝트 번호</th><th>지원자 번호</th><th>지원자</th><th>입찰액</th><th>선정</th></tr>");
-				for(int i=0; i<vList.size(); i++){
-					System.out.println("ddddd");
-					Volunteer vl=vList.get(i);
-					sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
-					sb.append("<td>"+vl.getV_num()+"</td>");
-					sb.append("<td>"+vl.getV_mid()+"</td>");
-					sb.append("<td>"+vl.getV_bid()+"</td>");
-					sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid'" 
-							+ " onClick='CountChecked(this)'/></td></tr>");
-				}
-				sb.append("</table>");
-				sb.append("<input type='submit' value='결제하기'/>");
-				sb.append("</form>");
-				sb.append("<input type='button' class='btn' onclick='back()' value='뒤로가기'/>");
-				mav.addObject("vList", sb.toString());
-			}
-				view="applyList";
-			}else{
-				view="home";
-			}
-			mav.setViewName(view);
-	}	
-
 	private void goMyPageCI() {
 		String view=null;
 		mav=new ModelAndView();
@@ -365,11 +399,14 @@ public class ClientManagement {
 						Project p=plist.get(i);
 						System.out.println("ddddd");
 						sb.append("<tr><td>"+p.getP_num()+"</td>");
-						sb.append("<td><a href='showApplyList?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></td>");
+						sb.append("<td><a href='#contents_layer' onclick='articleView("+p.getP_num()+")'>"+p.getP_title()+"</a></td>");
 						sb.append("<td>"+p.getP_vol()+"</td>");
 						sb.append("<td>"+p.getP_status2()+"</td></tr>");
 						if(p.getP_status2().equals("대기중")){//대기중일때만 삭제버튼 보여줌
 							sb.append("<tr><td colspan=4><a href='deleteProject?p_num="+p.getP_num()+"'>"+"삭제"+"</a></td></tr>");
+						}
+						if(p.getP_vol()>=p.getP_person() && p.getP_status2().equals("대기중") ){
+							sb.append("<tr><td colspan=4><a href='payMent?p_num="+p.getP_num()+"'>"+"결제"+"</a></td></tr>");
 						}
 						if(p.getP_status2().equals("작업전") || p.getP_status2().equals("작업중") || p.getP_status2().equals("작업완료")
 								|| p.getP_status2().equals("결제완료")){//대기중이 아닐 때 만 삭제 버튼 보여 줌
@@ -378,8 +415,10 @@ public class ClientManagement {
 						if(p.getP_status2().equals("작업완료")){
 							sb.append("<tr><td colspan=4><a href='payRequest?p_num="+p.getP_num()+"'>"+"결제신청"+"</a></td></tr>");
 						}
-						//sb.append("<td><a href='goClientPurchase?p_num="+p.getP_num()+"'>"+"결제내역"+"</a></td></tr>");
-						//sb.append("<td><a href='goPurchase?p_status="+p.getP_status()+"'>"+"결제"+"</a></td></tr>");
+						if(p.getP_status2().equals("결제완료")){
+							sb.append("<tr><td colspan=4><a href='goProjectEvalute?p_title="+p.getP_title()+"'>"+"평가"+"</a></td></tr>");
+						}
+						
 					}
 					sb.append("</table>");
 					sb.append("</form>");

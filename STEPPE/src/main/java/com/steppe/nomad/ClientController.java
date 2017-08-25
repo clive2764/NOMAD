@@ -111,6 +111,14 @@ public class ClientController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/payMent")//결제하기
+	public ModelAndView payMent(){
+		System.out.println("payMent메서드 실행");
+		mav = new ModelAndView();
+		mav=cm.execute(10);
+		return mav;
+	}
+	
 
 	//견적문의 페이지로 이동
 	@RequestMapping(value="/goInsertEstimate")
