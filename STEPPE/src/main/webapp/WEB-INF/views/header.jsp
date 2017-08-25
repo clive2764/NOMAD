@@ -67,7 +67,6 @@
 					
 					<c:if test="${!empty m_id}">
 						<li role="presentation" onclick="myFunction()" class="dropbtn">
-							
 							${member.m_id}님 어서오세요.
 							<div id="myDropdown" class="dropmenu">
 								<c:set var="m_kind" value="${m_kind}" />
@@ -98,7 +97,6 @@
 								</c:if>
 								<a href="logout">logout</a>
 							</div>
-
 						</li>
 					</c:if>
 					<li role="presentation">
@@ -136,6 +134,5 @@ window.onclick = function(event) {
 	    }
 	  }
 	}
-	
 </script>
 </html>

@@ -58,13 +58,14 @@
 	}
 	
 	function addChat(chatName, chatContent, chatTime){
-		$('#chatList').append('<div class="row">'+
-				'<div class="col-lg-12">'+
-				'<div class="media-body">'+
-				'<h4 class="media-heading">'+
+		$('#chatList').append('<div class="row" style="width: auto;">'+
+				'<div class="col-lg-12" style="width: auto;">'+
+				'<div class="media-body" style="width: 800;">'+
+				'<h4 class="media-heading" style="width: auto;">'+
 				chatName +
-				'<span class="small pull-right">'+
+				'<span class="small pull-right" style="text-align: right;">'+
 				chatTime +
+				
 				'</span>' +
 				'</h4>'+
 				'<p>'+
