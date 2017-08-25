@@ -11,7 +11,9 @@ public class Accounting {
 	private double pd_money;
 	private String pd_catagory;
 	
-	public Accounting() {}
+	public Accounting() {
+
+	}
 	public Accounting(int pu_num, double pu_money, String pu_mid, int pu_pnum) {
 		this.pu_num=pu_num;
 		this.pu_money=pu_money;
