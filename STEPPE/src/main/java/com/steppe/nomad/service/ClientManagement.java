@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Accounting;
+import com.steppe.nomad.bean.Evaluate;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Purchase_detail;
 import com.steppe.nomad.bean.Required_Skill;
@@ -564,6 +565,61 @@ public class ClientManagement {
 		javaMailSenderImpl.send(simpleMailMessage);
 
 		mav.setViewName("main");
+	}
+	
+	public ModelAndView execute(String m_id, int pnum, int cmd) {
+		switch(cmd){
+	      case 1:
+	    	  goInsertEvaluate(m_id, pnum);
+	         break;
+	      default:
+	         break;
+	      }
+	      return mav;
+	}
+	
+	public ModelAndView execute(Evaluate evaluate, int cmd) {
+		switch(cmd){
+	      case 1:
+	    	  insertProjectEvaluate(evaluate);
+	         break;
+	      default:
+	         break;
+	      }
+	      return mav;
+	}
+	
+	private void goInsertEvaluate(String m_id, int p_num) {
+		mav = new ModelAndView();
+		
+		String mid = req.getParameter("mid");
+		int pnum = Integer.parseInt(req.getParameter("p_num"));
+		
+		Evaluate evaluate = new Evaluate();
+		evaluate.setE_mid(mid);
+		evaluate.setE_pnum(pnum);
+		
+		mav.setViewName("evaluate");
+		
+	}
+	
+	private void insertProjectEvaluate(Evaluate evaluate) {
+		mav = new ModelAndView();
+		
+		String mid = req.getParameter("mid");
+		int pnum = Integer.parseInt(req.getParameter("p_num"));
+		int escore = Integer.parseInt(req.getParameter("e_score"));
+		String econtent = req.getParameter("e_content");
+		
+		Evaluate eva = new Evaluate();
+		eva.setE_num(clDao.getEVMaxNum(evaluate)+1);
+		eva.setE_mid(mid);
+		eva.setE_pnum(pnum);
+		eva.setE_score(escore);
+		eva.setE_content(econtent);
+		
+		clDao.intertProjectEvaluate(eva);
+		
 	}
 	
 	   

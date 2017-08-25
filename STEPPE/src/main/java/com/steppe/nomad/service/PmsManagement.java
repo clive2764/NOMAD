@@ -223,7 +223,7 @@ public class PmsManagement {
 		for(int i=0; i<chatList.size(); i++){
 			sb.append("[{\"value\": \""+chatList.get(i).getC_mid().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
 			sb.append("{\"value\": \""+chatList.get(i).getC_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
-			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(11, 13)+"\"}]");
+			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(0, 11)+"\"}]");
 			if(i != chatList.size()-1){
 				sb.append(",");
 			}
