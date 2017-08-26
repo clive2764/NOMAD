@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.steppe.nomad.bean.Career;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
+import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Skill;
+import com.steppe.nomad.bean.Volunteer;
 import com.steppe.nomad.service.FreelancerManagement;
 
 @Controller
@@ -139,13 +141,24 @@ public class FreelancerController {
 	
 	@RequestMapping(value = "/deletePortfolio")
 	public ModelAndView deletePortfolio(Portfolio portfolio){
-		System.out.println("왔냐?");
 		mav = fm.execute(portfolio, 4);
 		return mav;
 	}
 	
-
-
+	@RequestMapping(value = "/insertVolunteer")
+	public ModelAndView insertVolunteer(Volunteer volunteer){
+		System.out.println("지원자 인서투");
+		mav = fm.execute(volunteer, 1);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/goMyPageFr")
+	public ModelAndView goMyPageFr(Project project) {
+		System.out.println("go");
+		mav = fm.execute(project, 1);
+		return mav;
+	}
+	
 	//프리랜서 검색
 	@RequestMapping(value ="/searchKeywordFr")
 	public ModelAndView searchFreelancer(){

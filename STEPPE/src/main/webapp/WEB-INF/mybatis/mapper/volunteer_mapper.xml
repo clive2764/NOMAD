@@ -12,7 +12,11 @@
 		select rownum as 작업자, v.v_num, v.v_mid, v.v_bid, v.v_pnum, v.v_ptteam from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} and rownum<=p.p_person order by v.v_mid, v.v_time
 	]]>
 	</select>
-
+	
+	<select id="checkVolunteerList" resultType="Integer" parameterType = "volunteer">
+		SELECT COUNT(V_NUM) FROM VOLUNTEER WHERE V_PNUM = #{v_pnum} AND V_MID = #{v_mid}
+	</select>
+	
 	<update id="UpdateVolunteer" parameterType="Integer">
 		update volunteer set
 		v_ptteam=1 where v_pnum = #{v_pnum}
@@ -25,4 +29,16 @@
 	<select id="getPerson" resultType="Integer" parameterType="Integer">
 		select Count(v_mid) from volunteer where v_pnum=#{v_pnum}
 	</select>
+	
+	<select id="getVolunteerMaxNum" resultType="Integer">
+		SELECT NVL(MAX(V_NUM),0) FROM VOLUNTEER
+	</select>
+	
+	<insert id="insertVolunteer" parameterType="volunteer">
+		INSERT INTO VOLUNTEER VALUES(#{v_num},0,#{v_pnum},#{v_mid},#{v_bid},DEFAULT)
+	</insert>
+	
+	<update id="updateBid" parameterType="Map">
+		UPDATE VOLUNTEER SET V_BID = #{v_bid} WHERE V_MID = #{v_mid}
+	</update>
 </mapper>

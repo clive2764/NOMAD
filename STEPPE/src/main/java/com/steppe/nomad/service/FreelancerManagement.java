@@ -19,14 +19,22 @@ import com.steppe.nomad.bean.Career;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
+import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Skill;
+import com.steppe.nomad.bean.Volunteer;
 import com.steppe.nomad.dao.FreelancerDao;
+import com.steppe.nomad.dao.ProjectDao;
+import com.steppe.nomad.dao.VolunteerDao;
 import com.steppe.nomad.userClass.UploadFile;
 
 @Service
 public class FreelancerManagement {
 	@Autowired	
 	private FreelancerDao fDao;
+	@Autowired
+	private VolunteerDao vDao;
+	@Autowired
+	private ProjectDao pDao;
 	@Autowired
 	private HttpSession ss; //request.getSession();
 	@Autowired
@@ -112,6 +120,207 @@ public class FreelancerManagement {
 		case 4 :
 			deletePortfolio(portfolio);
 			break;
+		}
+		return mav;
+	}
+	
+	public ModelAndView execute(Volunteer volunteer, int cmd) {
+		switch(cmd){
+		case 1:
+			insertVolunteer(volunteer);
+			break;
+		}
+		return mav;
+	}
+	
+	public ModelAndView execute(Project project, int cmd) {
+		switch(cmd){
+		case 1:
+			getWaitProjectList(project);
+			break;
+			
+		}
+		return mav;
+	}
+	
+	private ModelAndView getWaitProjectList(Project project) {
+		System.out.println("옴?");
+		mav=new ModelAndView();
+		String view=null;
+		String p_mid = (String) ss.getAttribute("m_id");
+		List<Project> plist1=null;
+		List<Project> plist2=null;
+		List<Project> plist3=null;
+		System.out.println("받아옴?"+p_mid);
+		plist1=pDao.getWaitProjectList(p_mid);
+		plist2=pDao.getOnGoingProjectList(p_mid);
+		plist3=pDao.getCompleteProjectList(p_mid);
+		System.out.println(plist1);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(plist1!=null){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<plist1.size(); i++){
+					Project p1=plist1.get(i);
+					sb.append("<tr>");
+					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb.append("<th style='text-align:center;'>"+p1.getP_title()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p1.getP_budget()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p1.getP_deadline()+"</th>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("plist1", sb.toString());
+			}
+			if(plist2!=null){
+				StringBuilder sb1=new StringBuilder();
+				sb1.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb1.append("<tr>");
+				sb1.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb1.append("</tr>");
+				for(int i=0; i<plist2.size(); i++){
+					Project p2=plist2.get(i);
+					sb1.append("<tr>");
+					sb1.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb1.append("<th style='text-align:center;'>"+p2.getP_title()+"</th>");
+					sb1.append("<th style='text-align:center;'>"+p2.getP_budget()+"</th>");
+					sb1.append("<th style='text-align:center;'>"+p2.getP_deadline()+"</th>");
+					sb1.append("</tr>");
+				}
+				sb1.append("</table>");
+				mav.addObject("plist2", sb1.toString());
+			}
+			if(plist3!=null){
+				StringBuilder sb2=new StringBuilder();
+				sb2.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb2.append("<tr>");
+				sb2.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb2.append("</tr>");
+				for(int i=0; i<plist3.size(); i++){
+					Project p3=plist3.get(i);
+					sb2.append("<tr>");
+					sb2.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb2.append("<th style='text-align:center;'>"+p3.getP_title()+"</th>");
+					sb2.append("<th style='text-align:center;'>"+p3.getP_budget()+"</th>");
+					sb2.append("<th style='text-align:center;'>"+p3.getP_deadline()+"</th>");
+					sb2.append("</tr>");
+				}
+				sb2.append("</table>");
+				mav.addObject("plist3", sb2.toString());
+			}
+		}
+		view="myPageFr";
+		mav.setViewName(view);
+		return mav;
+	}
+
+	/*private ModelAndView getOnGoingProjectList(Project project) {
+		mav=new ModelAndView();
+		String view=null;
+		String p_mid = (String) ss.getAttribute("m_id");
+		List<Project> plist2=null;
+		plist2=pDao.getWaitProjectList(p_mid);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(plist2!=null){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<plist2.size(); i++){
+					Project p2=plist2.get(i);
+					sb.append("<tr>");
+					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb.append("<th style='text-align:center;'>"+p2.getP_title()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p2.getP_budget()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p2.getP_deadline()+"</th>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("plist2", sb.toString());
+			}
+			view="myPageFr";
+			mav.setViewName(view);
+		}
+		return mav;
+	}
+
+	private ModelAndView getCompleteProjectList(Project project) {
+		mav=new ModelAndView();
+		String view=null;
+		String p_mid = (String) ss.getAttribute("m_id");
+		List<Project> plist3=null;
+		plist3=pDao.getWaitProjectList(p_mid);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(plist3!=null){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<plist3.size(); i++){
+					Project p3=plist3.get(i);
+					sb.append("<tr>");
+					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb.append("<th style='text-align:center;'>"+p3.getP_title()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p3.getP_budget()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p3.getP_deadline()+"</th>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("plist3", sb.toString());
+			}
+			view="myPageFr";
+			mav.setViewName(view);
+		}
+		return mav;
+	}*/
+
+	private ModelAndView insertVolunteer(Volunteer volunteer) {
+		String view = null;
+		mav =new ModelAndView();
+		int v_pnum = Integer.parseInt(req.getParameter("v_pnum"));
+		int v_num = v_pnum;
+		int p_num = v_num;
+		int v_bid = Integer.parseInt(req.getParameter("v_bid"));
+		String m_id = (String) ss.getAttribute("m_id");
+		volunteer.setV_num(vDao.getVolunteerMaxNum()+1);
+		volunteer.setV_ptteam(0);
+		volunteer.setV_pnum(Integer.parseInt(req.getParameter("v_pnum")));
+		volunteer.setV_mid(m_id);
+		volunteer.setV_bid(Integer.parseInt(req.getParameter("v_bid")));
+		System.out.println(v_num);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			System.out.println(vDao.checkVolunteerList(volunteer));
+			if(vDao.checkVolunteerList(volunteer)==0){
+					System.out.println(volunteer.getV_bid());
+					vDao.insertVolunteer(volunteer);
+					System.out.println("실행확인1");
+					pDao.VolunteerUpdate(m_id);
+					System.out.println("실행확인2");
+					mav.setViewName("redirect:goProjectDetail?p_num="+v_pnum);
+				}else if(vDao.checkVolunteerList(volunteer)>0){
+				vDao.updateBid(v_bid,m_id);
+				mav.setViewName("redirect:goProjectDetail?p_num="+v_pnum);
+			}
 		}
 		return mav;
 	}
@@ -685,6 +894,7 @@ public class FreelancerManagement {
 	      mav.setViewName(view);
 	      return mav;
 	   }
+
 }
 
 

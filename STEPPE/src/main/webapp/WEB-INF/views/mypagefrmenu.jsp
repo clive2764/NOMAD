@@ -36,10 +36,10 @@
 <body>
 	<div class="row">
 		<div class="container" style="text-align: center; padding-bottom: 30px;">
-			<a href="goMyPagefr"><input type="button" class="sbtn" value="프로젝트 현황"/></a>&nbsp;&nbsp;
+			<a href="goMyPageFr"><input type="button" class="sbtn" value="프로젝트 현황"/></a>&nbsp;&nbsp;
 			<a href="goMyProfile"><input type="button" class="sbtn" value="프로필 관리"/></a>&nbsp;&nbsp;
 			<a href="fst"><input type="button" class="sbtn" value="자격시험 보러가기"/></a>&nbsp;&nbsp;
-			<a href=""><input type="button" class="sbtn" value="#"/></a>
+			<a href="deleteMember"><input type="button" class="sbtn" value="회원탈퇴"/></a>
 		</div>
 	</div>
 </body>

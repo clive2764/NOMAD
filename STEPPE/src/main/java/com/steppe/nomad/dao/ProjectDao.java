@@ -111,5 +111,20 @@ public class ProjectDao {
 	public int StatusUpdate(int p_num) {
 		return sqlSession.update("project.StatusUpdate",p_num);
 	}
-
+	
+	public int VolunteerUpdate(String m_id) {
+		return sqlSession.update("project.VolunteerUpdate",m_id);
+	}
+	
+	public List<Project> getWaitProjectList(String p_mid) {
+		return sqlSession.selectList("project.getWaitProjectList", p_mid);
+	}
+	
+	public List<Project> getOnGoingProjectList(String p_mid) {
+		return sqlSession.selectList("project.getOnGoingProjectList", p_mid);
+	}
+	
+	public List<Project> getCompleteProjectList(String p_mid) {
+		return sqlSession.selectList("project.getCompleteProjectList", p_mid);
+	}
 }

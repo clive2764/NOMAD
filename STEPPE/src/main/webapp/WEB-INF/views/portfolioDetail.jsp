@@ -26,7 +26,7 @@ color:black;
 </style>
 <body>
 	<jsp:include page="header.jsp" />
-	<div class="container">
+	<div class="container" style="height:100%;">
 		<!--style="height:-webkit-fill-available;"-->
 		${portfolio}
 			<table class="table">

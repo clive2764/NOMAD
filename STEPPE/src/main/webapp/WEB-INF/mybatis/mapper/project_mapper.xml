@@ -126,5 +126,21 @@
 		update project set p_status=5 where p_num=#{p_num}
 	</update>
    
+	<update id="VolunteerUpdate" parameterType="String">
+		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM IN (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID =#{v_mid})
+	</update>
+	   
+	<select id="getWaitProjectList" resultType="project" parameterType="String">
+		SELECT * FROM PROJECT WHERE P_STATUS = 1 AND P_MID = #{p_mid}
+	</select>
+	
+	<select id="getOnGoingProjectList" resultType="project" parameterType="String">
+		SELECT * FROM PROJECT WHERE P_STATUS = 3 AND P_MID = #{p_mid}
+	</select>
+	
+	<select id="getCompleteProjectList" resultType="project" parameterType="String">
+		SELECT * FROM PROJECT WHERE P_STATUS = 6 AND P_MID = #{p_mid}
+	</select>
+	   
 </mapper>
 
