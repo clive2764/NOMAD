@@ -63,6 +63,7 @@ public class PmsManagement {
 		}
 		return mav;
 	}
+
 	private void startChat() {
 		mav = new ModelAndView();
 		int pnum = Integer.parseInt(request.getParameter("pnum"));

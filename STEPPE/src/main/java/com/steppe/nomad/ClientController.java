@@ -111,7 +111,15 @@ public class ClientController {
 		mav=cm.execute(9);
 		return mav;
 	}
-
+	
+	@RequestMapping(value="/payMent")//결제하기
+	public ModelAndView payMent(){
+		System.out.println("payMent메서드 실행");
+		mav = new ModelAndView();
+		mav=cm.execute(10);
+		return mav;
+	}
+	
 
 	//견적문의 페이지로 이동
 	@RequestMapping(value="/goInsertEstimate")
@@ -133,21 +141,21 @@ public class ClientController {
 	}
 
 	//평가서입력 페이지로 이동
-	@RequestMapping(value="/goInsertEvaluate")
-	public ModelAndView goInsertEvaluate(String m_id, int p_num){
+	@RequestMapping(value="/goProjectEvalute")
+	public ModelAndView goProjectEvalute(int p_num){
 		System.out.println("평가서입력 페이지로 이동");
 		mav=new ModelAndView();
-		mav=cm.execute(m_id, p_num, 1);
+		mav=cm.execute(p_num, 1);
 		return mav;
 	}
 
 	//평가서입력
 	@RequestMapping(value="/insertProjectEvaluate")
-	public ModelAndView insertProjectEvaluate(Evaluate evaluate){
+	public ModelAndView insertProjectEvaluate(int pnum){
 		System.out.println("평가서입력 보내기");
 		mav=new ModelAndView();
-		mav=cm.execute(evaluate,1);
+		mav=cm.execute(pnum,2);
 		return mav;
 	}
-
+	
 }

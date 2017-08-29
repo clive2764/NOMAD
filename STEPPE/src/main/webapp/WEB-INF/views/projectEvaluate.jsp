@@ -21,6 +21,7 @@
 			}
 			
 			td {
+				color:black;
 				padding: 3px;
 			}
 			
@@ -147,9 +148,11 @@
 		<!--메인페이지 영역-->
 		<div class="about">
 			<h4 align="center">평가서 입력</h4>
-			<%-- <form action="goInsertEstimate?mid=${member.m_id}" method="post"> --%>
-			<form action="goInsertEstimate" method="post">
+			<form action="insertProjectEvaluate?pnum=${pnum}" method="post">
 				<table>
+					<tr>
+						<td>${m_id}</td>
+					</tr>
 					<tr>
 						<td>
 							<span class="e_score">

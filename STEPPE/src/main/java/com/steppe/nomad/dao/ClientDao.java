@@ -18,10 +18,13 @@ public class ClientDao {
 	public String getReciverEmail(String reciver) {
 		return sqlSession.selectOne("client.getReciverEmail",reciver);
 	}
-	public int intertProjectEvaluate(Evaluate eva) {
-		return sqlSession.insert("evaluate.intertProjectEvaluate",eva);
+	public int insertProjectEvaluate(Evaluate eva) {
+		return sqlSession.insert("evaluate.insertProjectEvaluate",eva);
 	}
-	public int getEVMaxNum(Evaluate evaluate) {
-		return sqlSession.selectOne("evaluate.getEVMaxNum", evaluate);
+	public int getEVMaxNum() {
+		return sqlSession.selectOne("evaluate.getEVMaxNum");
+	}
+	public int getEVCount() {
+		return sqlSession.selectOne("evaluate.getEVCount");
 	}
 }
