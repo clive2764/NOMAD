@@ -78,8 +78,8 @@ input#estimate {
 				<tr>
 					<td>이름</td>
 					<td>이메일 주소</td>
-					<td rowspan="2" style="vertical-align: bottom;">
-						<div class="ui labeled button" tabindex="0">
+					<td rowspan="2"  style="vertical-align: bottom;">
+						<div class="ui labeled button" tabindex="0" style="background-color: white;">
 							<div class="ui blue button">
 								<i><a style="color: white;" href="likeInsert?getid=${freelancer.m_id}">Like　♡</a></i>
 							</div>

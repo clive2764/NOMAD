@@ -34,7 +34,7 @@
 			.btn {
 				color: white;
 				margin-top: 0px;
-				width:80px;
+				width:150px;
 			}
 			
 			.btn:hover {
@@ -48,25 +48,23 @@
 		<jsp:include page="header.jsp" />
 		<!--메인페이지 영역-->
 		<div class="about">
-			<h4 align="center">결제 상세</h4>
+			<h4 align="center">프로젝트별 결제내역</h4><br/>
 			<div class="container" style="height: -webkit-fill-available;" align="center">
+			<form action="goMyPageCI" name="MyPageCI" method="get">
 				<table class="table table-responsive" >
-					<tr>
-						<th>상세 NO.</th>
-						<th>결제 NO.</th>
-						<th>결제자</th>
-						<th>결제액</th>
-						<th>결제 카테고리</th>
-						<th colspan="3">결제</th>
-					</tr>
-					${prdlist}
-					<tr>
-						<td colspan="8"><input type="button" class="btn" onclick="location.href='goPurchaseMM'" value="돌아가기"/></td>
-					</tr>	
+				<tr>
+					<th>결제번호</th>
+					<th>결제내역 번호</th>
+					<th>결제종류</th>
+					<th>금액</th>
+				</tr>
+				${pdList}
+				
 				</table>
-			</div>				
-			
-		
+			<br/><br/>
+			<input type="submit" class="btn" value="마이페이지 가기"/>
+			</form>
+			</div>
 		</div>
 		<hr>
 		<div class="row"></div>

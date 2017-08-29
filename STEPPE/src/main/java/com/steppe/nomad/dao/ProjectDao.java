@@ -112,4 +112,9 @@ public class ProjectDao {
 		return sqlSession.update("project.StatusUpdate",p_num);
 	}
 
+	public int updateProStatus(int pnum) {
+		return sqlSession.update("project.updateProStatus",pnum);
+		
+	}
+
 }

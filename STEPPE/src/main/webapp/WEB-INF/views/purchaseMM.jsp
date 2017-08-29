@@ -34,7 +34,7 @@
 			.btn {
 				color: white;
 				margin-top: 0px;
-				width:100px;
+				width:60px;
 			}
 			
 			.btn:hover {
@@ -53,15 +53,17 @@
 				<table class="table table-responsive" >
 					<tr>
 						<th>결제 NO.</th>
+						<th>내역 NO.</th>
 						<th>결제액</th>
 						<th>결제자</th>
 						<th>프로젝트 NO.</th>
-						<th>상세</th>
+						<th>결제 구분</th>
+						<th>상세 보기</th>
 					</tr>
 					${prlist}
 					
 					<tr>
-						<td colspan="5" align="center">${paging}</td>
+						<td colspan="9" align="center">${paging}</td>
 					</tr>
 				</table>
 			</div>				

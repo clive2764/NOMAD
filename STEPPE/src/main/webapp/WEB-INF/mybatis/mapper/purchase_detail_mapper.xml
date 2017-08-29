@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- member_mapper.xml : 회원(member)관리 관련 쿼리문이 들어간다. -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="purchase_detail">
+<select id="selectPurchase_detail" resultType="purchase_detail" parameterType = "Integer">
+	  select pd_num, pd_punum, pd_mid, pd_money, pd_catagory, case when pd_catagory='P' then '결제액' when pd_catagory='R' 
+	  then '환불액' else '오류' end as pd_catagory2 from purchase_detail where pd_punum=#{pu_num}
+	</select>
+</mapper>
