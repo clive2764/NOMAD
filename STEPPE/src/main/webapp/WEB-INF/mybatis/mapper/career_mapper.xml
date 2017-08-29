@@ -7,6 +7,10 @@
 		SELECT
 		NVL(MAX(CA_NUM),0) FROM CAREER
 	</select>
+	
+	<select id="getLikeMaxNum" resultType="Integer">
+		SELECT NVL(MAX(L_NUM),0) FROM VERYLIKE
+	</select>
 
 	<select id="getCareerList" parameterType="String" resultType="career">
 		SELECT * FROM CAREER WHERE CA_MID = #{m_id}
@@ -16,7 +20,12 @@
 		INSERT INTO CAREER
 		VALUES(#{ca_num},#{m_id},#{ca_term},#{ca_company},#{ca_rank})
 	</insert>
-
+	
+	<insert id="insertLike" parameterType="verylike">
+		INSERT INTO VERYLIKE
+		VALUES(#{l_num},#{l_msetid},#{l_mgetid})
+	</insert>
+	
 	<delete id="deleteCareer" parameterType="career">
 		DELETE FROM CAREER WHERE
 		CA_NUM = #{ca_num}
@@ -48,5 +57,21 @@
 	<select id="getPhoto" resultType="member">
 		SELECT MF_SYSNAME FROM MLIST WHERE M_ID=#{m_id}
 	</select>
-
+	
+	<select id="getName" parameterType ="String" resultType="member">
+		SELECT * FROM MEMBER WHERE M_ID=#{m_id}
+	</select>
+	
+	<select id="CntLike" parameterType ="String" resultType="Integer">
+		SELECT COUNT(*) FROM VERYLIKE WHERE L_MGETID=#{l_mgetid}
+	</select>
+	
+	<select id="selectLike" parameterType ="verylike" resultType="Integer">
+		SELECT COUNT(*) FROM VERYLIKE WHERE L_MGETID=#{l_mgetid} AND L_MSETID=#{l_msetid} 
+	</select>
+	
+	<delete id="deleteLike" parameterType="verylike">
+		DELETE FROM VERYLIKE WHERE
+		L_MGETID=#{l_mgetid} AND L_MSETID=#{l_msetid}
+	</delete>
 </mapper>

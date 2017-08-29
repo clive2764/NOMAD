@@ -37,7 +37,7 @@
 						</div>
 						<div class="col-md-6 col-xs-6 col-md-6 col-md-lg-6">
 							 
-							<h1>FREEMOA는 안전합니다.</h1>
+							<h1>Steppe는 편리합니다.</h1>
 							<p>
 								Steppe은 프로젝트 관리 및 증빙 툴'PMS'를 무료로 이용하실 수 있습니다.
 								<br/>
@@ -72,7 +72,7 @@
 								<img src="resources/img/speed.png" style="width: 100%; height: 250px;"/>
 							</div>
 							<div class="col-md-6 col-xs-6 col-md-6 col-md-lg-6">
-								<h1>FREEMOA는 쉽고 빠릅니다.</h1>
+								<h1>Steppe는 쉽고 빠릅니다.</h1>
 								<p>
 									PC, 탭, 모바일 어떠한 디바이스에서도 간편하게 프로젝트를 등록
 									하실 수 있습니다.

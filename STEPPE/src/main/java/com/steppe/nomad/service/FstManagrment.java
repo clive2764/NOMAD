@@ -381,10 +381,10 @@ public class FstManagrment implements Action{
 				StringBuilder sb = new StringBuilder();
 				for(int i=0; i<tlist.size(); i++){
 					Test t=tlist.get(i);
-					sb.append("<tr><td>"+t.getT_num()+"</td>");
-					sb.append("<td><a href='showFstDetail?t_num="+t.getT_num()+"'>"+t.getT_content()+"</a></td>");
-					sb.append("<td>"+t.getT_answer()+"</td>");
-					sb.append("<td><a href='goUpdateFst?t_num="+t.getT_num()+"'>수정</a></td></tr>");
+					sb.append("<tr><td class = 't1'>"+t.getT_num()+"</td>");
+					sb.append("<td class = 't2'><a class='a2' href='showFstDetail?t_num="+t.getT_num()+"'>"+t.getT_content()+"</a></td>");
+					sb.append("<td class = 't3'>"+t.getT_answer()+"</td>");
+					sb.append("<td class = 't4'><a  class='a4' href='goUpdateFst?t_num="+t.getT_num()+"'>수정</a></td></tr>");
 				}
 				mav.addObject("tlist", sb.toString());
 				mav.addObject("tname", t_name);

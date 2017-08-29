@@ -20,6 +20,7 @@ import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.bean.Skill;
+import com.steppe.nomad.bean.VeryLike;
 import com.steppe.nomad.dao.FreelancerDao;
 import com.steppe.nomad.userClass.UploadFile;
 
@@ -92,8 +93,8 @@ public class FreelancerManagement {
 
 	public ModelAndView execute(int cmd, MultipartHttpServletRequest multi, MultipartFile[] files) {
 		switch(cmd){
-		case 1: insertPortfolio(multi, files);
-		break;
+			case 1: insertPortfolio(multi, files);
+				break;
 		}
 		return mav;
 	}
@@ -593,6 +594,7 @@ public class FreelancerManagement {
 	            sb.append("<div class='caption'>");
 	            sb.append("<h3 style='text-align:center;'>"+f.getM_name()+"</h3>");
 	            sb.append("<p style='text-align:center;'>"+f.getM_email()+"</p>");
+	            sb.append("<p style='text-align:center; color:skyblue;'>좋아요 : "+fDao.CntLike(f.getM_id())+"개</p>");
 	            sb.append("<p style='text-align:center;'><a style='color:white;' class='btn btn-default' href='goFreelancerDetail?m_id="+f.getM_id()+"'>"+"상세보기"+"</a>"+"</p>");
 	            sb.append("</div>");
 	            sb.append("</div>");
@@ -614,8 +616,10 @@ public class FreelancerManagement {
 	      mav=new ModelAndView();
 	      String view=null;
 	      String m_id=(String)req.getParameter("m_id");
+	      String l_mgetid =(String)req.getParameter("m_id");
 	      List<Career> career=null;
 	      System.out.println(m_id);
+	      mav.addObject("like",fDao.CntLike(l_mgetid));
 	      //fDao.getFreelancerDetail(m_id);
 	      mav.addObject("photo",fDao.getProfilePhoto(m_id));
 	      mav.addObject("freelancer",fDao.getFreelancerDetail(m_id));
@@ -673,6 +677,7 @@ public class FreelancerManagement {
 	            sb.append("<div class='caption'>");
 	            sb.append("<h3 style='text-align:center;'>"+r.getM_name()+"</h3>");
 	            sb.append("<p style='text-align:center;'>"+r.getM_email()+"</p>");
+	            sb.append("<p style='text-align:center; color:skyblue;'>좋아요 : "+fDao.CntLike(r.getM_id())+"개</p>");
 	            sb.append("<p style='text-align:center;'><a style='color:white;' class='btn btn-default' href='goFreelancerDetail?m_id="+r.getM_id()+"'>"+"상세보기"+"</a>"+"</p>");
 	            sb.append("</div>");
 	            sb.append("</div>");
@@ -685,6 +690,60 @@ public class FreelancerManagement {
 	      mav.setViewName(view);
 	      return mav;
 	   }
-}
+
+	public ModelAndView executeProfile(int cmd) {
+		switch(cmd){
+			case 1:	goMyProfile();
+				break;
+		}
+		return mav;
+	}
+
+	private void goMyProfile() {
+		mav = new ModelAndView();
+		String view = null;
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			String m_id = (String) ss.getAttribute("m_id");
+			System.out.println("아이디 : "+m_id);
+			mav.addObject("member",fDao.getName(m_id));	
+			}
+			view = "profile";
+			mav.setViewName(view);
+		}
+
+	public ModelAndView execute(int cmd) {
+		switch(cmd){
+		case 1 : likeInsert();
+			break;
+		}
+		return mav;
+	}
+	
+	private void likeInsert() {
+		mav = new ModelAndView();
+		String view = null;
+		VeryLike vr = new VeryLike();
+		System.out.println(fDao.getLikeMaxNum()+1);
+		System.out.println(req.getParameter("getid"));
+		System.out.println((String) ss.getAttribute("m_id"));
+		int l_num = (fDao.getLikeMaxNum()+1);
+		String l_mgetid = req.getParameter("getid");
+		String l_msetid = (String) ss.getAttribute("m_id");
+		vr.setL_num(l_num);
+		vr.setL_mgetid(l_mgetid);
+		vr.setL_msetid(l_msetid);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(fDao.selectLike(vr)==0){
+				fDao.insertLike(vr);
+			}else if(fDao.selectLike(vr)>0){
+				fDao.deleteLike(vr);
+			}
+		}
+		System.out.println(fDao.CntLike(l_mgetid));
+		mav.addObject("like",fDao.CntLike(l_mgetid));
+		view = "redirect:/goFreelancerDetail?m_id="+l_mgetid;
+		mav.setViewName(view);
+	}
+	}
 
 

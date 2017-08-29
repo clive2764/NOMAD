@@ -13,6 +13,7 @@ import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
 import com.steppe.nomad.bean.Skill;
+import com.steppe.nomad.bean.VeryLike;
 
 @Repository
 public class FreelancerDao {
@@ -153,6 +154,36 @@ public class FreelancerDao {
 
 	public List<Member> getPhoto() {
 		return sqlSession.selectList("Career.getPhoto");
+	}
+
+
+	public Member getName(String m_id) {
+		return sqlSession.selectOne("Career.getName", m_id);
+	}
+
+
+	public void insertLike(VeryLike verylike) {
+		sqlSession.insert("Career.insertLike", verylike);	
+	}
+
+
+	public int getLikeMaxNum() {
+		return sqlSession.selectOne("Career.getLikeMaxNum");
+	}
+
+
+	public int CntLike(String l_mgetid) {
+		return sqlSession.selectOne("Career.CntLike", l_mgetid);
+	}
+
+
+	public int selectLike(VeryLike verylike) {
+		return sqlSession.selectOne("Career.selectLike", verylike);
+	}
+
+
+	public int deleteLike(VeryLike verylike) {
+		return sqlSession.delete("Career.deleteLike", verylike);
 	}
 	
 

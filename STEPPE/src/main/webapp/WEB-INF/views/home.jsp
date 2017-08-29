@@ -34,10 +34,12 @@
                   <img src="resources/img/slide.jpg" class="img-responsive" alt=""> 
                   <div class="carousel-caption">
                      <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">                        
-                        <h2><span>Clean & Modern Design Template</span></h2>
+                        <h2><span>Steppe는 쉽고 빠릅니다.</span></h2>
                      </div>
                      <div class="col-md-10 col-md-offset-1">
-                        
+                        <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">                        
+                           <p style="font-size: 20px;">사용자에게 최적화된 검토 시스템을 통해 프로젝트 지원자의 견적과 프로필을 한눈에 비교하실 수 있습니다.</p>
+                        </div>
                      </div>
                      <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.9s">                        
                         
@@ -49,11 +51,11 @@
                   <img src="resources/img/slide.jpg" class="img-responsive" alt=""> 
                   <div class="carousel-caption">
                      <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.3s">                        
-                        <h2>Modern Design</h2>
+                        <h2>Steppe은 안전합니다.</h2>
                      </div>
                      <div class="col-md-10 col-md-offset-1">
                         <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.6s">                        
-                           <p>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+                           <p style="font-size: 20px;">Steppe은 정보를 객관적으로 파악할 수 있도록 노력하고 있습니다.</p>
                         </div>
                      </div>
                      <div class="wow fadeInUp" data-wow-offset="0" data-wow-delay="0.9s">                        
