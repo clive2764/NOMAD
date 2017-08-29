@@ -26,8 +26,8 @@ color:black;
 </style>
 <body>
 	<jsp:include page="header.jsp" />
-
-	<div class="container">
+	
+	<div class="container" style="height:-webkit-fill-available;;">
 		<!--style="height:-webkit-fill-available;"-->
 		<form action="updatePortfolio" method="post" id="portfolio">
 			<table class="table">
@@ -65,15 +65,13 @@ color:black;
 				<td width="200"></td>
 			</tr>
 		</table>
+		<div class="row"></div>
+		
 	</div>
-
-	<hr>
-	<div class="container">
-		<!--style="height:-webkit-fill-available;"-->
-		<h1 style="text-align: center;"></h1>
-	</div>
-	<div class="row"></div>
-	<jsp:include page="footer.jsp" />
+	<jsp:include page="footer.jsp"/>
+	
+	
+	
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!--<script src="js/jquery.js"></script>-->

@@ -26,9 +26,6 @@
 .container {
    color: black;
 }
-input{
-color:black;
-}
 table {
    text-align: center;
    vertical-align: middle;
@@ -48,7 +45,11 @@ table {
 }
 
 input {
+	color: black;
    border-radius: 5px;
+}
+table, td, tr{
+	color: black;
 }
 </style>
 </head>
@@ -56,7 +57,7 @@ input {
    <jsp:include page="header.jsp" />
    <jsp:include page="mypagefrmenu.jsp" />
    	<jsp:include page="profilemenu.jsp" />
-   <div class="container">
+   <div class="container" style="height: 100%;">
 		<!--style="height:-webkit-fill-available;"-->
 		<form action="addCareerInfo" method="post" id="career">
 			<table class="table">

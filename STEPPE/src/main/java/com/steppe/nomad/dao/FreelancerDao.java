@@ -154,6 +154,10 @@ public class FreelancerDao {
 	public List<Member> getPhoto() {
 		return sqlSession.selectList("Career.getPhoto");
 	}
+
+
+
+
 	
 
 }

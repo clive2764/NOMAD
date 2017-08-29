@@ -3,6 +3,7 @@ package com.steppe.nomad.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,11 +17,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.steppe.nomad.bean.Career;
+import com.steppe.nomad.bean.Client_mypage;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Profile;
+import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Purchase_detail;
 import com.steppe.nomad.bean.Skill;
+import com.steppe.nomad.bean.Volunteer;
+import com.steppe.nomad.dao.AccountingDao;
 import com.steppe.nomad.dao.FreelancerDao;
+import com.steppe.nomad.dao.ProjectDao;
+import com.steppe.nomad.dao.VolunteerDao;
 import com.steppe.nomad.userClass.UploadFile;
 
 @Service
@@ -28,12 +36,18 @@ public class FreelancerManagement {
 	@Autowired	
 	private FreelancerDao fDao;
 	@Autowired
+	private VolunteerDao vDao;
+	@Autowired
+	private ProjectDao pDao;
+	@Autowired
 	private HttpSession ss; //request.getSession();
 	@Autowired
 	private HttpServletRequest req; //request.getSession();
 	@Autowired
 	private SqlSessionTemplate sqlSession;
-
+	@Autowired
+	private AccountingDao aDao;
+	
 	private ModelAndView mav;
 	private String jsonStr;
 
@@ -112,6 +126,218 @@ public class FreelancerManagement {
 		case 4 :
 			deletePortfolio(portfolio);
 			break;
+		}
+		return mav;
+	}
+	
+	public ModelAndView execute(Volunteer volunteer, int cmd) {
+		switch(cmd){
+		case 1:
+			insertVolunteer(volunteer);
+			break;
+		}
+		return mav;
+	}
+
+	public ModelAndView execute(Project project, int cmd) {
+		switch(cmd){
+		case 1:
+			getWaitProjectList(project);
+			break;
+			
+		}
+		return mav;
+	}
+	
+	private ModelAndView getWaitProjectList(Project project) {
+		System.out.println("옴?");
+		mav=new ModelAndView();
+		String view=null;
+		String p_mid = (String) ss.getAttribute("m_id");
+		String v_mid = (String) ss.getAttribute("m_id");//작업전을 위해
+		//String pd_mid = (String) ss.getAttribute("m_id");//진행중
+		//List<Project> plist3=null;
+		
+		List<Client_mypage> plist1=null;
+		List<Client_mypage> plist2=null;
+		List<Client_mypage> plist3=null;
+		System.out.println("받아옴?"+p_mid);
+		plist1=pDao.getWaitProjectList(v_mid);
+		plist2=pDao.getOnGoingProjectList(v_mid);
+		plist3=pDao.getCompleteProjectList(v_mid);
+		System.out.println(plist1);
+		System.out.println(plist2);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(plist1!=null){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"지원자번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"프로젝트번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"프로젝트제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"입찰가"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"지원취소"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<plist1.size(); i++){
+					Client_mypage p1=plist1.get(i);
+					sb.append("<tr>");
+					sb.append("<th style='text-align:center;'>"+p1.getV_num()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p1.getP_num()+"</th>");
+					sb.append("<th><a href='goProjectDetail?p_num="+p1.getP_num()+"'>"+p1.getP_title()+"</a></th>");
+					sb.append("<th style='text-align:center;'>"+p1.getV_bid()+"</th>");
+					sb.append("<th><a href='goVolunteerdelete?p_num="+p1.getP_num()+"'><button>"+"취소"+"</button></a></th>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("plist1", sb.toString());
+			}
+			if(plist2!=null){
+				StringBuilder sb1=new StringBuilder();
+				sb1.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb1.append("<tr>");
+				sb1.append("<th style='text-align:center;'>"+"지원번호"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"프로젝트번호"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"프로젝트제목"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"매출"+"</th>");
+				sb1.append("<th style='text-align:center;'>"+"현금흐름"+"</th>");
+				sb1.append("</tr>");
+				for(int i=0; i<plist2.size(); i++){
+					Client_mypage p2=plist2.get(i);
+					sb1.append("<tr>");
+					sb1.append("<th style='text-align:center;'>"+p2.getV_num()+"</th>");
+					sb1.append("<th style='text-align:center;'>"+p2.getP_num()+"</th>");
+					sb1.append("<th><a href='goProjectDetail?p_num="+p2.getP_num()+"'>"+p2.getP_title()+"</a></th>");
+					sb1.append("<th style='text-align:center;'>"+p2.getSales()+"</th>");
+					sb1.append("<th><a href='getCashflow?p_num="+p2.getP_num()+"'><button>"+"현금흐름"+"</button></a></th>");
+					sb1.append("</tr>");
+				}
+				sb1.append("</table>");
+				mav.addObject("plist2", sb1.toString());
+			}
+			if(plist3!=null){
+				StringBuilder sb2=new StringBuilder();
+				sb2.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb2.append("<tr>");
+				sb2.append("<th style='text-align:center;'>"+"지원번호"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"프로젝트번호"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"프로젝트제목"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"매출"+"</th>");
+				sb2.append("<th style='text-align:center;'>"+"현금흐름"+"</th>");
+				sb2.append("</tr>");
+				for(int i=0; i<plist3.size(); i++){
+					Client_mypage p3=plist3.get(i);
+					sb2.append("<tr>");
+					sb2.append("<th style='text-align:center;'>"+p3.getV_num()+"</th>");
+					sb2.append("<th style='text-align:center;'>"+p3.getP_num()+"</th>");
+					sb2.append("<th><a href='goProjectDetail?p_num="+p3.getP_num()+"'>"+p3.getP_title()+"</a></th>");
+					sb2.append("<th style='text-align:center;'>"+p3.getSales()+"</th>");
+					sb2.append("<th><a href='getCashflow?p_num="+p3.getP_num()+"'><button>"+"현금흐름"+"</button></a></th>");
+					sb2.append("</tr>");
+				}
+				sb2.append("</table>");
+				mav.addObject("plist3", sb2.toString());
+			}
+		}
+		view="myPageFr";
+		mav.setViewName(view);
+		return mav;
+	}
+
+	/*private ModelAndView getOnGoingProjectList(Project project) {
+		mav=new ModelAndView();
+		String view=null;
+		String p_mid = (String) ss.getAttribute("m_id");
+		List<Project> plist2=null;
+		plist2=pDao.getWaitProjectList(p_mid);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(plist2!=null){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<plist2.size(); i++){
+					Project p2=plist2.get(i);
+					sb.append("<tr>");
+					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb.append("<th style='text-align:center;'>"+p2.getP_title()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p2.getP_budget()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p2.getP_deadline()+"</th>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("plist2", sb.toString());
+			}
+			view="myPageFr";
+			mav.setViewName(view);
+		}
+		return mav;
+	}
+
+	private ModelAndView getCompleteProjectList(Project project) {
+		mav=new ModelAndView();
+		String view=null;
+		String p_mid = (String) ss.getAttribute("m_id");
+		List<Project> plist3=null;
+		plist3=pDao.getWaitProjectList(p_mid);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			if(plist3!=null){
+				StringBuilder sb=new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
+				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
+				sb.append("</tr>");
+				for(int i=0; i<plist3.size(); i++){
+					Project p3=plist3.get(i);
+					sb.append("<tr>");
+					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
+					sb.append("<th style='text-align:center;'>"+p3.getP_title()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p3.getP_budget()+"</th>");
+					sb.append("<th style='text-align:center;'>"+p3.getP_deadline()+"</th>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("plist3", sb.toString());
+			}
+			view="myPageFr";
+			mav.setViewName(view);
+		}
+		return mav;
+	}*/
+
+	private ModelAndView insertVolunteer(Volunteer volunteer) {
+		String view = null;
+		mav =new ModelAndView();
+		int v_pnum = Integer.parseInt(req.getParameter("v_pnum"));
+		int v_num = v_pnum;
+		int p_num = v_num;
+		int v_bid = Integer.parseInt(req.getParameter("v_bid"));
+		String m_id = (String) ss.getAttribute("m_id");
+		volunteer.setV_num(vDao.getVolunteerMaxNum()+1);
+		volunteer.setV_ptteam(0);
+		volunteer.setV_pnum(Integer.parseInt(req.getParameter("v_pnum")));
+		volunteer.setV_mid(m_id);
+		volunteer.setV_bid(Integer.parseInt(req.getParameter("v_bid")));
+		System.out.println(v_num);
+		if(ss!=null && ss.getAttribute("m_id")!=null){
+			System.out.println(vDao.checkVolunteerList(volunteer));
+			if(vDao.checkVolunteerList(volunteer)==0){
+					System.out.println(volunteer.getV_bid());
+					vDao.insertVolunteer(volunteer);
+					System.out.println("실행확인1");
+					pDao.VolunteerUpdate(m_id);
+					System.out.println("실행확인2");
+					mav.setViewName("redirect:goProjectDetail?p_num="+v_pnum);
+				}else if(vDao.checkVolunteerList(volunteer)>0){
+				vDao.updateBid(v_bid,m_id);
+				mav.setViewName("redirect:goProjectDetail?p_num="+v_pnum);
+			}
 		}
 		return mav;
 	}
@@ -685,6 +911,105 @@ public class FreelancerManagement {
 	      mav.setViewName(view);
 	      return mav;
 	   }
+
+	public ModelAndView deleteVolunteer() {//지원자 삭제
+		mav=new ModelAndView();
+	    String view=null;
+	    int v_pnum=Integer.parseInt(req.getParameter("p_num"));
+	    int p_num=Integer.parseInt(req.getParameter("p_num"));
+	    String v_mid = (String) ss.getAttribute("m_id");
+	    Volunteer vl=new Volunteer();
+	    vl.setV_pnum(v_pnum);
+	    vl.setV_mid(v_mid);
+	  // int delete=vDao.deleteVolunteer(vl);
+	    if(vDao.deleteVolunteer(vl)!=0){//프로젝트 지원 인원수 감소
+	    	System.out.println("삭제 성공");
+	    	Project project=new Project();
+	    	project.setP_vol(pDao.getProjectMaxVol(p_num)-1);
+	    	project.setP_num(p_num);
+	    	if(pDao.dropProjectVol(project)!=0){
+	    		System.out.println("인원 수 감소 성공");
+	    		
+	    	  view="redirect:goMyPage";
+	  	      mav.setViewName(view);
+	  	      return mav;
+	    		
+	    	}
+	    }
+	    
+		return null;
+	}
+
+	public ModelAndView getCashflow() {//프리랜서 현금흐름 보기
+		mav=new ModelAndView();
+	    String view=null;
+	    
+	    int pu_pnum = Integer.valueOf(req.getParameter("p_num"));
+	    //String pd_mid=ss.getAttribute("m_id").toString();
+	    int pd_punum=aDao.getPu_num(pu_pnum);
+	    System.out.println(pd_punum);
+	    Purchase_detail pd=new Purchase_detail();
+	   // pd.setPd_mid(pd_mid);
+	   // pd.setPd_punum(pd_punum);
+	    
+	    List<Purchase_detail> PListFr = null;
+	    List<Purchase_detail> PListAr = null;
+	    PListFr=aDao.getPurchaseListFr(pd_punum);//계약금 받아오기
+	    PListAr=aDao.getPurchaseListAr(pd_punum);//예상매출 받아오기
+	    System.out.println(PListFr);
+	    System.out.println(PListAr);
+	    
+	   if(PListFr!=null){
+		   StringBuilder sb = new StringBuilder();
+		  // sb.append("<form action='goMyPageFr' name='MyPageFr' method='get'>");
+		   sb.append("<table border='1' align='center'>");
+		   sb.append("<tr><th>현금흐름번호</th><th>결제번호</th><th>계약금</th></tr>");
+		   
+		   for(int i=0; i<PListFr.size(); i++){
+				System.out.println("ddddd");
+				Purchase_detail pd1=PListFr.get(i);
+				sb.append("<tr><td>"+pd1.getPd_num()+"</td>");
+				sb.append("<td>"+pd1.getPd_punum()+"</td>");
+				sb.append("<td>"+pd1.getPd_money()+"</td></tr>");
+			}
+		   
+		   sb.append("</table>");
+		   sb.append("<br/><br/>");
+		  // sb.append("<input type='submit' value='마이페이지 가기'/>");
+		  // sb.append("</form>");
+		   System.out.println(sb);
+		   mav.addObject("pListFr", sb.toString());
+		   view="FreePurchase";
+		   mav.setViewName(view);
+	   }
+	   if(PListAr!=null){
+		   StringBuilder sb = new StringBuilder();
+		   sb.append("<form action='goMyPageFr' name='MyPageFr' method='get'>");
+		   sb.append("<table border='1' align='center'>");
+		   sb.append("<tr><th>현금흐름번호</th><th>결제번호</th><th>예상매출액</th></tr>");
+		   
+		   for(int i=0; i<PListAr.size(); i++){
+				System.out.println("ddddd");
+				Purchase_detail pd1=PListAr.get(i);
+				sb.append("<tr><td>"+pd1.getPd_num()+"</td>");
+				sb.append("<td>"+pd1.getPd_punum()+"</td>");
+				sb.append("<td>"+pd1.getPd_money()+"</td></tr>");
+			}
+		   sb.append("</table>");
+		   sb.append("<br/><br/>");
+		   sb.append("<input type='submit' value='마이페이지 가기'/>");
+		   sb.append("</form>");
+		   System.out.println(sb);
+		   mav.addObject("PListAr", sb.toString());
+		   view="FreePurchase";
+		   mav.setViewName(view);
+	   }
+	   
+		return mav;
+	}
+
+
+
 }
 
 

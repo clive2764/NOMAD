@@ -40,4 +40,5 @@
 	 <select id="getPu_num" resultType="Integer" parameterType = "Integer">
 	  select pu_num from purchase where pu_pnum=#{pu_pnum}
 	</select>
+	
 </mapper>

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.steppe.nomad.bean.Client_mypage;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Required_Skill;
@@ -110,6 +111,30 @@ public class ProjectDao {
 
 	public int StatusUpdate(int p_num) {
 		return sqlSession.update("project.StatusUpdate",p_num);
+	}
+	
+	public int VolunteerUpdate(String m_id) {
+		return sqlSession.update("project.VolunteerUpdate",m_id);
+	}
+	
+	public List<Client_mypage> getWaitProjectList(String v_mid) {
+		return sqlSession.selectList("client_mypage.getWaitProjectList", v_mid);
+	}
+	
+	public List<Client_mypage> getOnGoingProjectList(String v_mid) {
+		return sqlSession.selectList("client_mypage.getOnGoingProjectList", v_mid);
+	}
+	
+	public List<Client_mypage> getCompleteProjectList(String v_mid) {
+		return sqlSession.selectList("client_mypage.getCompleteProjectList", v_mid);
+	}
+
+	public int getProjectMaxVol(int p_num) {
+		return sqlSession.selectOne("project.getProjectMaxVol",p_num);
+	}
+
+	public int dropProjectVol(Project project) {
+		return sqlSession.update("project.dropProjectVol",project);
 	}
 
 }

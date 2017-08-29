@@ -8,6 +8,9 @@ public class Purchase_detail {
 	private String pd_catagory;
 	private String pd_catagory2;
 	
+	public Purchase_detail(){
+		
+	}
 	
 	public int getPd_num() {
 		return pd_num;

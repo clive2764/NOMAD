@@ -1,6 +1,6 @@
 package com.steppe.nomad.bean;
 
-public class Project {
+public class Project_pBookmark {
 	private int p_num; //프로젝트 번호
 	private String p_pc1name; //1차 카테고리 아이디
 	private String p_pc2name; //2차 카테고리 아이디
@@ -19,7 +19,11 @@ public class Project {
 	private int p_status; //프로젝트 상태
 	private String p_status2;
 	private int p_vol;
-	private int p_bookmark;
+	private int pb_num;
+	private int pb_pnum;
+	private String pb_mid;
+	private int pb_flag;
+	
 	
 	public int getP_num() {
 		return p_num;
@@ -129,14 +133,28 @@ public class Project {
 	public void setP_vol(int p_vol) {
 		this.p_vol = p_vol;
 	}
-	public int getP_bookmark() {
-		return p_bookmark;
+	public int getPb_num() {
+		return pb_num;
 	}
-	public void setP_bookmark(int p_bookmark) {
-		this.p_bookmark = p_bookmark;
+	public void setPb_num(int pb_num) {
+		this.pb_num = pb_num;
 	}
-	
-	
-	
-	
+	public int getPb_pnum() {
+		return pb_pnum;
+	}
+	public void setPb_pnum(int pb_pnum) {
+		this.pb_pnum = pb_pnum;
+	}
+	public String getPb_mid() {
+		return pb_mid;
+	}
+	public void setPb_mid(String pb_mid) {
+		this.pb_mid = pb_mid;
+	}
+	public int getPb_flag() {
+		return pb_flag;
+	}
+	public void setPb_flag(int pb_flag) {
+		this.pb_flag = pb_flag;
+	}
 }

@@ -1,7 +1,6 @@
 package com.steppe.nomad.bean;
 
 public class Volunteer {
-
 	private int v_num;
 	private int v_ptteam;
 	private int v_pnum;

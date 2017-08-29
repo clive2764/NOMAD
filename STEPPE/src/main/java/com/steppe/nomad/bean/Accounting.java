@@ -10,6 +10,7 @@ public class Accounting {
 	private String pd_mid;
 	private double pd_money;
 	private String pd_catagory;
+	
 	public Accounting() {//기본 생성자 bean을 잘 활용하기 위해 꼭 필요
 
 	}

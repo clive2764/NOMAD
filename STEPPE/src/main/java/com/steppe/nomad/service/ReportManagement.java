@@ -1,6 +1,8 @@
 package com.steppe.nomad.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Project_bookmark;
 import com.steppe.nomad.bean.Reply;
 import com.steppe.nomad.bean.Report;
+import com.steppe.nomad.dao.Project_bookmarkDao;
 import com.steppe.nomad.dao.ReportDao;
 
 @Service
@@ -28,6 +32,9 @@ public class ReportManagement {
 	
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	private Project_bookmarkDao pbDao;
 
 	//신고 작성 페이지로 이동
 	public ModelAndView goReportWrite() {
@@ -315,6 +322,20 @@ public class ReportManagement {
 			
 			return mav;
 		}
-
+		public String bookmarkOnOff(){
+	         String jsonObj = null;
+	         Map<String, String> map = new HashMap<String, String>();
+	         int bmNum = Integer.parseInt(request.getParameter("bmNum"));
+	         Project_bookmark pb = pbDao.bookmarkFlag(bmNum);
+	         if(pb.getPb_flag() != 0){
+	            map.put("pb_flag", String.valueOf(0));            
+	         }else{            
+	            map.put("pb_flag", String.valueOf(1));
+	         }
+	         //map.put("pb_pnum", String.valueOf(bmNum));         
+	         map.put("mid", session.getAttribute("m_id").toString());
+	         jsonObj = String.valueOf(pbDao.bookmarkUpdate(map));
+	         return jsonObj;
+	      }
 	
 }

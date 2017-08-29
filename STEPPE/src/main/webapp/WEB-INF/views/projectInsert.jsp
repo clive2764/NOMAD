@@ -464,8 +464,10 @@ $("#inter").click(function(){
  		
  		function CountChecked(obj){
  			
- 			if(obj.checked)
+ 			if(obj.checked){
+ 				console.log(obj.value);
  				totalChecked+=1;
+ 			}			
  			else
  				totalChecked-=1;
  			console.log(totalChecked)
@@ -475,23 +477,8 @@ $("#inter").click(function(){
  				totalChecked-=1;
  			}
  			
- 			/*var valueArr=[];
- 			var list=$("input[name='p_plnum']");
- 			for(var i=0; i<list.length; i++){
- 				if(list[i].checked){
- 					valueArr.push(list[i].value);
- 				}
- 			}
- 			var str='';
- 			for(var i in valueArr){
- 				str+=valueArr[i]+",";
- 			}
- 			console.log(str); 	
- 			$("#inter").attr({
- 				value : str
- 			});*/
  			var valueArr=[];
- 	 		var list=document.getElementsByName("p_plnum");		
+ 	 		var list=document.getElementsByName("p_plnum[]");		
  	 		var listi=document.getElementById("inter");
  	 		var p_plnum0=document.getElementById("p_plnum0");
  	 		var p_plnum1=document.getElementById("p_plnum1");
@@ -502,8 +489,8 @@ $("#inter").click(function(){
  	 			}
  	 		}
  	 		var str='';
- 	 		for(var i in valueArr){
- 				str+=valueArr[i]+",";
+ 	 		for(var i=0; i<valueArr.length; i++){
+ 	 			str+=valueArr[i]+",";
  			}
  	 		console.log(str); 
  	 		listi.setAttribute("value",str);

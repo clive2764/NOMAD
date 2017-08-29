@@ -95,8 +95,9 @@
                     <td>필요언어</td>
                     <td>${project.p_plnum0}　${project.p_plnum1}　${project.p_plnum2}</td>
                     <td colspan="2" style="text-align: center;">
-                        <form action="" method="post" id="priceForm">
-                            <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="price">
+                        <form action="insertVolunteer" method="post" id="priceForm">
+                        <input type="hidden" name="v_pnum" value="${project.p_num}" />
+                            <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="v_bid">
                             <input type="button" value="결정" id="check"/>
                             <a href="goProject"><input type="button" value="목록보기" id="list"></a>
                         </form>

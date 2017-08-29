@@ -55,7 +55,7 @@
 	
 	<insert id="insertProject" parameterType = "Map">
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
-      							,#{sysFileName},#{p_deadline},#{p_plnum0},#{p_person}, #{p_status}, #{p_plnum1}, #{p_plnum2},default)
+      							,#{sysFileName},#{p_deadline},#{p_plnum0}, #{p_plnum1} ,#{p_plnum2}, #{p_person}, #{p_status}, default, default)
    </insert>
    
     <select id="getProjectList2" resultType="project" parameterType="String">
@@ -64,7 +64,7 @@
     </select>
  
  	<update id="UpdateProject" parameterType="Integer">
-  	 update project set p_status=1 where p_num = #{v_pnum}
+  	 update project set p_status=2 where p_num = #{v_pnum}
     </update>
     
     <select id="checkedProject" parameterType="Integer" resultType="Integer">
@@ -126,5 +126,17 @@
 		update project set p_status=5 where p_num=#{p_num}
 	</update>
    
+	<update id="VolunteerUpdate" parameterType="String">
+		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM IN (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID =#{v_mid})
+	</update>
+	   
+	<select id="getProjectMaxVol" resultType="Integer" parameterType="Integer">
+		SELECT NVL(MAX(p_vol),0) FROM project where p_num=#{p_num}
+	</select>
+	 
+	<update id="dropProjectVol" parameterType="Integer">
+		update project set p_vol=#{p_vol} where p_num=#{p_num}
+	</update>  
+	 
 </mapper>
 

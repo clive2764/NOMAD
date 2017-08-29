@@ -61,7 +61,7 @@ input {
 	<jsp:include page="header.jsp" />
 	<jsp:include page="mypagefrmenu.jsp" />
    	<jsp:include page="profilemenu.jsp" />
-   <div class="container">
+   <div class="container" style="height:-webkit-fill-available;">
       <!--style="height:-webkit-fill-available;"-->
       <form action="addSkill" method="post" id="skill">
       	 <h3 align="center">기술 정보</h3>		

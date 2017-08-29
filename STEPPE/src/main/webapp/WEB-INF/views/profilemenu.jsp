@@ -35,7 +35,7 @@
 </head>
 <body>
 	<div class="row">
-		<div class="container" style="text-align: center; padding-bottom: 30px;">
+		<div class="container" style="text-align: center; padding-bottom: 30px; padding-left: 295px;">
 			<a href="goMyProfile"><input type="button" class="sbtn" value="프로필"/></a>&nbsp;&nbsp;
 			<a href="goMySkill"><input type="button" class="sbtn" value="기술정보"/></a>&nbsp;&nbsp;
 			<a href="goMyCareer"><input type="button" class="sbtn" value="경력정보"/></a>&nbsp;&nbsp;
