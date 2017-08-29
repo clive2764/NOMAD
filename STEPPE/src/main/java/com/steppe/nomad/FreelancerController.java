@@ -33,8 +33,8 @@ public class FreelancerController {
 	@RequestMapping(value = "/goMyProfile")
 	public ModelAndView goMyProfile() {
 		mav = new ModelAndView();
-		mav.setViewName("profile");
-		return mav;
+		mav = fm.executeProfile(1);
+	      return mav;
 	}
 	
 	@RequestMapping(value = "/goMySkill")

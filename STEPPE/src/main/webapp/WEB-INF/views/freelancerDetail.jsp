@@ -14,7 +14,8 @@
    <link rel="stylesheet" href="resources/css/animate.css">
    <link href="resources/css/animate.min.css" rel="stylesheet"> 
    <link href="resources/css/style.css" rel="stylesheet" /> 
-   <link rel="stylesheet" href="resources/css/freelancerDetail.css"/>  
+   <link rel="stylesheet" href="resources/css/freelancerDetail.css"/> 
+   <link href="resources/css/semantic.min.css" rel="stylesheet" /> 
   </head>
   <body>
      <jsp:include page="header.jsp" />
@@ -44,18 +45,26 @@
             </div>
             <table class="table table-striped" style="color: black; text-align: center;">
                <tr style="text-align:center;">
-                  <td colspan="2">
+                  <td colspan="3">
                      <img style="width: 400px; height: 250px;" src="resources/upload/${photo}"/>
                   </td>
                </tr>
                <tr>
-                  <td>이름</td>
-                  <td>${freelancer.m_name}</td>
-               </tr>
-               <tr>
-                  <td>이메일 주소</td>
-                  <td>${freelancer.m_email}</td>
-               </tr>
+					<td>이름</td>
+					<td>이메일 주소</td>
+					<td rowspan="2"  style="vertical-align: bottom;">
+						<div class="ui labeled button" tabindex="0" style="background-color: white;">
+							<div class="ui blue button">
+								<i><a style="color: white;" href="likeInsert?getid=${freelancer.m_id}">Like　♡</a></i>
+							</div>
+							<a class="ui basic gray left pointing label"> ${like} </a>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>${freelancer.m_name}</td>
+					<td>${freelancer.m_email}</td>
+				</tr>
                
                
             </table>
@@ -77,6 +86,7 @@
     <script src="resources/js/jquery-3.2.1.min.js"></script>      
     <script src="resources/js/bootstrap.min.js"></script>   
    <script src="resources/js/wow.min.js"></script>
+   <script src="resources/js/semantic.min.js"></script>
    <script>wow = new WOW({}).init();</script>   
 </body>
 

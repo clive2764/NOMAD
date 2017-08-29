@@ -236,9 +236,15 @@ public class HomeController {
       System.out.println("프리랜서상세 페이지로 이동");
       mav = new ModelAndView();
       mav=fm.showDetail();
-      /*mav=fm.showFreelancerSkill();*/
       return mav;
    }
 
-
+   //좋아요
+   @RequestMapping(value="/likeInsert")
+   public ModelAndView likeInsert(){
+	   System.out.println("좋냐?");
+	   mav = new ModelAndView();
+	   mav=fm.execute(1);
+	   return mav;
+   }
 }

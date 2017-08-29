@@ -75,15 +75,25 @@
 					</li>
 					
 					<c:if test="${!empty m_id}">
-						<li role="presentation" onclick="myFunction()" class="dropbtn">
-							<span class="dropbtn" id="dropbtnFont">${member.m_id}님 어서오세요.</span>
+						<li role="presentation" onclick="myFunction()" class="dropbtn" id="dropbtnFont">
+							<c:set var="m_kind" value="${m_kind}" />
+							<c:if test="${m_kind eq 'C'}">
+								클라이언트님 어서오세요.
+							</c:if>
+							<c:if test="${m_kind eq 'F'}">
+								프리랜서님 어서오세요.
+							</c:if>
+							<c:if test="${m_kind eq 'A'}">
+								관리자님 어서오세요.
+							</c:if>
 							<div id="myDropdown" class="dropmenu">
-								<c:set var="m_kind" value="${m_kind}" />
 								<c:if test="${m_kind eq 'C'}">
 									<a href="goAddProject">프로젝트 등록</a>
 									<a href="goPms">프로젝트 관리</a>
 								</c:if>
-								<a href="goMyProfile">프로필</a>
+								<c:if test="${m_kind eq 'F'}">
+									<a href="goMyProfile">프로필</a>
+								</c:if>
 								<a href="updateInfo">회원수정</a>
 								<a href="goMyPage">마이페이지</a>
 

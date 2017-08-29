@@ -170,9 +170,30 @@ public class AdminController {
 
 	//결제 상세 이동
 	@RequestMapping(value ="/purchaseDetail")
-	public ModelAndView purchaseDetail(int punum){
+	public ModelAndView purchaseDetail(int punum, int pupnum){
 		mav=new ModelAndView();
-		mav = am.executess(punum, 1);
+		mav = am.executess(punum,pupnum, 1);
+		return mav;
+	}
+	//결제 확인
+	@RequestMapping(value ="/purchaseCheck")
+	public ModelAndView purchaseCheck(int pnum, int pdpunum, double pumoney){
+		mav=new ModelAndView();
+		mav = am.executesss(pnum,pdpunum,pumoney, 1);
+		return mav;
+	}
+	//결제 완료
+	@RequestMapping(value ="/purchaseComplate")
+	public ModelAndView purchaseComplate(int pnum){
+		mav=new ModelAndView();
+		mav = am.executesss(pnum, 2);
+		return mav;
+	}
+	//결제 환불
+	@RequestMapping(value ="/purchaseRefund")
+	public ModelAndView purchaseRefund(int pnum){
+		mav=new ModelAndView();
+		mav = am.executesss(pnum, 3);
 		return mav;
 	}
 
