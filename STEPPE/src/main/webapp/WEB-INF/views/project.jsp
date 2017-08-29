@@ -14,45 +14,42 @@
 		<link rel="stylesheet" href="resources/css/animate.css">
 		<link href="resources/css/animate.min.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet" />
-		<!-- =======================================================
-		        Theme Name: Day
-		        Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
-		        Author: BootstrapMade
-		        Author URL: https://bootstrapmade.com
-		    ======================================================= -->
 		<style>
-		.thumbnail img {
-			width: 100%;
-		}
-		input{
-			color: black;
-			border-radius: 5px;
-			border:1px solid grey;
-		}
-		input#searchBtn {
-			width:75px;
-		   	background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-		}
-		input#insertBtn{
-			background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-		   	float: right;
-		}
+			.thumbnail img {
+				width: 100%;
+			}
+			
+			input {
+				color: black;
+				border-radius: 5px;
+				border: 1px solid grey;
+			}
+			
+			input#searchBtn {
+				width: 75px;
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+			}
+			
+			input#insertBtn {
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+				float: right;
+			}
 		</style>
 	</head>
 	<body>
@@ -79,7 +76,7 @@
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="resources/js/jquery-3.2.1.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="resources/js/bootstrap.min.js"></script>
+		<!-- <script src="resources/js/bootstrap.min.js"></script> -->
 		<script src="resources/js/wow.min.js"></script>
 		<script>wow = new WOW({}).init();</script>
 	

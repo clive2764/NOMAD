@@ -27,6 +27,15 @@
 .dropbtn {
 	padding: 30px;
 }
+.dropbtn:HOVER {
+	background-color: white;
+}
+#dropbtnFont{
+	color: white;
+}
+#dropbtnFont:HOVER {
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -67,8 +76,7 @@
 					
 					<c:if test="${!empty m_id}">
 						<li role="presentation" onclick="myFunction()" class="dropbtn">
-							
-							${member.m_id}님 어서오세요.
+							<span class="dropbtn" id="dropbtnFont">${member.m_id}님 어서오세요.</span>
 							<div id="myDropdown" class="dropmenu">
 								<c:set var="m_kind" value="${m_kind}" />
 								<c:if test="${m_kind eq 'C'}">

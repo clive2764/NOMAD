@@ -154,6 +154,16 @@ public class FreelancerDao {
 	public List<Member> getPhoto() {
 		return sqlSession.selectList("Career.getPhoto");
 	}
+
+	//프리랜서 상세보기 페이지 내부 기술정보 추출  
+	public List<Skill> getSkill(String m_id) {
+		return sqlSession.selectList("Skill.getSkill", m_id);
+	}
+
+
+	public List<Portfolio> getPortfolioView(String m_id) {
+		return sqlSession.selectList("Portfolio.getPortfolioView", m_id);
+	}
 	
 
 }

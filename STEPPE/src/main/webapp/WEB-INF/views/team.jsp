@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -34,7 +35,7 @@
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-right top-nav">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+					data-toggle="dropdown"><i class="fa fa-user"></i> ${member.m_id}님 환영합니다.<b
 						class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="#"><i class="fa fa-fw fa-power-off"></i>로그아웃</a>

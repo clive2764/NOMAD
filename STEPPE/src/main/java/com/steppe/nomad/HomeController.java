@@ -44,7 +44,7 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
-		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
+		mav=rm.shoHomeList();
 		return mav;
 	}
 
@@ -52,7 +52,7 @@ public class HomeController {
 	@RequestMapping(value = "/main")
 	public ModelAndView home2(Model model) {
 		mav = new ModelAndView();
-		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
+		mav=rm.shoHomeList();
 		return mav;
 	}
 
@@ -236,6 +236,7 @@ public class HomeController {
       System.out.println("프리랜서상세 페이지로 이동");
       mav = new ModelAndView();
       mav=fm.showDetail();
+      /*mav=fm.showFreelancerSkill();*/
       return mav;
    }
 

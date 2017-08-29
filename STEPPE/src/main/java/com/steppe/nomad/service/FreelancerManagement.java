@@ -432,20 +432,20 @@ public class FreelancerManagement {
 					Portfolio pf1=pf.get(i);
 					if(i<1){
 						sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
-						sb.append("<tr><th style='text-align:center;'>"+"제목"+"</th></tr>");
-						sb.append("<tr><td>"+pf1.getPf_title()+"</td></tr>");
-						sb.append("<tr><th style='text-align:center;'>"+"기간"+"</th></tr>");
-						sb.append("<tr><td>"+pf1.getPf_term()+"</td></tr>");
-						sb.append("<tr><th style='text-align:center;'>"+"참여율"+"</th></tr>");
-						sb.append("<tr><td>"+pf1.getPf_contribute()+"</td></tr>");
-						sb.append("<tr><th style='text-align:center;'>"+"내용"+"</th></tr>");
-						sb.append("<tr><td>"+pf1.getPf_content()+"</td></tr>");
-						sb.append("<tr><th style='text-align:center;'>"+"포트폴리오"+"</th></tr>");
-						sb.append("<tr><td><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+						sb.append("<tr><td style='width:10%; text-align:center;'>"+"제목"+"</td>");
+						sb.append("<td>"+pf1.getPf_title()+"</td></tr>");
+						sb.append("<tr><td style='text-align:center;'>"+"기간"+"</td>");
+						sb.append("<td>"+pf1.getPf_term()+"</td></tr>");
+						sb.append("<tr><td style='text-align:center;'>"+"참여율"+"</td>");
+						sb.append("<td colspan='3'>"+pf1.getPf_contribute()+"</td></tr>");
+						sb.append("<tr><td style='text-align:center;'>"+"내용"+"</td>");
+						sb.append("<td colspan='3'>"+pf1.getPf_content()+"</td></tr>");
+						sb.append("<tr rowspan='4'><td style='vertical-align:middle; text-align:center;'>"+"포트폴리오"+"</td>");
+						sb.append("<td colspan='4'><img style='width:100%; height:100%;' src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
 						sb.append("</table>");
 					}else{
 						sb.append("<table class='table table-responsive' style='text-align:center; color:black;'");
-						sb.append("<tr><td><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+						sb.append("<tr><td><img style='width:100%; height:100%;' src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
 						sb.append("</table>");
 					}
 				}
@@ -577,7 +577,7 @@ public class FreelancerManagement {
 	      flist=fDao.getFreelancer();
 	      if(flist!=null){
 	         StringBuilder sb=new StringBuilder();
-	         sb.append("<div class='container'>");
+	         sb.append("<div class='container' style='height:100%;'>");
 	         sb.append("<div class='row'>");
 	         sb.append("<form style='float: right' action='searchKeywordFr' id='searchForm' method='get'>");
 	         sb.append("<input type='text' id='keyword' name='keyword' placeholder='프리랜서 이름'/>");
@@ -615,12 +615,22 @@ public class FreelancerManagement {
 	      String view=null;
 	      String m_id=(String)req.getParameter("m_id");
 	      List<Career> career=null;
+	      List<Skill> skill=null;
+	      List<Portfolio> portfolio;
 	      System.out.println(m_id);
-	      //fDao.getFreelancerDetail(m_id);
+	      fDao.getFreelancerDetail(m_id);
 	      mav.addObject("photo",fDao.getProfilePhoto(m_id));
 	      mav.addObject("freelancer",fDao.getFreelancerDetail(m_id));
+	      
+	      //상세보기 내 경력정보 추출
 	      career = fDao.getCareer(m_id);
-	      FreelancerManagement showFreelancerCareer;
+	      
+	      //상세보기 내 기술정보 추출
+	      skill = fDao.getSkill(m_id);
+		  
+	      //상세보기 내 포트폴리오 추출
+	      portfolio = fDao.getPortfolioList(m_id);
+	      
 	      if(career!=null){
 	         StringBuilder sb=new StringBuilder();
 	         sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
@@ -640,12 +650,65 @@ public class FreelancerManagement {
 	         sb.append("</table>");
 	         mav.addObject("career",sb.toString());   
 	      }
-	      view="freelancerDetail";
-	      mav.setViewName(view);
-
-	      return mav;
+	      if(skill!=null){
+	    	  StringBuilder sb=new StringBuilder();
+		         sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+		         sb.append("<tr>");
+		         sb.append("<th style='text-align:center;'>"+"기술명"+"</th>");
+		         sb.append("<th style='text-align:center;'>"+"기술 등급"+"</th>");
+		         sb.append("<th style='text-align:center;'>"+"기술 사용기간"+"</th>");
+		         sb.append("</tr>");
+		         for(int i=0; i<skill.size(); i++){
+		        	 Skill s=skill.get(i);
+		            sb.append("<tr>");
+		            sb.append("<td>"+s.getSk_name()+"</td>");
+		            sb.append("<td>"+s.getSk_grade()+"</td>");
+		            sb.append("<td>"+s.getSk_career()+"</td>");
+		            sb.append("</tr>");
+		         }
+		         sb.append("</table>");
+		         mav.addObject("skill",sb.toString());
+	      }
+	      if(portfolio!=null){
+	    	  StringBuilder sb=new StringBuilder();
+	    	  sb.append("<div class='container'>");
+	    	  sb.append("<h1 style='color:black; text-align:center;'>포트폴리오 리스트</h1>");
+	    	  for(int i=0; i<portfolio.size(); i++){
+		        	 Portfolio p=portfolio.get(i);
+		        	sb.append("<table class='table table-responsive' style='text-align:center; color:black;'>");
+		            sb.append("<tr>");
+		            sb.append("<td colspan='4'>"+"<a href='#contents_layer' onClick='articleView("+p.getPf_num()+")'><img src='resources/upload/"+p.getPt_sysname()+"'></a></td>");
+		            sb.append("</tr>");
+		            sb.append("<tr>");
+		            sb.append("<td>제목</td>");
+		            sb.append("<td>"+p.getPf_title()+"</td>");
+		            sb.append("</tr>");
+		            sb.append("<tr>");
+		            sb.append("<td>기간</td>");
+		            sb.append("<td>"+p.getPf_term()+"</td>");
+		            sb.append("</tr>");
+		            sb.append("<tr>");
+		            sb.append("<td>기여도</td>");
+		            sb.append("<td>"+p.getPf_contribute()+"</td>");
+		            sb.append("</tr>");
+		            sb.append("<tr>");
+		            sb.append("<td>내용</td>");
+		            sb.append("<td>"+p.getPf_content()+"</td>");
+		            sb.append("</tr>");
+		            sb.append("</table>");
+		         }
+	    	  	sb.append("</div>");
+	    	  mav.addObject("port",sb.toString());
+	      }
+		   	view="freelancerDetail";
+		   	mav.setViewName(view);
+			return mav;
+	      
+	     
 	   }
-
+	   
+	   
+	   
 	   //프리랜서 페이지에서 검색 메소드
 	   public ModelAndView searchFreelancer() {
 	      mav=new ModelAndView();
@@ -657,7 +720,7 @@ public class FreelancerManagement {
 	      System.out.println("검색결과:"+slist);
 	      if(slist!=null){
 	         StringBuilder sb=new StringBuilder();
-	         sb.append("<div class='container'>");
+	         sb.append("<div class='container' style='height:100%;'>");
 	         sb.append("<div class='row'>");
 	         sb.append("<form style='float: right' action='searchKeywordFr' id='searchForm' method='get'>");
 	         sb.append("<input type='text' id='keyword' name='keyword' placeholder='프리랜서 이름'/>");
@@ -685,6 +748,51 @@ public class FreelancerManagement {
 	      mav.setViewName(view);
 	      return mav;
 	   }
+
+	public ModelAndView LightBox(int cmd) {
+		switch(cmd){
+		case 1 :
+			portView();
+			break;
+		}
+		return mav;
+	}
+
+	private ModelAndView portView() {
+		mav=new ModelAndView();
+		String view = null;
+		System.out.println("포트폴리오 라이트박스");
+			int pf_num = Integer.parseInt(req.getParameter("pf_num"));
+			System.out.println(pf_num);
+			List<Portfolio> pf=fDao.getPortfolioDetailList(pf_num);
+			System.out.println(pf);
+			if(pf!=null){
+				StringBuilder sb=new StringBuilder();
+				for(int i=0; i<pf.size(); i++){
+					Portfolio pf1=pf.get(i);
+					if(i<1){
+						sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+						sb.append("<tr><td style='text-align:center;'>"+"제목"+"</td><td>"+pf1.getPf_title()+"</td>");
+						sb.append("<td style='text-align:center;'>"+"기간"+"</td><td>"+pf1.getPf_term()+"</td></tr>");
+						sb.append("<tr><td style='text-align:center;'>"+"참여율"+"</td><td colspan='3' >"+pf1.getPf_contribute()+"</td></tr>");
+						sb.append("<tr><td style='text-align:center;'>"+"내용"+"</td><td colspan='3'>"+pf1.getPf_content()+"</td></tr>");
+						sb.append("<tr><td colspan='4' style='text-align:center;'>"+"포트폴리오"+"</td></tr>");
+						sb.append("<tr colspan='4'><td colspan='4'><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+						sb.append("</table>");
+					}else{
+						sb.append("<table class='table table-responsive' style='text-align:center; color:black;'");
+						sb.append("<tr><td colspan='2'><img src='resources/upload/"+pf1.getPt_sysname()+"'</td></tr>");
+						sb.append("</table>");
+					}
+				}
+				sb.append("<form action='deletePortfolio' method='post' id='portfolio'>");
+				sb.append("<input type='hidden' name='pfnum' value="+pf_num+" />");
+				mav.addObject("portfolio",sb.toString());
+			}
+			view="LightBox";
+			mav.setViewName(view);
+			return mav;
+	}
 }
 
 

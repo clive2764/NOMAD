@@ -13,31 +13,8 @@
    <link rel="stylesheet" href="resources/css/font-awesome.min.css">
    <link rel="stylesheet" href="resources/css/animate.css">
    <link href="resources/css/animate.min.css" rel="stylesheet"> 
-   <link href="resources/css/style.css" rel="stylesheet" />   
-   <style>
-      input#report{
-         background: #0f1c34;
-            box-sizing: border-box;
-            border-radius: 5px;
-            border: 1px solid white;
-            color: #fff;
-            font-weight: bold;
-            font-size: 14px;
-            outline: none;
-            cursor: pointer;
-      }
-      input#estimate{
-         background: #0f1c34;
-            box-sizing: border-box;
-            border-radius: 5px;
-            border: 1px solid white;
-            color: #fff;
-            font-weight: bold;
-            font-size: 14px;
-            outline: none;
-            cursor: pointer;
-      }
-   </style>
+   <link href="resources/css/style.css" rel="stylesheet" /> 
+   <link rel="stylesheet" href="resources/css/freelancerDetail.css"/>  
   </head>
   <body>
      <jsp:include page="header.jsp" />
@@ -84,18 +61,60 @@
             </table>
             <hr/>
             ${career}
+            <hr/>
+            ${skill}
+            <hr/>
+            ${port}
          </div>
+         portView
+         <jsp:include page="footer.jsp" />
+         <div id = "articleView_layer">
+			<div id = "bg_layer"></div>
+			<div id = "contents_layer"></div>
+			
+		</div>
    </div>         
-   <hr>
-
-    <div class="row"></div>
-      
-    <jsp:include page="footer.jsp" />
-    
     <script src="resources/js/jquery-3.2.1.min.js"></script>      
     <script src="resources/js/bootstrap.min.js"></script>   
    <script src="resources/js/wow.min.js"></script>
    <script>wow = new WOW({}).init();</script>   
-
 </body>
+
+<script>
+function articleView(PFNUM){
+	$('#articleView_layer').addClass('open');
+	$.ajax({
+			type : 'get',
+			url : 'portView',
+			data : {pf_num:PFNUM},
+			timeout:3000, //대기시간이 지날경우 에러 상태(3초)
+		//dataType : html,json
+		success:function(data){
+			//alert(data); //test용
+			$('#contents_layer').html(data);
+		},
+		error:function(error){
+			alert("error");
+			console.log(error);
+		}
+	}); //ajax End
+} //function End
+//LightBox 해제
+$(function(){	//$(document).ready(function(){})
+	var layerWindow = $('#articleView_layer');
+	layerWindow.find('#bg_layer').mousedown(
+		function(event){
+			layerWindow.removeClass('open');
+			return;
+		});
+	$(document).keydown(function(event){
+		console.log(event);
+		if(event.keyCode!=27) return;
+		if(layerWindow.hasClass('open')){
+			layerWindow.removeClass('open');
+		}
+	}); //keydown End
+});
+
+</script>
 </html>
