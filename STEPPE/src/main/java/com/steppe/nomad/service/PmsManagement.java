@@ -72,8 +72,9 @@ public class PmsManagement {
 	}
 	private String chatRoomMake(int pnum) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y: auto; width: auto; height: 600px;'>");
-		sb.append("</div>");
+		sb.append("<div id='chat' class='panel-collapse collapse in'>");
+		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y: auto; width: auto; height: 400px;'>");
+		sb.append("</div></div>");
 		sb.append("<div class='portlet-footer'>");
 		sb.append("<div class='row' style='height: 90px;'>");
 		sb.append("<div class='form-group col-xs-10'>");
@@ -151,9 +152,14 @@ public class PmsManagement {
 				chatNum = 1;
 			}
 			System.out.println("chatNum:"+chatNum);
-			map.put("pnum", pnum);
-			map.put("chatContent", chatContent);
-			map.put("mid", mid);
+			try {
+				map.put("pnum", pnum);
+				map.put("chatContent", URLDecoder.decode(chatContent,"UTF-8"));
+				map.put("mid", mid);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			map.put("chatNum", String.valueOf(chatNum));
 			jsonStr=String.valueOf(chatDao.chatSubmit(map));
 			//chatList = chatDao.chatPrint(map);
@@ -223,6 +229,7 @@ public class PmsManagement {
 		for(int i=0; i<chatList.size(); i++){
 			sb.append("[{\"value\": \""+chatList.get(i).getC_mid().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
 			sb.append("{\"value\": \""+chatList.get(i).getC_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
+			System.out.println("채팅내용="+chatList.get(i).getC_content());
 			System.out.println("날짜:"+chatList.get(i).getC_date());
 			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(0, 11)+"\"}]");
 			if(i != chatList.size()-1){

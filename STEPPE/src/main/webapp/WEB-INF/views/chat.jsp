@@ -13,6 +13,7 @@
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/sb-admin.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="resources/css/custom.css" rel="stylesheet" type="text/css">
 </head>
 
 <body style="background-color:#fff;">
@@ -49,7 +50,6 @@
                         <h1 class="page-header">
                             PMS <small>Project Management Service</small>
                         </h1>
-                        
                     </div>
                 </div>
                 <!-- /.row -->

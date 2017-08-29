@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Project_pBookmark;
 import com.steppe.nomad.bean.Reply;
 import com.steppe.nomad.bean.Report;
 
@@ -28,8 +29,7 @@ public class ReportDao {
 
 	public List<Report> getReportList() {
 		return sqlSession.selectList("report.getReportList");
-		
-		
+	
 	}
 
 	public List<Project> getProjectList() {

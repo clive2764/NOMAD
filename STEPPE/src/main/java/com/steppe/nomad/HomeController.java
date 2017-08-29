@@ -47,7 +47,6 @@ public class HomeController {
 		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
 		return mav;
 	}
-
 	//상단 헤더메뉴의 메인페이지 링크용
 	@RequestMapping(value = "/main")
 	public ModelAndView home2(Model model) {

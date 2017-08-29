@@ -94,6 +94,22 @@
 				$("#search").submit();
 			}
 		});
-	
+		function bookmarkOn(num){
+			var bmNum = num;
+			alert(bmNum);
+			$.ajax({
+				type:'post',
+				url: 'bookmarkOnOff',
+				data: {bmNum:bmNum},
+				success: function(data){
+					console.log(data);
+					if(data > 0){
+						$("#bookmarkImg").attr("src","resources/img/on.png");							
+					}else{
+						$("#bookmarkImg").attr("src","resources/img/off.png");
+					}
+				}
+			});
+		}
 	</script>
 </html>

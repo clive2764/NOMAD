@@ -1,6 +1,8 @@
 package com.steppe.nomad.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Project_bookmark;
 import com.steppe.nomad.bean.Reply;
 import com.steppe.nomad.bean.Report;
+import com.steppe.nomad.dao.ProjectDao;
+import com.steppe.nomad.dao.Project_bookmarkDao;
 import com.steppe.nomad.dao.ReportDao;
 
 @Service
@@ -28,6 +32,12 @@ public class ReportManagement {
 	
 	@Autowired
 	private HttpServletRequest request;
+	
+	@Autowired
+	private ProjectDao pDao;
+	
+	@Autowired
+	private Project_bookmarkDao pbDao;
 
 	//신고 작성 페이지로 이동
 	public ModelAndView goReportWrite() {
@@ -131,35 +141,131 @@ public class ReportManagement {
 		mav=new ModelAndView();
 		String view=null;
 		List<Project> plist=null;
+		List<Project_bookmark> pblist = null;
+		String mid = null;
 		
 		plist=rDao.getProjectList();
-		if(plist!=null){
+		if(session.getAttribute("m_id") != null){
 			StringBuilder sb=new StringBuilder();
-			sb.append("<div class='container'>");
-			sb.append("<div class='row'>");
-			sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
-			sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
-			sb.append("<input type='button' id='searchBtn' value='검색'>");
-			sb.append("</form>");
-			sb.append("</div>");
-			for(int i=0; i<plist.size(); i++){
-				Project p=plist.get(i);
-				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
-				sb.append("<div class='thumbnail'>");
-				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-				sb.append("<img src='http://placehold.it/320x150' alt=''>");
-				sb.append("</a>");
-				sb.append("<div class='caption'>");
-				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
-				sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
-				sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
-				sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
-				sb.append("</div>");
-				sb.append("</div>");
-				sb.append("</div>");
+			mid = session.getAttribute("m_id").toString();
+			pblist = pbDao.bookmarkList(mid);
+			System.out.println("plist사이즈:"+plist.size());
+			System.out.println("pblist사이즈:"+pblist.size());
+		sb.append("<div class='container'>");
+		sb.append("<div class='row'>");
+		sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
+		sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
+		sb.append("<input type='button' id='searchBtn' value='검색'>");
+		sb.append("</form>");
+		sb.append("</div>");
+		for(int i=0; i<plist.size(); i++){
+			Project p=plist.get(i);
+			String p1=p.getP_plnum0();
+            String p2=p.getP_plnum1();
+            String p3=p.getP_plnum2();
+			Project_bookmark pb = null;
+			System.out.println("몇번도는지...");
+			/*if(pblist.size() != 0){
+				pb = pblist.get(i);
+			}*/
+			sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
+			sb.append("<div class='thumbnail'>");
+			sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+			sb.append("<img src='http://placehold.it/320x150' alt=''>");
+			sb.append("</a>");
+			sb.append("<div class='caption'>");
+			sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a>");
+			System.out.println("index2:"+i);
+			if(i>pblist.size()-1){
+				//int pbNum = plist.size() - pblist.size();
+				sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
+			}else{
+				System.out.println("index:"+i);
+				
+				pb = pblist.get(i);
+				if(pb.getPb_flag() != 0){
+					sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/on.png' />");
+				}else{
+					sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
+				}
 			}
+			sb.append("</a></h4></div>");
+			sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+			if(p1==null)
+	               sb.append("<p>"+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+	            if(p2==null)
+	               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum2()+"</p>");
+	            if(p3==null)
+	               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+"</p>");
+	            if(p1==null && p2==null)
+	               sb.append("<p>"+p.getP_plnum2()+"</p>");
+	            if(p2==null && p3==null)
+	               sb.append("<p>"+p.getP_plnum0()+"</p>");
+	            if(p1==null && p3==null)
+	               sb.append("<p>"+p.getP_plnum1()+"</p>");
+	            if(p1!=null && p2!=null && p3!=null)
+	            sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+			sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
 			sb.append("</div>");
-			mav.addObject("plist",sb.toString());
+			sb.append("</div>");
+			sb.append("</div>");
+		}
+		sb.append("</div>");
+		mav.addObject("plist",sb.toString());
+		
+		}else{
+			if(plist!=null){
+				StringBuilder sb=new StringBuilder();
+					//pblist = pbDao.bookmarkList(mid);
+				
+				sb.append("<div class='container'>");
+				sb.append("<div class='row'>");
+				sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
+				sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
+				sb.append("<input type='button' id='searchBtn' value='검색'>");
+				sb.append("</form>");
+				sb.append("</div>");
+				for(int i=0; i<plist.size(); i++){
+					Project p=plist.get(i);
+					String p1=p.getP_plnum0();
+		            String p2=p.getP_plnum1();
+		            String p3=p.getP_plnum2();
+					Project_bookmark pb = null;
+					/*if(pblist != null){
+						pb = pblist.get(i);
+					}*/
+					sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
+					sb.append("<div class='thumbnail'>");
+					sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+					sb.append("<img src='http://placehold.it/320x150' alt=''>");
+					sb.append("</a>");
+					sb.append("<div class='caption'>");
+					sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
+					sb.append("</a></h4></div>");
+					sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+					if(p1==null)
+			               sb.append("<p>"+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+			            if(p2==null)
+			               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum2()+"</p>");
+			            if(p3==null)
+			               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+"</p>");
+			            if(p1==null && p2==null)
+			               sb.append("<p>"+p.getP_plnum2()+"</p>");
+			            if(p2==null && p3==null)
+			               sb.append("<p>"+p.getP_plnum0()+"</p>");
+			            if(p1==null && p3==null)
+			               sb.append("<p>"+p.getP_plnum1()+"</p>");
+			            if(p1!=null && p2!=null && p3!=null)
+			            sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+					sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
+					sb.append("</div>");
+					sb.append("</div>");
+					sb.append("</div>");
+				}
+				sb.append("</div>");
+				mav.addObject("plist",sb.toString());
+			
+			}
 		}
 		view="project";
 		mav.setViewName(view);
@@ -315,6 +421,21 @@ public class ReportManagement {
 			
 			return mav;
 		}
-
+		
+		public String bookmarkOnOff(){
+			String jsonObj = null;
+			Map<String, String> map = new HashMap<String, String>();
+			int bmNum = Integer.parseInt(request.getParameter("bmNum"));
+			Project_bookmark pb = pbDao.bookmarkFlag(bmNum);
+			if(pb.getPb_flag() != 0){
+				map.put("pb_flag", String.valueOf(0));				
+			}else{				
+				map.put("pb_flag", String.valueOf(1));
+			}
+			//map.put("pb_pnum", String.valueOf(bmNum));			
+			map.put("mid", session.getAttribute("m_id").toString());
+			jsonObj = String.valueOf(pbDao.bookmarkUpdate(map));
+			return jsonObj;
+		}
 	
 }

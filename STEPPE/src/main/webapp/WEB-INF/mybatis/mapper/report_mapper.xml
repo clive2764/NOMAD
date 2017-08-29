@@ -11,7 +11,8 @@
 	<select id="getReportList" resultType="report">
 		SELECT * FROM REPORT ORDER BY R_NUM ASC
 	</select>
-	<select id="getProjectList" resultType="project">
+	<select id="getProjectList" resultType="Project">
+		<!-- SELECT * FROM PROJECT p INNER JOIN project_bookmark pb ON p.p_num = pb.pb_pnum -->
 		SELECT * FROM PROJECT
 	</select>
 	<select id="getProjectDetail" parameterType="int" resultType="project">

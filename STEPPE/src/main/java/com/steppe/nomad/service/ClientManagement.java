@@ -27,6 +27,7 @@ import com.steppe.nomad.dao.AccountingDao;
 import com.steppe.nomad.dao.CatagoryDao;
 import com.steppe.nomad.dao.ClientDao;
 import com.steppe.nomad.dao.ProjectDao;
+import com.steppe.nomad.dao.Project_bookmarkDao;
 import com.steppe.nomad.dao.VolunteerDao;
 import com.steppe.nomad.userClass.UploadFile;
 
@@ -53,7 +54,6 @@ public class ClientManagement {
 	private ProjectDao pDao;
 	
 	@Autowired	
-
 	private VolunteerDao vDao;
 	
 	@Autowired	
@@ -61,6 +61,9 @@ public class ClientManagement {
 
 	private ModelAndView mav;
 	private String jsonStr;
+	
+	@Autowired
+	private Project_bookmarkDao pbDao;
 	
 	private ClientDao clDao;
 
@@ -210,7 +213,7 @@ public class ClientManagement {
 				System.out.println(pd_money);
 				System.out.println(pd_catagory);
 				
-				Accounting accounting2 = new Accounting(pd_num,pd_punum,pd_mid,pd_money,pd_catagory);
+                Accounting accounting2 = new Accounting(pd_num,pd_punum,pd_mid,pd_money,pd_catagory);
 				if(aDao.insertPurchase_detail(accounting2)!=0){
 					int v_pnum1=vDao.UpdateVolunteer(pu_pnum);//지원자 업데이트
 					System.out.println(v_pnum1);
@@ -394,25 +397,26 @@ public class ClientManagement {
 
 
 	private void setRequired_Skill() {
-		String view=null;
-		mav=new ModelAndView();
-		List<Required_Skill> slist=null;
-		slist=pDao.getRequired_SkillList();
-		System.out.println(slist);
+	      String view=null;
+	      mav=new ModelAndView();
+	      List<Required_Skill> slist=null;
+	      slist=pDao.getRequired_SkillList();
+	      System.out.println(slist);
 
-		if(slist!=null){
-			StringBuilder sb = new StringBuilder();
-			for(int i=0; i<slist.size(); i++){
-				Required_Skill rs=slist.get(i);
-				sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='p_plnum' id='inter'"
-						+ " onClick='CountChecked(this)'/>"+rs.getRs_plnum());
-				sb.append("/");
-			}
-			mav.addObject("slist", sb.toString());
-		}
-		view="projectInsert";
-		mav.setViewName(view);
-	}
+	      if(slist!=null){
+	         StringBuilder sb = new StringBuilder();
+	            sb.append("<input type='hidden' value='' name='p_plnum[]' onClick='CountChecked(this)' id='inter'/>");
+	         for(int i=0; i<slist.size(); i++){
+	            Required_Skill rs=slist.get(i);
+	            System.out.println(rs.getRs_plnum());
+	            sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='p_plnum[]' id='inter' onClick='CountChecked(this)' />"+rs.getRs_plnum());
+	            sb.append("/");
+	         }
+	         mav.addObject("slist", sb.toString());
+	      }
+	      view="projectInsert";
+	      mav.setViewName(view);
+	   }
 
 	private void goAddProject() {
 		String view=null;
@@ -433,6 +437,7 @@ public class ClientManagement {
 	}
 
 	private void insertProject(MultipartHttpServletRequest multi) {
+		String mid = session.getAttribute("m_id").toString();
 		String pc1_name=multi.getParameter("pc1_name");
 		String pc2_name=multi.getParameter("pc2_name");
 		//String p_mid="client";
@@ -449,17 +454,28 @@ public class ClientManagement {
 		int p_person=Integer.parseInt(multi.getParameter("p_person"));
 		System.out.println("check="+check);//1이면 첨부됨
 		Map<String, Object> fMap=new HashMap<String, Object>();
+		Map<String, String> bmMap = new HashMap<String, String>();
+		int bookmarkNum = 0;
+		if(pbDao.bookmarkCount()!=0){
+			bookmarkNum = pbDao.bookmarkMaxNum()+1;
+		}else{
+			bookmarkNum = 1;
+		}
 		if(check==1){
 			UploadFile upload=new UploadFile();
 			//서버에 파일을 업로드 한 뒤, 
-			//오리지널 파일명, 시스템 파일명을 리턴 후 Map에 저장
+			//오리지널 파일명, 시스템  파일명을 리턴 후 Map에 저장
 			
 			fMap=upload.fileUp(multi);
 
 			System.out.println(fMap);
 		}
 		Project project=new Project();
-		project.setP_num(pDao.getProjectMaxNum()+1);
+		if(pDao.getProjectCount() != 0){
+			project.setP_num(pDao.getProjectMaxNum()+1);			
+		}else{
+			project.setP_num(1);
+		}
 		project.setP_pc1name(pc1_name);
 		project.setP_pc2name(pc2_name);
 		project.setP_mid(session.getAttribute("m_id").toString());
@@ -488,14 +504,21 @@ public class ClientManagement {
 		fMap.put("p_plnum2", project.getP_plnum2());
 		fMap.put("p_person", project.getP_person());
 		fMap.put("p_status", project.getP_status());
+		
+		bmMap.put("pb_num", String.valueOf(bookmarkNum));
+		bmMap.put("pb_pnum", String.valueOf(project.getP_num()));
+		bmMap.put("pb_mid", mid);
+		
 		mav=new ModelAndView();
 		String view=null;
 
 		System.out.println(fMap);
-
+		
 		if(pDao.insertProject(fMap)!=0){
+			System.out.println("북마크 db실행1");
+			pbDao.bookmarkInsert(bmMap);
+			System.out.println("북마크 db실행2");
 			view="redirect:goMyPageCI";
-
 		}else{
 			view="redirect:goAddProject";
 		}

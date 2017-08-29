@@ -15,6 +15,7 @@ import com.steppe.nomad.bean.Accounting;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Notice;
 import com.steppe.nomad.bean.Project;
+import com.steppe.nomad.bean.Purchase_detail;
 import com.steppe.nomad.dao.AccountingDao;
 import com.steppe.nomad.dao.AdminDao;
 import com.steppe.nomad.dao.MemberDao;
