@@ -55,7 +55,7 @@
 	
 	<insert id="insertProject" parameterType = "Map">
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
-      							,#{sysFileName},#{p_deadline},#{p_plnum0}, #{p_plnum1} ,#{p_plnum2}, #{p_person}, #{p_status}, default, default)
+      							,#{sysFileName},#{p_deadline},#{p_plnum0},#{p_plnum1}, #{p_plnum2}, #{p_person}, #{p_status}, default, default)
    </insert>
    
     <select id="getProjectList2" resultType="project" parameterType="String">
@@ -125,7 +125,7 @@
 	<update id="StatusUpdate" parameterType="Integer">
 		update project set p_status=5 where p_num=#{p_num}
 	</update>
-	
+
 	<select id="getPperson" resultType="Integer" parameterType="Integer">
 		SELECT p_person FROM project where p_num=#{pnum}
 	</select>
@@ -153,6 +153,6 @@
 	<select id="getOneStatus" resultType="Integer" parameterType="Integer">
 		SELECT p_status FROM project where p_num=#{pupnum}
 	</select>
-	 
+
 </mapper>
 

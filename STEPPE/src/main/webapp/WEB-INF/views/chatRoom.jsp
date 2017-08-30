@@ -63,8 +63,9 @@
 				'<div class="media-body" style="width: 800px;">'+
 				'<h4 class="media-heading">'+
 				chatName +
-				'<span class="small pull-right">'+
+				'<span class="small pull-right" style="text-align: right;">'+
 				chatTime +
+				
 				'</span>' +
 				'</h4>'+
 				'<p>'+

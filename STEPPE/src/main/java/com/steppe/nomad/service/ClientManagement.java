@@ -66,6 +66,7 @@ public class ClientManagement {
 
 	private ModelAndView mav;
 	private String jsonStr;
+	
 	@Autowired
 	private ClientDao clDao;
 
@@ -466,6 +467,7 @@ public class ClientManagement {
 		mav.setViewName(view);
 	}
 
+
 	private void goAddProject() {
 		String view=null;
 		mav=new ModelAndView();
@@ -573,6 +575,12 @@ public class ClientManagement {
 	      }
 	      mav.setViewName(view);
 	   }
+
+	private void purchase(Accounting ac) {
+		mav=new ModelAndView();
+		String view=null;
+
+	}
 
 	public ModelAndView execute(String mid, int cmd) {
 		switch(cmd){

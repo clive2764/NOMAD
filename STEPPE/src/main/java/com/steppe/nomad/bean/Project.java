@@ -135,8 +135,5 @@ public class Project {
 	public void setP_bookmark(int p_bookmark) {
 		this.p_bookmark = p_bookmark;
 	}
-	
-	
-	
-	
+
 }

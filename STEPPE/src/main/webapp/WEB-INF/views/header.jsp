@@ -75,6 +75,7 @@
 					</li>
 					
 					<c:if test="${!empty m_id}">
+
 						<li role="presentation" onclick="myFunction()" class="dropbtn" id="dropbtnFont">
 							<c:set var="m_kind" value="${m_kind}" />
 							<c:if test="${m_kind eq 'C'}">
@@ -86,6 +87,7 @@
 							<c:if test="${m_kind eq 'A'}">
 								관리자님 어서오세요.
 							</c:if>
+
 							<div id="myDropdown" class="dropmenu">
 								<c:if test="${m_kind eq 'C'}">
 									<a href="goAddProject">프로젝트 등록</a>
@@ -116,7 +118,6 @@
 								</c:if>
 								<a href="logout">logout</a>
 							</div>
-
 						</li>
 					</c:if>
 					<li role="presentation">
@@ -154,6 +155,5 @@ window.onclick = function(event) {
 	    }
 	  }
 	}
-	
 </script>
 </html>

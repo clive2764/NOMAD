@@ -80,10 +80,10 @@ public class Reportcontroller {
 		mav.setViewName("intro");
 		return mav;
 	}
-	
 	@RequestMapping(value = "/bookmarkOnOff")
-	   public @ResponseBody String bookmarkOnOff(){
-	      String jsonStr = rm.bookmarkOnOff();
-	      return jsonStr;
-	   }
+	public @ResponseBody String bookmarkOnOff(){
+		String jsonStr = rm.bookmarkOnOff();
+		return jsonStr;
+	}
+
 }

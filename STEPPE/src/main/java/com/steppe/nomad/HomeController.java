@@ -44,15 +44,14 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
-		mav=rm.shoHomeList();
+		mav=rm.showHomeList();
 		return mav;
 	}
-
 	//상단 헤더메뉴의 메인페이지 링크용
 	@RequestMapping(value = "/main")
 	public ModelAndView home2(Model model) {
 		mav = new ModelAndView();
-		mav=rm.shoHomeList();
+		mav=rm.showHomeList();
 		return mav;
 	}
 

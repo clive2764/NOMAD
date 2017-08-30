@@ -32,6 +32,7 @@
 		<typeAlias alias="purchase_detail" type="com.steppe.nomad.bean.Purchase_detail"/>
 		<typeAlias alias="reply" type="com.steppe.nomad.bean.Reply"/>
 		<typeAlias alias="client_mypage" type="com.steppe.nomad.bean.Client_mypage"/>
+
 		<typeAlias alias="project_bookmark" type="com.steppe.nomad.bean.Project_bookmark"/>
 		<typeAlias alias="project_pBookmark" type="com.steppe.nomad.bean.Project_pBookmark"/>
 		<typeAlias alias="verylike" type="com.steppe.nomad.bean.VeryLike"/>

@@ -137,6 +137,10 @@ public class ProjectDao {
 		return sqlSession.update("project.dropProjectVol",project);
 	}
 
+	public List<Project> getBookmarkList(){
+		return sqlSession.selectList("project.getBookmarkList");
+	}
+
 	public int updateProStatus(int pnum) {
 		return sqlSession.update("project.updateProStatus",pnum);
 		
