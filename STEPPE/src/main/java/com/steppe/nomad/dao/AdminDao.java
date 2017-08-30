@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.steppe.nomad.bean.Accounting;
 import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Notice;
 @Repository
@@ -57,6 +58,29 @@ public class AdminDao {
 
 	public int getPurchaseCount() {
 		return sqlSession.selectOne("accounting.getPurchaseCount");
+	}
+
+	public int getPperson(int pnum) {
+		return sqlSession.selectOne("project.getPperson",pnum);
+	}
+	
+	public double purchaseCommission(Accounting acc) {
+		return sqlSession.insert("accounting.purchaseCommission",acc);
+		
+	}
+	
+	public double purchaseDeposit(Accounting acc) {
+		return sqlSession.insert("accounting.purchaseDeposit",acc);
+		
+	}
+	
+	public double purchaseHold(Accounting acc) {
+		return sqlSession.insert("accounting.purchaseHold",acc);
+		
+	}
+
+	public Accounting getHoldMoney(int pnum) {
+		return sqlSession.selectOne("notice.getHoldMoney",pnum);
 	}
 
 }

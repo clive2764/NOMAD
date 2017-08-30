@@ -20,4 +20,9 @@
 	  on e.pu_pnum=p.p_num inner join purchase_detail d on e.pu_num = d.pd_punum where d.pd_punum = #{pd_punum} AND
 	  d.pd_catagory = 'H'
 	</select>
+	
+	<insert id="InsertSales" parameterType = "purchase_detail">
+	  select pd_num, pd_punum, pd_mid, pd_money, pd_catagory, case when pd_catagory='P' then '결제액' when pd_catagory='R' 
+	  then '환불액' else '오류' end as pd_catagory2 from purchase_detail where pd_punum=#{pd_punum} AND pd_mid=#{pd_mid}
+	</insert>
 </mapper>

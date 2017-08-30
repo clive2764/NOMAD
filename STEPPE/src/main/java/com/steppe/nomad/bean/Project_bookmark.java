@@ -3,8 +3,10 @@ package com.steppe.nomad.bean;
 public class Project_bookmark {
 	private int pb_num;
 	private int pb_pnum;
+	private String pb_id;
 	private String pb_mid;
 	private int pb_flag;
+	
 	
 	public int getPb_num() {
 		return pb_num;
@@ -29,6 +31,12 @@ public class Project_bookmark {
 	}
 	public void setPb_flag(int pb_flag) {
 		this.pb_flag = pb_flag;
+	}
+	public String getPb_id() {
+		return pb_id;
+	}
+	public void setPb_id(String pb_id) {
+		this.pb_id = pb_id;
 	}
 	
 	

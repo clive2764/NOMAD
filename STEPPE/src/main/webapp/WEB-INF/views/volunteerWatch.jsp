@@ -5,9 +5,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style>
+	table {
+		text-align: center;
+		color: black;
+		margin: 0 auto;
+	}
+	
+	td,th {
+		text-align: center;
+		color: black;
+		padding: 3px;
+	}
+	
+	.btn {
+		color: white;
+		margin-top: 0px;
+	}
+	
+	.btn:hover {
+		background-color: skyblue;
+		color: white;
+		margin-top: 0px;
+	}
+
+</style>
 </head>
 <body>
-	<h2>지원자 리스트</h2>
-	${vList};
+		${vList}
 </body>
 </html>

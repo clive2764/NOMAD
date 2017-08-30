@@ -18,10 +18,11 @@
          .about{
             color:black;
             height: -webkit-fill-available;
-            width:80%; 
-            margin: 10%; 
+            width:90%; 
+            margin: 5%; 
             margin-top: 0% ; 
-            margin-bottom: 20%
+            margin-bottom: 20%;
+            padding-top: 5%;
          }
          table{
             text-align: center;
@@ -44,6 +45,18 @@
          }
          .AA{
             color:#fff;
+         }
+         .t1,.t3,.t4{
+         	width: 10%;
+         }
+         .t2{
+         	width: 70%;
+         }
+         .a4{
+         	color: #9497e8;
+         }
+         .a2{
+         	color: #2d31af;
          }
       </style>   
        <!-- =======================================================
@@ -68,9 +81,9 @@
       </form>
       <br/><br/>
          <h3>${tname}</h3>
-            <div style="overflow:scroll; width:100%; height:100%;">
+            <div style="overflow:scroll; width:100%; height:850px;">
                <table class="table table-striped">
-               <tr><td id = t1>문제 번호</td><td id = t2>문제 내용</td><td id = t3>답</td><td id = t4>수정 & 삭제</td></tr>
+               <tr><td class = 't1'>문제 번호</td><td class = 't2'>문제 내용</td><td class = 't3'>답</td><td class = 't4'>수정 & 삭제</td></tr>
                ${tlist}
                </table>
             </div>

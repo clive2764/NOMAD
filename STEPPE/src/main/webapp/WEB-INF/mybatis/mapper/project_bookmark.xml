@@ -4,7 +4,7 @@
 
 <mapper namespace="project_bookmark">
 	<insert id="bookmarkInsert" parameterType="Map">
-		INSERT INTO project_bookmark VALUES(#{pb_num},#{pb_pnum},#{pb_mid},default)
+		INSERT INTO project_bookmark VALUES(#{pb_num},#{pb_pnum},default,#{pb_mid},default)
 	</insert>
 	<select id="bookmarkList" parameterType="String" resultType="Project_bookmark">
 		SELECT * FROM project_bookmark WHERE pb_mid = #{mid}

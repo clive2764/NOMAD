@@ -34,7 +34,7 @@
 			.btn {
 				color: white;
 				margin-top: 0px;
-				width:200px;
+				width:80px;
 			}
 			
 			.btn:hover {
@@ -57,10 +57,11 @@
 						<th>결제자</th>
 						<th>결제액</th>
 						<th>결제 카테고리</th>
+						<th colspan="3">결제</th>
 					</tr>
 					${prdlist}
 					<tr>
-						<td colspan="5"><input type="button" class="btn" onclick="location.href='goPurchaseMM'" value="돌아가기"/></td>
+						<td colspan="8"><input type="button" class="btn" onclick="location.href='goPurchaseMM'" value="돌아가기"/></td>
 					</tr>	
 				</table>
 			</div>				

@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.steppe.nomad.bean.Accounting;
+import com.steppe.nomad.bean.Evaluate;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Purchase_detail;
 import com.steppe.nomad.bean.Required_Skill;
@@ -41,7 +42,7 @@ public class ClientManagement {
 
 	@Autowired
 	private HttpServletRequest req;
-	
+
 	@Autowired
 	private HttpServletResponse res;
 
@@ -53,10 +54,10 @@ public class ClientManagement {
 
 	@Autowired	
 	private ProjectDao pDao;
-	
+
 	@Autowired	
 	private VolunteerDao vDao;
-	
+
 	@Autowired	
 	private Project_bookmarkDao pbDao;
 	
@@ -65,7 +66,7 @@ public class ClientManagement {
 
 	private ModelAndView mav;
 	private String jsonStr;
-	
+	@Autowired
 	private ClientDao clDao;
 
 
@@ -116,7 +117,8 @@ public class ClientManagement {
 			if(vList!=null){
 				StringBuilder sb = new StringBuilder();
 				sb.append("<form action='pickMember' name='select' method='get' onsubmit='return check(this)'>");
-				sb.append("<table border='1' align='center'>");
+				sb.append("<table class='table table-responsive' align='center'>");
+				sb.append("<h2>지원자 리스트</h2>");
 				sb.append("<tr><th>프로젝트 번호</th><th>지원자 번호</th><th>지원자</th><th>입찰액</th><th>선정</th></tr>");
 				for(int i=0; i<vList.size(); i++){
 					System.out.println("ddddd");
@@ -134,12 +136,12 @@ public class ClientManagement {
 				sb.append("<input type='button' class='btn' onclick='back()' value='뒤로가기'/>");
 				mav.addObject("vList", sb.toString());
 			}
-				view="applyList";
-			}else{
-				view="home";
-			}
-			mav.setViewName(view);
-		
+			view="applyList";
+		}else{
+			view="home";
+		}
+		mav.setViewName(view);
+
 	}
 	private void showApplyList() {//지원자 리스트롤 보기 위한 ajax
 		mav=new ModelAndView();
@@ -147,12 +149,12 @@ public class ClientManagement {
 		int v_pnum=Integer.parseInt(req.getParameter("p_num"));
 
 		List<Volunteer> vList=null;
-		
+
 		vList=vDao.getVolunteerList(v_pnum);
 		System.out.println(vList);
 		if(!vList.equals(" ")){
 			StringBuilder sb = new StringBuilder();
-			sb.append("<table border='1' align='center'>");
+			sb.append("<table class='table table-responsive' align='center'>");
 			sb.append("<tr><th>지원자번호</th><th>지원자아이디</th><th>입찰가격</th><th>입찰시간</th></tr>");
 			for(int i=0; i<vList.size(); i++){
 				System.out.println("ddddd");
@@ -164,9 +166,9 @@ public class ClientManagement {
 				sb.append("<td>"+v.getV_time()+"</td></tr>");
 				//sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
 			}
+			sb.append("<tr><td colspan='4'><a href='./goMyPageCI'><button class='btn'>닫기</button></a></tr></td>");
 			sb.append("</table>");
-			sb.append("<br/><br/>");
-			sb.append("<a href='./goMyPageCI'><button>닫기</button></a>");
+
 			System.out.println(sb);
 			mav.addObject("vList", sb.toString());
 		}else{
@@ -174,30 +176,30 @@ public class ClientManagement {
 		}
 		view="volunteerWatch";//라이트 박스에서 지원자 리스트 보여주기 위한 jsp
 		mav.setViewName(view);
-		
-}
-		
+
+	}
+
 	private void payRequest() {//관리자에게 최종 결제 신청
 		mav=new ModelAndView();
 		String view=null;
 		System.out.println("결제신청하러 옴");
-		
+
 		int p_num=Integer.valueOf(req.getParameter("p_num"));
-		
+
 		if(pDao.CheckStatus(p_num)==4){
 			System.out.println("결제신청할 수 있어");
 			int statusUp=pDao.StatusUpdate(p_num);
 			System.out.println(statusUp);
 			if(statusUp!=0){
 				view="redirect:goMyPageCI";
-				
+
 			}
-			
+
 		}else{//프로젝트 상태가 작업완료가 아니면 돌아가야 함
 			res.setCharacterEncoding("UTF-8");
 			res.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out;
-			
+
 			try {
 				out = res.getWriter();
 				out.println("<script language='javascript'>");
@@ -216,6 +218,7 @@ public class ClientManagement {
 		String view=null;
 		System.out.println("결제");
 		int pu_pnum=Integer.valueOf(req.getParameter("p_num"));
+
 		String pd_mid=session.getAttribute("m_id").toString();
 		
 		if(aDao.CheckPurchase(pu_pnum)!=0){//해당 프로젝트에 대한 결제가 있는지 체크
@@ -226,13 +229,11 @@ public class ClientManagement {
 			pd.setPd_punum(pd_punum);
 			List<Purchase_detail> pdList=null;
 			pdList=aDao.selectPurchase_detail(pd);//결제 내역 가져오기
-			
+			//pdList=aDao.selectPurchase_detail(pu_num);//결제 내역 가져오기
+
 			if(pdList!=null){//결제내역을 불러 오면
 				StringBuilder sb = new StringBuilder();
-				sb.append("<form action='goMyPageCI' name='MyPageCI' method='get'>");
-				sb.append("<table border='1' align='center'>");
-				sb.append("<tr><th>결제번호</th><th>결제내역 번호</th><th>결제종류</th><th>금액</th></tr>");
-				
+
 				for(int i=0; i<pdList.size(); i++){
 					System.out.println("ddddd");
 					Purchase_detail pd1=pdList.get(i);
@@ -241,10 +242,7 @@ public class ClientManagement {
 					sb.append("<td>"+pd1.getPd_catagory2()+"</td>");
 					sb.append("<td>"+pd1.getPd_money()+"</td></tr>");
 				}
-				sb.append("</table>");
-				sb.append("<br/><br/>");
-				sb.append("<input type='submit' value='마이페이지 가기'/>");
-				sb.append("</form>");
+				
 				System.out.println(sb);
 				mav.addObject("pdList", sb.toString());
 			}
@@ -265,8 +263,8 @@ public class ClientManagement {
 				e.printStackTrace();
 			}
 		}
-		}
-		
+	}
+
 	private void purchase() {
 		mav=new ModelAndView();
 		String view=null;
@@ -329,14 +327,14 @@ public class ClientManagement {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 		}else{
 			int pDelete=pDao.deleteProject(p_num);
 			System.out.println("확인합니다2:"+p_num);
 			view="redirect:goMyPageCI";
 			mav.setViewName(view);
 		}
-		}
+	}
 
 	private void pickMember() {//결제하기로
 		mav=new ModelAndView();
@@ -349,7 +347,7 @@ public class ClientManagement {
 		System.out.println(p_person);
 		int v_mid=vDao.getPerson(v_pnum);//지원자 수 받아오기
 		System.out.println(v_mid);
-		
+
 		if(aDao.Countpunum(v_pnum)!=0 || p_person > v_mid){//이미 결제가 되었는지 확인//그리고 프로젝트 인원에 맞게 지원했는지 확인
 			res.setCharacterEncoding("UTF-8");
 			res.setContentType("text/html; charset=UTF-8"); 
@@ -398,49 +396,50 @@ public class ClientManagement {
 		if(session!=null && session.getAttribute("m_id")!= "" && m_kind.equals("C")){
 			List<Project> plist=null;
 			//if(session!=null && session.getAttribute("m_id")!=null ){
-				//plist=pDao.getProjectList(session.getAttribute("m_id"));//합치면 이것으로
-				String m_id=session.getAttribute("m_id").toString();
-				plist=pDao.getProjectList2(m_id);
-				System.out.println(plist);
-				if(plist!=null){
-					StringBuilder sb = new StringBuilder();
-					
-					sb.append("<form id='showList' name='showList'>");
-					sb.append("<table border='1' align='center'>");
-					sb.append("<tr><th>번호</th><th>제목</th><th>지원자 수</th><th>상태</th></tr>");
-					for(int i=0; i<plist.size(); i++){
-						Project p=plist.get(i);
-						System.out.println("ddddd");
-						sb.append("<tr><td>"+p.getP_num()+"</td>");
-						sb.append("<td><a href='#contents_layer' onclick='articleView("+p.getP_num()+")'>"+p.getP_title()+"</a></td>");
-						sb.append("<td>"+p.getP_vol()+"</td>");
-						sb.append("<td>"+p.getP_status2()+"</td></tr>");
-						if(p.getP_status2().equals("대기중")){//대기중일때만 삭제버튼 보여줌
-							sb.append("<tr><td colspan=4><a href='deleteProject?p_num="+p.getP_num()+"'>"+"삭제"+"</a></td></tr>");
-						}
-						if(p.getP_vol()>=p.getP_person() && p.getP_status2().equals("대기중") ){
-							sb.append("<tr><td colspan=4><a href='payMent?p_num="+p.getP_num()+"'>"+"결제"+"</a></td></tr>");
-						}
-						if(p.getP_status2().equals("작업전") || p.getP_status2().equals("작업중") || p.getP_status2().equals("작업완료")
-								|| p.getP_status2().equals("결제완료")){//대기중이 아닐 때 만 삭제 버튼 보여 줌
-							sb.append("<tr><td colspan=4><a href='goClientPurchase?p_num="+p.getP_num()+"'>"+"결제내역"+"</a></td></tr>");
-						}
-						if(p.getP_status2().equals("작업완료")){
-							sb.append("<tr><td colspan=4><a href='payRequest?p_num="+p.getP_num()+"'>"+"결제신청"+"</a></td></tr>");
-						}
-						if(p.getP_status2().equals("결제완료")){
-							sb.append("<tr><td colspan=4><a href='goProjectEvalute?p_title="+p.getP_title()+"'>"+"평가"+"</a></td></tr>");
-						}
-						
+			//plist=pDao.getProjectList(session.getAttribute("m_id"));//합치면 이것으로
+			String m_id=session.getAttribute("m_id").toString();
+			plist=pDao.getProjectList2(m_id);
+			System.out.println(plist);
+			if(plist!=null){
+				StringBuilder sb = new StringBuilder();
+
+				sb.append("<form id='showList' name='showList'>");
+				sb.append("<table class='table table-responsive' align='center'>");
+				sb.append("<tr><th>번호</th><th>제목</th><th>지원자 수</th><th>상태</th></tr>");
+				for(int i=0; i<plist.size(); i++){
+					Project p=plist.get(i);
+					System.out.println("ddddd");
+					sb.append("<tr><td>"+p.getP_num()+"</td>");
+					sb.append("<td><a href='#contents_layer' onclick='articleView("+p.getP_num()+")'>"+p.getP_title()+"</a></td>");
+					sb.append("<td>"+p.getP_vol()+"</td>");
+					sb.append("<td>"+p.getP_status2()+"</td></tr>");
+					if(p.getP_status2().equals("대기중")){//대기중일때만 삭제버튼 보여줌
+						sb.append("<tr><td colspan=4><a href='deleteProject?p_num="+p.getP_num()+"' class='btn'>"+"삭제"+"</a></td></tr>");
 					}
-					sb.append("</table>");
-					sb.append("</form>");
-					mav.addObject("plist", sb.toString());
+					if(p.getP_vol()>=p.getP_person() && p.getP_status2().equals("대기중") ){
+						sb.append("<tr><td colspan=4><a href='payMent?p_num="+p.getP_num()+"' class='btn'>"+"결제"+"</a></td></tr>");
+					}
+					if(p.getP_status2().equals("작업전") || p.getP_status2().equals("작업중") || p.getP_status2().equals("작업완료")
+							|| p.getP_status2().equals("결제완료")){//대기중이 아닐 때 만 삭제 버튼 보여 줌
+						sb.append("<tr><td colspan=4><a href='goClientPurchase?p_num="+p.getP_num()+"' class='btn'>"+"결제내역"+"</a></td></tr>");
+					}
+					if(p.getP_status2().equals("작업완료")){
+						sb.append("<tr><td colspan=4><a href='payRequest?p_num="+p.getP_num()+"' class='btn'>"+"결제신청"+"</a></td></tr>");
+					}
+					if(p.getP_status2().equals("결제완료")){
+						sb.append("<tr><td colspan=4><a href='goProjectEvalute?p_num="+p.getP_num()+"' class='btn'>"+"평가"+"</a></td></tr>");
+					}
+
 				}
-				view="myPageCI";
-			}else{
-				view="home";
+				sb.append("</table>");
+				sb.append("</div>");
+				sb.append("</form>");
+				mav.addObject("plist", sb.toString());
 			}
+			view="myPageCI";
+		}else{
+			view="home";
+		}
 		mav.setViewName(view);
 	}
 
@@ -513,8 +512,9 @@ public class ClientManagement {
 	      if(check==1){
 	         UploadFile upload=new UploadFile();
 	         //서버에 파일을 업로드 한 뒤, 
-	         //오리지널 파일명, 시스템  파일명을 리턴 후 Map에 저장
-	         
+
+	         //오리지널 파일명, 시스템 파일명을 리턴 후 Map에 저장
+
 	         fMap=upload.fileUp(multi);
 
 	         System.out.println(fMap);
@@ -574,55 +574,49 @@ public class ClientManagement {
 	      mav.setViewName(view);
 	   }
 
-	private void purchase(Accounting ac) {
-		mav=new ModelAndView();
-		String view=null;
-		
-	}
-	
 	public ModelAndView execute(String mid, int cmd) {
-	      switch(cmd){
-	      case 1:
-	         goInsertEstimate(mid);
-	         break;
-	      default:
-	         break;
-	      }
-	      return mav;
-	   }
-	
+		switch(cmd){
+		case 1:
+			goInsertEstimate(mid);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+
 	private void goInsertEstimate(String mid) {
 		mav = new ModelAndView();
-		
+
 		String reciver_mid = req.getParameter("mid");
-		
+
 		mav.addObject("mid",reciver_mid);
 		mav.setViewName("estimate");
 	}
-	
+
 	public ModelAndView execute(String mid, String e_title, String e_content, int cmd) {
-	      switch(cmd){
-	      case 1:
-	         sendEstimate(mid,e_title,e_content);
-	         break;
-	      default:
-	         break;
-	      }
-	      return mav;
-	   }
-	
+		switch(cmd){
+		case 1:
+			sendEstimate(mid,e_title,e_content);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+
 	@Autowired
 	private JavaMailSenderImpl javaMailSenderImpl;
 	private void sendEstimate(String mid, String e_title, String e_content) {
 		mav = new ModelAndView();
-		
+
 		String sender = (String) session.getAttribute("m_id");
 		System.out.println("sender="+sender);
 		String reciver = req.getParameter("mid");
 		System.out.println("reciver="+reciver);
 		String title = req.getParameter("e_title");
 		String content = req.getParameter("e_content");
-		
+
 		String sendEmail = clDao.getSenderEmail(sender);
 		String reciveEmail = clDao.getReciverEmail(reciver);
 
@@ -637,7 +631,61 @@ public class ClientManagement {
 
 		mav.setViewName("main");
 	}
-	
-	   
-	   
+
+	public ModelAndView execute(int pnum, int cmd) {
+		switch(cmd){
+		case 1:
+			goProjectEvalute(pnum);
+			break;
+		case 2:
+			insertProjectEvaluate(pnum);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+
+
+	private void goProjectEvalute(int p_num) {
+		mav = new ModelAndView();
+
+		int pnum = Integer.parseInt(req.getParameter("p_num"));
+
+		mav.addObject("pnum", p_num);
+		System.out.println("pnum="+pnum);
+		mav.setViewName("projectEvaluate");
+
+	}
+
+	private void insertProjectEvaluate(int pnum) {
+		mav = new ModelAndView();
+
+		String mid = (String) session.getAttribute("m_id");
+		System.out.println("mid="+mid);
+		pnum = Integer.parseInt(req.getParameter("pnum"));
+		System.out.println("pnum="+pnum);
+		int escore = Integer.parseInt(req.getParameter("e_score"));
+		System.out.println("e_score="+escore);
+		String econtent = req.getParameter("e_content");
+		System.out.println("e_content="+econtent);
+
+		Evaluate eva = new Evaluate();
+		if(clDao.getEVCount() != 0){
+		eva.setE_num(clDao.getEVMaxNum()+1);
+		}else{
+			eva.setE_num(1);
+		}
+		eva.setE_mid(mid);
+		eva.setE_pnum(pnum);
+		eva.setE_score(escore);
+		eva.setE_content(econtent);
+
+		clDao.insertProjectEvaluate(eva);
+		mav.setViewName("home");
+
+	}
+
+
+
 }

@@ -125,6 +125,14 @@
 	<update id="StatusUpdate" parameterType="Integer">
 		update project set p_status=5 where p_num=#{p_num}
 	</update>
+	
+	<select id="getPperson" resultType="Integer" parameterType="Integer">
+		SELECT p_person FROM project where p_num=#{pnum}
+	</select>
+	
+	<update id="updateProStatus" parameterType="Integer">
+		update project set p_status=3 where p_num=#{pnum}
+	</update>
    
 	<update id="VolunteerUpdate" parameterType="String">
 		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM IN (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID =#{v_mid})
@@ -137,6 +145,14 @@
 	<update id="dropProjectVol" parameterType="Integer">
 		update project set p_vol=#{p_vol} where p_num=#{p_num}
 	</update>  
+	
+	<select id="getP_status" resultType="Integer" parameterType="Integer">
+		SELECT p_status FROM project where p_num=#{p_num}
+	</select>
+	
+	<select id="getOneStatus" resultType="Integer" parameterType="Integer">
+		SELECT p_status FROM project where p_num=#{pupnum}
+	</select>
 	 
 </mapper>
 

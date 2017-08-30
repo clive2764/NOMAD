@@ -137,4 +137,17 @@ public class ProjectDao {
 		return sqlSession.update("project.dropProjectVol",project);
 	}
 
+	public int updateProStatus(int pnum) {
+		return sqlSession.update("project.updateProStatus",pnum);
+		
+	}
+
+	public int getP_status(int p_num) {
+		return sqlSession.selectOne("project.getP_status",p_num);
+	}
+
+	public int getOneStatus(int pupnum) {
+		return sqlSession.selectOne("project.getOneStatus",pupnum);
+	}
+
 }

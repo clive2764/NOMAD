@@ -68,12 +68,7 @@ public class PmsController {
 		mav = pmm.execute(6);
 		return mav;
 	}
-	@RequestMapping(value = "/goProjectEvalute")//평가하러 가기
-	public ModelAndView goProjectEvalute(){
-		mav = pmm.execute(7);
-		return mav;
-	}
-	
+		
 	@RequestMapping(value = "/sendChat")
 	public @ResponseBody String sendChat(){
 		String jsonStr = pmm.executeAjax(2);

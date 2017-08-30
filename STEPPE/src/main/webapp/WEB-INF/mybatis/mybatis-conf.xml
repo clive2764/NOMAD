@@ -34,5 +34,7 @@
 		<typeAlias alias="client_mypage" type="com.steppe.nomad.bean.Client_mypage"/>
 		<typeAlias alias="project_bookmark" type="com.steppe.nomad.bean.Project_bookmark"/>
 		<typeAlias alias="project_pBookmark" type="com.steppe.nomad.bean.Project_pBookmark"/>
+		<typeAlias alias="verylike" type="com.steppe.nomad.bean.VeryLike"/>
+		<typeAlias alias="evaluate" type="com.steppe.nomad.bean.Evaluate"/>
 	</typeAliases> 
 </configuration> 

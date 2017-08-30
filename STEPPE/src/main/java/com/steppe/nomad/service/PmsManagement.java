@@ -60,20 +60,8 @@ public class PmsManagement {
 			goLiveChat();
 		}else if(code==6){
 			startChat();
-		}else if(code==7){//평가하러 가기
-			goProjectEvalute();
 		}
 		return mav;
-	}
-	private void goProjectEvalute() {//평가하러 가기
-		String view=null;
-		mav=new ModelAndView();
-		String p_title=request.getParameter("p_title").toString();
-	
-		mav.addObject("p_title", p_title);
-		view="projectEvaluate";
-		mav.setViewName(view);
-		
 	}
 
 	private void startChat() {
@@ -236,7 +224,7 @@ public class PmsManagement {
 		for(int i=0; i<chatList.size(); i++){
 			sb.append("[{\"value\": \""+chatList.get(i).getC_mid().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
 			sb.append("{\"value\": \""+chatList.get(i).getC_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
-			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(11, 13)+"\"}]");
+			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(0, 11)+"\"}]");
 			if(i != chatList.size()-1){
 				sb.append(",");
 			}

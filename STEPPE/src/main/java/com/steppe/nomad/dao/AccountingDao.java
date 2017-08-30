@@ -74,4 +74,9 @@ public class AccountingDao {
 	public List<Purchase_detail> getPurchaseListAr(int pd_punum) {
 		return sqlSession.selectList("purchase_detail.getPurchaseListAr", pd_punum);
 	}
+
+
+	public int InsertSales(Purchase_detail pd) {
+		return sqlSession.insert("purchase_detail.InsertSales",pd);
+	}
 }

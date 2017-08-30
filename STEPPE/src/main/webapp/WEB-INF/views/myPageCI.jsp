@@ -35,7 +35,7 @@
       				top:0;
       				left:0;
       				width:100%;
-      				height:100%;
+      				height:130%;
       				background:#000;
       				opacity:.5;
       				filter:alpha(opacity=50);
@@ -44,8 +44,8 @@
 
  			 #contents_layer { 
   					position:absolute;
-  					top:40%;
-  					left:40%;
+  					top:50%;
+  					left:50%;
     				width:400px;
     				height:400px;
     				margin:-150px 0 0 -194px;
@@ -58,21 +58,46 @@
     				line-height:normal;
     				white-space:normal;
     				overflow:scroll
-     			}
+     		}
+     		table {
+				text-align: center;
+				color: black;
+				margin: 0 auto;
+			}
+			
+			td,th {
+				text-align: center;
+				color: black;
+				padding: 3px;
+			}
+			
+						
+			.btn {
+				color: white;
+				margin-top: 0px;
+			}
+			
+			.btn:hover {
+				background-color: skyblue;
+				color: white;
+				margin-top: 0px;
+			}
+			
 		</style>
 	</head>
 	<body>
 		<jsp:include page="header.jsp" />
 		<!--메인페이지 영역-->
 		<div class="about">
-
-		<button id="showProcessAll" name="showProcessAll" onclick="location.href='./showProcessAll ' ">프로젝트 관리</button>
-		<button  id="pinsert" name="pinsert" onclick="location.href='./goAddProject' ">프로젝트 등록</button>
-		<button  id="updateUserInfo" name="updateUserInfo" onclick="location.href='./goUpdateUserInfo' ">회원정보 수정</button>
-		<button  id="deleteMember" name="deleteMember" onclick="location.href='./deleteMember' ">회원탈퇴</button>
-		<h2>프로젝트 목록</h2>
-		${plist}
-
+			<div class="container" style="height: -webkit-fill-available;" align="center">
+				<button id="showProcessAll" class="btn" name="showProcessAll" onclick="location.href='./showProcessAll ' ">프로젝트 관리</button>
+				<button  id="pinsert" class="btn" name="pinsert" onclick="location.href='./goAddProject' ">프로젝트 등록</button>
+				<button  id="updateUserInfo" class="btn" name="updateUserInfo" onclick="location.href='./goUpdateUserInfo' ">회원정보 수정</button>
+				<button  id="deleteMember" class="btn" name="deleteMember" onclick="location.href='./deleteMember' ">회원탈퇴</button>
+				<h2>프로젝트 목록</h2>
+				${plist}
+	
+			</div>
 		</div>
 		<hr>
 		<div class="row"></div>
