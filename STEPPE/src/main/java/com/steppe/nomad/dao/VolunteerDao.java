@@ -50,10 +50,7 @@ public class VolunteerDao {
 		return sqlSession.selectOne("volunteer.getVolunteerMaxNum");
 	}
 	
-	public int updateBid(int v_bid,String m_id){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("v_bid", v_bid);
-		map.put("v_mid", m_id);
-		return sqlSession.update("volunteer.updateBid",map);
+	public int updateBid(Volunteer volunteer){
+		return sqlSession.update("volunteer.updateBid",volunteer);
 	}
 }

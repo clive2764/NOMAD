@@ -94,12 +94,12 @@ input {
       </form>
       <table>
 			<tr align="center" height="25">
-				<td width="200">사용언어</td>
-				<td width="200">등급</td>
-				<td width="200">경력기간</td>
+				<td width="130">사용언어</td>
+				<td width="320">등급</td>
+				<td width="300">경력기간</td>
 			</tr>
 		</table>
-		<table id="skTable">
+		<table id="skTable" style="width: 100%;">
 			<c:forEach var="skill" items="${sklist}">
 				<tr align="center" height="25">
 					<td width="200">${data[i].sk_name}</td>
@@ -156,10 +156,10 @@ input {
             console.log(data); //json 구조파악
             for(var i=0;i<data.length;i++){
                sklist+='<tr height="25" align="center">'
-               +'<td width="200">'+data[i].sk_name+'</td>'
-               +'<td width="200">'+data[i].sk_grade+'</td>'
-               +'<td width="200">'+data[i].sk_career+'</td>'
-               +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
+               +'<td width="130">'+data[i].sk_name+'</td>'
+               +'<td width="320">'+data[i].sk_grade+'</td>'
+               +'<td width="300">'+data[i].sk_career+'</td>'
+               +"<td style='text-align:right;'><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
          $('#skTable').html(sklist);
          },
@@ -181,10 +181,10 @@ input {
             console.log(data); //json 구조파악
             for(var i=0;i<data.length;i++){
                sklist+='<tr height="25" align="center">'
-               +'<td width="200">'+data[i].sk_name+'</td>'
-               +'<td width="200">'+data[i].sk_grade+'</td>'
-               +'<td width="200">'+data[i].sk_career+'</td>'
-                +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
+               +'<td width="130">'+data[i].sk_name+'</td>'
+               +'<td width="320">'+data[i].sk_grade+'</td>'
+               +'<td width="300">'+data[i].sk_career+'</td>'
+               +"<td style='text-align:right;'><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
          $('#skTable').html(sklist);
          },
@@ -208,9 +208,9 @@ input {
             console.log(data); //json 구조파악
             for(var i=0;i<data.length;i++){
                sklist+='<tr height="25" align="center">'
-               +'<td width="200">'+data[i].sk_name+'</td>'
-               +'<td width="200">'+data[i].sk_grade+'</td>'
-               +'<td width="200">'+data[i].sk_career+'</td>'
+               +'<td width="130">'+data[i].sk_name+'</td>'
+               +'<td width="320">'+data[i].sk_grade+'</td>'
+               +'<td width="300">'+data[i].sk_career+'</td>'
                +"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
          $('#skTable').html(sklist);

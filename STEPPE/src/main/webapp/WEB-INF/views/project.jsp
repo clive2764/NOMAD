@@ -61,8 +61,13 @@
 		<!--메인페이지 영역-->
 		
 			<div class="about">
-			
+				<div>
+					<a href="developList"><input type="button" id=btn1 value="개발 보기"/></a>
+					<a href="designList"><input type="button" id=btn2 value="디자인 보기"/></a>
+				</div>
 				${plist}
+				${plist2}
+				${plist3}
 				<c:set var="m_kind" value="${m_kind}" />
 				<c:if test="${m_kind eq 'C'}">
 					<a href="goAddProject"><input type="button" id="insertBtn" value="프로젝트 등록"/></a>
@@ -84,16 +89,14 @@
 		<script>wow = new WOW({}).init();</script>
 	
 	</body>
-	<script>
-		$("#searchBtn").click(function(){
-			var keyword=$("#keyword").val();
-			if(keyword==null || keyword==""){
-				alert("검색어를 입력하시오");
-			}
-			else{
-				$("#search").submit();
-			}
-		});
-	
-	</script>
+<script>
+	$("#searchBtn").click(function() {
+		var keyword = $("#keyword").val();
+		if (keyword == null || keyword == "") {
+			alert("검색어를 입력하시오");
+		} else {
+			$("#search").submit();
+		}
+	});
+</script>
 </html>

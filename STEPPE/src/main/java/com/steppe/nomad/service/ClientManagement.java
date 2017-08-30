@@ -446,6 +446,9 @@ public class ClientManagement {
 		String p_plnum0=multi.getParameter("p_plnum0");
 		String p_plnum1=multi.getParameter("p_plnum1");
 		String p_plnum2=multi.getParameter("p_plnum2");
+		System.out.println(p_plnum0);
+		System.out.println(p_plnum1);
+		System.out.println(p_plnum2);
 		int p_person=Integer.parseInt(multi.getParameter("p_person"));
 		System.out.println("check="+check);//1이면 첨부됨
 		Map<String, Object> fMap=new HashMap<String, Object>();

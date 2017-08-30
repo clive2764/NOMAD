@@ -298,8 +298,6 @@ public class FreelancerManagement {
 		String view = null;
 		mav =new ModelAndView();
 		int v_pnum = Integer.parseInt(req.getParameter("v_pnum"));
-		int v_num = v_pnum;
-		int p_num = v_num;
 		int v_bid = Integer.parseInt(req.getParameter("v_bid"));
 		String m_id = (String) ss.getAttribute("m_id");
 		volunteer.setV_num(vDao.getVolunteerMaxNum()+1);
@@ -307,18 +305,19 @@ public class FreelancerManagement {
 		volunteer.setV_pnum(Integer.parseInt(req.getParameter("v_pnum")));
 		volunteer.setV_mid(m_id);
 		volunteer.setV_bid(Integer.parseInt(req.getParameter("v_bid")));
-		System.out.println(v_num);
 		if(ss!=null && ss.getAttribute("m_id")!=null){
 			System.out.println(vDao.checkVolunteerList(volunteer));
 			if(vDao.checkVolunteerList(volunteer)==0){
 					System.out.println(volunteer.getV_bid());
 					vDao.insertVolunteer(volunteer);
 					System.out.println("실행확인1");
-					pDao.VolunteerUpdate(m_id);
+					pDao.VolunteerUpdate(v_pnum,m_id);
 					System.out.println("실행확인2");
 					mav.setViewName("redirect:goProjectDetail?p_num="+v_pnum);
 				}else if(vDao.checkVolunteerList(volunteer)>0){
-				vDao.updateBid(v_bid,m_id);
+					System.out.println("얍");
+				vDao.updateBid(volunteer);
+				System.out.println("완료?");
 				mav.setViewName("redirect:goProjectDetail?p_num="+v_pnum);
 			}
 		}

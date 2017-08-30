@@ -112,8 +112,11 @@ public class ProjectDao {
 		return sqlSession.update("project.StatusUpdate",p_num);
 	}
 	
-	public int VolunteerUpdate(String m_id) {
-		return sqlSession.update("project.VolunteerUpdate",m_id);
+	public int VolunteerUpdate(int v_pnum,String m_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("v_pnum", v_pnum);
+		map.put("m_id", m_id);
+		return sqlSession.update("project.VolunteerUpdate",map);
 	}
 	
 	public List<Project> getWaitProjectList(String p_mid) {

@@ -55,7 +55,7 @@
 	
 	<insert id="insertProject" parameterType = "Map">
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
-      							,#{sysFileName},#{p_deadline},#{p_plnum0},#{p_person}, #{p_status}, #{p_plnum1}, #{p_plnum2},default)
+      							,#{sysFileName},#{p_deadline},#{p_plnum0}, #{p_plnum1}, #{p_plnum2},#{p_person}, #{p_status},default)
    </insert>
    
     <select id="getProjectList2" resultType="project" parameterType="String">
@@ -105,7 +105,7 @@
 	</select>
 	
 	<select id="getDesignList" resultType="project">
-		select * from project where p_pc1name = '디자인' ORDER BY P_NUM
+		select * from project where p_pc1name = '디자인' ORDER BY P_NU
 	</select>
 	<select id="getSearchResult" parameterType="String" resultType="project">
 	SELECT * FROM PROJECT WHERE P_MID LIKE '%'||#{keyword}||'%' OR
@@ -126,8 +126,8 @@
 		update project set p_status=5 where p_num=#{p_num}
 	</update>
    
-	<update id="VolunteerUpdate" parameterType="String">
-		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM IN (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID =#{v_mid})
+	<update id="VolunteerUpdate" parameterType="Map">
+		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM = (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID = #{m_id} AND V_PNUM = #{v_pnum})
 	</update>
 	   
 	<select id="getWaitProjectList" resultType="project" parameterType="String">

@@ -38,7 +38,7 @@
 		INSERT INTO VOLUNTEER VALUES(#{v_num},0,#{v_pnum},#{v_mid},#{v_bid},DEFAULT)
 	</insert>
 	
-	<update id="updateBid" parameterType="Map">
-		UPDATE VOLUNTEER SET V_BID = #{v_bid} WHERE V_MID = #{v_mid}
+	<update id="updateBid" parameterType="volunteer">
+		UPDATE VOLUNTEER SET V_BID = #{v_bid} WHERE V_MID = #{v_mid} AND V_PNUM = #{v_pnum}
 	</update>
 </mapper>

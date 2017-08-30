@@ -20,6 +20,7 @@ public class Project {
 	private String p_status2;
 	private int p_vol;
 	
+	
 	public int getP_num() {
 		return p_num;
 	}

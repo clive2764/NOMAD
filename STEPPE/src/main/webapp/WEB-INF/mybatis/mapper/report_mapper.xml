@@ -35,4 +35,10 @@
 	<delete id="deleteReply" parameterType="Integer">
 		DELETE FROM REPLY WHERE R_NUM=#{r_num}
 	</delete>
+	<select id="getProjectList3" resultType="project">
+		SELECT * FROM PROJECT WHERE P_PC1NAME = '개발' ORDER BY P_NUM ASC
+	</select>
+	<select id="getProjectList4" resultType="project">
+		SELECT * FROM PROJECT WHERE P_PC1NAME = '디자인' ORDER BY P_NUM ASC
+	</select>
 </mapper>
