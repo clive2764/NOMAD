@@ -41,6 +41,7 @@
 	 <select id="getPu_num" resultType="Integer" parameterType = "Integer">
 	  select pu_num from purchase where pu_pnum=#{pu_pnum}
 	</select>
+	
 	<update id="purchaseComplate" parameterType="accounting">
 		UPDATE purchase_detail SET pd_num = #{pd_num}, pd_punum = #{pd_punum}, pd_mid = #{pd_mid}, pd_money = #{pd_money}, pd_catagory = #{pd_catagory}  WHERE pd_punum = #{pnum}
 	</update>
@@ -53,4 +54,8 @@
 	<insert id="purchaseHold" parameterType="accounting">
 		INSERT INTO purchase_detail VALUES(#{pd_num},#{pd_punum},'admin',#{pd_money},'H')
 	</insert>
+	
+	<select id="getHoldMoney" resultType="accounting" parameterType = "Integer">
+	  select * from purchase p inner join purchase_detail where pu_pnum=#{pnum} AND pd_catagory='H'
+	</select>
 </mapper>

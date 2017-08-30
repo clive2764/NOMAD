@@ -79,4 +79,8 @@ public class AdminDao {
 		
 	}
 
+	public Accounting getHoldMoney(int pnum) {
+		return sqlSession.selectOne("notice.getHoldMoney",pnum);
+	}
+
 }

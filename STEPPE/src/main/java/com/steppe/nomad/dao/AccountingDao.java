@@ -61,7 +61,22 @@ public class AccountingDao {
 		return sqlSession.selectOne("accounting.getPu_num", pu_pnum);
 	}
 
-	public List<Purchase_detail> selectPurchase_detail(int pu_num) {
-		return sqlSession.selectList("purchase_detail.selectPurchase_detail", pu_num);
+	public List<Purchase_detail> selectPurchase_detail(Purchase_detail pd) {
+		return sqlSession.selectList("purchase_detail.selectPurchase_detail", pd);
+	}
+
+
+	public List<Purchase_detail> getPurchaseListFr(int pd_punum) {
+		return sqlSession.selectList("purchase_detail.getPurchaseListFr", pd_punum);
+	}
+
+
+	public List<Purchase_detail> getPurchaseListAr(int pd_punum) {
+		return sqlSession.selectList("purchase_detail.getPurchaseListAr", pd_punum);
+	}
+
+
+	public int InsertSales(Purchase_detail pd) {
+		return sqlSession.insert("purchase_detail.InsertSales",pd);
 	}
 }

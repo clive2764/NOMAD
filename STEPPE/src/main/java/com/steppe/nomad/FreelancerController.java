@@ -159,6 +159,13 @@ public class FreelancerController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/getCashflow")//현금흐름 보기
+	public ModelAndView getCashflow() {
+		System.out.println("getCashflow");
+		mav = fm.getCashflow();
+		return mav;
+	}
+	
 	//프리랜서 검색
 	@RequestMapping(value ="/searchKeywordFr")
 	public ModelAndView searchFreelancer(){
@@ -167,6 +174,13 @@ public class FreelancerController {
 		return mav;
 	}
 	
+	//지원 취소
+		@RequestMapping(value ="/goVolunteerdelete")
+		public ModelAndView goVolunteerdelete(){
+			mav=new ModelAndView();
+			mav=fm.deleteVolunteer();
+			return mav;
+		}
 	@RequestMapping(value = "/portView", method = RequestMethod.GET)
 	public ModelAndView portView() {
 		//DB에서 게시판 리스트를 가져옴

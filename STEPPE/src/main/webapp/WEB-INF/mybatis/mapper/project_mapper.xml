@@ -64,7 +64,7 @@
     </select>
  
  	<update id="UpdateProject" parameterType="Integer">
-  	 update project set p_status=1 where p_num = #{v_pnum}
+  	 update project set p_status=2 where p_num = #{v_pnum}
     </update>
     
     <select id="checkedProject" parameterType="Integer" resultType="Integer">
@@ -125,6 +125,14 @@
 	<update id="StatusUpdate" parameterType="Integer">
 		update project set p_status=5 where p_num=#{p_num}
 	</update>
+
+	<select id="getPperson" resultType="Integer" parameterType="Integer">
+		SELECT p_person FROM project where p_num=#{pnum}
+	</select>
+	
+	<update id="updateProStatus" parameterType="Integer">
+		update project set p_status=3 where p_num=#{pnum}
+	</update>
    
 	<update id="VolunteerUpdate" parameterType="Map">
 		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM = (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID = #{m_id} AND V_PNUM = #{v_pnum})
@@ -134,26 +142,20 @@
 		SELECT * FROM PROJECT INNER JOIN PROJECT_BOOKMARK ON P_NUM = PB_NUM WHERE PB_FLAG = 1 AND PB_ID = #{p_mid}
 	</select>
 	   
-	<select id="getWaitProjectList" resultType="project" parameterType="String">
-		SELECT * FROM PROJECT WHERE P_STATUS = 1 AND P_MID = #{p_mid}
+	<select id="getProjectMaxVol" resultType="Integer" parameterType="Integer">
+		SELECT NVL(MAX(p_vol),0) FROM project where p_num=#{p_num}
+	</select>
+	 
+	<update id="dropProjectVol" parameterType="Integer">
+		update project set p_vol=#{p_vol} where p_num=#{p_num}
+	</update>  
+	
+	<select id="getP_status" resultType="Integer" parameterType="Integer">
+		SELECT p_status FROM project where p_num=#{p_num}
 	</select>
 	
-	<select id="getOnGoingProjectList" resultType="project" parameterType="String">
-		SELECT * FROM PROJECT WHERE P_STATUS = 3 AND P_MID = #{p_mid}
+	<select id="getOneStatus" resultType="Integer" parameterType="Integer">
+		SELECT p_status FROM project where p_num=#{pupnum}
 	</select>
-	
-	<select id="getCompleteProjectList" resultType="project" parameterType="String">
-		SELECT * FROM PROJECT WHERE P_STATUS = 6 AND P_MID = #{p_mid}
-	</select>
-	   
-
-	<select id="getPperson" resultType="Integer" parameterType="Integer">
-		SELECT p_person FROM project where p_num=#{pnum}
-	</select>
-	
-	<update id="updateProStatus" parameterType="Integer">
-		update project set p_status=3 where p_num=#{pnum}
-	</update>
-
 </mapper>
 

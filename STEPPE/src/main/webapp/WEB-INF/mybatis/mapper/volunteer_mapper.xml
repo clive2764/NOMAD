@@ -30,6 +30,10 @@
 		select Count(v_mid) from volunteer where v_pnum=#{v_pnum}
 	</select>
 	
+	<select id="getVolunteerList" resultType="volunteer" parameterType="Integer">
+		select * from volunteer where v_pnum=#{v_pnum}
+	</select>
+	
 	<select id="getVolunteerMaxNum" resultType="Integer">
 		SELECT NVL(MAX(V_NUM),0) FROM VOLUNTEER
 	</select>
@@ -41,8 +45,9 @@
 	<update id="updateBid" parameterType="volunteer">
 		UPDATE VOLUNTEER SET V_BID = #{v_bid} WHERE V_MID = #{v_mid} AND V_PNUM = #{v_pnum}
 	</update>
-	<select id="getVolunteerList" resultType="volunteer" parameterType="Integer">
-		select * from volunteer where v_pnum=#{v_pnum}
-	</select>
-	
+
+	<delete id="deleteVolunteer" parameterType="volunteer">
+		DELETE FROM volunteer WHERE v_pnum = #{v_pnum} AND v_mid = #{v_mid}
+	</delete>
+
 </mapper>
