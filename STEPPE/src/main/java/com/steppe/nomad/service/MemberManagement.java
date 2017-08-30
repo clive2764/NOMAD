@@ -238,7 +238,7 @@ public class MemberManagement {
 			System.out.println("세션 제거 완료");
 			System.out.println(session.getAttribute("m_id"));
 		}	
-		view = "home";
+		view = "redirect:/";
 		mav.setViewName(view);
 		
 	}
@@ -295,8 +295,11 @@ public class MemberManagement {
 	            mav.setViewName("login");
 	         }
 
-
-	      }   
+	      } 
+	      if(!m_pass.equals(passC)){
+	    	  mav.addObject("msg","아이디 혹은 비밀번호가 일치하지않습니다.");
+	    	  mav.setViewName("login");
+	      }
 	      return mav;
 	   }
 	@Autowired

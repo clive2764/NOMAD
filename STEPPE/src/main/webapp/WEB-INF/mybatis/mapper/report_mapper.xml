@@ -11,9 +11,8 @@
 	<select id="getReportList" resultType="report">
 		SELECT * FROM REPORT ORDER BY R_NUM ASC
 	</select>
-	<select id="getProjectList" resultType="Project">
-		<!-- SELECT * FROM PROJECT p INNER JOIN project_bookmark pb ON p.p_num = pb.pb_pnum -->
-		SELECT * FROM PROJECT
+	<select id="getProjectList" resultType="project">
+		SELECT * FROM PROJECT ORDER BY P_NUM DESC
 	</select>
 	<select id="getProjectDetail" parameterType="int" resultType="project">
 		SELECT * FROM PROJECT WHERE P_NUM=#{p_num}
@@ -36,4 +35,11 @@
 	<delete id="deleteReply" parameterType="Integer">
 		DELETE FROM REPLY WHERE R_NUM=#{r_num}
 	</delete>
+	<select id="getHomeProjectList" resultType="project">
+		SELECT * FROM PROJECT ORDER BY P_NUM ASC
+	</select>
+	<select id="getHomeFreelancerList" resultType="member">
+		SELECT * FROM MLIST WHERE M_KIND='F' ORDER BY M_ID DESC
+	</select>
+	
 </mapper>

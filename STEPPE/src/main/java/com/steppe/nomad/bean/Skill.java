@@ -6,7 +6,14 @@ private String m_id;
 private String sk_name;
 private String sk_grade;
 private String sk_career;
+private String sk_mid;
 
+public String getSk_mid() {
+	return sk_mid;
+}
+public void setSk_mid(String sk_mid) {
+	this.sk_mid = sk_mid;
+}
 public int getSk_num() {
 	return sk_num;
 }

@@ -111,7 +111,14 @@ public class ProjectDao {
 	public int StatusUpdate(int p_num) {
 		return sqlSession.update("project.StatusUpdate",p_num);
 	}
+
 	public List<Project> getBookmarkList(){
 		return sqlSession.selectList("project.getBookmarkList");
 	}
+
+	public int updateProStatus(int pnum) {
+		return sqlSession.update("project.updateProStatus",pnum);
+		
+	}
+
 }

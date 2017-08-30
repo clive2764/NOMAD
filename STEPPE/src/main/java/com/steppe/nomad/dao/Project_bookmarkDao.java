@@ -17,6 +17,9 @@ public class Project_bookmarkDao {
 	public int bookmarkInsert(Map<String, String> bmMap){
 		return sqlSession.insert("project_bookmark.bookmarkInsert", bmMap);
 	}
+	public List<Project_bookmark> allBookmarkList(){
+		return sqlSession.selectList("project_bookmark.allBookmarkList");
+	}
 	public List<Project_bookmark> bookmarkList(String mid){
 		return sqlSession.selectList("project_bookmark.bookmarkList", mid);
 	}
@@ -34,5 +37,8 @@ public class Project_bookmarkDao {
 	}
 	public int bookmarkMaxNum(){
 		return sqlSession.selectOne("project_bookmark.bookmarkMaxNum");
+	}
+	public Project_bookmark bookmarkSelect(Map<String, String> map) {
+		return sqlSession.selectOne("project_bookmark.bookmarkSelect", map);
 	}
 }

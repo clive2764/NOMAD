@@ -13,11 +13,12 @@
 	</select>	
 	
 	<select id="getPurchaseList" parameterType = "Integer" resultType="accounting" >
-		select * from purchase order by pu_num
+		select * from purchase inner join purchase_detail on purchase.PU_NUM = purchase_detail.PD_PUNUM order by pd_num
 	</select>
 	
 	<select id="getPurchaseDList" parameterType = "Integer" resultType="accounting" >
 		select * from purchase_detail where pd_punum = #{pd_punum} order by pd_num
+		<!-- select * from purchase inner join purchase_detail on purchase.PU_NUM = purchase_detail.PD_PUNUM where pd_punum = #{pd_punum} order by pd_num -->
 	</select>	
 	<select id="getPurchaseCount" resultType="Integer">
 		SELECT COUNT(*) FROM PRLIST
@@ -40,4 +41,16 @@
 	 <select id="getPu_num" resultType="Integer" parameterType = "Integer">
 	  select pu_num from purchase where pu_pnum=#{pu_pnum}
 	</select>
+	<update id="purchaseComplate" parameterType="accounting">
+		UPDATE purchase_detail SET pd_num = #{pd_num}, pd_punum = #{pd_punum}, pd_mid = #{pd_mid}, pd_money = #{pd_money}, pd_catagory = #{pd_catagory}  WHERE pd_punum = #{pnum}
+	</update>
+	<insert id="purchaseCommission" parameterType="accounting">
+		INSERT INTO purchase_detail VALUES(#{pd_num},#{pd_punum},'admin',#{pd_money},'C')
+	</insert>
+	<insert id="purchaseDeposit" parameterType="accounting">
+		INSERT INTO purchase_detail VALUES(#{pd_num},#{pd_punum},'admin',#{pd_money},'D')
+	</insert>
+	<insert id="purchaseHold" parameterType="accounting">
+		INSERT INTO purchase_detail VALUES(#{pd_num},#{pd_punum},'admin',#{pd_money},'H')
+	</insert>
 </mapper>

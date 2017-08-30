@@ -14,45 +14,42 @@
 		<link rel="stylesheet" href="resources/css/animate.css">
 		<link href="resources/css/animate.min.css" rel="stylesheet">
 		<link href="resources/css/style.css" rel="stylesheet" />
-		<!-- =======================================================
-		        Theme Name: Day
-		        Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
-		        Author: BootstrapMade
-		        Author URL: https://bootstrapmade.com
-		    ======================================================= -->
 		<style>
-		.thumbnail img {
-			width: 100%;
-		}
-		input{
-			color: black;
-			border-radius: 5px;
-			border:1px solid grey;
-		}
-		input#searchBtn {
-			width:75px;
-		   	background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-		}
-		input#insertBtn{
-			background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-		   	float: right;
-		}
+			.thumbnail img {
+				width: 100%;
+			}
+			
+			input {
+				color: black;
+				border-radius: 5px;
+				border: 1px solid grey;
+			}
+			
+			input#searchBtn {
+				width: 75px;
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+			}
+			
+			input#insertBtn {
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+				float: right;
+			}
 		</style>
 	</head>
 	<body>
@@ -79,7 +76,7 @@
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="resources/js/jquery-3.2.1.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="resources/js/bootstrap.min.js"></script>
+		<!-- <script src="resources/js/bootstrap.min.js"></script> -->
 		<script src="resources/js/wow.min.js"></script>
 		<script>wow = new WOW({}).init();</script>
 	
@@ -96,20 +93,24 @@
 		});
 		function bookmarkOn(num){
 			var bmNum = num;
-			alert(bmNum);
+			//alert(bmNum);
+			
 			$.ajax({
 				type:'post',
 				url: 'bookmarkOnOff',
 				data: {bmNum:bmNum},
 				success: function(data){
 					console.log(data);
-					if(data > 0){
-						$("#bookmarkImg").attr("src","resources/img/on.png");							
+					if(data != 0){
+						$("#bookmarkImg"+num).attr("src","resources/img/on.png");							
 					}else{
-						$("#bookmarkImg").attr("src","resources/img/off.png");
+						$("#bookmarkImg"+num).attr("src","resources/img/off.png");
 					}
 				}
 			});
+		}
+		function bookmarkOff(num){
+			alert(num);
 		}
 	</script>
 </html>

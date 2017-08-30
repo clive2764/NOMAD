@@ -85,4 +85,5 @@ public class Reportcontroller {
 		String jsonStr = rm.bookmarkOnOff();
 		return jsonStr;
 	}
+
 }

@@ -13,52 +13,25 @@
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
 	<link href="resources/css/style.css" rel="stylesheet" />
+	<link href="resources/css/login.css" rel="stylesheet"/>
 	<script src="http://code.jquery.com/jquery-3.2.1.js"></script>	
-    <!-- =======================================================
-        Theme Name: Day
-        Theme URL: https://bootstrapmade.com/day-multipurpose-html-template-for-free/
-        Author: BootstrapMade
-        Author URL: https://bootstrapmade.com
-    ======================================================= -->
-    <style>
-        .navbar-header{
-            /*background-color: dimgrey;*/
-        }  
-        
-        
-        table{
-        	width: 300px;
-        	/* text-align: center; */
-        	margin:0 auto;
-        	color: black;
-        	
-        }
-        td{
-        	text-align: center;
-        	padding: 3px;
-        }
-        input{
-        	color: black;
-        	width: 250px; 
-        }
-        .btn{
-        	color: white;
-        	margin-top: 0px;
-        	width: 125px;
-        }
-        .btn:hover{
-        	background-color:skyblue;
-        	color: white;
-        	margin-top: 0px;
-        }
-    </style>
   </head>
   <body>
     <jsp:include page="header.jsp" />
     <div class="about">
-		<div class="container">
+		<div class="container" style="height:-webkit-fill-available;">
 			<form action="access" method="post">
-				<table>
+				
+				<div class="logo"></div>
+				<div class="login-block">
+					<h1>Login</h1>
+					<input type="text" name="m_id" id="username" placeholder="아이디"/>
+					<input type="password" name="m_pw" id="password" placeholder="비밀번호"/>
+					<input type="submit" class="btn" value="로그인"/>
+					<input type="button" name="findInfo" onClick="location.href='./goFindInfo'"  class="btn" value="내정보 찾기"/>
+					
+				</div>
+				<!-- <table>
 					<tr>
 						<td align="center">로그인</td>
 					</tr>
@@ -77,17 +50,13 @@
 						</td>
 					</tr>
 									
-				</table>
+				</table> -->
 			</form>
+			
         </div>
+    	<jsp:include page="footer.jsp" />
     </div>
-	<hr>
     
-    <div class="row"></div>
-    
-    <jsp:include page="footer.jsp" />
-      
-      
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="resources/js/bootstrap.min.js"></script>	

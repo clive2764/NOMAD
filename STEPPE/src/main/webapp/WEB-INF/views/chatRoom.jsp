@@ -38,7 +38,7 @@
 			success: function(data){
 				//alert('parsed');
 				if(data == ""){return;}
-				alert(data);
+				//alert(data);
 				var parsed = JSON.parse(data);
 				var result = parsed.result;
 				//alert('parsed2');
@@ -51,7 +51,7 @@
 				lastID = Number(parsed.last);
 			},
 			error : function(error){
-				alert('에러');
+				//alert('에러');
 				console.log(error);
 			}
 		});
@@ -60,8 +60,8 @@
 	function addChat(chatName, chatContent, chatTime){
 		$('#chatList').append('<div class="row" style="width: auto;">'+
 				'<div class="col-lg-12" style="width: auto;">'+
-				'<div class="media-body" style="width: 800;">'+
-				'<h4 class="media-heading" style="width: auto;">'+
+				'<div class="media-body" style="width: 800px;">'+
+				'<h4 class="media-heading">'+
 				chatName +
 				'<span class="small pull-right" style="text-align: right;">'+
 				chatTime +

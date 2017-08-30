@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.steppe.nomad.bean.Member;
+import com.steppe.nomad.bean.Portfolio;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Project_pBookmark;
 import com.steppe.nomad.bean.Reply;
@@ -72,6 +74,18 @@ public class ReportDao {
 		
 		return sqlSession.delete("report.deleteReply", r_num);
 		
+	}
+
+	public List<Project> getHomeProjectList() {
+		return sqlSession.selectList("report.getHomeProjectList");
+	}
+
+	public List<Member> getHomeFreelancerList() {
+		return sqlSession.selectList("report.getHomeFreelancerList");
+	}
+
+	public List<Portfolio> getPortfolioview(String pt_sysname) {
+		return sqlSession.selectList("Portfolio.getPortfolioview",pt_sysname);
 	}
 
 }

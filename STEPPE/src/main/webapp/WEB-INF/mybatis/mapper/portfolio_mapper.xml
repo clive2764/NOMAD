@@ -33,4 +33,10 @@
 	<delete id="deletePortfolio" parameterType="portfolio">
 		DELETE FROM PORTFOLIO WHERE PF_NUM = #{pf_num}
 	</delete>
+	<select id="getPortfolioView" parameterType="String" resultType="portfolio">
+		SELECT * FROM PORTLIST WHERE PF_MID=#{m_id}
+	</select>
+	<select id="getPortfolioview" parameterType="String" resultType="portfolio">
+		SELECT * FROM PORTLIST WHERE PT_SYSNAME=#{pt_sysname}
+	</select>
 </mapper>

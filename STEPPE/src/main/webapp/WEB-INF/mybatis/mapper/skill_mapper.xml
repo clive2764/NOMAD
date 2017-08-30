@@ -17,4 +17,8 @@
 	<delete id="deleteSkill" parameterType="skill">
 		DELETE FROM SKILL WHERE SK_NUM = #{sk_num}
 	</delete>
+	
+	<select id="getSkill" parameterType="String" resultType="skill">
+		SELECT * FROM SKILL WHERE SK_MID=#{m_id}
+	</select>
 </mapper>

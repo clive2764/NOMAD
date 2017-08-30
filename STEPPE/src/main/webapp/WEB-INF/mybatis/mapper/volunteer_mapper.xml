@@ -25,4 +25,9 @@
 	<select id="getPerson" resultType="Integer" parameterType="Integer">
 		select Count(v_mid) from volunteer where v_pnum=#{v_pnum}
 	</select>
+	
+	<select id="getVolunteerList" resultType="volunteer" parameterType="Integer">
+		select * from volunteer where v_pnum=#{v_pnum}
+	</select>
+	
 </mapper>
