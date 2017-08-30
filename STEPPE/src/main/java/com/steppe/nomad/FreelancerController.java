@@ -35,8 +35,8 @@ public class FreelancerController {
 	@RequestMapping(value = "/goMyProfile")
 	public ModelAndView goMyProfile() {
 		mav = new ModelAndView();
-		mav.setViewName("profile");
-		return mav;
+		mav = fm.executeProfile(1);
+	      return mav;
 	}
 	
 	@RequestMapping(value = "/goMySkill")
@@ -164,6 +164,15 @@ public class FreelancerController {
 	public ModelAndView searchFreelancer(){
 		mav=new ModelAndView();
 		mav=fm.searchFreelancer();
+		return mav;
+	}
+	
+	@RequestMapping(value = "/portView", method = RequestMethod.GET)
+	public ModelAndView portView() {
+		//DB에서 게시판 리스트를 가져옴
+		System.out.println("portView");
+		mav=new ModelAndView();
+		mav=fm.LightBox(1);
 		return mav;
 	}
 

@@ -20,9 +20,6 @@
          body{
             padding-top: 0px;
          }
-         .about{
-            height: -webkit-fill-available;
-         }
          input{
             color: black;
          }

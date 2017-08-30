@@ -68,12 +68,13 @@ public class PmsController {
 		mav = pmm.execute(6);
 		return mav;
 	}
+		
 	@RequestMapping(value = "/sendChat")
 	public @ResponseBody String sendChat(){
 		String jsonStr = pmm.executeAjax(2);
 		return jsonStr;
 	}
-	@RequestMapping(value = "/chatList")
+	@RequestMapping(value = "/chatList", produces = "application/text; charset=utf8")
 	public @ResponseBody String chatList(){
 		String jsonStr = pmm.executeAjax(3);
 		return jsonStr;

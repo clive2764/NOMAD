@@ -14,60 +14,8 @@
 	<link rel="stylesheet" href="resources/css/animate.css">
 	<link href="resources/css/animate.min.css" rel="stylesheet"> 
 	<link href="resources/css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="resources/css/projectDetail.css"/>
     <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
-	<style>
-		.about{
-			padding-bottom: 0px;
-		}
-        table{
-            color: black;
-        }
-       	textarea{
-       		resize: none;
-       		white-space: pre-line;
-       	}
-       	#priceForm{
-       		margin-bottom:50px;
-       	}
-       	input{
-       		color:black;
-       	}
-       	input#check{
-       		background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-       	}
-       	input#replyInsert,input#list{
-       		background: #0f1c34;
-		   	box-sizing: border-box;
-		   	border-radius: 5px;
-		   	border: 1px solid white;
-		   	color: #fff;
-		   	font-weight: bold;
-		   	font-size: 14px;
-		   	outline: none;
-		   	cursor: pointer;
-		   	float: right;
-       	}
-       	#r_content{
-       		color:black;
-       		width: 100%;
-       	}
-       	#text1{
-       		color:black;
-       		font-size: 20px;
-       	}
-       	#reply{
-       		margin-top: 10%;
-       	}
-       	
-    </style>
   </head>
   <body>
     <jsp:include page="header.jsp" />

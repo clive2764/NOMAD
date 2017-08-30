@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -21,8 +22,11 @@
 	<div id="wrapper">
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+			<jsp:include page="pmsHeader.jsp"></jsp:include>
+
 			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
+			<%-- <div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target=".navbar-ex1-collapse">
 					<span class="sr-only">Toggle navigation</span> <span
@@ -34,21 +38,22 @@
 			<!-- Top Menu Items -->
 			<ul class="nav navbar-right top-nav">
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b
+					data-toggle="dropdown"><i class="fa fa-user"></i> ${member.m_id}님 환영합니다.<b
 						class="caret"></b></a>
 					<ul class="dropdown-menu">
 						<li><a href="#"><i class="fa fa-fw fa-power-off"></i>로그아웃</a>
 						</li>
 					</ul></li>
-			</ul>
+			</ul> --%>
+
 			<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav side-nav">
-					<li class="active"><a href="goPms"><i
+					<li><a href="goPms"><i
 							class="fa fa-fw fa-dashboard"></i>대시보드</a></li>
 					<li><a href="goLiveChat"><i class="fa fa-fw fa-desktop"></i>실시간
 							채팅</a></li>
-					<li><a href="goProjectMemberMM"><i class="fa fa-fw fa-table"></i>멤버
+					<li class="active"><a href="goProjectMemberMM"><i class="fa fa-fw fa-table"></i>멤버
 							관리</a></li>
 				</ul>
 			</div>

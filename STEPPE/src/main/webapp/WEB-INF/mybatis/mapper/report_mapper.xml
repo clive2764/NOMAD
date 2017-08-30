@@ -12,7 +12,7 @@
 		SELECT * FROM REPORT ORDER BY R_NUM ASC
 	</select>
 	<select id="getProjectList" resultType="project">
-		SELECT * FROM PROJECT
+		SELECT * FROM PROJECT ORDER BY P_NUM DESC
 	</select>
 	<select id="getProjectDetail" parameterType="int" resultType="project">
 		SELECT * FROM PROJECT WHERE P_NUM=#{p_num}
@@ -41,4 +41,11 @@
 	<select id="getProjectList4" resultType="project">
 		SELECT * FROM PROJECT WHERE P_PC1NAME = '디자인' ORDER BY P_NUM ASC
 	</select>
+	<select id="getHomeProjectList" resultType="project">
+		SELECT * FROM PROJECT ORDER BY P_NUM ASC
+	</select>
+	<select id="getHomeFreelancerList" resultType="member">
+		SELECT * FROM MLIST WHERE M_KIND='F' ORDER BY M_ID DESC
+	</select>
+	
 </mapper>

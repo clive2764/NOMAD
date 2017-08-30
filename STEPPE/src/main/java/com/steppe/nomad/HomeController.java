@@ -44,15 +44,14 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public ModelAndView home(Model model) {
 		mav = new ModelAndView();
-		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
+		mav=rm.showHomeList();
 		return mav;
 	}
-
 	//상단 헤더메뉴의 메인페이지 링크용
 	@RequestMapping(value = "/main")
 	public ModelAndView home2(Model model) {
 		mav = new ModelAndView();
-		mav.setViewName("home"); //main.jsp 硫붿씤�럹�씠吏�
+		mav=rm.showHomeList();
 		return mav;
 	}
 
@@ -239,5 +238,12 @@ public class HomeController {
       return mav;
    }
 
-
+   //좋아요
+   @RequestMapping(value="/likeInsert")
+   public ModelAndView likeInsert(){
+	   System.out.println("좋냐?");
+	   mav = new ModelAndView();
+	   mav=fm.execute(1);
+	   return mav;
+   }
 }

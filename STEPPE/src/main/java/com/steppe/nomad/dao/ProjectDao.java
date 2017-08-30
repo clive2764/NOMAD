@@ -130,4 +130,17 @@ public class ProjectDao {
 	public List<Project> getCompleteProjectList(String p_mid) {
 		return sqlSession.selectList("project.getCompleteProjectList", p_mid);
 	}
+
+	public List<Project> getBookmarkList(){
+		return sqlSession.selectList("project.getBookmarkList");
+	}
+
+	public int updateProStatus(int pnum) {
+		return sqlSession.update("project.updateProStatus",pnum);
+		
+	}
+	
+	public List<Project> getBookmarkProjectList(String p_mid) {
+		return sqlSession.selectList("project.getBookmarkProjectList", p_mid);
+	}
 }

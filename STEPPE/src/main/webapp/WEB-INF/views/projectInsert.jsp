@@ -80,7 +80,8 @@ td.category{
       z-index:100
       }
 
-  #contents_layer { 
+  #contents_layer { .
+  
   	position:absolute;
   	top:40%;
   	left:40%;
@@ -462,59 +463,46 @@ $("#inter").click(function(){
  		var maxChecked=3;
 		var totalChecked=0;
  		
- 		function CountChecked(obj){
- 			
- 			if(obj.checked)
- 				totalChecked+=1;
- 			else
- 				totalChecked-=1;
- 			console.log(totalChecked)
- 			if(totalChecked>maxChecked){
- 				alert("최대 3개 까지 가능합니다.");
- 				obj.checked=false;
- 				totalChecked-=1;
- 			}
- 			
- 			/*var valueArr=[];
- 			var list=$("input[name='p_plnum']");
- 			for(var i=0; i<list.length; i++){
- 				if(list[i].checked){
- 					valueArr.push(list[i].value);
- 				}
- 			}
- 			var str='';
- 			for(var i in valueArr){
- 				str+=valueArr[i]+",";
- 			}
- 			console.log(str); 	
- 			$("#inter").attr({
- 				value : str
- 			});*/
- 			var valueArr=[];
- 	 		var list=document.getElementsByName("p_plnum");		
- 	 		var listi=document.getElementById("inter");
- 	 		var p_plnum0=document.getElementById("p_plnum0");
- 	 		var p_plnum1=document.getElementById("p_plnum1");
- 	 		var p_plnum2=document.getElementById("p_plnum2");
- 	 		for(var i=0; i<list.length; i++){
- 	 			if(list[i].checked){
- 	 				valueArr.push(list[i].value);
- 	 			}
- 	 		}
- 	 		var str='';
- 	 		for(var i in valueArr){
- 				str+=valueArr[i]+",";
- 			}
- 	 		console.log(str); 
- 	 		listi.setAttribute("value",str);
- 	 		var newArr=str.split(",");
- 	 		console.log(newArr);
- 	 		console.log(newArr[0]);
- 	 		p_plnum0.setAttribute("value",newArr[0]);
- 	 		p_plnum1.setAttribute("value",newArr[1]);
- 	 		p_plnum2.setAttribute("value",newArr[2]);
- 	 		
- 		}
+		function CountChecked(obj){
+	          
+	          if(obj.checked){
+	             console.log(obj.value);
+	             totalChecked+=1;
+	          }         
+	          else
+	             totalChecked-=1;
+	          console.log(totalChecked)
+	          if(totalChecked>maxChecked){
+	             alert("최대 3개 까지 가능합니다.");
+	             obj.checked=false;
+	             totalChecked-=1;
+	          }
+	          
+	          var valueArr=[];
+	           var list=document.getElementsByName("p_plnum[]");      
+	           var listi=document.getElementById("inter");
+	           var p_plnum0=document.getElementById("p_plnum0");
+	           var p_plnum1=document.getElementById("p_plnum1");
+	           var p_plnum2=document.getElementById("p_plnum2");
+	           for(var i=0; i<list.length; i++){
+	              if(list[i].checked){
+	                 valueArr.push(list[i].value);
+	              }
+	           }
+	           var str='';
+	           for(var i=0; i<valueArr.length; i++){
+	              str+=valueArr[i]+",";
+	          }
+	           console.log(str); 
+	           listi.setAttribute("value",str);
+	           var newArr=str.split(",");
+	           console.log(newArr);
+	           console.log(newArr[0]);
+	           p_plnum0.setAttribute("value",newArr[0]);
+	           p_plnum1.setAttribute("value",newArr[1]);
+	           p_plnum2.setAttribute("value",newArr[2]);
+	           
+	       }
  		/*
  		function check(){
  			var frm=document.form1;

@@ -19,6 +19,7 @@ public class Project {
 	private int p_status; //프로젝트 상태
 	private String p_status2;
 	private int p_vol;
+	private int p_bookmark;
 	
 	
 	public int getP_num() {
@@ -129,8 +130,10 @@ public class Project {
 	public void setP_vol(int p_vol) {
 		this.p_vol = p_vol;
 	}
-	
-	
-	
-	
+	public int getP_bookmark() {
+		return p_bookmark;
+	}
+	public void setP_bookmark(int p_bookmark) {
+		this.p_bookmark = p_bookmark;
+	}
 }

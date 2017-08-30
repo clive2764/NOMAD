@@ -55,11 +55,11 @@
 	
 	<insert id="insertProject" parameterType = "Map">
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
-      							,#{sysFileName},#{p_deadline},#{p_plnum0}, #{p_plnum1}, #{p_plnum2},#{p_person}, #{p_status},default)
+      							,#{sysFileName},#{p_deadline},#{p_plnum0},#{p_plnum1}, #{p_plnum2}, #{p_person}, #{p_status}, default, default)
    </insert>
    
     <select id="getProjectList2" resultType="project" parameterType="String">
-    SELECT p_num, p_title, p_vol, p_status,case when p_status=1 then '대기중' when p_status=2 then '작업전' when p_status=3 then '작업중' 
+    SELECT p_num, p_title, p_vol, p_person, p_status,case when p_status=1 then '대기중' when p_status=2 then '작업전' when p_status=3 then '작업중' 
     when p_status=4 then '작업완료' when p_status=5 then '결제신청' when p_status=6 then '결제완료' else '전체' end as p_status2 from project where p_mid=#{m_id}
     </select>
  
@@ -130,6 +130,10 @@
 		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM = (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID = #{m_id} AND V_PNUM = #{v_pnum})
 	</update>
 	   
+	<select id="getBookmarkProjectList" resultType="project" parameterType="String">
+		SELECT * FROM PROJECT INNER JOIN PROJECT_BOOKMARK ON P_NUM = PB_NUM WHERE PB_FLAG = 1 AND PB_ID = #{p_mid}
+	</select>
+	   
 	<select id="getWaitProjectList" resultType="project" parameterType="String">
 		SELECT * FROM PROJECT WHERE P_STATUS = 1 AND P_MID = #{p_mid}
 	</select>
@@ -142,5 +146,14 @@
 		SELECT * FROM PROJECT WHERE P_STATUS = 6 AND P_MID = #{p_mid}
 	</select>
 	   
+
+	<select id="getPperson" resultType="Integer" parameterType="Integer">
+		SELECT p_person FROM project where p_num=#{pnum}
+	</select>
+	
+	<update id="updateProStatus" parameterType="Integer">
+		update project set p_status=3 where p_num=#{pnum}
+	</update>
+
 </mapper>
 

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -104,10 +105,13 @@
 				</tr>
 			</table>
 				<br />
+				<c:set var="m_kind" value="${member.m_kind}"/>
+				
+			<c:if test="${m_kind eq 'A'}">
 			<form action="noticeWrite">
 				<button class="btn" >글쓰기</button>
 			</form>
-			
+			</c:if>
 		</div>
 	</div>
 

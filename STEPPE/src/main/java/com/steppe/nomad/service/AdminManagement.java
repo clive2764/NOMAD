@@ -152,10 +152,10 @@ public class AdminManagement {
 		return mav;
 	}
 
-	public ModelAndView executess(int punum, int cmd) {
+	public ModelAndView executess(int punum, int pupnum, int cmd) {
 		switch (cmd) {
 		case 1:
-			getPurchaseDList(punum);
+			getPurchaseDList(punum,pupnum);
 			break;
 		default:
 			break;
@@ -163,6 +163,29 @@ public class AdminManagement {
 		return mav;
 	}
 
+	public ModelAndView executesss(int pnum, int pdpunum, double pumoney, int cmd) {
+		switch (cmd) {
+		case 1:
+			purchaseCheck(pnum,pdpunum,pumoney);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
+	public ModelAndView executesss(int pnum, int cmd) {
+		switch (cmd) {
+		case 2:
+			purchaseComplate(pnum);
+			break;
+		case 3:
+			purchaseRefund(pnum);
+			break;
+		default:
+			break;
+		}
+		return mav;
+	}
 
 	//회원 삭제
 	private void memberDelete(String m_id) {
@@ -612,7 +635,7 @@ public class AdminManagement {
 					sb.append("<td>"+pj.getP_plnum1()+"</td>");
 					sb.append("<td>"+pj.getP_plnum2()+"</td>");
 					sb.append("<td>"+pj.getP_person()+"</td>");
-					sb.append("<td>"+pj.getP_status2()+"</td>");
+					sb.append("<td>"+pj.getP_status()+"</td>");
 					sb.append("<td>"+pj.getP_vol()+"</td>");
 					sb.append("<td><input type='button' class='btn' onclick=\"location.href='./projectDelete?pnum="+ pj.getP_num() + "'\" value='삭제'/></td>");
 					sb.append("</tr>");
@@ -664,6 +687,7 @@ public class AdminManagement {
 
 				for(int i=0;i<vlist.size();i++){
 					Project pj = vlist.get(i);
+					System.out.println("pj.getP_status()="+pj.getP_status());
 					sb.append("<tr>");
 					sb.append("<td>"+pj.getP_num()+"</td>");
 					sb.append("<td>"+pj.getP_pc1name()+"</td>");
@@ -679,7 +703,7 @@ public class AdminManagement {
 					sb.append("<td>"+pj.getP_plnum1()+"</td>");
 					sb.append("<td>"+pj.getP_plnum2()+"</td>");
 					sb.append("<td>"+pj.getP_person()+"</td>");
-					sb.append("<td>"+pj.getP_status2()+"</td>");
+					sb.append("<td>"+pj.getP_status()+"</td>");
 					sb.append("<td>"+pj.getP_vol()+"</td>");
 					sb.append("<td><input type='button' class='btn' onclick=\"location.href='./projectDelete?pnum="+ pj.getP_num() + "'\" value='삭제'/></td>");
 					sb.append("</tr>");
@@ -733,7 +757,7 @@ public class AdminManagement {
 					sb.append("<td>"+pj.getP_plnum1()+"</td>");
 					sb.append("<td>"+pj.getP_plnum2()+"</td>");
 					sb.append("<td>"+pj.getP_person()+"</td>");
-					sb.append("<td>"+pj.getP_status2()+"</td>");
+					sb.append("<td>"+pj.getP_status()+"</td>");
 					sb.append("<td>"+pj.getP_vol()+"</td>");
 					sb.append("<td><input type='button' class='btn' onclick=\"location.href='./projectDelete?pnum="+ pj.getP_num() + "'\" value='삭제'/></td>");
 					sb.append("</tr>");
@@ -786,7 +810,7 @@ public class AdminManagement {
 				sb.append("<td>"+pj.getP_plnum1()+"</td>");
 				sb.append("<td>"+pj.getP_plnum2()+"</td>");
 				sb.append("<td>"+pj.getP_person()+"</td>");
-				sb.append("<td>"+pj.getP_status2()+"</td>");
+				sb.append("<td>"+pj.getP_status()+"</td>");
 				sb.append("<td>"+pj.getP_vol()+"</td>");
 				sb.append("<td><input type='button' class='btn' onclick=\"location.href='./projectDelete?pnum="+ pj.getP_num() + "'\" value='삭제'/></td>");
 				sb.append("</tr>");
@@ -812,11 +836,13 @@ public class AdminManagement {
 				for(int i=0;i<prlist.size();i++){
 					Accounting ac = prlist.get(i);
 					sb.append("<tr>");
+					sb.append("<td>"+ac.getPd_num()+"</td>");
 					sb.append("<td>"+ac.getPu_num()+"</td>");
-					sb.append("<td>"+ac.getPu_money()+"</td>");
-					sb.append("<td>"+ac.getPu_mid()+"</td>");
+					sb.append("<td>"+ac.getPd_money()+"</td>");
+					sb.append("<td>"+ac.getPd_mid()+"</td>");
 					sb.append("<td>"+ac.getPu_pnum()+"</td>");
-					sb.append("<td><input type='button' class='btn' onclick=\"location.href='./purchaseDetail?punum="+ ac.getPu_num() + "'\" value='상세보기'/></td>");
+					sb.append("<td>"+ac.getPd_catagory()+"</td>");
+					sb.append("<td><input type='button' class='btn' onclick=\"location.href='./purchaseDetail?punum="+ ac.getPu_num() + "&pupnum="+ ac.getPu_pnum()+"'\" value='보기'/></td>");
 					sb.append("</tr>");
 				}
 
@@ -830,11 +856,14 @@ public class AdminManagement {
 	}
 
 	//결제 상세 리스트 보기
-	private void getPurchaseDList(int pd_punum) {
+	private void getPurchaseDList(int pd_punum, int pupnum) {
 		mav = new ModelAndView();
 		List<Accounting> prdlist =null;
+
 		pd_punum = Integer.parseInt(request.getParameter("punum"));
 		System.out.println("pd_punum="+pd_punum);
+		pupnum = Integer.parseInt(request.getParameter("pupnum"));
+		System.out.println("pupnum="+pupnum);
 
 		prdlist = acDao.getPurchaseDList(pd_punum);
 		StringBuilder sb = new StringBuilder();
@@ -847,27 +876,137 @@ public class AdminManagement {
 			sb.append("<td>"+prd.getPd_mid()+"</td>");
 			sb.append("<td>"+prd.getPd_money()+"</td>");
 			sb.append("<td>"+prd.getPd_catagory()+"</td>");
-			sb.append("</tr>");
+			if(prd.getPd_catagory().equals("p")||prd.getPd_catagory().equals("P")){
+				sb.append("<td colspan='3'><input type='button' class='btn' onclick=\"location.href='./purchaseCheck?pnum="+ pupnum + "&pdpunum="+ pd_punum + "&pumoney="+prd.getPd_money()+"'\" value='확인'/></td>");
+			}
+			if(prd.getPd_catagory().equals("D")){
+				/*sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseComplate?pnum="+ prd.getPu_pnum() + "'\" value='완료'/></td>");*/
+				sb.append("<td></td>");
+			}
+			if(prd.getPd_catagory().equals("H")){
+				/*sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseRefund?pnum="+ prd.getPu_pnum() + "'\" value='환불'/></td>");*/
+				sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseComplate?pnum="+ prd.getPu_pnum() + "'\" value='완료'/></td>");
+			}
+			if(prd.getPd_catagory().equals("C")){
+				sb.append("<td></td>");
+			}
 		}
-
+		sb.append("</tr>");
+		
 		mav.addObject("prdlist",sb.toString());
-
 		mav.setViewName("purchaseDetail");
 
-
 	}
 
-	//결제 내역 리스트 페이지 번호
-	private String getPagingPR(int pageNum) { //현재 페이지 번호
-		int maxNum = aDao.getPurchaseCount(); //전체 게시글의 수
-		int listCount = 10; //페이지당 글의 수
-		int pageCount = 2; //그룹당 페이지 수
 
 
-		Paging paging = new Paging(maxNum,  pageNum,  listCount,  pageCount);
-		return paging.makeHtmlPaging();
 
+
+//결제 내역 리스트 페이지 번호
+private String getPagingPR(int pageNum) { //현재 페이지 번호
+	int maxNum = aDao.getPurchaseCount(); //전체 게시글의 수
+	int listCount = 10; //페이지당 글의 수
+	int pageCount = 2; //그룹당 페이지 수
+
+
+	Paging paging = new Paging(maxNum,  pageNum,  listCount,  pageCount);
+	return paging.makeHtmlPaging();
+
+}
+
+//결제 확인
+private void purchaseCheck(int pnum, int pdpunum, double pumoney) {
+	System.out.println("결제 확인 시작");
+	mav = new ModelAndView();
+
+
+	int pd_num;
+	pnum = Integer.parseInt(request.getParameter("pnum"));
+	System.out.println("pnum="+pnum);
+	pdpunum = Integer.parseInt(request.getParameter("pdpunum"));
+	System.out.println("pdpunum="+pdpunum);
+	pumoney = Double.parseDouble(request.getParameter("pumoney"));
+	System.out.println("pumoney="+pumoney);
+	int pperson = aDao.getPperson(pnum);
+	System.out.println("pperson="+pperson);
+
+	double commission = (double) (pumoney * 0.05);//관리자 수수료
+	double depositAll = (double) ((pumoney - commission) * 0.1);// 프리랜서 계약금
+	double deposit = depositAll / pperson;
+	double hold = pumoney - commission - depositAll; //관리자 보유금
+	System.out.println("commission="+commission);
+	System.out.println("depositAll="+depositAll);
+	System.out.println("deposit="+deposit);
+	System.out.println("hold="+hold);
+
+	double[]a={commission,deposit,hold};
+
+	for (int i = 0; i<3; i++){
+		if(i == 0){
+			pd_num=acDao.getPurchase_detailMaxNum()+1;
+			System.out.println("pd_num="+pd_num);
+
+			Accounting acc = new Accounting();
+			acc.setPd_num(pd_num);
+			acc.setPd_punum(pdpunum);
+			acc.setPd_money(a[i]);
+			acc.setPu_pnum(pdpunum);
+
+			aDao.purchaseCommission(acc);
+		}else if(i == 1){
+
+			for(int j = 0; j<pperson;j++){
+				pd_num=acDao.getPurchase_detailMaxNum()+1;
+				System.out.println("pd_num="+pd_num);
+				Accounting acc = new Accounting();
+
+				acc.setPd_num(pd_num);
+				acc.setPd_punum(pdpunum);
+				acc.setPd_money(a[i]);
+				acc.setPu_pnum(pdpunum);
+
+				aDao.purchaseDeposit(acc);
+			}
+		}else if(i == 2){
+			pd_num=acDao.getPurchase_detailMaxNum()+1;
+			System.out.println("pd_num="+pd_num);
+
+			Accounting acc = new Accounting();
+			acc.setPd_num(pd_num);
+			acc.setPd_punum(pdpunum);
+			acc.setPd_money(a[i]);
+			acc.setPu_pnum(pdpunum);
+
+			aDao.purchaseHold(acc);
+		}
 	}
+
+
+	pDao.updateProStatus(pnum);
+	mav.setViewName("purchaseMM");
+	getPurchaseList();
+
+
+
+}
+//결제 완료
+private void purchaseComplate(int pnum) {
+	mav = new ModelAndView();
+
+	//int pnum = Integer.parseInt(request.getParameter("pnum"));
+	System.out.println("pnum="+pnum);
+
+
+
+	//aDao.purchaseComplate(accounting);
+
+}
+
+//결제 환불
+private void purchaseRefund(int pnum) {
+	mav = new ModelAndView();
+
+}
 
 }
 

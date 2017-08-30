@@ -53,4 +53,8 @@ public class VolunteerDao {
 	public int updateBid(Volunteer volunteer){
 		return sqlSession.update("volunteer.updateBid",volunteer);
 	}
+
+	public List<Volunteer> getVolunteerList(int v_pnum) {//라이트 박스에서 띄우기 위한 지원자 리스트
+		return sqlSession.selectList("volunteer.getVolunteerList",v_pnum);
+	}
 }
