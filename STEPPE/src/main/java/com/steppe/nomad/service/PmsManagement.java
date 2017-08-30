@@ -19,6 +19,7 @@ import com.steppe.nomad.bean.Member;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Volunteer;
 import com.steppe.nomad.dao.ChatDao;
+import com.steppe.nomad.dao.MemberDao;
 import com.steppe.nomad.dao.ProjectDao;
 import com.steppe.nomad.dao.VolunteerDao;
 
@@ -35,6 +36,8 @@ public class PmsManagement {
 	private VolunteerDao vDao;
 	@Autowired
 	private ChatDao chatDao;
+	@Autowired
+	private MemberDao mDao;
 	
 	private String jsonStr;
 	private Map<String, Integer> map = new HashMap<String, Integer>();
@@ -356,34 +359,36 @@ public class PmsManagement {
 	}
 	
 	public String makeProjectList(List<Project> list, int value){
-		StringBuilder sb = new StringBuilder();
-		Project project = null;
-		System.out.println("value="+value);
-		int num = 0;
-		int progNum = 0;
-
-		int number = 0;
-		for(int i=0; i<list.size(); i++){
-			project = list.get(i);
-			sb.append(project.getP_title()+"<br/>");
-			progNum = project.getP_status();
-		
-			sb.append("<div class='row'>"
-					+ "<div class='col-lg-12'>");
-			sb.append("<progress value="+progNum+" max='4' style='height: 30px; width:400px;'></progress>&nbsp;&nbsp;&nbsp;");
-			sb.append("<select name='prog' id='prog"+number+"'>");
-			sb.append("<option value='0'>전체</option>");
-			sb.append("<option value='1'>대기</option>");
-			sb.append("<option value='2'>작업전</option>");
-			sb.append("<option value='3'>작업중</option>");
-			sb.append("<option value='4'>작업 완료</option>");
-			sb.append("</select>&nbsp;");
-			sb.append("<input type='button' class='btn btn-default' onclick=\"javascript:Ajax2('progressUpdate?num="+project.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
-			sb.append("</div>"
-					+ "</div>");
-			number++;
-		}
-		number = 0;
-		return sb.toString();
-	}
+	      StringBuilder sb = new StringBuilder();
+	      Project project = null;
+	      String mid = session.getAttribute("m_id").toString();
+	      Member member = mDao.getMemberInfo(mid);
+	      int num = 0;
+	      int progNum = 0;
+	      int number = 0;
+	      for(int i=0; i<list.size(); i++){
+	         project = list.get(i);
+	         sb.append(project.getP_title()+"<br/>");
+	         progNum = project.getP_status();
+	      
+	         sb.append("<div class='row'>"
+	               + "<div class='col-lg-12'>");
+	         sb.append("<progress value="+progNum+" max='4' style='height: 30px; width:400px;'></progress>&nbsp;&nbsp;&nbsp;");
+	         sb.append("<select name='prog' id='prog"+number+"'>");
+	         sb.append("<option value='0'>전체</option>");
+	         sb.append("<option value='1'>대기</option>");
+	         sb.append("<option value='2'>작업전</option>");
+	         sb.append("<option value='3'>작업중</option>");
+	         sb.append("<option value='4'>작업 완료</option>");
+	         sb.append("</select>&nbsp;");
+	         if(member.getM_kind().equals("F")){
+	            sb.append("<input type='button' class='btn btn-default' onclick=\"javascript:Ajax2('progressUpdate?num="+project.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
+	         }
+	         sb.append("</div>"
+	               + "</div>");
+	         number++;
+	      }
+	      number = 0;
+	      return sb.toString();
+	   }
 }

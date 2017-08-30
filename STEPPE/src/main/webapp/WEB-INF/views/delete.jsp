@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Steppe</title>
 </head>
 <body>
 	<form action="deleteMemberMake" id="deleteMemberForm" name="deleteMemberForm" method="post" onsubmit="return check()">

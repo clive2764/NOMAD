@@ -8,7 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>steppe 샘플페이지</title>
+		<title>Steppe</title>
 		<!-- Bootstrap -->
 		<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -39,7 +39,7 @@
 							 
 							<h1>Steppe는 편리합니다.</h1>
 							<p>
-								Steppe은 프로젝트 관리 및 증빙 툴'PMS'를 무료로 이용하실 수 있습니다.
+								Steppe은 프로젝트 관리  툴'PMS'를 무료로 이용하실 수 있습니다.
 								<br/>
 								PMS를 통해 작업 내역을 증빙하고, 개발사와 실시간으로 소통하세요.
 							</p>
@@ -74,10 +74,8 @@
 							<div class="col-md-6 col-xs-6 col-md-6 col-md-lg-6">
 								<h1>Steppe는 쉽고 빠릅니다.</h1>
 								<p>
-									PC, 탭, 모바일 어떠한 디바이스에서도 간편하게 프로젝트를 등록
-									하실 수 있습니다.
-									<br/>등록된 프로젝트는 20,000프리랜서에게 공유되어 1일 이내에
-									5명 이상의 지원자를 모집하실 수 있으며, 사용자에게 최적화된 검토 시스템을
+									간편하게 프로젝트를 등록 하실 수 있습니다.
+									<br/>등록된 프로젝트는 프리랜서에게 공유되며, 사용자에게 최적화된 검토 시스템을
 									통해 프로젝트 지원자의 견적과 프로필을 한눈에 비교하실 수 있습니다.
 								</p>
 							</div>

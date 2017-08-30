@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Bootstrap Admin Template</title>
+<title>Steppe</title>
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/sb-admin.css" rel="stylesheet">
 <link href="resources/css/font-awesome.min.css" rel="stylesheet"

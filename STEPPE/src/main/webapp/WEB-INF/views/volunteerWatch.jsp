@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Steppe</title>
 <style>
 	table {
 		text-align: center;
@@ -24,7 +24,7 @@
 	}
 	
 	.btn:hover {
-		background-color: skyblue;
+		background-color:  #1ee1b9;
 		color: white;
 		margin-top: 0px;
 	}

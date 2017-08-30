@@ -6,7 +6,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>steppe</title>
+		<title>Steppe</title>
 		<!-- Bootstrap -->
 		<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -33,7 +33,7 @@
 			}
 			
 			.btn:hover {
-				background-color: skyblue;
+				background-color:  #1ee1b9;
 				color: white;
 				margin-top: 0px;
 			}

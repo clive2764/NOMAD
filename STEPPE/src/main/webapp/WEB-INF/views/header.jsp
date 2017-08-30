@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Steppe</title>
 <style>
 
 .dropmenu {
@@ -94,6 +94,7 @@
 									<a href="goPms">프로젝트 관리</a>
 								</c:if>
 								<c:if test="${m_kind eq 'F'}">
+									<a href="goPms">프로젝트 관리</a>
 									<a href="goMyProfile">프로필</a>
 								</c:if>
 								<a href="updateInfo">회원수정</a>

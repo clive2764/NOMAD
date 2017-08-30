@@ -7,7 +7,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-      <title>steppe 샘플페이지</title>
+      <title>Steppe</title>
       <!-- Bootstrap -->
       <link href="resources/css/bootstrap.min.css" rel="stylesheet">
       <link rel="stylesheet" href="resources/css/font-awesome.min.css">

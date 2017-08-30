@@ -145,7 +145,7 @@ public class FstManagrment implements Action{
 				ss.removeAttribute("No"+tCnt+"a");
 				Test t = tlist.get(No);
 				System.out.println("번호 : "+t.getT_num());
-				sb.append("<table class='tableFst'><tr class = 'tr01'><td class='tdName'><input type = 'text' id = 'a_tname' name = 'a_tname' value="+t.getT_name()+" readonly='readonly'/></td><td colspan = '3' class='fstContent'>"+t.getT_content()+"</td></tr>");
+				sb.append("<table class='tableFst'><tr class = 'tr01'><td class='tdName'><input type = 'text' id = 'a_tname' name = 'a_tname' value="+t.getT_name()+" readonly='readonly'/></td><td colspan = '3' class='fstContent'><h3>"+t.getT_content()+"</h3></td></tr>");
 				sb.append("<tr><td rowspan='4' class='td00'>문제"+(tCnt+1)+"</td><td class='td01'>1번 : </td><td class='td02'>"+t.getT_no1()+"</td><td class='td03'><input type='radio' name='answer' id='answer1' value='1'/></td></tr>");
 				sb.append("<tr class = 'tr01'><td class='td01'>2번 : </td><td class='td02'>"+t.getT_no2()+"</td><td class='td03'><input type='radio' name='answer' id='answer2' value='2'/></td></tr>");
 				sb.append("<tr><td class='td01'>3번 : </td><td class='td02'>"+t.getT_no3()+"</td><td class='td03'><input type='radio' name='answer' id='answer3' value='3'/></td></tr>");
@@ -229,7 +229,7 @@ public class FstManagrment implements Action{
 			Test t = tlist.get(No);
 			System.out.println("번호 : "+t.getT_num());
 			if(tCnt<10){
-				sb.append("<table class='tableFst'><tr class = 'tr01'><td class='tdName'><input type = 'text' id = 'a_tname' name = 'a_tname' value="+t.getT_name()+" readonly='readonly'/></td><td colspan = '3' class='fstContent'>"+t.getT_content()+"</td></tr>");
+				sb.append("<table class='tableFst'><tr class = 'tr01'><td class='tdName'><input type = 'text' id = 'a_tname' name = 'a_tname' value="+t.getT_name()+" readonly='readonly'/></td><td colspan = '3' class='fstContent'><h3>"+t.getT_content()+"</h3></td></tr>");
 				sb.append("<tr><td rowspan='4' class='td00'>문제"+(tCnt+1)+"</td><td class='td01'>1번 : </td><td class='td02'>"+t.getT_no1()+"</td><td class='td03'><input type='radio' name='answer' id='answer1' value='1'/></td></tr>");
 				sb.append("<tr class = 'tr01'><td class='td01'>2번 : </td><td class='td02'>"+t.getT_no2()+"</td><td class='td03'><input type='radio' name='answer' id='answer2' value='2'/></td></tr>");
 				sb.append("<tr><td class='td01'>3번 : </td><td class='td02'>"+t.getT_no3()+"</td><td class='td03'><input type='radio' name='answer' id='answer3' value='3'/></td></tr>");

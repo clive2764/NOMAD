@@ -191,7 +191,7 @@ public class ReportManagement {
 			sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
 			sb.append("<div class='thumbnail'>");
 			sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-			sb.append("<img src='http://placehold.it/320x150' alt=''>");
+			sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
 			sb.append("</a>");
 			sb.append("<div class='caption'>");
 			sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a>");
@@ -314,7 +314,7 @@ public class ReportManagement {
 				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
 				sb.append("<div class='thumbnail'>");
 				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-				sb.append("<img src='http://placehold.it/320x150' alt=''>");
+				sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
 				sb.append("</a>");
 				sb.append("<div class='caption'>");
 				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
@@ -353,7 +353,7 @@ public class ReportManagement {
 				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
 				sb.append("<div class='thumbnail'>");
 				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-				sb.append("<img src='http://placehold.it/320x150' alt=''>");
+				sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
 				sb.append("</a>");
 				sb.append("<div class='caption'>");
 				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
@@ -417,7 +417,7 @@ public class ReportManagement {
 				sb.append("<div class='col-sm-6 col-lg-6 col-md-6'>");
 				sb.append("<div class='thumbnail'>");
 				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-				sb.append("<img src='http://placehold.it/320x150' alt=''>");
+				sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
 				sb.append("</a>");
 				sb.append("<div class='caption'>");
 				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
@@ -536,7 +536,7 @@ public class ReportManagement {
                      sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
                      sb.append("<div class='thumbnail'>");
                      sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-                     sb.append("<img src='http://placehold.it/320x150' alt=''>");
+                     sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
                      sb.append("</a>");
                      sb.append("<div class='caption'>");
                      sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");

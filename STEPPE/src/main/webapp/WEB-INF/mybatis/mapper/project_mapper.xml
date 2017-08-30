@@ -105,7 +105,7 @@
 	</select>
 	
 	<select id="getDesignList" resultType="project">
-		select * from project where p_pc1name = '디자인' ORDER BY P_NU
+		select * from project where p_pc1name = '디자인' ORDER BY P_NUM
 	</select>
 	<select id="getSearchResult" parameterType="String" resultType="project">
 	SELECT * FROM PROJECT WHERE P_MID LIKE '%'||#{keyword}||'%' OR

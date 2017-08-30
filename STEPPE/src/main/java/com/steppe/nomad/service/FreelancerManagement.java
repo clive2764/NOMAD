@@ -197,19 +197,19 @@ public class FreelancerManagement {
 			}
 			if (plist2 != null) {
 				StringBuilder sb1 = new StringBuilder();
-				sb1.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb1.append("<table class='table table-responsive' style='text-align:center; color:black;'");
 				sb1.append("<tr>");
-				sb1.append("<th style='text-align:center;'>" + "지원번호" + "</th>");
-				sb1.append("<th style='text-align:center;'>" + "프로젝트번호" + "</th>");
-				sb1.append("<th style='text-align:center;'>" + "프로젝트제목" + "</th>");
-				sb1.append("<th style='text-align:center;'>" + "매출" + "</th>");
-				sb1.append("<th style='text-align:center;'>" + "현금흐름" + "</th>");
+				sb1.append("<th>" + "지원번호" + "</th>");
+				sb1.append("<th>" + "프로젝트번호" + "</th>");
+				sb1.append("<th>" + "프로젝트제목" + "</th>");
+				sb1.append("<th>" + "매출" + "</th>");
+				sb1.append("<th class='btn'>" + "현금흐름" + "</th>");
 				sb1.append("</tr>");
 				for (int i = 0; i < plist2.size(); i++) {
 					Client_mypage p2 = plist2.get(i);
 					sb1.append("<tr>");
-					sb1.append("<th style='text-align:center;'>" + p2.getV_num() + "</th>");
-					sb1.append("<th style='text-align:center;'>" + p2.getP_num() + "</th>");
+					sb1.append("<th>" + p2.getV_num() + "</th>");
+					sb1.append("<th>" + p2.getP_num() + "</th>");
 					sb1.append("<th><a href='goProjectDetail?p_num=" + p2.getP_num() + "'>" + p2.getP_title()
 							+ "</a></th>");
 					sb1.append("<th style='text-align:center;'>" + p2.getSales() + "</th>");
@@ -222,13 +222,13 @@ public class FreelancerManagement {
 			}
 			if (plist3 != null) {
 				StringBuilder sb2 = new StringBuilder();
-				sb2.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb2.append("<table class='table table-responsive' style='text-align:center; color:black;'");
 				sb2.append("<tr>");
-				sb2.append("<th style='text-align:center;'>" + "지원번호" + "</th>");
-				sb2.append("<th style='text-align:center;'>" + "프로젝트번호" + "</th>");
-				sb2.append("<th style='text-align:center;'>" + "프로젝트제목" + "</th>");
-				sb2.append("<th style='text-align:center;'>" + "매출" + "</th>");
-				sb2.append("<th style='text-align:center;'>" + "현금흐름" + "</th>");
+				sb2.append("<th>" + "지원번호" + "</th>");
+				sb2.append("<th>" + "프로젝트번호" + "</th>");
+				sb2.append("<th>" + "프로젝트제목" + "</th>");
+				sb2.append("<th>" + "매출" + "</th>");
+				sb2.append("<th>" + "현금흐름" + "</th>");
 				sb2.append("</tr>");
 				for (int i = 0; i < plist3.size(); i++) {
 					Client_mypage p3 = plist3.get(i);
@@ -978,7 +978,7 @@ public class FreelancerManagement {
 			StringBuilder sb = new StringBuilder();
 			// sb.append("<form action='goMyPageFr' name='MyPageFr'
 			// method='get'>");
-			sb.append("<table border='1' align='center'>");
+			sb.append("<table class='table table-responsive'>");
 			sb.append("<tr><th>현금흐름번호</th><th>결제번호</th><th>계약금</th></tr>");
 
 			for (int i = 0; i < PListFr.size(); i++) {
@@ -1001,7 +1001,7 @@ public class FreelancerManagement {
 		if (PListAr != null) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("<form action='goMyPageFr' name='MyPageFr' method='get'>");
-			sb.append("<table border='1' align='center'>");
+			sb.append("<table class='table table-responsive'>");
 			sb.append("<tr><th>현금흐름번호</th><th>결제번호</th><th>예상매출액</th></tr>");
 
 			for (int i = 0; i < PListAr.size(); i++) {
@@ -1013,7 +1013,7 @@ public class FreelancerManagement {
 			}
 			sb.append("</table>");
 			sb.append("<br/><br/>");
-			sb.append("<input type='submit' value='마이페이지 가기'/>");
+			sb.append("<input class='btn' type='submit' value='마이페이지 가기'/>");
 			sb.append("</form>");
 			System.out.println(sb);
 			mav.addObject("PListAr", sb.toString());

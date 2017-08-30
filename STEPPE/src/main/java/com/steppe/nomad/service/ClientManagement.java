@@ -117,10 +117,6 @@ public class ClientManagement {
 			System.out.println(vList);
 			if(vList!=null){
 				StringBuilder sb = new StringBuilder();
-				sb.append("<form action='pickMember' name='select' method='get' onsubmit='return check(this)'>");
-				sb.append("<table class='table table-responsive' align='center'>");
-				sb.append("<h2>지원자 리스트</h2>");
-				sb.append("<tr><th>프로젝트 번호</th><th>지원자 번호</th><th>지원자</th><th>입찰액</th><th>선정</th></tr>");
 				for(int i=0; i<vList.size(); i++){
 					System.out.println("ddddd");
 					Volunteer vl=vList.get(i);
@@ -131,10 +127,6 @@ public class ClientManagement {
 					sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid'" 
 							+ " onClick='CountChecked(this)'/></td></tr>");
 				}
-				sb.append("</table>");
-				sb.append("<input type='submit' value='결제하기'/>");
-				sb.append("</form>");
-				sb.append("<input type='button' class='btn' onclick='back()' value='뒤로가기'/>");
 				mav.addObject("vList", sb.toString());
 			}
 			view="applyList";
@@ -637,7 +629,7 @@ public class ClientManagement {
 
 		javaMailSenderImpl.send(simpleMailMessage);
 
-		mav.setViewName("main");
+		mav.setViewName("home");
 	}
 
 	public ModelAndView execute(int pnum, int cmd) {

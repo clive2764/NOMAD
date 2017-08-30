@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>steppe 샘플페이지</title>
+		<title>Steppe</title>
 		<!-- Bootstrap -->
 		<link href="resources/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="resources/css/font-awesome.min.css">
@@ -50,6 +50,20 @@
 				cursor: pointer;
 				float: right;
 			}
+			.btn {
+				color: white;
+				margin-top: 0px;
+			}
+			
+			.btn:hover {
+				background-color:  #1ee1b9;
+				color: white;
+				margin-top: 0px;
+			}
+			#btnbox{
+				margin-left:80px;
+				
+			}
 		</style>
 	</head>
 	<body>
@@ -58,9 +72,9 @@
 		<!--메인페이지 영역-->
 		
 			<div class="about">
-				<div>
-					<a href="developList"><input type="button" id=btn1 value="개발 보기"/></a>
-					<a href="designList"><input type="button" id=btn2 value="디자인 보기"/></a>
+				<div id="btnbox">
+					<a href="developList"><input type="button" id=btn1 class="btn" value="개발 보기"/></a>
+					<a href="designList"><input type="button" id=btn2 class="btn" value="디자인 보기"/></a>
 				</div>
 				${plist}
 				${plist2}

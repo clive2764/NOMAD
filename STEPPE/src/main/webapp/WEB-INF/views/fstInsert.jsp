@@ -10,7 +10,7 @@
 	<link href="resources/css/style.css" rel="stylesheet" />
 	<script src="resources/js/jquery-3.2.1.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Steppe</title>
 <style>
 	.container{
 		color: black;
