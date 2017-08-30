@@ -49,6 +49,7 @@ public class UploadFile {
 	         System.out.println("fileTagName"+fileTagName);
 	      }*/
 	      for(MultipartFile file : files){
+	    	  //System.out.println("파일 몇번돌아??");
 	         byte[] bytes;
 	         try {
 	            bytes = file.getBytes();

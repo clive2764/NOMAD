@@ -84,9 +84,9 @@ table, td, tr{
 		</form>
 		<table>
 			<tr align="center" height="25">
-				<td width="200">경력기간</td>
-				<td width="200">회사명</td>
-				<td width="200">직급</td>
+				<td width="370">경력기간</td>
+				<td width="350">회사명</td>
+				<td width="380">직급</td>
 			</tr>
 		</table>
 		<table id="cTable">
@@ -138,9 +138,9 @@ table, td, tr{
 				console.log(data); //json 구조파악
 				for(var i=0;i<data.length;i++){
 					clist+='<tr height="25" align="center">'
-					+'<td width="200">'+data[i].ca_term+'</td>'
-					+'<td width="200">'+data[i].ca_company+'</td>'
-					+'<td width="200">'+data[i].ca_rank+'</td>'
+					+'<td width="400">'+data[i].ca_term+'</td>'
+					+'<td width="400">'+data[i].ca_company+'</td>'
+					+'<td width="400">'+data[i].ca_rank+'</td>'
 					+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
 			}
 			$('#cTable').html(clist);
@@ -163,9 +163,9 @@ table, td, tr{
 				console.log(data); //json 구조파악
 				for(var i=0;i<data.length;i++){
 					clist+='<tr height="25" align="center">'
-					+'<td width="200">'+data[i].ca_term+'</td>'
-					+'<td width="200">'+data[i].ca_company+'</td>'
-					+'<td width="200">'+data[i].ca_rank+'</td>'
+					+'<td width="400">'+data[i].ca_term+'</td>'
+					+'<td width="400">'+data[i].ca_company+'</td>'
+					+'<td width="400">'+data[i].ca_rank+'</td>'
 				 	+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
 			}
 			$('#cTable').html(clist);
@@ -190,9 +190,9 @@ table, td, tr{
 				console.log(data); //json 구조파악
 				for(var i=0;i<data.length;i++){
 					clist+='<tr height="25" align="center">'
-					+'<td width="200">'+data[i].ca_term+'</td>'
-					+'<td width="200">'+data[i].ca_company+'</td>'
-					+'<td width="200">'+data[i].ca_rank+'</td>'
+					+'<td width="400">'+data[i].ca_term+'</td>'
+					+'<td width="400">'+data[i].ca_company+'</td>'
+					+'<td width="400">'+data[i].ca_rank+'</td>'
 					+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
 			}
 			$('#cTable').html(clist);

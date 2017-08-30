@@ -105,7 +105,7 @@
 	</select>
 	
 	<select id="getDesignList" resultType="project">
-		select * from project where p_pc1name = '디자인' ORDER BY P_NUM
+		select * from project where p_pc1name = '디자인' ORDER BY P_NU
 	</select>
 	<select id="getSearchResult" parameterType="String" resultType="project">
 	SELECT * FROM PROJECT WHERE P_MID LIKE '%'||#{keyword}||'%' OR
@@ -134,9 +134,13 @@
 		update project set p_status=3 where p_num=#{pnum}
 	</update>
    
-	<update id="VolunteerUpdate" parameterType="String">
-		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM IN (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID =#{v_mid})
+	<update id="VolunteerUpdate" parameterType="Map">
+		UPDATE PROJECT SET P_VOL = P_VOL+1 WHERE P_NUM = (SELECT V_PNUM FROM VOLUNTEER WHERE V_MID = #{m_id} AND V_PNUM = #{v_pnum})
 	</update>
+	   
+	<select id="getBookmarkProjectList" resultType="project" parameterType="String">
+		SELECT * FROM PROJECT INNER JOIN PROJECT_BOOKMARK ON P_NUM = PB_NUM WHERE PB_FLAG = 1 AND PB_ID = #{p_mid}
+	</select>
 	   
 	<select id="getProjectMaxVol" resultType="Integer" parameterType="Integer">
 		SELECT NVL(MAX(p_vol),0) FROM project where p_num=#{p_num}

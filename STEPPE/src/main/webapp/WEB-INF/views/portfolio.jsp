@@ -48,7 +48,9 @@ html, body{height:100%;margin:0}
         background:#fff;font-size:12px;z-index:200;
      color:#767676;line-height:normal;white-space:normal;
      overflow:scroll}
-     
+     .center{
+		margin-left: 25%;     
+     }
 </style>
 <body>
 	<jsp:include page="header.jsp" />
@@ -85,8 +87,7 @@ html, body{height:100%;margin:0}
 					<td><input type="file" name="pf_image[]" multiple="multiple" />
 				</tr>
 				<tr rowspan="3" colspan="3">
-					<td colspan="3"><input type="button" id="complete"
-						value="작성완료" /></td>
+					<td colspan="3"><input type="button" id="complete" value="작성완료" /></td>
 				</tr>
 			</table>
 		</form>
@@ -98,6 +99,7 @@ html, body{height:100%;margin:0}
 				<td width="200"></td>
 			</tr>
 		</table>
+		<div class="center">
 		<table id="pfTable">
 			<c:forEach var="portfolio" items="${pflist}">
 				<tr align="center" height="25">
@@ -106,6 +108,7 @@ html, body{height:100%;margin:0}
 				</tr>
 			</c:forEach>
 		</table>
+		</div>
 	</div>
 
 	<hr>

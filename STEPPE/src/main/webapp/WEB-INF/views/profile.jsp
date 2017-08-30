@@ -70,8 +70,6 @@ input#complete {
 			<table class="table table-striped">
 
 				<tr>
-					<td class="category"><span>프로필 사진 </span> <img
-						style="width: 250px; height: 250px;" src="" /></td>
 					<td class="pro"><br /><br />이름 :<br />
 					<br />이메일 :
 					</td>

@@ -80,6 +80,22 @@ public class Reportcontroller {
 		mav.setViewName("intro");
 		return mav;
 	}
+	
+	//개발,디자인 버튼 리스트 다르게나오기
+	@RequestMapping(value="/developList")
+	public ModelAndView delelopList(){
+		mav = new ModelAndView();
+		mav = rm.execute(1);
+		return mav;
+	}
+	
+	@RequestMapping(value="/designList")
+	public ModelAndView designList(){
+		mav = new ModelAndView();
+		mav = rm.execute(2);
+		return mav;
+	}
+	
 	@RequestMapping(value = "/bookmarkOnOff")
 	public @ResponseBody String bookmarkOnOff(){
 		String jsonStr = rm.bookmarkOnOff();

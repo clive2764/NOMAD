@@ -57,7 +57,7 @@ color:black;
 						value="수정완료" /></td>
 				</tr>
 			</table>
-			<input type="text" name="pfnum" value="${pf_num}" />
+			<input type="hidden" name="pfnum" value="${pf_num}" />
 		</form>
 		<table>
 			<tr align="center" height="25">

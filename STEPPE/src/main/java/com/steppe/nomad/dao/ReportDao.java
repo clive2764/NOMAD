@@ -37,6 +37,16 @@ public class ReportDao {
 	public List<Project> getProjectList() {
 		return sqlSession.selectList("report.getProjectList");
 	}
+	
+	public List<Project> getProjectList3() {
+		System.out.println("개발2");
+		return sqlSession.selectList("report.getProjectList3");
+	}
+	
+	public List<Project> getProjectList4() {
+		System.out.println("개발3");
+		return sqlSession.selectList("report.getProjectList4");
+	}
 
 	public Project getProjectDetail(int p_num) {
 		return sqlSession.selectOne("report.getProjectDetail", p_num);

@@ -19,12 +19,12 @@
 <script src="resources/js/jquery-3.2.1.min.js"></script>
 <script src="resources/js/jquery.form.min.js"></script>
 <style>
-	.sbtn{
-			background: #0f1c34;
+	.sbtn1{
+			background: pink;
 		   	box-sizing: border-box;
 		   	border-radius: 5px;
 		   	border: 1px solid white;
-		   	color: #fff;
+		   	color: black;
 		   	font-weight: bold;
 		   	font-size: 14px;
 		   	outline: none;
@@ -36,10 +36,10 @@
 <body>
 	<div class="row">
 		<div class="container" style="text-align: center; padding-bottom: 30px; padding-left: 295px;">
-			<a href="goMyProfile"><input type="button" class="sbtn" value="프로필"/></a>&nbsp;&nbsp;
-			<a href="goMySkill"><input type="button" class="sbtn" value="기술정보"/></a>&nbsp;&nbsp;
-			<a href="goMyCareer"><input type="button" class="sbtn" value="경력정보"/></a>&nbsp;&nbsp;
-			<a href="goMyPortfolio"><input type="button" class="sbtn" value="포트폴리오"/></a>
+			<a href="goMyProfile"><input type="button" class="sbtn1" value="프로필"/></a>&nbsp;&nbsp;
+			<a href="goMySkill"><input type="button" class="sbtn1" value="기술정보"/></a>&nbsp;&nbsp;
+			<a href="goMyCareer"><input type="button" class="sbtn1" value="경력정보"/></a>&nbsp;&nbsp;
+			<a href="goMyPortfolio"><input type="button" class="sbtn1" value="포트폴리오"/></a>
 		</div>
 	</div>
 </body>

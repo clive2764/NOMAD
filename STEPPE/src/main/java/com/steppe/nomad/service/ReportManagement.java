@@ -28,44 +28,57 @@ public class ReportManagement {
    
    private ModelAndView mav;
 
-   @Autowired
-   private HttpSession session;
-   
-   @Autowired
-   private HttpServletRequest request;
-   
-   @Autowired
-   private ProjectDao pDao;
-   
-   @Autowired
-   private Project_bookmarkDao pbDao;
-   
-   
-   //신고 작성 페이지로 이동
-   public ModelAndView goReportWrite() {
-      mav = new ModelAndView();
-      String view=null;
-      String m_id=(String) session.getAttribute("m_id");
-      
-      if(m_id==null){
-         view="redirect:/";
-         mav.setViewName(view);
-      }
-      if(m_id!=null){
-         
-            String user=request.getParameter("m_id");
-            String reportUrl=request.getHeader("REFERER");
-            System.out.println("이전주소:"+reportUrl);
-            System.out.println("신고유저명:"+user);
-            mav.addObject("user2",user);
-            mav.addObject("reportUrl",reportUrl);
-            view="reportWrite";
-            mav.setViewName(view);
-         
-         
-      }
-      return mav;
-   }
+	@Autowired
+	private HttpSession session;
+	
+	@Autowired
+	private HttpServletRequest request;
+
+	public ModelAndView execute(int cmd) {
+		switch(cmd){
+		case 1:
+			showProjectList1();
+			break;
+		case 2:
+			showProjectList2();
+			break;
+		}
+		return mav;
+	}
+	
+	@Autowired
+	private ProjectDao pDao;
+	
+	@Autowired
+	private Project_bookmarkDao pbDao;
+	
+	
+	//신고 작성 페이지로 이동
+	public ModelAndView goReportWrite() {
+		mav = new ModelAndView();
+		String view=null;
+		String m_id=(String) session.getAttribute("m_id");
+		
+		if(m_id==null){
+			view="redirect:/";
+			mav.setViewName(view);
+		}
+		if(m_id!=null){
+			
+				String user=request.getParameter("m_id");
+				String reportUrl=request.getHeader("REFERER");
+				System.out.println("이전주소:"+reportUrl);
+				System.out.println("신고유저명:"+user);
+				mav.addObject("user2",user);
+				mav.addObject("reportUrl",reportUrl);
+				view="reportWrite";
+				mav.setViewName(view);
+			
+			
+		}
+		return mav;
+	}
+
 
    //신고작성
    public ModelAndView InsertReport(Report report) {
@@ -169,178 +182,257 @@ public class ReportManagement {
          String p1=p.getP_plnum0();
             String p2=p.getP_plnum1();
             String p3=p.getP_plnum2();
-         Project_bookmark loginPb = null;
-         Project_bookmark pb = null;
-         System.out.println("몇번도는지...");
-         /*if(pblist.size() != 0){
-            pb = pblist.get(i);
-         }*/
-         sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
-         sb.append("<div class='thumbnail'>");
-         sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-         sb.append("<img src='http://placehold.it/320x150' alt=''>");
-         sb.append("</a>");
-         sb.append("<div class='caption'>");
-         sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a>");
-         System.out.println("index2:"+i);
-         for(int j=i; j<i+1; j++){
-            loginPb = allPblist.get(j);
-            System.out.println("몇번실행 ");
-            System.out.println("title:"+p.getP_title());
-            if(loginPb.getPb_id().equals(session.getAttribute("m_id")))
-               if(loginPb.getPb_flag() != 0){
-                  sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/on.png' />");
-               }else{
-                  sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
-            }else{
-               sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
-            }
-         }
-         sb.append("</a></h4></div>");
-         sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
-         if(p1==null)
-                  sb.append("<p>"+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
-               if(p2==null)
-                  sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum2()+"</p>");
-               if(p3==null)
-                  sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+"</p>");
-               if(p1==null && p2==null)
-                  sb.append("<p>"+p.getP_plnum2()+"</p>");
-               if(p2==null && p3==null)
-                  sb.append("<p>"+p.getP_plnum0()+"</p>");
-               if(p1==null && p3==null)
-                  sb.append("<p>"+p.getP_plnum1()+"</p>");
-               if(p1!=null && p2!=null && p3!=null)
-               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
-         sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
-         sb.append("</div>");
-         sb.append("</div>");
-         sb.append("</div>");
-      }
-      sb.append("</div>");
-      mav.addObject("plist",sb.toString());
-      
-      }else{
-         if(plist!=null){
-            StringBuilder sb=new StringBuilder();
-               //pblist = pbDao.bookmarkList(mid);
-            
-            sb.append("<div class='container'>");
-            sb.append("<div class='row'>");
-            sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
-            sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
-            sb.append("<input type='button' id='searchBtn' value='검색'>");
-            sb.append("</form>");
-            sb.append("</div>");
-            for(int i=0; i<plist.size(); i++){
-               Project p=plist.get(i);
-               String p1=p.getP_plnum0();
-                  String p2=p.getP_plnum1();
-                  String p3=p.getP_plnum2();
-               Project_bookmark pb = null;
-               /*if(pblist != null){
-                  pb = pblist.get(i);
-               }*/
-               sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
-               sb.append("<div class='thumbnail'>");
-               sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-               sb.append("<img src='http://placehold.it/320x150' alt=''>");
-               sb.append("</a>");
-               sb.append("<div class='caption'>");
-               sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
-               sb.append("</a></h4></div>");
-               sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
-               if(p1==null)
-                        sb.append("<p>"+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
-                     if(p2==null)
-                        sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum2()+"</p>");
-                     if(p3==null)
-                        sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+"</p>");
-                     if(p1==null && p2==null)
-                        sb.append("<p>"+p.getP_plnum2()+"</p>");
-                     if(p2==null && p3==null)
-                        sb.append("<p>"+p.getP_plnum0()+"</p>");
-                     if(p1==null && p3==null)
-                        sb.append("<p>"+p.getP_plnum1()+"</p>");
-                     if(p1!=null && p2!=null && p3!=null)
-                     sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
-               sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
-               sb.append("</div>");
-               sb.append("</div>");
-               sb.append("</div>");
-            }
-            sb.append("</div>");
-            mav.addObject("plist",sb.toString());
-         
-         }
-      }
-      view="project";
-      mav.setViewName(view);
-      return mav;
-      
-   }
-   //프로젝트 상세 페이지
-   public ModelAndView showProjcetDetail() {
-      mav=new ModelAndView();
-      String view=null;
-      //프로젝트 번호
-      int p_num=Integer.parseInt(request.getParameter("p_num"));
-      rDao.getProjectDetail(p_num);
-      mav.addObject("project",rDao.getProjectDetail(p_num));
-      showReplyList();
-      view="projectDetail";
-      mav.setViewName(view);
-      return mav;
-   }
-   
-   //신고 삭제
-   public ModelAndView deleteReport() {
-      mav=new ModelAndView();
-      String view=null;
-      int r_num=Integer.parseInt(request.getParameter("r_num"));
-      rDao.deleteReport(r_num);
-      view="redirect:/goReportList";
-      mav.setViewName(view);
-      return mav;
-   }
-   //프로젝트 검색
-   public ModelAndView searchProjectList() {
-      mav = new ModelAndView();
-      String view=null;
-      String keyowrd=request.getParameter("keyword");
-      List<Project> splist=null;
-      splist=rDao.searchProject(keyowrd);
-      if(splist!=null){
-         StringBuilder sb = new StringBuilder();
-         sb.append("<div class='container'>");
-         sb.append("<div class='row'>");
-         sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
-         sb.append("<input type='text' id='keyword' name='keyword' placeholder='프로젝트명을 입력하세요'/>");
-         sb.append("<input type='button' id='searchBtn' value='검색'>");
-         sb.append("</form>");
-         sb.append("</div>");
-         for(int i=0;i<splist.size();i++){
-            Project p=splist.get(i);
-            sb.append("<div class='col-sm-6 col-lg-6 col-md-6'>");
-            sb.append("<div class='thumbnail'>");
-            sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-            sb.append("<img src='http://placehold.it/320x150' alt=''>");
-            sb.append("</a>");
-            sb.append("<div class='caption'>");
-            sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
-            sb.append("<span calss='pull-right'>"+p.getP_vol()+"</span>");
-            sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
-            sb.append("</div>");
-            sb.append("</div>");
-            sb.append("</div>");
-         }
-         sb.append("</div>");
-         mav.addObject("splist",sb.toString());
-      }
-      view="project";
-      mav.setViewName(view);
-      return mav;
-
+			Project_bookmark loginPb = null;
+			Project_bookmark pb = null;
+			System.out.println("몇번도는지...");
+			/*if(pblist.size() != 0){
+				pb = pblist.get(i);
+			}*/
+			sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
+			sb.append("<div class='thumbnail'>");
+			sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+			sb.append("<img src='http://placehold.it/320x150' alt=''>");
+			sb.append("</a>");
+			sb.append("<div class='caption'>");
+			sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a>");
+			System.out.println("index2:"+i);
+			for(int j=i; j<i+1; j++){
+				loginPb = allPblist.get(j);
+				System.out.println("몇번실행 ");
+				System.out.println("title:"+p.getP_title());
+				if(loginPb.getPb_id().equals(session.getAttribute("m_id")))
+					if(loginPb.getPb_flag() != 0){
+						sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/on.png' />");
+					}else{
+						sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
+				}else{
+					sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
+				}
+			}
+			sb.append("</a></h4></div>");
+			sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+			if(p1==null)
+	               sb.append("<p>"+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+	            if(p2==null)
+	               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum2()+"</p>");
+	            if(p3==null)
+	               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+"</p>");
+	            if(p1==null && p2==null)
+	               sb.append("<p>"+p.getP_plnum2()+"</p>");
+	            if(p2==null && p3==null)
+	               sb.append("<p>"+p.getP_plnum0()+"</p>");
+	            if(p1==null && p3==null)
+	               sb.append("<p>"+p.getP_plnum1()+"</p>");
+	            if(p1!=null && p2!=null && p3!=null)
+	            sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+			sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
+			sb.append("</div>");
+			sb.append("</div>");
+			sb.append("</div>");
+		}
+		sb.append("</div>");
+		mav.addObject("plist",sb.toString());
+		
+		}else{
+			if(plist!=null){
+				StringBuilder sb=new StringBuilder();
+					//pblist = pbDao.bookmarkList(mid);
+				
+				sb.append("<div class='container'>");
+				sb.append("<div class='row'>");
+				sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
+				sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
+				sb.append("<input type='button' id='searchBtn' value='검색'>");
+				sb.append("</form>");
+				sb.append("</div>");
+				for(int i=0; i<plist.size(); i++){
+					Project p=plist.get(i);
+					String p1=p.getP_plnum0();
+		            String p2=p.getP_plnum1();
+		            String p3=p.getP_plnum2();
+					Project_bookmark pb = null;
+					/*if(pblist != null){
+						pb = pblist.get(i);
+					}*/
+					sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
+					sb.append("<div class='thumbnail'>");
+					sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+					sb.append("<img src='http://placehold.it/320x150' alt=''>");
+					sb.append("</a>");
+					sb.append("<div class='caption'>");
+					sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
+					sb.append("</a></h4></div>");
+					sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+					if(p1==null)
+			               sb.append("<p>"+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+			            if(p2==null)
+			               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum2()+"</p>");
+			            if(p3==null)
+			               sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+"</p>");
+			            if(p1==null && p2==null)
+			               sb.append("<p>"+p.getP_plnum2()+"</p>");
+			            if(p2==null && p3==null)
+			               sb.append("<p>"+p.getP_plnum0()+"</p>");
+			            if(p1==null && p3==null)
+			               sb.append("<p>"+p.getP_plnum1()+"</p>");
+			            if(p1!=null && p2!=null && p3!=null)
+			            sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+					sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
+					sb.append("</div>");
+					sb.append("</div>");
+					sb.append("</div>");
+				}
+				sb.append("</div>");
+				mav.addObject("plist",sb.toString());
+			
+			}
+		}
+		view="project";
+		mav.setViewName(view);
+		return mav;
+		
+	}
+	
+	public ModelAndView showProjectList1() {
+		mav=new ModelAndView();
+		String view=null;
+		List<Project> plist2=null;
+		System.out.println("개발");
+		plist2=rDao.getProjectList3();
+		System.out.println(plist2);
+		if(plist2!=null){
+			StringBuilder sb=new StringBuilder();
+			sb.append("<div class='container'>");
+			sb.append("<div class='row'>");
+			sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
+			sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
+			sb.append("<input type='button' id='searchBtn' value='검색'>");
+			sb.append("</form>");
+			sb.append("</div>");
+			for(int i=0; i<plist2.size(); i++){
+				Project p=plist2.get(i);
+				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
+				sb.append("<div class='thumbnail'>");
+				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+				sb.append("<img src='http://placehold.it/320x150' alt=''>");
+				sb.append("</a>");
+				sb.append("<div class='caption'>");
+				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
+				sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+				sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+				sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
+				sb.append("</div>");
+				sb.append("</div>");
+				sb.append("</div>");
+			}
+			sb.append("</div>");
+			mav.addObject("plist2",sb.toString());
+		}
+		view="project";
+		mav.setViewName(view);
+		return mav;
+		
+	}
+	public ModelAndView showProjectList2() {
+		mav=new ModelAndView();
+		String view=null;
+		List<Project> plist3=null;
+		System.out.println("디자인");
+		plist3=rDao.getProjectList4();
+		if(plist3!=null){
+			StringBuilder sb=new StringBuilder();
+			sb.append("<div class='container'>");
+			sb.append("<div class='row'>");
+			sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
+			sb.append("<input type='text' id='keyword'  name='keyword' placeholder='프로젝트명을 입력하세요'/>");
+			sb.append("<input type='button' id='searchBtn' value='검색'>");
+			sb.append("</form>");
+			sb.append("</div>");
+			for(int i=0; i<plist3.size(); i++){
+				Project p=plist3.get(i);
+				sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
+				sb.append("<div class='thumbnail'>");
+				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+				sb.append("<img src='http://placehold.it/320x150' alt=''>");
+				sb.append("</a>");
+				sb.append("<div class='caption'>");
+				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
+				sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
+				sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+				sb.append("<span calss='pull-right'>지원 마감 : "+p.getP_deadline()+" 예산 금액 : "+p .getP_budget()+"만원</span>");
+				sb.append("</div>");
+				sb.append("</div>");
+				sb.append("</div>");
+			}
+			sb.append("</div>");
+			mav.addObject("plist3",sb.toString());
+		}
+		view="project";
+		mav.setViewName(view);
+		return mav;
+		
+	}
+	//프로젝트 상세 페이지
+	public ModelAndView showProjcetDetail() {
+		mav=new ModelAndView();
+		String view=null;
+		//프로젝트 번호
+		int p_num=Integer.parseInt(request.getParameter("p_num"));
+		rDao.getProjectDetail(p_num);
+		mav.addObject("project",rDao.getProjectDetail(p_num));
+		showReplyList();
+		view="projectDetail";
+		mav.setViewName(view);
+		return mav;
+	}
+	
+	//신고 삭제
+	public ModelAndView deleteReport() {
+		mav=new ModelAndView();
+		String view=null;
+		int r_num=Integer.parseInt(request.getParameter("r_num"));
+		rDao.deleteReport(r_num);
+		view="redirect:/goReportList";
+		mav.setViewName(view);
+		return mav;
+	}
+	//프로젝트 검색
+	public ModelAndView searchProjectList() {
+		mav = new ModelAndView();
+		String view=null;
+		String keyowrd=request.getParameter("keyword");
+		List<Project> splist=null;
+		splist=rDao.searchProject(keyowrd);
+		if(splist!=null){
+			StringBuilder sb = new StringBuilder();
+			sb.append("<div class='container'>");
+			sb.append("<div class='row'>");
+			sb.append("<form action='searchProjectList' id='search' class='pull-right'>");
+			sb.append("<input type='text' id='keyword' name='keyword' placeholder='프로젝트명을 입력하세요'/>");
+			sb.append("<input type='button' id='searchBtn' value='검색'>");
+			sb.append("</form>");
+			sb.append("</div>");
+			for(int i=0;i<splist.size();i++){
+				Project p=splist.get(i);
+				sb.append("<div class='col-sm-6 col-lg-6 col-md-6'>");
+				sb.append("<div class='thumbnail'>");
+				sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
+				sb.append("<img src='http://placehold.it/320x150' alt=''>");
+				sb.append("</a>");
+				sb.append("<div class='caption'>");
+				sb.append("<h4>"+"<a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a></h4>");
+				sb.append("<span calss='pull-right'>"+p.getP_vol()+"</span>");
+				sb.append("<p>"+p.getP_plnum0()+" "+p.getP_plnum1()+" "+p.getP_plnum2()+"</p>");
+				sb.append("</div>");
+				sb.append("</div>");
+				sb.append("</div>");
+			}
+			sb.append("</div>");
+			mav.addObject("splist",sb.toString());
+		}
+		view="project";
+		mav.setViewName(view);
+		return mav;
    }
    //프로젝트 댓글삽입
    public ModelAndView insertComment(Reply reply) {

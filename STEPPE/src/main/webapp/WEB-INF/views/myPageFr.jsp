@@ -54,6 +54,8 @@ input#complete {
 	<div class="about">
          <div class="container">
             <hr/>
+            <%-- <h3>즐겨찾기 프로젝트 리스트</h3>
+            ${plist4} --%>
             <h3>대기중 프로젝트 리스트</h3>
             ${plist1}	
             <hr/>

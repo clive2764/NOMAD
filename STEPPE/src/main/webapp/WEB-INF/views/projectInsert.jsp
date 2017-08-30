@@ -499,7 +499,11 @@ $("#inter").click(function(){
  	 		console.log(newArr[0]);
  	 		p_plnum0.setAttribute("value",newArr[0]);
  	 		p_plnum1.setAttribute("value",newArr[1]);
- 	 		p_plnum2.setAttribute("value",newArr[2]);
+ 	 		//if(newArr[2] == undefined){
+ 	 			//p_plnum2.setAttribute("value",null);
+ 	 		//}else{
+ 	 			p_plnum2.setAttribute("value",newArr[2]);
+ 	 		//}
  	 		
  		}
 

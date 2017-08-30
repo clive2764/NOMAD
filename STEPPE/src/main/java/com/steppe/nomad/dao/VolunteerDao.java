@@ -42,7 +42,7 @@ public class VolunteerDao {
 	public int getPerson(int v_pnum) {
 		return sqlSession.selectOne("volunteer.getPerson",v_pnum);
 	}
-
+	
 	public List<Volunteer> getVolunteerList(int v_pnum) {//라이트 박스에서 띄우기 위한 지원자 리스트
 		return sqlSession.selectList("volunteer.getVolunteerList",v_pnum);
 	}
@@ -55,13 +55,10 @@ public class VolunteerDao {
 		return sqlSession.selectOne("volunteer.getVolunteerMaxNum");
 	}
 	
-	public int updateBid(int v_bid,String m_id){
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("v_bid", v_bid);
-		map.put("v_mid", m_id);
-		return sqlSession.update("volunteer.updateBid",map);
-
+	public int updateBid(Volunteer volunteer){
+		return sqlSession.update("volunteer.updateBid",volunteer);
 	}
+
 
 	public int deleteVolunteer(Volunteer vl) {//지원자 삭제
 		System.out.println(vl.getV_mid());
