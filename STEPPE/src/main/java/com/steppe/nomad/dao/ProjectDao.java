@@ -154,4 +154,10 @@ public class ProjectDao {
 		return sqlSession.selectOne("project.getOneStatus",pupnum);
 	}
 
+
+	public int updatefinalStatus(int pnum1) {
+		return sqlSession.update("project.updatefinalStatus",pnum1);
+		
+	}
+
 }

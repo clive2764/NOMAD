@@ -891,7 +891,8 @@ public class AdminManagement {
 			}
 			if(prd.getPd_catagory().equals("H") && p_status==5){
 				/*sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseRefund?pnum="+ prd.getPu_pnum() + "'\" value='환불'/></td>");*/
-				sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseComplate?pnum="+ prd.getPu_pnum() + "'\" value='완료'/></td>");
+				sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseComplate?pnum="+pupnum+ "'\" value='완료'/></td>");
+				System.out.println(prd.getPu_pnum());
 			}
 			if(prd.getPd_catagory().equals("C")){
 				sb.append("<td></td>");
@@ -1018,13 +1019,19 @@ private void purchaseCheck(int pnum, int pdpunum, double pumoney) {
 //결제 완료
 private void purchaseComplate(int pnum) {
 	mav = new ModelAndView();
-
-	//int pnum = Integer.parseInt(request.getParameter("pnum"));
-	System.out.println("pnum="+pnum);
-	String p_num= String.valueOf(pnum);
-	int pd_num=acDao.getPurchase_detailMaxNum()+1;//결제내역번호 받아오고 +1
+	String view=null;
+	int pnum1 = Integer.parseInt(request.getParameter("pnum"));
+	
+	System.out.println("pnum="+pnum1);
+	
 	Accounting acList=null;
-	acList=aDao.getHoldMoney(pnum);//보유중인 금액과 결제번호 받아오기
+	
+	acList=aDao.getHoldMoney(pnum1);//보유중인 금액과 결제번호 받아오기
+	
+	String pnum2=String.valueOf(pnum1);
+	int pd_num=acDao.getPurchase_detailMaxNum()+1;//결제내역번호 받아오고 +1
+	
+	
 	String str = null;
 	if(acList!=null){
 		int pd_punum=acList.getPd_punum();
@@ -1034,11 +1041,18 @@ private void purchaseComplate(int pnum) {
 		Purchase_detail pd= new Purchase_detail();
 		pd.setPd_num(pd_num);
 		pd.setPd_punum(pd_punum);
-		pd.setPd_mid(p_num);
+		pd.setPd_mid(pnum2);
 		pd.setPd_money(pd_money);
 		pd.setPd_catagory("A");
 		
 		int InsertSales= acDao.InsertSales(pd);
+		
+		if(InsertSales!=0){
+			pDao.updatefinalStatus(pnum1);//프로젝트 상태를 결제완료로 바굼
+			view="redirect:purchaseCheck";
+			mav.setViewName(view);
+
+		}
 	}
 
 	

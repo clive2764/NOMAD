@@ -56,6 +56,6 @@
 	</insert>
 	
 	<select id="getHoldMoney" resultType="accounting" parameterType = "Integer">
-	  select * from purchase p inner join purchase_detail where pu_pnum=#{pnum} AND pd_catagory='H'
+	  select * from purchase p inner join purchase_detail d on p.pu_num = d.pd_punum where p.pu_pnum=#{pnum} AND d.pd_catagory='H'
 	</select>
 </mapper>

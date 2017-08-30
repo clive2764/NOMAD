@@ -166,6 +166,13 @@ public class FreelancerController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/getCashflowfinish")//최종 현금흐름 보기
+	public ModelAndView getCashflowfinish() {
+		System.out.println("getCashflowfinish");
+		mav = fm.getCashflowfinish();
+		return mav;
+	}
+	
 	//프리랜서 검색
 	@RequestMapping(value ="/searchKeywordFr")
 	public ModelAndView searchFreelancer(){

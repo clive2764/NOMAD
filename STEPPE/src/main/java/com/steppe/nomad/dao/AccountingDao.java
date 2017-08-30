@@ -79,4 +79,9 @@ public class AccountingDao {
 	public int InsertSales(Purchase_detail pd) {
 		return sqlSession.insert("purchase_detail.InsertSales",pd);
 	}
+
+
+	public List<Purchase_detail> getFinishFlow(Purchase_detail pd) {
+		return sqlSession.selectList("purchase_detail.getFinishFlow", pd);
+	}
 }

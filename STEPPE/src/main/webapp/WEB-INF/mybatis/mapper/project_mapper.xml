@@ -153,6 +153,10 @@
 	<select id="getOneStatus" resultType="Integer" parameterType="Integer">
 		SELECT p_status FROM project where p_num=#{pupnum}
 	</select>
+	
+	<update id="updatefinalStatus" parameterType="Integer">
+		update project set p_status = 6 where p_num=#{pnum1}
+	</update>
 
 </mapper>
 

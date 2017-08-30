@@ -232,7 +232,7 @@ public class FreelancerManagement {
 					sb2.append("<th style='text-align:center;'>"+p3.getP_num()+"</th>");
 					sb2.append("<th><a href='goProjectDetail?p_num="+p3.getP_num()+"'>"+p3.getP_title()+"</a></th>");
 					sb2.append("<th style='text-align:center;'>"+p3.getSales()+"</th>");
-					sb2.append("<th><a href='getCashflow?p_num="+p3.getP_num()+"'><button>"+"현금흐름"+"</button></a></th>");
+					sb2.append("<th><a href='getCashflowfinish?p_num="+p3.getP_num()+"'><button>"+"현금흐름"+"</button></a></th>");
 					sb2.append("</tr>");
 				}
 				sb2.append("</table>");
@@ -243,74 +243,6 @@ public class FreelancerManagement {
 		mav.setViewName(view);
 		return mav;
 	}
-
-	/*private ModelAndView getOnGoingProjectList(Project project) {
-		mav=new ModelAndView();
-		String view=null;
-		String p_mid = (String) ss.getAttribute("m_id");
-		List<Project> plist2=null;
-		plist2=pDao.getWaitProjectList(p_mid);
-		if(ss!=null && ss.getAttribute("m_id")!=null){
-			if(plist2!=null){
-				StringBuilder sb=new StringBuilder();
-				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
-				sb.append("<tr>");
-				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
-				sb.append("</tr>");
-				for(int i=0; i<plist2.size(); i++){
-					Project p2=plist2.get(i);
-					sb.append("<tr>");
-					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
-					sb.append("<th style='text-align:center;'>"+p2.getP_title()+"</th>");
-					sb.append("<th style='text-align:center;'>"+p2.getP_budget()+"</th>");
-					sb.append("<th style='text-align:center;'>"+p2.getP_deadline()+"</th>");
-					sb.append("</tr>");
-				}
-				sb.append("</table>");
-				mav.addObject("plist2", sb.toString());
-			}
-			view="myPageFr";
-			mav.setViewName(view);
-		}
-		return mav;
-	}
-
-	private ModelAndView getCompleteProjectList(Project project) {
-		mav=new ModelAndView();
-		String view=null;
-		String p_mid = (String) ss.getAttribute("m_id");
-		List<Project> plist3=null;
-		plist3=pDao.getWaitProjectList(p_mid);
-		if(ss!=null && ss.getAttribute("m_id")!=null){
-			if(plist3!=null){
-				StringBuilder sb=new StringBuilder();
-				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
-				sb.append("<tr>");
-				sb.append("<th style='text-align:center;'>"+"번호"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"제목"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"예산"+"</th>");
-				sb.append("<th style='text-align:center;'>"+"마감일"+"</th>");
-				sb.append("</tr>");
-				for(int i=0; i<plist3.size(); i++){
-					Project p3=plist3.get(i);
-					sb.append("<tr>");
-					sb.append("<th style='text-align:center;'>"+i+1+"</th>");
-					sb.append("<th style='text-align:center;'>"+p3.getP_title()+"</th>");
-					sb.append("<th style='text-align:center;'>"+p3.getP_budget()+"</th>");
-					sb.append("<th style='text-align:center;'>"+p3.getP_deadline()+"</th>");
-					sb.append("</tr>");
-				}
-				sb.append("</table>");
-				mav.addObject("plist3", sb.toString());
-			}
-			view="myPageFr";
-			mav.setViewName(view);
-		}
-		return mav;
-	}*/
 
 	private ModelAndView insertVolunteer(Volunteer volunteer) {
 		String view = null;
@@ -1074,6 +1006,36 @@ public class FreelancerManagement {
 		}
 		return mav;
 	}
+	public ModelAndView getCashflowfinish() {//최종 현금흐름
+		mav=new ModelAndView();
+		String view=null;
+		int pu_pnum = Integer.valueOf(req.getParameter("p_num"));
+		int pd_punum=aDao.getPu_num(pu_pnum);
+		
+		System.out.println(pd_punum);
+		Purchase_detail pd=new Purchase_detail();
+		pd.setPd_punum(pd_punum);
+		pd.setPd_catagory("A");
+		List<Purchase_detail> finallyList=null;
+		finallyList=aDao.getFinishFlow(pd);//최종 매출액 받아오기
+		
+		if(finallyList!=null){
+			StringBuilder sb = new StringBuilder();
+			
+			for(int i=0; i<finallyList.size(); i++){
+				System.out.println("ddddd");
+				Purchase_detail pd1=finallyList.get(i);
+				sb.append("<tr><td>"+pd1.getPd_num()+"</td>");
+				sb.append("<td>"+pd1.getPd_punum()+"</td>");
+				sb.append("<td>"+pd1.getPd_money()+"</td></tr>");
+			}
+			System.out.println(sb);
+			mav.addObject("finallyList", sb.toString());
+			view="finalPurchase";
+			mav.setViewName(view);
+		}
+		return mav;
+	}
 
 	public ModelAndView LightBox(int cmd) {
 		switch(cmd){
@@ -1174,6 +1136,8 @@ public class FreelancerManagement {
 		view = "redirect:/goFreelancerDetail?m_id="+l_mgetid;
 		mav.setViewName(view);
 	}
+
+	
 }
 
 
