@@ -139,7 +139,7 @@
 							+'<td>'+data[i].m_id+'</td>'
 							+'<td>'+data[i].m_name+'</td>'
 							+'<td>'+data[i].m_email+'</td>'
-							+"<td><a href='deleteTeamMember?mid="+data[i].m_id+"'><button>삭제</button></a></td>"
+							+"<td><a href='deleteTeamMember?mid="+data[i].m_id+"' ><button class='btn btn-default'>삭제</button></a></td>"
 							/* +"<td><form action='deleteTeamMember?mid=' method='get'><input type='button' value='삭제' onclick='memberDelete(\""+data[i].m_id+"\")'/></form></td>" */
 							+'</tr>'
 						}

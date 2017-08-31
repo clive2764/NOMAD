@@ -24,47 +24,6 @@
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <jsp:include page="pmsHeader.jsp"></jsp:include>
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <!-- <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="main">Steppe</a>
-            </div>
-            Top Menu Items
-            <ul class="nav navbar-right top-nav">   
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="javascript:Ajax('progress?code=0&prog=0','#printP')">전체</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="javascript:Ajax('progress?code=1&prog=1','#printP')">대기</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="javascript:Ajax('progress?code=2&prog=2','#printP')">작업중</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="javascript:Ajax('progress?code=3&prog=3','#printP')">완료</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>${member.m_id}님 환영합니다.<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="logout"><i class="fa fa-fw fa-power-off"></i>로그아웃</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>-->
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
@@ -141,7 +100,7 @@
 					type: 'get',
 					url: url,
 					success: function(html){
-						alert('확인');
+						//alert('확인');
 						$(position).html(html);
 					},
 					error: function(error){
@@ -159,7 +118,7 @@
 					type: 'get',
 					url: url2,
 					success: function(html){
-						alert('확인');
+						//alert('확인');
 						$(position).html(html);
 					},
 					error: function(error){
@@ -169,7 +128,7 @@
 				location.reload();
 			}
 			function chatStart(pnum){
-				alert(pnum);
+				//alert(pnum);
 				$.ajax({
 					type: 'post',
 					url: "startChat",

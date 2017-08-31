@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +29,10 @@
                     <td colspan="3" style="text-align: center;">${project.p_title}</td>
                 </tr>
                 <tr>
+                	<td>작성자</td>
+                	<td colspan="3" style="text-align: center;">${project.p_mid}</td>
+                </tr>
+                <tr>
                     <td>프로젝트 기간</td>
                     <td style="text-align: center;">지원자 (필요인원)</td>
                     <td style="text-align: center;">예산 금액</td>
@@ -43,12 +48,15 @@
                     <td>필요언어</td>
                     <td>${project.p_plnum0}　${project.p_plnum1}　${project.p_plnum2}</td>
                     <td colspan="2" style="text-align: center;">
+        				<c:set var="m_kind" value="${m_kind}" />
+						<c:if test="${m_kind eq 'F'}">
                         <form action="insertVolunteer" method="post" id="priceForm">
                         <input type="hidden" name="v_pnum" value="${project.p_num}" />
                             <input type="text" placeholder="입찰가 (만원단위 ex)200)" id="price" name="v_bid">
                             <input type="button" value="결정" id="check"/>
                             <a href="goProject"><input type="button" value="목록보기" id="list"></a>
                         </form>
+                        </c:if>
                         
                     </td>
                     
@@ -181,5 +189,9 @@
     }
     remain();
     setInterval(remain, 1000);
+    var message = '${msg}';
+    if(message!=""){
+    	alert(message); 
+    }
 </script>
 </html>

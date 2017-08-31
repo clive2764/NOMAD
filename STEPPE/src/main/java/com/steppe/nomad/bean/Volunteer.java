@@ -8,7 +8,8 @@ public class Volunteer {
 	private int v_bid;
 	private String v_time;
 	private String p_title;
-
+	private String p_mid;
+	
 	public int getV_num() {
 		return v_num;
 	}
@@ -51,6 +52,12 @@ public class Volunteer {
 	}
 	public void setP_title(String p_title) {
 		this.p_title = p_title;
+	}
+	public String getP_mid() {
+		return p_mid;
+	}
+	public void setP_mid(String p_mid) {
+		this.p_mid = p_mid;
 	}
 	
 	

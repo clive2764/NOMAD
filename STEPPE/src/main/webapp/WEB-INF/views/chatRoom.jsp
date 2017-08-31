@@ -23,7 +23,7 @@
 			data: {chatContent:chatContent, pnum:pnum},
 			dataType: 'json',
 			success: function(data){
-				alert('전송완료');
+				//alert('전송완료');
 			}
 		});	
 		$('#chatContent').val('');
@@ -52,7 +52,7 @@
 			},
 			error : function(error){
 				//alert('에러');
-				console.log(error);
+				//console.log(error);
 			}
 		});
 	}
@@ -82,10 +82,10 @@
 	function getInfiniteChat(){
 		setInterval(function(){
 			chatListFunction(lastID);
-		}, 3000);
+		}, 2000);
 	}
 	$(document).ready(function(){
-		alert('실행');
+		//alert('실행');
 		chatListFunction('ten');
 		getInfiniteChat();
 	});

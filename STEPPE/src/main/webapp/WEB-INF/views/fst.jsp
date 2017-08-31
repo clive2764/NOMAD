@@ -23,7 +23,7 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<jsp:include page="mypagefrmenu.jsp" />
-	<div class="about">
+	<div class="about" style="height: -webkit-fill-available;">
 		<table class="table table-striped" style="width: 80%; margin-left: 10%; text-align: center;">
 			<tr>
 				<td colspan = "3">

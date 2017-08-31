@@ -51,6 +51,18 @@ html, body{height:100%;margin:0}
      .center{
 		margin-left: 25%;     
      }
+     #complete{
+     	height: 40px;
+	   	background: #0f1c34;
+	   	box-sizing: border-box;
+	   	border-radius: 5px;
+	   	border: 1px solid white;
+	   	color: #fff;
+	   	font-weight: bold;
+	   	font-size: 14px;
+	   	outline: none;
+	   	cursor: pointer;
+     }
 </style>
 <body>
 	<jsp:include page="header.jsp" />
@@ -156,7 +168,7 @@ html, body{height:100%;margin:0}
 				for(var i=0;i<data.length;i++){
 					pflist+='<tr height="25" align="center">'
 					+'<td width="200">'+data[i].pf_mid+"님의 포트폴리오 입니다"+'</td></tr>'
-					+"<tr><td width='200'><a href='showPortfolioDetail?pfnum="+data[i].pf_num+"'><img src='resources/upload/"+data[i].pt_sysname+"'/></a></td></tr>"
+					+"<tr><td width='200'><a href='showPortfolioDetail?pfnum="+data[i].pf_num+"'><img src='resources/upload/"+data[i].pt_sysname+"' style='width:400px; height:400px;'/></a></td></tr>"
 			}
 			$('#pfTable').html(pflist);
 			},

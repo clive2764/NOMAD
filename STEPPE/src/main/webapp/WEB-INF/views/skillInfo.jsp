@@ -40,7 +40,7 @@ color:black;
 #complete {
    width: 100%;
    height: 40px;
-   background: cornflowerblue;
+   background: #0f1c34;
    box-sizing: border-box;
    border-radius: 5px;
    border: 1px solid white;
@@ -53,6 +53,18 @@ color:black;
 
 input {
    border-radius: 5px;
+}
+#deleteBtn{
+	height: 40px;
+   background: #0f1c34;
+   box-sizing: border-box;
+   border-radius: 5px;
+   border: 1px solid white;
+   color: #fff;
+   font-weight: bold;
+   font-size: 14px;
+   outline: none;
+   cursor: pointer;
 }
 </style>
 </head>
@@ -159,7 +171,7 @@ input {
                +'<td width="130">'+data[i].sk_name+'</td>'
                +'<td width="320">'+data[i].sk_grade+'</td>'
                +'<td width="300">'+data[i].sk_career+'</td>'
-               +"<td style='text-align:right;'><input type='button' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
+               +"<td style='text-align:right;'><input type='button' id='deleteBtn' value='삭제' onclick='memberDelete("+data[i].sk_num+")'/></td></tr>"
          }
          $('#skTable').html(sklist);
          },

@@ -92,13 +92,16 @@
 								<c:if test="${m_kind eq 'C'}">
 									<a href="goAddProject">프로젝트 등록</a>
 									<a href="goPms">프로젝트 관리</a>
+									<a href="updateInfo">회원수정</a>
+									<a href="goMyPage">마이페이지</a>
 								</c:if>
 								<c:if test="${m_kind eq 'F'}">
 									<a href="goPms">프로젝트 관리</a>
 									<a href="goMyProfile">프로필</a>
+									<a href="updateInfo">회원수정</a>
+									<a href="goMyPage">마이페이지</a>
 								</c:if>
-								<a href="updateInfo">회원수정</a>
-								<a href="goMyPage">마이페이지</a>
+								
 
 								<c:if test="${m_id eq 'admin'}">
 									<a href="goMemberMM"> 회원관리 </a>

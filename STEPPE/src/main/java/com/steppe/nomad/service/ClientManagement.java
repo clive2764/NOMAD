@@ -69,6 +69,7 @@ public class ClientManagement {
 	
 	@Autowired
 	private ClientDao clDao;
+	
 
 
 	public ModelAndView execute(int cmd) {
@@ -628,8 +629,8 @@ public class ClientManagement {
 		simpleMailMessage.setText("제목: "+title+"\n\n"+"보낸이: "+sendEmail+"\n\n"+content);
 
 		javaMailSenderImpl.send(simpleMailMessage);
-
-		mav.setViewName("home");
+		
+		mav.setViewName("redirect:/");
 	}
 
 	public ModelAndView execute(int pnum, int cmd) {

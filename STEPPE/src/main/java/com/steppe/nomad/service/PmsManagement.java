@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.steppe.nomad.bean.Chat;
 import com.steppe.nomad.bean.Member;
+import com.steppe.nomad.bean.Pms;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Volunteer;
 import com.steppe.nomad.dao.ChatDao;
@@ -77,7 +78,7 @@ public class PmsManagement {
 	private String chatRoomMake(int pnum) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<div id='chat' class='panel-collapse collapse in'>");
-		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y: auto; width: auto; height: 400px;'>");
+		sb.append("<div id='chatList' class='portlet-body chat-widget' style='overflow-y:auto; overflow-x:hidden; width:auto; height:400px;'>");
 		sb.append("</div></div>");
 		sb.append("<div class='portlet-footer'>");
 		sb.append("<div class='row' style='height: 90px;'>");
@@ -111,9 +112,9 @@ public class PmsManagement {
 		Volunteer volunteer = null;
 		for(int i=0; i<chatRoomList.size(); i++){
 			volunteer = chatRoomList.get(i);
-			sb.append("<div class='panel panel-default' style='width:250px; float: left;'>");
-			sb.append("<h4 class='panel-heading'>"+volunteer.getP_title()+"</h4><br/>");
-			sb.append("<div style='text-align:center;'><input type='button' onclick='chatStart(\""+volunteer.getV_pnum()+"\")' value='채팅하기' /></div>");
+			sb.append("<div class='panel panel-default' style='width:250px; float: left; margin: 5px'>");
+			sb.append("<h4 class='panel-heading' style='text-align:center;'>"+volunteer.getP_title()+"</h4><br/>");
+			sb.append("<div style='text-align:center;'><input type='button' class='btn btn-default' onclick='chatStart(\""+volunteer.getV_pnum()+"\")' value='채팅하기' /></div>");
 			sb.append("</div>");
 		}
 		return sb.toString();
@@ -235,7 +236,7 @@ public class PmsManagement {
 			sb.append("{\"value\": \""+chatList.get(i).getC_content().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")+"\"},");
 			System.out.println("채팅내용="+chatList.get(i).getC_content());
 			System.out.println("날짜:"+chatList.get(i).getC_date());
-			sb.append("{\"value\": \""+chatList.get(i).getC_date().substring(0, 11)+"\"}]");
+			sb.append("{\"value\": \""+chatList.get(i).getC_date()+"\"}]");
 			if(i != chatList.size()-1){
 				sb.append(",");
 			}
@@ -305,58 +306,122 @@ public class PmsManagement {
 	}
 	
 	private void progress() {
-		String m_id = session.getAttribute("m_id").toString();
-		System.out.println("실행");
-		mav = new ModelAndView();
-		String view = null;
-		List<Project> list = null;
-		int value = Integer.valueOf(request.getParameter("prog"));	
-		int code = 0;
-		int progNum;
-
-		if(value==0){
-			progNum = 30;
-			code = 0;			
-		}else if(value==1){
-			progNum = 30; 
-			code = 1;
-		}else if(value==2){
-			progNum = 60;
-			code = 2;
-		}else if(value==3){
-			progNum = 100;
-			code = 3;
-		}else{
-			code = 4;
-		}
-		list = pDao.showProcess(code,m_id);
-		String makeShowList = makeProjectList(list, value);
-		
-		mav.addObject("makeShowList", makeShowList);
-		mav.setViewName("progress");
-	}
+	      String m_id = session.getAttribute("m_id").toString();
+	      Member member = mDao.getMemberInfo(m_id);
+	      System.out.println("실행");
+	      mav = new ModelAndView();
+	      String view = null;
+	      List<Project> list = null;
+	      List<Pms> list2 = null;
+	      int value = Integer.valueOf(request.getParameter("prog"));   
+	      int code = 0;
+	      int progNum;
+	      if(member.getM_kind().equals("F")){
+	         if(value==0){
+	            progNum = 30;
+	            code = 0;         
+	         }else if(value==1){
+	            progNum = 30; 
+	            code = 1;
+	         }else if(value==2){
+	            progNum = 60;
+	            code = 2;
+	         }else if(value==3){
+	            progNum = 100;
+	            code = 3;
+	         }else{
+	            code = 4;
+	         }
+	         list2 = pDao.freeShowProcess(code,m_id);
+	         String makeShowList = makeProjectListFree(list2, value);
+	         mav.addObject("makeShowList", makeShowList);
+	      }else{
+	         if(value==0){
+	            progNum = 30;
+	            code = 0;         
+	         }else if(value==1){
+	            progNum = 30; 
+	            code = 1;
+	         }else if(value==2){
+	            progNum = 60;
+	            code = 2;
+	         }else if(value==3){
+	            progNum = 100;
+	            code = 3;
+	         }else{
+	            code = 4;
+	         }
+	         list = pDao.showProcess(code,m_id);
+	         String makeShowList = makeProjectList(list, value);
+	         mav.addObject("makeShowList", makeShowList);
+	      }
+	      mav.setViewName("progress");
+	   }
 
 	private void showProcess(Project project) {
-		//String m_id = session.getAttribute("m_id").toString();
-		//System.out.println("m_id:"+m_id);
-		String view = null;
-		mav = new ModelAndView();
-		String m_id = session.getAttribute("m_id").toString();
-		//String id = (String) session.getAttribute("m_id");
-		if(session!=null && session.getAttribute("m_id")!=null){
-			System.out.println("showProcess() 실행");
-			List<Project> list = null;
-			int progNum = 0;
-			
-			list = pDao.showProcess(progNum,m_id);
-			String makeList = makeProjectList(list, progNum);
-			mav.addObject("makeList", makeList);
-			view = "pms";
-		}else{
-			view = "redirect:/main";
-		}
-		mav.setViewName(view);
-	}
+	      String view = null;
+	      mav = new ModelAndView();
+	      String m_id = session.getAttribute("m_id").toString();
+	      Member member = mDao.getMemberInfo(m_id);
+	      //List<Volunteer> volun = vDao.freeSelectVounteer(m_id);
+	      //String id = (String) session.getAttribute("m_id");
+	      if(session!=null && session.getAttribute("m_id")!=null){
+	         System.out.println("showProcess() 실행");
+	         List<Project> list = null;
+	         List<Pms> list2 = null;
+	         int progNum = 0;
+	         String makeList = null;
+	         String makeList2 = null;
+	         if(member.getM_kind().equals("F")){
+	            System.out.println("f실행?");
+	            list2 = pDao.freeShowProcess(progNum,m_id);
+	            makeList2 = makeProjectListFree(list2, progNum);
+	            mav.addObject("makeList", makeList2);
+	         }else{
+	            System.out.println("c실행?");
+	            list = pDao.showProcess(progNum,m_id);
+	            makeList = makeProjectList(list, progNum);
+	            mav.addObject("makeList", makeList);
+	         }
+	         
+	         view = "pms";
+	      }else{
+	         view = "redirect:/main";
+	      }
+	      mav.setViewName(view);
+	   }
+	   public String makeProjectListFree(List<Pms> list, int value){
+	      StringBuilder sb = new StringBuilder();
+	      Pms pms = null;
+	      int num = 0;
+	      int progNum = 0;
+
+	      int number = 0;
+	      for(int i=0; i<list.size(); i++){
+	         pms = list.get(i);
+	         sb.append(pms.getP_title()+"<br/>");
+	         progNum = pms.getP_status();
+	      
+	         sb.append("<div class='row'>"
+	               + "<div class='col-lg-12'>");
+	         sb.append("<progress value="+progNum+" max='4' style='height: 30px; width:400px;'></progress>&nbsp;&nbsp;&nbsp;");
+	         sb.append("<div class='box'>");
+	         sb.append("<select name='prog' id='prog"+number+"'>");
+	         sb.append("<option value='0'>전체</option>");
+	         sb.append("<option value='1'>대기</option>");
+	         sb.append("<option value='2'>작업전</option>");
+	         sb.append("<option value='3'>작업중</option>");
+	         sb.append("<option value='4'>작업 완료</option>");
+	         sb.append("</select>&nbsp;");
+	         sb.append("</div>");
+	         sb.append("<input type='button' class='btn btn-default' onclick=\"javascript:Ajax2('progressUpdate?num="+pms.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
+	         sb.append("</div>"
+	               + "</div>");
+	         number++;
+	      }
+	      number = 0;
+	      return sb.toString();
+	   }
 	
 	public String makeProjectList(List<Project> list, int value){
 	      StringBuilder sb = new StringBuilder();
@@ -374,6 +439,7 @@ public class PmsManagement {
 	         sb.append("<div class='row'>"
 	               + "<div class='col-lg-12'>");
 	         sb.append("<progress value="+progNum+" max='4' style='height: 30px; width:400px;'></progress>&nbsp;&nbsp;&nbsp;");
+	         sb.append("<div class='box'>");
 	         sb.append("<select name='prog' id='prog"+number+"'>");
 	         sb.append("<option value='0'>전체</option>");
 	         sb.append("<option value='1'>대기</option>");
@@ -381,6 +447,7 @@ public class PmsManagement {
 	         sb.append("<option value='3'>작업중</option>");
 	         sb.append("<option value='4'>작업 완료</option>");
 	         sb.append("</select>&nbsp;");
+	         sb.append("</div>");
 	         if(member.getM_kind().equals("F")){
 	            sb.append("<input type='button' class='btn btn-default' onclick=\"javascript:Ajax2('progressUpdate?num="+project.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
 	         }

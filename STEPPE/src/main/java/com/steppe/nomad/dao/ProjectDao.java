@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.steppe.nomad.bean.Client_mypage;
 import com.steppe.nomad.bean.Member;
+import com.steppe.nomad.bean.Pms;
 import com.steppe.nomad.bean.Project;
 import com.steppe.nomad.bean.Required_Skill;
 
@@ -25,7 +26,12 @@ public class ProjectDao {
 		System.out.println("플래그:" + p_status);
 		return sqlSession.selectList("project.showProcess", map);
 	}
-
+	public List<Pms> freeShowProcess(int p_status, String m_id){
+	      Map<String, String> map = new HashMap<String, String>();
+	      map.put("p_status", String.valueOf(p_status));
+	      map.put("m_id", m_id);
+	      return sqlSession.selectList("project.freeShowProcess", map);
+	   }
 	public int progressUpdate(Map<String, Integer> map) {
 		//System.out.println("progNum"+progNum);
 		return sqlSession.update("project.progressUpdate", map);

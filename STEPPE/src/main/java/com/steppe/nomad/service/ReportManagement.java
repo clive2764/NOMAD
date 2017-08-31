@@ -202,11 +202,14 @@ public class ReportManagement {
 				System.out.println("title:"+p.getP_title());
 				if(loginPb.getPb_id().equals(session.getAttribute("m_id")))
 					if(loginPb.getPb_flag() != 0){
-						sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/on.png' />");
+						//sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/on.png' />");
+						sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'>");
 					}else{
-						sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
+						//sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
+						sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'>");
 				}else{
-					sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
+					sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'>");
+					//sb.append("<a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg"+p.getP_num()+"' src='resources/img/off.png' />");
 				}
 			}
 			sb.append("</a></h4></div>");
@@ -257,7 +260,7 @@ public class ReportManagement {
 					sb.append("<div class='col-sm-4 col-lg-4 col-md-4'>");
 					sb.append("<div class='thumbnail'>");
 					sb.append("<a href='goProjectDetail?p_num="+p.getP_num()+"'>");
-					sb.append("<img src='http://placehold.it/320x150' alt=''>");
+					sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
 					sb.append("</a>");
 					sb.append("<div class='caption'>");
 					sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
@@ -376,13 +379,23 @@ public class ReportManagement {
 	public ModelAndView showProjcetDetail() {
 		mav=new ModelAndView();
 		String view=null;
-		//프로젝트 번호
-		int p_num=Integer.parseInt(request.getParameter("p_num"));
-		rDao.getProjectDetail(p_num);
-		mav.addObject("project",rDao.getProjectDetail(p_num));
-		showReplyList();
-		view="projectDetail";
-		mav.setViewName(view);
+		String m_id=(String) session.getAttribute("m_id");
+		if(m_id==null){
+			mav.addObject("msg","로그인이 필요한 서비스입니다.");
+			view="login";
+			mav.setViewName(view);
+			
+		}
+		else{
+			//프로젝트 번호
+			int p_num=Integer.parseInt(request.getParameter("p_num"));
+			rDao.getProjectDetail(p_num);
+			mav.addObject("project",rDao.getProjectDetail(p_num));
+			showReplyList();
+			view="projectDetail";
+			mav.setViewName(view);
+			
+		}
 		return mav;
 	}
 	

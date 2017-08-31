@@ -14,7 +14,19 @@
     <link href="resources/css/bootstrap.min.css" rel="stylesheet">
     <link href="resources/css/sb-admin.css" rel="stylesheet">
     <link href="resources/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+    	.box:nth-child(2) select {
+                          width:200px;
+                          height: 30px;
+                          padding-left: 10px;
+                          font-size: 18px;
+                          color:#000000;
+                          border:1px solid #000000;
+                          border-radius:3px;
+                        }
+    </style>
 </head>
+
 
 <body style="background-color:#fff;">
 

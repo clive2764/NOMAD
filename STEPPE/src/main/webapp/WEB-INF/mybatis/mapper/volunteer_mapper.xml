@@ -4,8 +4,8 @@
 <mapper namespace="volunteer">
 
 	<select id="chatRoomList" parameterType="String" resultType="Volunteer">
-		SELECT p.p_title, v.v_pnum FROM project p INNER JOIN volunteer v ON p.p_num = v.v_pnum 
-		WHERE v.v_ptteam = 1 AND v.v_mid = #{mid}
+		SELECT p.p_title, v.v_pnum, p.p_mid FROM project p INNER JOIN volunteer v ON p.p_num = v.v_pnum 
+		WHERE v.v_ptteam = 1 AND v.v_mid = #{mid} OR p.p_mid = #{mid}
 	</select>
 	<select id="showApplyList" resultType="volunteer" parameterType = "Integer">
 	<![CDATA[
@@ -49,5 +49,7 @@
 	<delete id="deleteVolunteer" parameterType="volunteer">
 		DELETE FROM volunteer WHERE v_pnum = #{v_pnum} AND v_mid = #{v_mid}
 	</delete>
-
+	<select id="freeSelectVounteer" parameterType="String" resultType="volunteer">
+      SELECT * FROM volunteer WHERE v_mid = #{mid} AND v_ptteam = 1
+    </select>
 </mapper>

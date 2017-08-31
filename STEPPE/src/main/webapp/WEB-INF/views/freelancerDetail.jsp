@@ -20,8 +20,8 @@
   <body>
      <jsp:include page="header.jsp" />
     
-   <div class="about" style="height: 100%;">
-         <div class="container">
+   <div class="about" style="height:-webkit-fill-available;">
+         <div class="container" style="height: 100%;">
          <div class="row">
             <form action="goReportWrite" method="get">
                <input type="hidden" name="m_id" value="${member.m_id}"/>
@@ -75,7 +75,7 @@
             <hr/>
             ${port}
          </div>
-         portView
+        
          <jsp:include page="footer.jsp" />
          <div id = "articleView_layer">
 			<div id = "bg_layer"></div>
@@ -125,6 +125,9 @@ $(function(){	//$(document).ready(function(){})
 		}
 	}); //keydown End
 });
-
+var message = '${msg}';
+if(message!=""){
+	alert(message); 
+}
 </script>
 </html>

@@ -185,10 +185,10 @@ public class FreelancerManagement {
 					sb.append("<tr>");
 					sb.append("<th style='text-align:center;'>" + p1.getV_num() + "</th>");
 					sb.append("<th style='text-align:center;'>" + p1.getP_num() + "</th>");
-					sb.append("<th><a href='goProjectDetail?p_num=" + p1.getP_num() + "'>" + p1.getP_title()
+					sb.append("<th style='text-align:center;'><a href='goProjectDetail?p_num=" + p1.getP_num() + "'>" + p1.getP_title()
 							+ "</a></th>");
-					sb.append("<th style='text-align:center;'>" + p1.getV_bid() + "</th>");
-					sb.append("<th><a href='goVolunteerdelete?p_num=" + p1.getP_num() + "'><button>" + "취소"
+					sb.append("<th style='text-align:center;'>" + p1.getV_bid() + "&nbsp;만원</th>");
+					sb.append("<th style='text-align:center;'><a href='goVolunteerdelete?p_num=" + p1.getP_num() + "'><button class='btn' style='margin-top:0px;'>" + "취소"
 							+ "</button></a></th>");
 					sb.append("</tr>");
 				}
@@ -199,21 +199,21 @@ public class FreelancerManagement {
 				StringBuilder sb1 = new StringBuilder();
 				sb1.append("<table class='table table-responsive' style='text-align:center; color:black;'");
 				sb1.append("<tr>");
-				sb1.append("<th>" + "지원번호" + "</th>");
-				sb1.append("<th>" + "프로젝트번호" + "</th>");
-				sb1.append("<th>" + "프로젝트제목" + "</th>");
-				sb1.append("<th>" + "매출" + "</th>");
-				sb1.append("<th class='btn'>" + "현금흐름" + "</th>");
+				sb1.append("<th style='text-align:center;'>" + "지원번호" + "</th>");
+				sb1.append("<th style='text-align:center;'>" + "프로젝트번호" + "</th>");
+				sb1.append("<th style='text-align:center;'>" + "프로젝트제목" + "</th>");
+				sb1.append("<th style='text-align:center;'>" + "매출" + "</th>");
+				sb1.append("<th style='text-align:center;'>" + "현금흐름" + "</th>");
 				sb1.append("</tr>");
 				for (int i = 0; i < plist2.size(); i++) {
 					Client_mypage p2 = plist2.get(i);
 					sb1.append("<tr>");
-					sb1.append("<th>" + p2.getV_num() + "</th>");
-					sb1.append("<th>" + p2.getP_num() + "</th>");
-					sb1.append("<th><a href='goProjectDetail?p_num=" + p2.getP_num() + "'>" + p2.getP_title()
+					sb1.append("<th style='text-align:center;'>" + p2.getV_num() + "</th>");
+					sb1.append("<th style='text-align:center;'>" + p2.getP_num() + "</th>");
+					sb1.append("<th style='text-align:center;'><a href='goProjectDetail?p_num=" + p2.getP_num() + "'>" + p2.getP_title()
 							+ "</a></th>");
-					sb1.append("<th style='text-align:center;'>" + p2.getSales() + "</th>");
-					sb1.append("<th><a href='getCashflow?p_num=" + p2.getP_num() + "'><button>" + "현금흐름"
+					sb1.append("<th style='text-align:center;'>" + p2.getSales() + "&nbsp;만원</th>");
+					sb1.append("<th style='text-align:center;'><a href='getCashflow?p_num=" + p2.getP_num() + "'><button class='btn'>" + "현금흐름"
 							+ "</button></a></th>");
 					sb1.append("</tr>");
 				}
@@ -224,20 +224,20 @@ public class FreelancerManagement {
 				StringBuilder sb2 = new StringBuilder();
 				sb2.append("<table class='table table-responsive' style='text-align:center; color:black;'");
 				sb2.append("<tr>");
-				sb2.append("<th>" + "지원번호" + "</th>");
-				sb2.append("<th>" + "프로젝트번호" + "</th>");
-				sb2.append("<th>" + "프로젝트제목" + "</th>");
-				sb2.append("<th>" + "매출" + "</th>");
-				sb2.append("<th>" + "현금흐름" + "</th>");
+				sb2.append("<th style='text-align:center;'>" + "지원번호" + "</th>");
+				sb2.append("<th style='text-align:center;'>" + "프로젝트번호" + "</th>");
+				sb2.append("<th style='text-align:center;'>" + "프로젝트제목" + "</th>");
+				sb2.append("<th style='text-align:center;'>" + "매출" + "</th>");
+				sb2.append("<th style='text-align:center;'>" + "현금흐름" + "</th>");
 				sb2.append("</tr>");
 				for (int i = 0; i < plist3.size(); i++) {
 					Client_mypage p3 = plist3.get(i);
-					sb2.append("<tr>");
+					sb2.append("<tr style='text-align:center;'>");
 					sb2.append("<th style='text-align:center;'>" + p3.getV_num() + "</th>");
 					sb2.append("<th style='text-align:center;'>" + p3.getP_num() + "</th>");
 					sb2.append("<th><a href='goProjectDetail?p_num=" + p3.getP_num() + "'>" + p3.getP_title()
 							+ "</a></th>");
-					sb2.append("<th style='text-align:center;'>" + p3.getSales() + "</th>");
+					sb2.append("<th style='text-align:center;'>" + p3.getSales() + "&nbsp; 만원</th>");
 					sb2.append("<th><a href='getCashflowfinish?p_num=" + p3.getP_num() + "'><button>" + "현금흐름"
 							+ "</button></a></th>");
 					sb2.append("</tr>");
@@ -788,98 +788,107 @@ public class FreelancerManagement {
 
 		mav = new ModelAndView();
 		String view = null;
-		String m_id = (String) req.getParameter("m_id");
-		String l_mgetid = (String) req.getParameter("m_id");
-		List<Career> career = null;
-		List<Skill> skill = null;
-		List<Portfolio> portfolio;
-		System.out.println(m_id);
-		fDao.getFreelancerDetail(m_id);
-		mav.addObject("like", fDao.CntLike(l_mgetid));
-		mav.addObject("photo", fDao.getProfilePhoto(m_id));
-		mav.addObject("freelancer", fDao.getFreelancerDetail(m_id));
-
-		// 상세보기 내 경력정보 추출
-		career = fDao.getCareer(m_id);
-
-		// 상세보기 내 기술정보 추출
-		skill = fDao.getSkill(m_id);
-
-		// 상세보기 내 포트폴리오 추출
-		portfolio = fDao.getPortfolioList(m_id);
-
-		if (career != null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
-			sb.append("<tr>");
-			sb.append("<th style='text-align:center;'>" + "경력" + "</th>");
-			sb.append("<th style='text-align:center;'>" + "회사" + "</th>");
-			sb.append("<th style='text-align:center;'>" + "직급" + "</th>");
-			sb.append("</tr>");
-			for (int i = 0; i < career.size(); i++) {
-				Career c = career.get(i);
-				sb.append("<tr>");
-				sb.append("<td>" + c.getCa_term() + "</td>");
-				sb.append("<td>" + c.getCa_company() + "</td>");
-				sb.append("<td>" + c.getCa_rank() + "</td>");
-				sb.append("</tr>");
-			}
-			sb.append("</table>");
-			mav.addObject("career", sb.toString());
+		String sm_id=(String) ss.getAttribute("m_id");
+		if(sm_id==null){
+			mav.addObject("msg","로그인이 필요한 서비스입니다.");
+			view="login";
+			mav.setViewName(view);
+			
 		}
-		if (skill != null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
-			sb.append("<tr>");
-			sb.append("<th style='text-align:center;'>" + "기술명" + "</th>");
-			sb.append("<th style='text-align:center;'>" + "기술 등급" + "</th>");
-			sb.append("<th style='text-align:center;'>" + "기술 사용기간" + "</th>");
-			sb.append("</tr>");
-			for (int i = 0; i < skill.size(); i++) {
-				Skill s = skill.get(i);
+		else{
+			String m_id = (String) req.getParameter("m_id");
+			String l_mgetid = (String) req.getParameter("m_id");
+			List<Career> career = null;
+			List<Skill> skill = null;
+			List<Portfolio> portfolio;
+			System.out.println(m_id);
+			fDao.getFreelancerDetail(m_id);
+			mav.addObject("like", fDao.CntLike(l_mgetid));
+			mav.addObject("photo", fDao.getProfilePhoto(m_id));
+			mav.addObject("freelancer", fDao.getFreelancerDetail(m_id));
+	
+			// 상세보기 내 경력정보 추출
+			career = fDao.getCareer(m_id);
+	
+			// 상세보기 내 기술정보 추출
+			skill = fDao.getSkill(m_id);
+	
+			// 상세보기 내 포트폴리오 추출
+			portfolio = fDao.getPortfolioList(m_id);
+	
+			if (career != null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
 				sb.append("<tr>");
-				sb.append("<td>" + s.getSk_name() + "</td>");
-				sb.append("<td>" + s.getSk_grade() + "</td>");
-				sb.append("<td>" + s.getSk_career() + "</td>");
+				sb.append("<th style='text-align:center;'>" + "경력" + "</th>");
+				sb.append("<th style='text-align:center;'>" + "회사" + "</th>");
+				sb.append("<th style='text-align:center;'>" + "직급" + "</th>");
 				sb.append("</tr>");
-			}
-			sb.append("</table>");
-			mav.addObject("skill", sb.toString());
-		}
-		if (portfolio != null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("<div class='container'>");
-			sb.append("<h1 style='color:black; text-align:center;'>포트폴리오 리스트</h1>");
-			for (int i = 0; i < portfolio.size(); i++) {
-				Portfolio p = portfolio.get(i);
-				sb.append("<table class='table table-responsive' style='text-align:center; color:black;'>");
-				sb.append("<tr>");
-				sb.append("<td colspan='4'>" + "<a href='#contents_layer' onClick='articleView(" + p.getPf_num()
-						+ ")'><img src='resources/upload/" + p.getPt_sysname() + "'></a></td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>제목</td>");
-				sb.append("<td>" + p.getPf_title() + "</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>기간</td>");
-				sb.append("<td>" + p.getPf_term() + "</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>기여도</td>");
-				sb.append("<td>" + p.getPf_contribute() + "</td>");
-				sb.append("</tr>");
-				sb.append("<tr>");
-				sb.append("<td>내용</td>");
-				sb.append("<td>" + p.getPf_content() + "</td>");
-				sb.append("</tr>");
+				for (int i = 0; i < career.size(); i++) {
+					Career c = career.get(i);
+					sb.append("<tr>");
+					sb.append("<td>" + c.getCa_term() + "</td>");
+					sb.append("<td>" + c.getCa_company() + "</td>");
+					sb.append("<td>" + c.getCa_rank() + "</td>");
+					sb.append("</tr>");
+				}
 				sb.append("</table>");
+				mav.addObject("career", sb.toString());
 			}
-			sb.append("</div>");
-			mav.addObject("port", sb.toString());
+			if (skill != null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("<table class='table table-striped' style='text-align:center; color:black;'");
+				sb.append("<tr>");
+				sb.append("<th style='text-align:center;'>" + "기술명" + "</th>");
+				sb.append("<th style='text-align:center;'>" + "기술 등급" + "</th>");
+				sb.append("<th style='text-align:center;'>" + "기술 사용기간" + "</th>");
+				sb.append("</tr>");
+				for (int i = 0; i < skill.size(); i++) {
+					Skill s = skill.get(i);
+					sb.append("<tr>");
+					sb.append("<td>" + s.getSk_name() + "</td>");
+					sb.append("<td>" + s.getSk_grade() + "</td>");
+					sb.append("<td>" + s.getSk_career() + "</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("skill", sb.toString());
+			}
+			if (portfolio != null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("<div class='container'>");
+				sb.append("<h1 style='color:black; text-align:center;'>포트폴리오 리스트</h1>");
+				for (int i = 0; i < portfolio.size(); i++) {
+					Portfolio p = portfolio.get(i);
+					sb.append("<table class='table table-responsive' style='text-align:center; color:black;'>");
+					sb.append("<tr>");
+					sb.append("<td colspan='4'>" + "<a href='#contents_layer' onClick='articleView(" + p.getPf_num()
+							+ ")'><img src='resources/upload/" + p.getPt_sysname() + "'></a></td>");
+					sb.append("</tr>");
+					sb.append("<tr>");
+					sb.append("<td>제목</td>");
+					sb.append("<td>" + p.getPf_title() + "</td>");
+					sb.append("</tr>");
+					sb.append("<tr>");
+					sb.append("<td>기간</td>");
+					sb.append("<td>" + p.getPf_term() + "</td>");
+					sb.append("</tr>");
+					sb.append("<tr>");
+					sb.append("<td>기여도</td>");
+					sb.append("<td>" + p.getPf_contribute() + "</td>");
+					sb.append("</tr>");
+					sb.append("<tr>");
+					sb.append("<td>내용</td>");
+					sb.append("<td>" + p.getPf_content() + "</td>");
+					sb.append("</tr>");
+					sb.append("</table>");
+				}
+				sb.append("</div>");
+				mav.addObject("port", sb.toString());
+			}
+			view = "freelancerDetail";
+			mav.setViewName(view);
 		}
-		view = "freelancerDetail";
-		mav.setViewName(view);
 		return mav;
 
 	}

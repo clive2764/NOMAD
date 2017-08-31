@@ -15,47 +15,48 @@
 <link href="resources/css/animate.min.css" rel="stylesheet">
 <link href="resources/css/style.css" rel="stylesheet" />
 <style>
-.about {
-	color: black;
-}
-input{
-color:black;
-}
-table {
-	color: black;
-}
-
-.category {
-	width: 10%;
-}
-
-input#complete {
-	width: 75px;
-	background: #0f1c34;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border: 1px solid white;
-	color: #fff;
-	font-weight: bold;
-	font-size: 14px;
-	outline: none;
-	cursor: pointer;
-}
-.proimg{
-	width: auto;
-	height: 400px;
-}
-.btn {
-				color: white;
-				margin-top: 0px;
-				width:60px;
+			.about {
+				color: black;
+			}
+			input{
+			color:black;
+			}
+			table {
+				color: black;
 			}
 			
+			.category {
+				width: 10%;
+			}
+			
+			input#complete {
+				width: 75px;
+				background: #0f1c34;
+				box-sizing: border-box;
+				border-radius: 5px;
+				border: 1px solid white;
+				color: #fff;
+				font-weight: bold;
+				font-size: 14px;
+				outline: none;
+				cursor: pointer;
+			}
+			.proimg{
+				width: auto;
+				height: 400px;
+			}
+			.btn {
+				color: white;
+				margin-top: 0px;
+				width:80px;
+			}
+						
 			.btn:hover {
 				background-color:  #1ee1b9;
 				color: white;
-				margin-top: 0px;
+				/* margin-top: 0px; */
 			}
+			
 </style>
 </head>
   <body>
@@ -63,7 +64,7 @@ input#complete {
    	<jsp:include page="mypagefrmenu.jsp" />
 	<!--메인페이지 영역-->
 	<div class="about">
-         <div class="container">
+         <div class="container" style="height: 100%;">
             <hr/>
             <%-- <h3>즐겨찾기 프로젝트 리스트</h3>
             ${plist4} --%>

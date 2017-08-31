@@ -33,7 +33,7 @@ table {
 #complete {
    width: 100%;
    height: 40px;
-   background: cornflowerblue;
+   background: #0f1c34;
    box-sizing: border-box;
    border-radius: 5px;
    border: 1px solid white;
@@ -50,6 +50,18 @@ input {
 }
 table, td, tr{
 	color: black;
+}
+#deleteBtn{
+	height: 40px;
+   	background: #0f1c34;
+   	box-sizing: border-box;
+   	border-radius: 5px;
+   	border: 1px solid white;
+   	color: #fff;
+   	font-weight: bold;
+   	font-size: 14px;
+   	outline: none;
+   	cursor: pointer;
 }
 </style>
 </head>
@@ -141,7 +153,7 @@ table, td, tr{
 					+'<td width="400">'+data[i].ca_term+'</td>'
 					+'<td width="400">'+data[i].ca_company+'</td>'
 					+'<td width="400">'+data[i].ca_rank+'</td>'
-					+"<td><input type='button' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
+					+"<td><input type='button' id='deleteBtn' value='삭제' onclick='memberDelete("+data[i].ca_num+")'/></td></tr>"
 			}
 			$('#cTable').html(clist);
 			},

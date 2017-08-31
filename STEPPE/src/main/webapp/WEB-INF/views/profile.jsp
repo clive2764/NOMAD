@@ -86,9 +86,7 @@ input#complete {
 						</form>
 					</td>
 			</table>
-			<div class="container">
-				<h1 style="color: black;">자기소개서 표출</h1>
-			</div>
+			
 			<table>
 				<tr align="center" height="25">
 					<td width="200">이름</td>
