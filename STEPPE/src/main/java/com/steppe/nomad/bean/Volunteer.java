@@ -1,6 +1,7 @@
 package com.steppe.nomad.bean;
 
 public class Volunteer {
+	private int rownum;
 	private int v_num;
 	private int v_ptteam;
 	private int v_pnum;
@@ -9,7 +10,23 @@ public class Volunteer {
 	private String v_time;
 	private String p_title;
 	private String p_mid;
+	private int p_person;
+	private String v_mid0;
+	private String v_mid1;
+	private String v_mid2;
+	private String v_mid3;
+	private String v_mid4;
 	
+	public Volunteer(){
+		
+	}
+	
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
 	public int getV_num() {
 		return v_num;
 	}
@@ -59,6 +76,51 @@ public class Volunteer {
 	public void setP_mid(String p_mid) {
 		this.p_mid = p_mid;
 	}
-	
+	public int getP_person() {
+		return p_person;
+	}
+	public void setP_person(int p_person) {
+		this.p_person = p_person;
+	}
+
+	public String getV_mid0() {
+		return v_mid0;
+	}
+
+	public void setV_mid0(String v_mid0) {
+		this.v_mid0 = v_mid0;
+	}
+
+	public String getV_mid1() {
+		return v_mid1;
+	}
+
+	public void setV_mid1(String v_mid1) {
+		this.v_mid1 = v_mid1;
+	}
+
+	public String getV_mid2() {
+		return v_mid2;
+	}
+
+	public void setV_mid2(String v_mid2) {
+		this.v_mid2 = v_mid2;
+	}
+
+	public String getV_mid3() {
+		return v_mid3;
+	}
+
+	public void setV_mid3(String v_mid3) {
+		this.v_mid3 = v_mid3;
+	}
+
+	public String getV_mid4() {
+		return v_mid4;
+	}
+
+	public void setV_mid4(String v_mid4) {
+		this.v_mid4 = v_mid4;
+	}
 	
 }

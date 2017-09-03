@@ -25,9 +25,9 @@ public class VolunteerDao {
 		return sqlSession.selectOne("volunteer.checkVolunteerList", volunteer);
 	}
 	
-	public int UpdateVolunteer(int v_pnum) {
+	public int UpdateVolunteer(Volunteer vl) {
 		System.out.println("DAO확인");
-		return sqlSession.update("volunteer.UpdateVolunteer",v_pnum);
+		return sqlSession.update("volunteer.UpdateVolunteer",vl);
 
 	}
 
@@ -65,4 +65,5 @@ public class VolunteerDao {
 		System.out.println(vl.getV_pnum());
 		return sqlSession.delete("volunteer.deleteVolunteer",vl);
 	}
+
 }

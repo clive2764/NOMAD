@@ -116,18 +116,27 @@ public class ClientManagement {
 			System.out.println(p_num);
 			vList=vDao.showApplyList(p_num);
 			System.out.println(vList);
+			
+
 			if(vList!=null){
 				StringBuilder sb = new StringBuilder();
-				for(int i=0; i<vList.size(); i++){
-					System.out.println("ddddd");
-					Volunteer vl=vList.get(i);
-					sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
-					sb.append("<td>"+vl.getV_num()+"</td>");
-					sb.append("<td>"+vl.getV_mid()+"</td>");
-					sb.append("<td>"+vl.getV_bid()+"</td>");
-					sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid'" 
-							+ " onClick='CountChecked(this)'/></td></tr>");
+				for(int i=0; i<1;i++){
+					Volunteer v=vList.get(i);
+					System.out.println(v.getP_person());
+					for(int a=0; a<v.getP_person(); a++){
+						Volunteer vl=vList.get(a);
+						System.out.println("a");
+						sb.append("<input type='hidden' value='' name='v_mid' onClick='CountChecked(this)' id='vmid'/>");
+						sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
+						sb.append("<td>"+vl.getV_num()+"</td>");
+						sb.append("<td>"+vl.getV_mid()+"</td>");
+						System.out.println(vl.getV_mid());
+						sb.append("<td>"+vl.getV_bid()+"</td>");
+						sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid' " 
+								+ " onClick='CountChecked(this)'/></td></tr>");
+					}
 				}
+					
 				mav.addObject("vList", sb.toString());
 			}
 			view="applyList";
@@ -155,10 +164,8 @@ public class ClientManagement {
 				Volunteer v=vList.get(i);
 				sb.append("<tr><td>"+v.getV_num()+"</td>");
 				sb.append("<td><a href='goFreelancerDetail?m_id="+v.getV_mid()+"'>"+v.getV_mid()+"</td>");//누르면 프리랜서 상세페이지로 이동
-				//sb.append("<td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+v.getV_bid()+"</td>");
 				sb.append("<td>"+v.getV_bid()+"만 원"+"</td>");
 				sb.append("<td>"+v.getV_time()+"</td></tr>");
-				//sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
 			}
 			sb.append("<tr><td colspan='4'><a href='./goMyPageCI'><button class='btn'>닫기</button></a></tr></td>");
 			sb.append("</table>");
@@ -223,7 +230,6 @@ public class ClientManagement {
 			pd.setPd_punum(pd_punum);
 			List<Purchase_detail> pdList=null;
 			pdList=aDao.selectPurchase_detail(pd);//결제 내역 가져오기
-			//pdList=aDao.selectPurchase_detail(pu_num);//결제 내역 가져오기
 
 			if(pdList!=null){//결제내역을 불러 오면
 				StringBuilder sb = new StringBuilder();
@@ -267,6 +273,10 @@ public class ClientManagement {
 		String pu_mid=session.getAttribute("m_id").toString();
 		int pu_pnum=Integer.valueOf(req.getParameter("v_pnum"));
 		int p_num=Integer.valueOf(req.getParameter("v_pnum"));
+		System.out.println(pu_money);
+		System.out.println(pu_pnum);
+		System.out.println(p_num);
+		System.out.println(pu_mid);
 		
 		Accounting accounting = new Accounting(pu_num,pu_money,pu_mid,pu_pnum);
 			if(aDao.insertPurchase(accounting)!=0){
@@ -283,12 +293,8 @@ public class ClientManagement {
 				System.out.println(pd_money);
 				System.out.println(pd_catagory);
 				
-				//int uState=pDao.StatusUpdateIng(p_num);//프로젝트 상태 업데이트 
-				//System.out.println(uState);
                 Accounting accounting2 = new Accounting(pd_num,pd_punum,pd_mid,pd_money,pd_catagory);
 				if(aDao.insertPurchase_detail(accounting2)!=0){
-					int v_pnum1=vDao.UpdateVolunteer(pu_pnum);//지원자 업데이트
-					System.out.println(v_pnum1);
 					int v_pnum2=pDao.UpdateProject(pu_pnum);//프로젝트 업데이트
 					System.out.println(v_pnum2);
 					view="redirect:goMyPageCI";
@@ -335,14 +341,29 @@ public class ClientManagement {
 		String view=null;
 		System.out.println("왔어");
 		int v_pnum=Integer.valueOf(req.getParameter("v_pnum"));
+		String v_mid0=req.getParameter("v_mid0");
+		String v_mid1=req.getParameter("v_mid1");
+		String v_mid2=req.getParameter("v_mid2");
+		String v_mid3=req.getParameter("v_mid3");
+		String v_mid4=req.getParameter("v_mid4");
+		
+		//System.out.println(v_mid2);
 		
 		System.out.println(v_pnum);
+		System.out.println(v_mid0);
+		System.out.println(v_mid1);
+		System.out.println(v_mid2);
+		System.out.println(v_mid3);
+		System.out.println(v_mid4);
+		
+		
 		int p_person=pDao.getPerson(v_pnum);//프로젝트 인원 받아 오기
 		System.out.println(p_person);
 		int v_mid=vDao.getPerson(v_pnum);//지원자 수 받아오기
 		System.out.println(v_mid);
+		System.out.println(v_pnum);
 
-		if(aDao.Countpunum(v_pnum)!=0 || p_person > v_mid){//이미 결제가 되었는지 확인//그리고 프로젝트 인원에 맞게 지원했는지 확인
+		if(p_person > v_mid){//이미 결제가 되었는지 확인//그리고 프로젝트 인원에 맞게 지원했는지 확인
 			res.setCharacterEncoding("UTF-8");
 			res.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out;
@@ -358,10 +379,22 @@ public class ClientManagement {
 			}
 		}else{//결제 가능
 			System.out.println("결제하자");
+			
+			Volunteer vl=new Volunteer();
+			vl.setV_mid0(v_mid0);
+			vl.setV_mid1(v_mid1);
+			vl.setV_mid2(v_mid2);
+			vl.setV_mid3(v_mid3);
+			vl.setV_mid4(v_mid4);
+			vl.setV_pnum(v_pnum);
+			
+			int v_pnum1=vDao.UpdateVolunteer(vl);//팀결성하기
 			int Maxbid=0;
 			int person=0;
 			System.out.println(v_pnum);
 			Maxbid=aDao.getPrice(v_pnum);//최대 금액 가져오기
+			//Maxbid=vDao.getPrice(v_pnum);//최대 금액 가져오기
+			System.out.println(Maxbid);
 			person=pDao.getPerson(v_pnum);//프로젝트 인원 가져오기
 			int sumbid=Maxbid * person;//입찰 가격의 합
 			
@@ -389,8 +422,6 @@ public class ClientManagement {
 		System.out.println(m_kind);
 		if(session!=null && session.getAttribute("m_id")!= "" && m_kind.equals("C")){
 			List<Project> plist=null;
-			//if(session!=null && session.getAttribute("m_id")!=null ){
-			//plist=pDao.getProjectList(session.getAttribute("m_id"));//합치면 이것으로
 			String m_id=session.getAttribute("m_id").toString();
 			plist=pDao.getProjectList2(m_id);
 			System.out.println(plist);

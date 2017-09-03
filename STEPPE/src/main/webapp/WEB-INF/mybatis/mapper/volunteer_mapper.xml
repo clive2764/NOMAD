@@ -9,7 +9,7 @@
 	</select>
 	<select id="showApplyList" resultType="volunteer" parameterType = "Integer">
 	<![CDATA[
-		select rownum as 작업자, v.v_num, v.v_mid, v.v_bid, v.v_pnum, v.v_ptteam from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} and rownum<=p.p_person order by v.v_mid, v.v_time
+		select rownum as 작업자, v.v_num, v.v_mid, v.v_bid, v.v_pnum, v.v_ptteam, p.p_person from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} order by v.v_bid, v.v_time
 	]]>
 	</select>
 	
@@ -17,9 +17,8 @@
 		SELECT COUNT(V_NUM) FROM VOLUNTEER WHERE V_PNUM = #{v_pnum} AND V_MID = #{v_mid}
 	</select>
 	
-	<update id="UpdateVolunteer" parameterType="Integer">
-		update volunteer set
-		v_ptteam=1 where v_pnum = #{v_pnum}
+	<update id="UpdateVolunteer" parameterType="volunteer">
+		update volunteer set v_ptteam=1 where (v_mid = #{v_mid0} or v_mid = #{v_mid1} or v_mid = #{v_mid2} or v_mid = #{v_mid3} or v_mid = #{v_mid4}) and v_pnum=#{v_pnum} 
 	</update>
 
 	<select id="volunteerCheck" resultType="Integer" parameterType="String">
@@ -52,4 +51,5 @@
 	<select id="freeSelectVounteer" parameterType="String" resultType="volunteer">
       SELECT * FROM volunteer WHERE v_mid = #{mid} AND v_ptteam = 1
     </select>
+    
 </mapper>
