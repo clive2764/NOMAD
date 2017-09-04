@@ -53,7 +53,6 @@
 				<form action="pickMember" name="select" method="get" onsubmit="return check(this)">
 				<table class="table table-responsive" >
 					<tr>
-						<th>프로젝트 번호</th>
 						<th>지원자 번호</th>
 						<th>지원자</th>
 						<th>입찰액</th>

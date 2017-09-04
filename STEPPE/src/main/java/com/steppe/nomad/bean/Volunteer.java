@@ -20,6 +20,13 @@ public class Volunteer {
 	public Volunteer(){
 		
 	}
+
+	public Volunteer(int rownum, int v_num, String v_mid, int v_bid) {
+		//this.rownum=rownum;
+		this.v_num=v_num;
+		this.v_mid=v_mid;
+		this.v_bid=v_bid;
+	}
 	
 	public int getRownum() {
 		return rownum;

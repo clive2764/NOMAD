@@ -8,6 +8,6 @@
 		<title>NOMAD</title>
 	</head>
 	<body>
-		<h3>${makeShowList}</h3>
+		${makeShowList}
 	</body>
 </html>

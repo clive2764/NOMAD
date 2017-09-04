@@ -136,7 +136,6 @@ public class ClientManagement {
 								+ " onClick='CountChecked(this)'/></td></tr>");
 					}
 				}
-					
 				mav.addObject("vList", sb.toString());
 			}
 			view="applyList";
@@ -146,6 +145,7 @@ public class ClientManagement {
 		mav.setViewName(view);
 
 	}
+
 	private void showApplyList() {//지원자 리스트롤 보기 위한 ajax
 		mav=new ModelAndView();
 		String view=null;

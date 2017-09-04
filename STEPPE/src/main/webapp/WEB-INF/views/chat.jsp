@@ -109,9 +109,9 @@
 				});
 			}
 			function Ajax2(url, position, progId){
-				alert(progId);
+				//alert(progId);
 				var num = document.getElementById(progId).options[document.getElementById(progId).selectedIndex].value;
-				alert('num='+num);
+				//alert('num='+num);
 				console.log('num='+num);
 				var url2 = url + num;
 				$.ajax({

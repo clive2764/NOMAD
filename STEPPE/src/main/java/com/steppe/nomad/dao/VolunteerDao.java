@@ -66,4 +66,7 @@ public class VolunteerDao {
 		return sqlSession.delete("volunteer.deleteVolunteer",vl);
 	}
 
+	public List<Volunteer> showApplyList2(Volunteer vL) {
+		return sqlSession.selectList("volunteer.showApplyList2",vL);
+	}
 }

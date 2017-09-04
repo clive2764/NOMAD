@@ -892,7 +892,7 @@ public class AdminManagement {
 			if(prd.getPd_catagory().equals("H") && p_status==5){
 				/*sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseRefund?pnum="+ prd.getPu_pnum() + "'\" value='환불'/></td>");*/
 				sb.append("<td colspan='2'><input type='button' class='btn' onclick=\"location.href='./purchaseComplate?pnum="+pupnum+ "'\" value='완료'/></td>");
-				System.out.println(prd.getPu_pnum());
+				System.out.println("확인:"+prd.getPu_pnum());
 			}
 			if(prd.getPd_catagory().equals("C")){
 				sb.append("<td></td>");

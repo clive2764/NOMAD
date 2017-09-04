@@ -68,6 +68,8 @@
 		            <div class="container">
 		            <h1 style="text-align:center; color:black;">프로젝트 설명</h1>
 		                <p>${project.p_content}</p>
+		                <br/>
+		                <img style="width: 80%; height: 100%;" src="resources/upload/${project.p_filename}"/>
 		            </div>    
 		           <hr/>
 		           

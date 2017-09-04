@@ -130,7 +130,7 @@
 					            </div>
 					        </nav>
                             <div class="panel-body">
-                                <h1 style="text-align:center;">프로젝트 그래프 표기 구간입니다.</h1>
+                                <h1 style="text-align:center;">프로젝트 그래프</h1>
                                 <div id="printP" class="col-lg-12">
 									${makeList}
 				                </div>
@@ -155,7 +155,7 @@
 					type: 'get',
 					url: url,
 					success: function(html){
-						alert('확인');
+						//alert('확인');
 						$(position).html(html);
 					},
 					error: function(error){
@@ -164,16 +164,16 @@
 				});
 			}
 			function Ajax2(url, position, progId){
-				alert(progId);
+				//alert(progId);
 				var num = document.getElementById(progId).options[document.getElementById(progId).selectedIndex].value;
-				alert('num='+num);
+				//alert('num='+num);
 				console.log('num='+num);
 				var url2 = url + num;
 				$.ajax({
 					type: 'get',
 					url: url2,
 					success: function(html){
-						alert('확인');
+						//alert('확인');
 						$(position).html(html);
 					},
 					error: function(error){
