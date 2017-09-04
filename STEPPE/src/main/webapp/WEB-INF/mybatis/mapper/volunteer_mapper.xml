@@ -9,7 +9,7 @@
 	</select>
 	<select id="showApplyList" resultType="volunteer" parameterType = "Integer">
 	<![CDATA[
-		select rownum as 작업자, v.v_num, v.v_mid, v.v_bid, v.v_pnum, v.v_ptteam from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} and rownum<=p.p_person order by v.v_mid, v.v_time
+		select rownum, v.v_num, v.v_mid, v.v_bid, v.v_pnum from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} order by v.v_bid, v.v_time
 	]]>
 	</select>
 	
@@ -51,5 +51,11 @@
 	</delete>
 	<select id="freeSelectVounteer" parameterType="String" resultType="volunteer">
       SELECT * FROM volunteer WHERE v_mid = #{mid} AND v_ptteam = 1
+    </select>
+    
+    <select id="showApplyList2" parameterType="volunteer" resultType="volunteer">
+     <![CDATA[
+		select v.v_num, v.v_mid, v.v_bid from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_num=#{v_num} and v.v_mid=#{v_mid} and v.v_bid=#{v_bid} and #{rownum} <= p.p_person
+	]]>
     </select>
 </mapper>

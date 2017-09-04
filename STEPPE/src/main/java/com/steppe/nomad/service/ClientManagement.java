@@ -116,13 +116,51 @@ public class ClientManagement {
 			System.out.println(p_num);
 			vList=vDao.showApplyList(p_num);
 			System.out.println(vList);
+			for(int i=0; i<vList.size(); i++){
+				Volunteer vl=vList.get(i);
+				int v_pnum=vl.getV_pnum();
+				int rownum=vl.getRownum();
+				int v_num=vl.getV_num();
+				String v_mid=vl.getV_mid();
+				int v_bid=vl.getV_bid();
+				System.out.println(rownum);
+				System.out.println(v_num);
+				System.out.println(v_mid);
+				System.out.println(v_bid);
+				Volunteer vL=new Volunteer(rownum,v_num,v_mid,v_bid);
+				List<Volunteer> vList2=null;
+				vList2=vDao.showApplyList2(vL);
+				System.out.println(vList2);
+				
+				if(vList2!=null){
+					StringBuilder sb = new StringBuilder();
+					for(int a=0; a<vList2.size(); a++){
+						System.out.println("ddddd");
+						Volunteer v=vList2.get(a);
+						//sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+v.getV_pnum()+"</td>");
+						sb.append("<tr><td>"+v.getV_num()+"</td>");
+						sb.append("<td>"+v.getV_mid()+"</td>");
+						sb.append("<td>"+v.getV_bid()+"</td>");
+						sb.append("<td><input type='checkbox' value='"+v.getV_mid()+"' name='v_mid' id='vmid'" 
+								+ " onClick='CountChecked(this)'/></td></tr>");
+					}
+					mav.addObject("vList", sb.toString());
+				}
+				view="applyList";
+			}
+		}else{
+				view="home";
+			}
+			mav.setViewName(view);
+	}
+			/*
 			if(vList!=null){
 				StringBuilder sb = new StringBuilder();
 				for(int i=0; i<vList.size(); i++){
 					System.out.println("ddddd");
 					Volunteer vl=vList.get(i);
-					sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
-					sb.append("<td>"+vl.getV_num()+"</td>");
+					//sb.append("<td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
+					sb.append("<tr><td>"+vl.getV_num()+"</td>");
 					sb.append("<td>"+vl.getV_mid()+"</td>");
 					sb.append("<td>"+vl.getV_bid()+"</td>");
 					sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid'" 
@@ -136,7 +174,7 @@ public class ClientManagement {
 		}
 		mav.setViewName(view);
 
-	}
+	}*/
 	private void showApplyList() {//지원자 리스트롤 보기 위한 ajax
 		mav=new ModelAndView();
 		String view=null;

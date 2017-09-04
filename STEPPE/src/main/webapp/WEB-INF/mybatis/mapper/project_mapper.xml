@@ -50,7 +50,7 @@
 		UPDATE project SET p_status = #{progNum} where p_num = #{btnNum}
 	</update>
 	<select id="showMyProjectList" parameterType="String" resultType="Project">
-      SELECT * FROM project p INNER JOIN volunteer v ON p.p_num = v.v_pnum WHERE v.v_mid = #{id}
+      SELECT * FROM project p INNER JOIN volunteer v ON p.p_num = v.v_pnum WHERE v.v_mid = #{id} OR p.p_mid = #{id} AND v.v_ptteam = 1
    </select>
 	<select id="showMyMemberList" parameterType="Map" resultType="Member">
 		SELECT m_id, m_name, m_email FROM member where m_id IN (SELECT v_mid FROM volunteer where v_pnum = #{pNum})
