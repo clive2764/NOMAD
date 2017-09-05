@@ -49,7 +49,7 @@
 		<!--메인페이지 영역-->
 		<div class="about">
 			<h4 align="center">결제 관리</h4>
-			<div class="container" style="height: -webkit-fill-available;" align="center">
+			<div class="container" style="text-align:center;">
 				<table class="table table-responsive" >
 					<tr>
 						<th>결제 NO.</th>
