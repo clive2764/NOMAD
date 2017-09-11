@@ -119,7 +119,7 @@
 			function Ajax(val){
 				var pNum = document.getElementById('sBox').options[document.getElementById('sBox').selectedIndex].value;
 				//var title = document.getElementById('sBox').options[document.getElementById('sBox').selectedIndex].text;
-				alert(pNum);
+				//alert(pNum);
 				var vName
 				$.ajax({
 					type: 'get',
@@ -127,7 +127,7 @@
 					data: {pNum:pNum},
 					dataType: 'json',
 					success: function(data){
-						alert('json확인');
+						//alert('json확인');
 						var mlistStr = '';
 						mlistStr += '<tr height="25" align="center">'
 								+ '<td>아이디</td>'
@@ -151,16 +151,16 @@
 				});
 			}
 			function Ajax2(url, position, progId){
-				alert(progId);
+				//alert(progId);
 				var num = document.getElementById(progId).options[document.getElementById(progId).selectedIndex].value;
-				alert('num='+num);
+				//alert('num='+num);
 				console.log('num='+num);
 				var url2 = url + num;
 				$.ajax({
 					type: 'get',
 					url: url2,
 					success: function(html){
-						alert('확인');
+						//alert('확인');
 						$(position).html(html);
 					},
 					error: function(error){

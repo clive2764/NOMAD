@@ -274,7 +274,8 @@ public class ReportManagement {
 					sb.append("<img style='height:250px; width:100%;' src='resources/upload/"+p.getP_filename()+"' alt=''>");
 					sb.append("</a>");
 					sb.append("<div class='caption'>");
-					sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
+					//sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'><img id='bookmarkImg' src='resources/img/off.png' />");
+					sb.append("<div><h4><a href='goProjectDetail?p_num="+p.getP_num()+"'>"+p.getP_title()+"</a><a href='#' style='float:right' id='bookmarkBtn' onclick='javascript:bookmarkOn(\""+p.getP_num()+"\")'>");
 					sb.append("</a></h4></div>");
 					sb.append("<span calss='pull-right'>지원자 : "+p.getP_vol()+"명 / 필요 인원 : "+p.getP_person()+"명</span>");
 					if(p1==null)

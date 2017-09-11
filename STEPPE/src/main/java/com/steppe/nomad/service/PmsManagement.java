@@ -439,6 +439,7 @@ public class PmsManagement {
 	         sb.append("<div class='row'>"
 	               + "<div class='col-lg-12'>");
 	         sb.append("<progress value="+progNum+" max='4' style='height: 30px; width:400px;'></progress>&nbsp;&nbsp;&nbsp;");
+	         if(member.getM_kind().equals("F")){
 	         sb.append("<div class='box'>");
 	         sb.append("<select name='prog' id='prog"+number+"'>");
 	         sb.append("<option value='0'>전체</option>");
@@ -448,7 +449,6 @@ public class PmsManagement {
 	         sb.append("<option value='4'>작업 완료</option>");
 	         sb.append("</select>&nbsp;");
 	         sb.append("</div>");
-	         if(member.getM_kind().equals("F")){
 	            sb.append("<input type='button' class='btn btn-default' onclick=\"javascript:Ajax2('progressUpdate?num="+project.getP_num()+"&code=', '#printP', 'prog"+number+"')\" id='progressSend' value='전송' />");
 	         }
 	         sb.append("</div>"

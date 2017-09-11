@@ -24,7 +24,7 @@
 		   	box-sizing: border-box;
 		   	border-radius: 5px;
 		   	border: 1px solid white;
-		   	color: white;
+		   	color: black;
 		   	font-weight: bold;
 		   	font-size: 14px;
 		   	outline: none;
