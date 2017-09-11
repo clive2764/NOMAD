@@ -23,15 +23,19 @@
 	<select id="searchProject" parameterType="String" resultType="project">
 		SELECT * FROM PROJECT WHERE P_TITLE LIKE '%'||#{keyword}||'%'
 	</select>
+	<!--댓글 테이블 내 컬럼 최대수 계산-->
 	<select id="selectReplyMaxNum" resultType="int">
 		select NVL(MAX(r_num),0) FROM REPLY
 	</select>
+	<!--댓글 삽입-->
 	<insert id="insertReply" parameterType="reply">
 		INSERT INTO REPLY VALUES(#{r_num},#{r_mid},#{r_pnum},#{r_content},default)
 	</insert>
+	<!--댓글 표출-->
 	<select id="showReply" parameterType="Integer" resultType="reply">
 		SELECT * FROM REPLY WHERE R_PNUM=#{r_pnum} ORDER BY R_NUM ASC
 	</select>
+	<!--댓글 삭제-->
 	<delete id="deleteReply" parameterType="Integer">
 		DELETE FROM REPLY WHERE R_NUM=#{r_num}
 	</delete>

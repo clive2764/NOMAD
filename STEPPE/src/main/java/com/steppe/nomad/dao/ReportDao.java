@@ -72,7 +72,8 @@ public class ReportDao {
 		return sqlSession.insert("report.insertReply", reply);
 		
 	}
-
+	
+	//댓글 표출
 	public List<Reply> showReply(int p_num) {
 		
 		return sqlSession.selectList("report.showReply", p_num);
@@ -80,6 +81,7 @@ public class ReportDao {
 		
 	}
 
+	//댓글 삭제
 	public int deleteReply(int r_num) {
 		
 		return sqlSession.delete("report.deleteReply", r_num);

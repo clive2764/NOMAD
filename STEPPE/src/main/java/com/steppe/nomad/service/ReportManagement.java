@@ -57,24 +57,27 @@ public class ReportManagement {
 	public ModelAndView goReportWrite() {
 		mav = new ModelAndView();
 		String view=null;
+		//세션에 저장된 아이디 값 호출
 		String m_id=(String) session.getAttribute("m_id");
-		
+		//세션에 저장된 아이디의 값이 없을때 로그인 페이지로 이동
 		if(m_id==null){
-			view="redirect:/";
+			mav.addObject("msg","로그인이 필요한 서비스입니다.");
+			view="login";
 			mav.setViewName(view);
 		}
+		//세션에 저장된 아이디의 값이 존재할때 
 		if(m_id!=null){
-			
+				//작성자의 아이디 값을 호출 
 				String user=request.getParameter("m_id");
+				//레퍼러 값을 호출
 				String reportUrl=request.getHeader("REFERER");
-				System.out.println("이전주소:"+reportUrl);
-				System.out.println("신고유저명:"+user);
+				//페이지단에 작성자 아이디 값을 object로 담아 view단에 표출
 				mav.addObject("user2",user);
+				//페이지단에 레퍼러 값을 object로 담아 view단에 호출
 				mav.addObject("reportUrl",reportUrl);
+				//view페이지를 신고작성 페이지로 정의
 				view="reportWrite";
 				mav.setViewName(view);
-			
-			
 		}
 		return mav;
 	}
@@ -82,27 +85,35 @@ public class ReportManagement {
 
    //신고작성
    public ModelAndView InsertReport(Report report) {
+	  //ModelAndView 객체 생성
       mav = new ModelAndView();
       String view=null;
-      
+      //세션에 저장된 ID값을 가져옴
       String m_id=(String) session.getAttribute("m_id");
+      //ID값을 Set
       report.setR_mid(m_id);
+      //Referer를 이용하여 view에 담아준 URL을 가져옴
       String r_url=request.getParameter("r_url");
+      //URL Set
       report.setR_url(r_url);
+      //신고사유 값을 가져옴
       String r_kind=request.getParameter("r_kind");
+      //신고사유 값 Set 
       report.setR_kind(r_kind);
+      //신고내용 값 가져옴
       String r_content=request.getParameter("r_contents");
+      //신고내용 값 Set
       report.setR_content(r_content);
       System.out.println(m_id);
+      //신고 번호 값 데이테베이스에서 계산후 최대값에 +1을 더하여 변수에 담아줌(Sequence 대체)
       int r_num = rDao.getMaxNum()+1;
+      //번호 값 Set
       report.setR_num(r_num);
-      
+      //작성된 값을 parameter로 사용하여 DAO에서 활용
       rDao.insertReport(report);
+      	//작성완료시 프리랜서목록 페이지로 이동
          view="redirect:/goFreelancer";
          mav.setViewName(view);
-      
-   
-      
       return mav;
    }
    //신고 리스트 표출
@@ -449,25 +460,30 @@ public class ReportManagement {
    }
    //프로젝트 댓글삽입
    public ModelAndView insertComment(Reply reply) {
-      //작성자 아이디
+      //ModelAndView 객체 생성
       mav=new ModelAndView();
+      //세션에 저장된 아이디의 정보를 가져온다.
       String r_mid=(String) session.getAttribute("m_id");
+      //세션에서 불러온 아이디 값을 Set
       reply.setR_mid(r_mid);
-      //프로젝트 번호
+      //프로젝트 번호의 값을 가져온다.
       int r_pnum=Integer.parseInt(request.getParameter("p_num"));
-      System.out.println("프로젝트 번호:"+r_pnum);
+      //System.out.println("프로젝트 번호:"+r_pnum);
+      //가져온 프로젝트 번호의 값을 set
       reply.setR_pnum(r_pnum);
-      //댓글의 내용
+      //댓글의 내용값을 가져온다.
       String r_content=request.getParameter("r_content");
-      System.out.println("댓글내용:"+r_content);
+      //System.out.println("댓글내용:"+r_content);
+      //댓글의 내용 Set
       reply.setR_content(r_content);
-      
+      //댓글 테이블 내 댓글의 갯수를 세어 최대값에서 1을 더한다.
       int r_num=rDao.getReplyMaxNum()+1;
       System.out.println("댓글번호:"+r_num);
+      //댓글 번호를 Set
       reply.setR_num(r_num);
-      
+      //set한 Parameter를 DAO(Data Access Object)로 보내어 실행
       rDao.insertReply(reply);
-      
+      //댓글이 작성되는 원글의 페이지로 이동
       mav.setViewName("redirect:goProjectDetail?p_num="+r_pnum);
       return mav;
    }
@@ -503,34 +519,40 @@ public class ReportManagement {
       
       //댓글 삭제
       public ModelAndView deleteReply() {
+    	 //세션에서 현재 접속 ID의 정보를 가져온다.
          String m_id=(String) session.getAttribute("m_id");
+         //댓글을 작성한 작성자의 ID의 정보를 가져온다.
          String r_mid=request.getParameter("r_mid");
-         System.out.println("현재접속:"+m_id);
+         System.out.println("현재 접속:"+m_id);
          System.out.println("작성자:"+r_mid);
+         //프로젝트의 번호를 가져온다.
          int p_num=Integer.parseInt(request.getParameter("p_num"));
+         //정보를 가져오는지 확인을 위해 콘솔창 출력체크
          System.out.println(p_num);
+         //댓글의 번호값을 가져온다.
          int r_num=Integer.parseInt(request.getParameter("r_num"));
+         //댓글 번호 값을 가져오는지 확인을 위해 콘솔창 출력체크
          System.out.println("리플 번호:"+r_num);
-         //int p_num=Integer.parseInt(request.getParameter("p_num").trim());
-         /*String reportUrl=request.getHeader("REFERER");
-         System.out.println(reportUrl);
-         String CutreportUrl=reportUrl.substring(reportUrl.lastIndexOf("/")+23, reportUrl.length());
-         System.out.println(CutreportUrl);*/
-         if(m_id.equals(r_mid)){
+         //현재 세션에 저장된 ID와 삭제를 요청하는 댓글의 작성자 ID를 비교하여 두 변수의 값이 일치할때 댓글삭제 실행
+         //관리자의 계정이 로그인 되어있는 경우에도 댓글 삭제가능.
+         if(m_id.equals(r_mid)||m_id.equals("admin")){
             rDao.deleteReply(r_num);
+            mav.addObject("msg","정상적으로 삭제 하였습니다.");
             showReplyList();
+            
             System.out.println("삭제성공");
          }
+         //만약 일치하지 않는다면 alert창 발생
          else{
             System.out.println("삭제실패");
+            mav.addObject("msg","작성자의 ID와 현재 접속한 ID가 다릅니다.");
             
          }
          mav.setViewName("projectDetail");
-         
-         //mav.setViewName("redirect:goProjectDetail?p_num="+CutreportUrl);
-         
+        
          return mav;
-      }
+      	}
+      
       public ModelAndView showHomeList() {
             mav=new ModelAndView();
             String view=null;

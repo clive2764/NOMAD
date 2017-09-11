@@ -46,7 +46,7 @@
 				<form action="InsertReport" method="post" id="reportWrite">
 					<table class="table table-striped">
 						<tr>
-							<td style="text-align: center;">신고 대상</td>
+							<td style="text-align: center;">신고자</td>
 							<td style="text-align: center;">${user2}</td>
 						</tr>
 						<tr>
@@ -61,7 +61,7 @@
 							<td style="text-align: center;">
 								<select style="width: 50%;" name="r_kind" id="r_kind">
 									<option value="">
-										
+										신고 사유를 선택해 주십시오.
 									</option>
 									<option value="음란물 및 사행성 조장">
 										음란물 및 사행성 조장
@@ -117,11 +117,15 @@
 		var r_contents = $("#r_contents").val();
 		console.log(url);
 		if(url==""||url==null||r_kind==""||r_kind==null||r_contents==""||r_contents==null){
-			alert("빈 항목이 존재합니다.");
+			alert("입력 사항을 작성하지 않았습니다.");
 		}
 		if(url!=""&&url!=null && r_kind!=""&& r_kind!=null && r_contents!=""&&r_contents!=null){
 			$("#reportWrite").submit();
 		}
 	});
+	var message = '${msg}';
+    if(message!=""){
+    	alert(message); 
+    }
 </script>
 </html>

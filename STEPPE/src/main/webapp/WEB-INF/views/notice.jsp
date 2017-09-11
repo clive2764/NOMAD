@@ -105,9 +105,9 @@
 				</tr>
 			</table>
 				<br />
-				<c:set var="m_kind" value="${member.m_kind}"/>
+				<c:set var="m_kind" value="${member.m_id}"/>
 				
-			<c:if test="${m_kind eq 'A'}">
+			<c:if test="${m_kind eq 'admin'}">
 			<form action="noticeWrite">
 				<button class="btn" >글쓰기</button>
 			</form>
