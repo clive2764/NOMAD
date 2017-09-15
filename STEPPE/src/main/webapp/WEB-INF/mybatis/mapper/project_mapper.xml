@@ -59,22 +59,27 @@
 	<delete id="deleteTeamMember" parameterType="String">
 		DELETE FROM volunteer WHERE v_mid = #{mid}
 	</delete>
+	
 	<select id="getRequired_SkillList" resultType="required_skill">
 		select * from required_skills
-	</select>
+	</select><!-- Required_Skill테이블의 세부기술을 불러오는 SELECT -->
 	
 	<!-- <update id="progressUpdate" parameterType="Integer">
 		UPDATE project SET p_status = #{progNum}
 	</update> -->
 	
+	<select id="getProjectCount" resultType="Integer">
+		SELECT COUNT(*) FROM PLIST
+	</select><!-- project 테이블에 프로젝트가 존재하는지 확인 -->
+	
 	<select id="getProjectMaxNum" resultType="Integer">
 		select NVL(MAX(p_num),0) FROM project
-	</select>
+	</select><!-- 프로젝트 번호의 최대값을 확인// 번호가 null이면 0으로 치환 -->
 	
 	<insert id="insertProject" parameterType = "Map">
       INSERT INTO project VALUES(#{p_num},#{pc1_name},#{pc2_name},#{p_mid},#{p_budget},#{p_term},#{p_title},#{p_content}
       							,#{sysFileName},#{p_deadline},#{p_plnum0},#{p_plnum1}, #{p_plnum2}, #{p_person}, #{p_status}, default, default)
-   </insert>
+   </insert><!-- 프로젝트 테이블에 Map으로 받아온 값을 Insert -->
    
     <select id="getProjectList2" resultType="project" parameterType="String">
     SELECT p_num, p_title, p_vol, p_person, p_status,case when p_status=1 then '대기중' when p_status=2 then '작업전' when p_status=3 then '작업중' 
@@ -104,9 +109,6 @@
 		<!-- select * from project -->
 	</select>
 	
-	<select id="getProjectCount" resultType="Integer">
-		SELECT COUNT(*) FROM PLIST
-	</select>
 	<select id="getProjectDVCount" resultType="Integer">
 		SELECT COUNT(*) FROM PLIST WHERE p_pc1name = '개발'
 	</select>

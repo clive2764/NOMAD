@@ -17,7 +17,7 @@ public class VolunteerDao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	public List<Volunteer> showApplyList(int p_num) {
+	public List<Volunteer> showApplyList(int p_num) {//mpaaer id "showApplyList"의 쿼리 실행 결과를 List<Volunteer>에 담음
 		return sqlSession.selectList("volunteer.showApplyList",p_num);
 	}
 	

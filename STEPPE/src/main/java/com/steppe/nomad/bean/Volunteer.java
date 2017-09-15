@@ -2,20 +2,20 @@ package com.steppe.nomad.bean;
 
 public class Volunteer {
 	private int rownum;
-	private int v_num;
-	private int v_ptteam;
-	private int v_pnum;
-	private String v_mid;
-	private int v_bid;
-	private String v_time;
-	private String p_title;
-	private String p_mid;
-	private int p_person;
-	private String v_mid0;
-	private String v_mid1;
-	private String v_mid2;
-	private String v_mid3;
-	private String v_mid4;
+	private int v_num;//지원자 번호
+	private int v_ptteam;//팀 결성 여부
+	private int v_pnum;//프로젝트 번호
+	private String v_mid;//지원자 아이디
+	private int v_bid;//입찰액
+	private String v_time;//입찰 시간
+	private String p_title;//프로젝트 명
+	private String p_mid;//프로젝트 아이디
+	private int p_person;//인원수
+	private String v_mid0;//프로젝트 지원자1
+	private String v_mid1;//지원자2
+	private String v_mid2;//지원자3
+	private String v_mid3;//지원자4
+	private String v_mid4;//지원자5
 	
 	public Volunteer(){
 		

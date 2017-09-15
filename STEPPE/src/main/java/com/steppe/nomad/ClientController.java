@@ -36,8 +36,8 @@ public class ClientController {
 	@RequestMapping(value="/firstCatagory", method = RequestMethod.GET)
 	public ModelAndView firstCatagory(){
 		mav = new ModelAndView();
-		mav=cm.execute(2); //projectDetail.jsp 프로젝트 상세보기 페이지
-		return mav;
+		mav=cm.execute(2);//ClientManagement 클래스의 execute(2)(setRequired_Skill() 메서드)함수를 실행 
+		return mav;//ModelAndView를 return
 	}
 
 	@RequestMapping(value="/goMyPageCI")//클라이언트의 마이페이지로 가기
@@ -52,8 +52,8 @@ public class ClientController {
 	public ModelAndView insertProject(MultipartHttpServletRequest multi){
 		System.out.println("insertProject");
 		mav = new ModelAndView();
-		mav=cm.execute(multi,1);
-		return mav;
+		mav=cm.execute(multi,1);//ClientManagement 클래스의 execute(multi,1)함수(insertProject(MultipartHttpServletRequest multi)메서드)를 실행
+		return mav;//ModelAndView를 return
 	}
 
 	@RequestMapping(value="/showProcessAll")
@@ -116,7 +116,7 @@ public class ClientController {
 	public ModelAndView payMent(){
 		System.out.println("payMent메서드 실행");
 		mav = new ModelAndView();
-		mav=cm.execute(10);
+		mav=cm.execute(10);//ClientManagement 클래스의 execute(10) 함수(payMent 메서드를 실행)실행
 		return mav;
 	}
 	

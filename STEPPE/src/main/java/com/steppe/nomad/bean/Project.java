@@ -12,14 +12,14 @@ public class Project {
 	private String p_filename; //프로젝트 첨부파일
 	private String p_deadline; //프로젝트 마감일
 	private String p_plnum; //프로젝트 필요 언어
-	private String p_plnum0;
-	private String p_plnum1;
-	private String p_plnum2;
+	private String p_plnum0;//첫번째 세부기술
+	private String p_plnum1;//두번째 세부기술
+	private String p_plnum2;//세번째 세부기술
 	private int p_person; //프로젝트 인원
 	private int p_status; //프로젝트 상태
 	private String p_status2;
-	private int p_vol;
-	private int p_bookmark;
+	private int p_vol;//프로젝트 인원수
+	private int p_bookmark;//
 	
 	
 	public int getP_num() {

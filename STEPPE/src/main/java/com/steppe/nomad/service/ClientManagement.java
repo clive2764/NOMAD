@@ -107,23 +107,23 @@ public class ClientManagement {
 		}
 		return mav;
 	}
+	
 	private void payMent() {//결제하기
 		mav=new ModelAndView();
 		String view=null;
-		int p_num=Integer.parseInt(req.getParameter("p_num"));
+		int p_num=Integer.parseInt(req.getParameter("p_num"));//프로젝트 번호 파라미터를 받아옴
 		if(session!=null && session.getAttribute("m_id")!=null){
-			List<Volunteer> vList=null;
+			List<Volunteer> vList=null;//Volunteer Bean을 활용하는 vList객체 생성
 			System.out.println(p_num);
-			vList=vDao.showApplyList(p_num);
+			vList=vDao.showApplyList(p_num);//p_num을 매개값으로 해당프로젝트에 등록한 지원자 리스트를 받아옴
 			System.out.println(vList);
 			
-
 			if(vList!=null){
 				StringBuilder sb = new StringBuilder();
-				for(int i=0; i<1;i++){
-					Volunteer v=vList.get(i);
+				for(int i=0; i<1;i++){//프로젝트 인원수 를 받아오기 위해
+					Volunteer v=vList.get(i);//vList에 담아있는 값 중 p_person을  Volunteer Bean의 p_person에 담기 위해
 					System.out.println(v.getP_person());
-					for(int a=0; a<v.getP_person(); a++){
+					for(int a=0; a<v.getP_person(); a++){//프로젝트 인원수 만큼 만 지원자를 받아오기 위해//인원 수 만큼 StringBuilder에 HTML코드를 append
 						Volunteer vl=vList.get(a);
 						System.out.println("a");
 						sb.append("<input type='hidden' value='' name='v_mid' onClick='CountChecked(this)' id='vmid'/>");
@@ -136,11 +136,11 @@ public class ClientManagement {
 								+ " onClick='CountChecked(this)'/></td></tr>");
 					}
 				}
-				mav.addObject("vList", sb.toString());
+				mav.addObject("vList", sb.toString());//append한 HTML코드를 ModelAndView에 addObject
 			}
-			view="applyList";
+			view="applyList";//성공하면 applyList.jsp로 이동
 		}else{
-			view="home";
+			view="home";//실패하면 home.jsp로 이동
 		}
 		mav.setViewName(view);
 
@@ -469,26 +469,27 @@ public class ClientManagement {
 	}
 
 
-	private void setRequired_Skill() {
+	private void setRequired_Skill() {//세부기술 받아오는 메서드
 		String view=null;
-		mav=new ModelAndView();
-		List<Required_Skill> slist=null;
-		slist=pDao.getRequired_SkillList();
+		mav=new ModelAndView();//ModelAndView를 생성
+		List<Required_Skill> slist=null;//Required_Skill Bean을 활용하는 slist 생성
+		slist=pDao.getRequired_SkillList();//slist에 pDao의 getRequired_SkillList() 함수의 결과를 담음
 		System.out.println(slist);
 
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
-				sb.append("<input type='hidden' value='' name='p_plnum[]' onClick='CountChecked(this)' id='inter'/>");
-			for(int i=0; i<slist.size(); i++){
-				Required_Skill rs=slist.get(i);
+				sb.append("<input type='hidden' value='' name='p_plnum[]' onClick='CountChecked(this)' id='inter'/>");//체크리스트의 복수값을 배열로 담아 저장하기 위한 숨겨진 input
+			for(int i=0; i<slist.size(); i++){//slist.size()만큼 StringBuilder에 HTML코드를 append
+				Required_Skill rs=slist.get(i);//slist에 저장된 값을 Required_skill Bean을 이용하기 위한 객체 생성
 				System.out.println(rs.getRs_plnum());
 				sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='p_plnum[]' id='inter' onClick='CountChecked(this)' />"+rs.getRs_plnum());
+				//체크박스 생성
 				sb.append("/");
 			}
-			mav.addObject("slist", sb.toString());
+			mav.addObject("slist", sb.toString());//append한 HTML코드를 ModelAndView에 addObject
 		}
 		view="projectInsert";
-		mav.setViewName(view);
+		mav.setViewName(view);//Target View를 ModelAndView에 setViewName
 	}
 
 
@@ -510,24 +511,24 @@ public class ClientManagement {
 		return mav;
 	}
 
-	private void insertProject(MultipartHttpServletRequest multi) {
-	      String mid = session.getAttribute("m_id").toString();
-	      String pc1_name=multi.getParameter("pc1_name");
-	      String pc2_name=multi.getParameter("pc2_name");
-	      //String p_mid="client";
-	      //String p_mid=session.getAttribute("m_id").toString();
-	      int p_budget=Integer.parseInt(multi.getParameter("p_budget"));
-	      String p_term=multi.getParameter("p_term");
-	      String p_title=multi.getParameter("p_title");
-	      String p_content=multi.getParameter("p_content");
-	      int check=Integer.parseInt(multi.getParameter("fileCheck"));//확인
-	      String p_deadline=multi.getParameter("p_deadline");
-	      String p_plnum0=multi.getParameter("p_plnum0");
-	      String p_plnum1=multi.getParameter("p_plnum1");
-	      String p_plnum2=multi.getParameter("p_plnum2");
-	      int p_person=Integer.parseInt(multi.getParameter("p_person"));
+	private void insertProject(MultipartHttpServletRequest multi) {//프로젝트 등록 메서드
+	      String mid = session.getAttribute("m_id").toString();//세션에 저장되어있던 m_id를 받아와 mid에 저장
+	      String pc1_name=multi.getParameter("pc1_name");//1차 카테고리
+	      String pc2_name=multi.getParameter("pc2_name");//2차 카테고리
+
+	      int p_budget=Integer.parseInt(multi.getParameter("p_budget"));//예산
+	      String p_term=multi.getParameter("p_term");//프로젝트 기간
+	      String p_title=multi.getParameter("p_title");//제목
+	      String p_content=multi.getParameter("p_content");//내용
+	      int check=Integer.parseInt(multi.getParameter("fileCheck"));//파일등록 확인
+	      String p_deadline=multi.getParameter("p_deadline");//프로젝트 입찰 종료 시간
+	      String p_plnum0=multi.getParameter("p_plnum0");//첫번째 세부기술
+	      String p_plnum1=multi.getParameter("p_plnum1");//두번째 세부기술
+	      String p_plnum2=multi.getParameter("p_plnum2");//세번째 세부기술
+	      int p_person=Integer.parseInt(multi.getParameter("p_person"));//프로젝트 인원
 	      System.out.println("check="+check);//1이면 첨부됨
 	      Map<String, Object> fMap=new HashMap<String, Object>();
+	      //UploadFile.java에 있는 파일 업로드 메서드인 public Map<String,Object> fileUp(MultipartHttpServletrequest multi)를 사용위한 객체 생성
 	      Map<String, String> bmMap = new HashMap<String, String>();
 	      int bookmarkNum = 0;
 	      if(pbDao.bookmarkCount()!=0){
@@ -538,19 +539,20 @@ public class ClientManagement {
 	      if(check==1){
 	         UploadFile upload=new UploadFile();
 	         //서버에 파일을 업로드 한 뒤, 
-
+	         //권한 부여ㅑ
 	         //오리지널 파일명, 시스템 파일명을 리턴 후 Map에 저장
 
 	         fMap=upload.fileUp(multi);
 
 	         System.out.println(fMap);
 	      }
-	      Project project=new Project();
-	      if(pDao.getProjectCount() != 0){
-	         project.setP_num(pDao.getProjectMaxNum()+1);         
+	      Project project=new Project();//Project Bean활용 위한 객체 생성
+	      if(pDao.getProjectCount() != 0){//프로젝트 존재여부 판독
+	         project.setP_num(pDao.getProjectMaxNum()+1);//등록된 프로젝트 번호를 부여하기 위해 DB에 저장된 프로젝트 번호에 1을 더함         
 	      }else{
-	         project.setP_num(1);
+	         project.setP_num(1);//최초 프로젝트 이면 등록번호에 1을 부여
 	      }
+	      //project bean에 multi로 받아온 파라미터를 저장
 	      project.setP_pc1name(pc1_name);
 	      project.setP_pc2name(pc2_name);
 	      project.setP_mid(session.getAttribute("m_id").toString());
@@ -564,7 +566,7 @@ public class ClientManagement {
 	      project.setP_plnum2(p_plnum2);
 	      project.setP_person(p_person);
 	      project.setP_status(1);
-
+	      //fMap에 파라미터가 저장된 Bean값을 저장
 	      fMap.put("p_num", project.getP_num());
 	      fMap.put("pc1_name", project.getP_pc1name());
 	      fMap.put("pc2_name", project.getP_pc2name());
@@ -589,13 +591,13 @@ public class ClientManagement {
 
 	      System.out.println(fMap);
 	      
-	      if(pDao.insertProject(fMap)!=0){
+	      if(pDao.insertProject(fMap)!=0){//fMap에 저장된 값을 project 테이블에 Insert
 	         System.out.println("북마크 db실행1");
 	         pbDao.bookmarkInsert(bmMap);
 	         System.out.println("북마크 db실행2");
-	         view="redirect:goMyPageCI";
+	         view="redirect:goMyPageCI";//insert성공시 goMyPageCI url 생성
 	      }else{
-	         view="redirect:goAddProject";
+	         view="redirect:goAddProject";//insert실패시 goAddProject url 생성
 	      }
 	      mav.setViewName(view);
 	   }

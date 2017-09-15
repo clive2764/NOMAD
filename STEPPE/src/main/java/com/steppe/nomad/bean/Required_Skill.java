@@ -1,8 +1,8 @@
 package com.steppe.nomad.bean;
 
 public class Required_Skill {
-	private int rs_id;
-	private String rs_plnum;
+	private int rs_id;//세부언어 번호
+	private String rs_plnum;//세부언어 종류
 	
 	
 	public int getRs_id() {
