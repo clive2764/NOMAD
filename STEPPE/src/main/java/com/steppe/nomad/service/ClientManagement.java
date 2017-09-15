@@ -1,7 +1,6 @@
 package com.steppe.nomad.service;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -59,9 +58,6 @@ public class ClientManagement {
 	private VolunteerDao vDao;
 
 	@Autowired	
-	private Project_bookmarkDao pbDao;
-	
-	@Autowired	
 	private AccountingDao aDao;
 
 	private ModelAndView mav;
@@ -70,7 +66,9 @@ public class ClientManagement {
 	@Autowired
 	private ClientDao clDao;
 	
-
+	@Autowired
+	private Project_bookmarkDao pbDao;
+	
 
 	public ModelAndView execute(int cmd) {
 		switch(cmd){
