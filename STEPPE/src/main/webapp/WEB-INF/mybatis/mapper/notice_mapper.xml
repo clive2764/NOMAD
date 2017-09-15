@@ -21,7 +21,6 @@
 		<![CDATA[
 		SELECT * FROM NLIST WHERE RNUM>=#{pageNum}*10-9 AND RNUM<=#{pageNum}*10 ORDER BY N_NUM
 		]]>
-		<!-- SELECT * FROM NOTICE ORDER BY N_NUM -->
 	</select>
 	
 	<select id="getNoticeCount" resultType="Integer">
