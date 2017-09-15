@@ -8,12 +8,12 @@
 	
 	<select id="getOnGoingProjectList" resultType="client_mypage" parameterType="String">
 		 SELECT p.p_num, p.p_title, v.v_num, c.pu_money*0.952/p.p_person as sales FROM volunteer v inner join project p on v.v_pnum = p.p_num inner join purchase c
-		on c.pu_pnum = p.p_num WHERE p.P_STATUS = 3 AND v.v_MID = #{v_mid}
+		on c.pu_pnum = p.p_num WHERE p.P_STATUS = 3 AND v.v_MID = #{v_mid} AND v.v_ptteam =1
 	</select>
 	
 	<select id="getCompleteProjectList" resultType="client_mypage" parameterType="String">
 		SELECT p.p_num, p.p_title, v.v_num, c.pu_money*0.952/p.p_person as sales FROM volunteer v inner join project p on v.v_pnum = p.p_num inner join purchase c
-		on c.pu_pnum = p.p_num WHERE p.P_STATUS = 6 AND v.v_MID = #{v_mid}
+		on c.pu_pnum = p.p_num WHERE p.P_STATUS = 6 AND v.v_MID = #{v_mid} AND v.v_ptteam = 1
 	</select>
 	
 </mapper>

@@ -53,6 +53,7 @@
 				<form action="pickMember" name="select" method="get" onsubmit="return check(this)">
 				<table class="table table-responsive" >
 					<tr>
+						<th>프로젝트 번호</th>
 						<th>지원자 번호</th>
 						<th>지원자</th>
 						<th>입찰액</th>
@@ -65,6 +66,11 @@
 					</td>
 				</tr>
 				</table>
+				<input id="v_mid0" type="hidden" name="v_mid0"/>
+                <input id="v_mid1" type="hidden" name="v_mid1"/>
+                <input id="v_mid2" type="hidden" name="v_mid2"/>
+                <input id="v_mid3" type="hidden" name="v_mid3"/>
+                <input id="v_mid4" type="hidden" name="v_mid4"/>
 				</form>
 				<input type="button" class="btn" onclick="back()" value="뒤로가기"/>
 				</div></div>
@@ -81,26 +87,85 @@
 		<script>wow = new WOW({}).init();</script>	
 	</body>
 	<script>
-	function check(obj){
-		var isSelectChk=false;
-		var arr_v_mid=document.getElementsByName("v_mid");
-		var checked=0;
-		for(var i=0;i<arr_v_mid.length;i++){
-			if(arr_v_mid[i].checked==true){
-				checked+=1;
-				if(checked==arr_v_mid.length){
-					isSelectChk=true;
-					return true;
-				}else{
-					continue;
-				}
-			}
-				
-			}
-		if(!isSelectChk){
-			alert("선정을 다 체크해 주세요");
-			return false;
-		}
+	function CountChecked(obj){
+		  var valueArr=[];
+          var list=document.getElementsByName("v_mid");      
+          var listi=document.getElementById("vmid");
+          
+          var v_mid0=document.getElementById("v_mid0");
+          var v_mid1=document.getElementById("v_mid1");
+          var v_mid2=document.getElementById("v_mid2");
+          var v_mid3=document.getElementById("v_mid3");
+          var v_mid4=document.getElementById("v_mid4");
+          
+          for(var i=0; i<list.length; i++){
+              if(list[i].checked){
+                 valueArr.push(list[i].value);
+              }
+           }
+           var str='';
+           for(var i=0; i<valueArr.length; i++){
+              str+=valueArr[i]+",";
+          }
+           console.log(str); 
+           listi.setAttribute("value",str);
+           var newArr=str.split(",");
+           console.log(newArr);
+           console.log(newArr[0]);
+           
+           v_mid0.setAttribute("value",newArr[0]);
+           v_mid1.setAttribute("value",newArr[1]);
+           v_mid2.setAttribute("value",newArr[2]);
+           v_mid3.setAttribute("value",newArr[3]);
+           v_mid4.setAttribute("value",newArr[4]);
+           
+          //function.check(obj){
+        	  /*
+ 		  var isSelectChk=false;
+ 	   		var arr_v_mid=document.getElementsByName("v_mid");
+ 	   		var checked=0;
+ 	   		for(var i=0;i<arr_v_mid.length;i++){
+ 	   			if(arr_v_mid[i].checked==true){
+ 	   				checked+=1;
+ 	   				if(checked==arr_v_mid.length){
+ 	   					isSelectChk=true;
+ 	   					return true;
+ 	   				}else{
+ 	   					continue;
+ 	   				//alert("선정을 다 체크해 주세요");
+ 	    	   			//return false;
+ 	   				}
+ 	   			}
+ 	   				
+ 	   			}
+ 	   		
+ 	   		if(!isSelectChk){
+ 	   			alert("선정을 다 체크해 주세요");
+ 	   			return false;
+ 	   	}
+ 	//}
+           
+	}
+	/*function.check(obj){
+		  var isSelectChk=false;
+	   		var arr_v_mid=document.getElementsByName("v_mid");
+	   		var checked=0;
+	   		for(var i=0;i<arr_v_mid.length;i++){
+	   			if(arr_v_mid[i].checked==true){
+	   				checked+=1;
+	   				if(checked==arr_v_mid.length){
+	   					isSelectChk=true;
+	   					return true;
+	   				}else{
+	   					continue;
+	   				}
+	   			}
+	   				
+	   			}
+	   		if(!isSelectChk){
+	   			alert("선정을 다 체크해 주세요");
+	   			return false;
+	   	}*/
 	}
 	
 	function back(){

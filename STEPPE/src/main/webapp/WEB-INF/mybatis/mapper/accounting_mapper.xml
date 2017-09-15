@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="getPrice" resultType="Integer" parameterType = "Integer">
-		select MAX(v_bid) from volunteer where V_PNUM=#{v_pnum}
+		select MAX(v_bid) from volunteer where V_PNUM=#{v_pnum} and v_ptteam = 1
 	</select>	
 	
 	<select id="getPurchaseList" parameterType = "Integer" resultType="accounting" >

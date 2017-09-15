@@ -52,12 +52,16 @@ public class ProjectDao {
 	public List<Required_Skill> getRequired_SkillList() {
 		return sqlSession.selectList("project.getRequired_SkillList");
 	}
+	
+	public int getProjectCount() {//프로젝트 존재여부 확인
+		return sqlSession.selectOne("project.getProjectCount");//mapper id "getProjectCount"의 쿼리 실행 결과를 getProjectCount에 담음
+	}
 
-	public int getProjectMaxNum() {
+	public int getProjectMaxNum() {//mapper id "getRequired_SkillList"의 실행 결과를 List<required_Skill>의 결과를 담음
 		return sqlSession.selectOne("project.getProjectMaxNum");
 	}
 	
-	public int insertProject(Map<String, Object> fMap) {
+	public int insertProject(Map<String, Object> fMap) {//mapper id "insertProject"에 fMap로 받아온 파라미터를 넘김
 		return sqlSession.insert("project.insertProject",fMap);
 	}
 
@@ -85,9 +89,6 @@ public class ProjectDao {
 		return sqlSession.selectList("project.getProjectList",pageNum);
 	}
 	
-	public int getProjectCount() {
-		return sqlSession.selectOne("project.getProjectCount");
-	}
 	public int getProjectDVCount() {
 		return sqlSession.selectOne("project.getProjectDVCount");
 	}

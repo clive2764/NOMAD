@@ -105,74 +105,45 @@ public class ClientManagement {
 		}
 		return mav;
 	}
+	
 	private void payMent() {//결제하기
 		mav=new ModelAndView();
 		String view=null;
-		int p_num=Integer.parseInt(req.getParameter("p_num"));
+		int p_num=Integer.parseInt(req.getParameter("p_num"));//프로젝트 번호 파라미터를 받아옴
 		if(session!=null && session.getAttribute("m_id")!=null){
-			List<Volunteer> vList=null;
+			List<Volunteer> vList=null;//Volunteer Bean을 활용하는 vList객체 생성
 			System.out.println(p_num);
-			vList=vDao.showApplyList(p_num);
+			vList=vDao.showApplyList(p_num);//p_num을 매개값으로 해당프로젝트에 등록한 지원자 리스트를 받아옴
 			System.out.println(vList);
-			for(int i=0; i<vList.size(); i++){
-				Volunteer vl=vList.get(i);
-				int v_pnum=vl.getV_pnum();
-				int rownum=vl.getRownum();
-				int v_num=vl.getV_num();
-				String v_mid=vl.getV_mid();
-				int v_bid=vl.getV_bid();
-				System.out.println(rownum);
-				System.out.println(v_num);
-				System.out.println(v_mid);
-				System.out.println(v_bid);
-				Volunteer vL=new Volunteer(rownum,v_num,v_mid,v_bid);
-				List<Volunteer> vList2=null;
-				vList2=vDao.showApplyList2(vL);
-				System.out.println(vList2);
-				
-				if(vList2!=null){
-					StringBuilder sb = new StringBuilder();
-					for(int a=0; a<vList2.size(); a++){
-						System.out.println("ddddd");
-						Volunteer v=vList2.get(a);
-						//sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+v.getV_pnum()+"</td>");
-						sb.append("<tr><td>"+v.getV_num()+"</td>");
-						sb.append("<td>"+v.getV_mid()+"</td>");
-						sb.append("<td>"+v.getV_bid()+"</td>");
-						sb.append("<td><input type='checkbox' value='"+v.getV_mid()+"' name='v_mid' id='vmid'" 
-								+ " onClick='CountChecked(this)'/></td></tr>");
-					}
-					mav.addObject("vList", sb.toString());
-				}
-				view="applyList";
-			}
-		}else{
-				view="home";
-			}
-			mav.setViewName(view);
-	}
-			/*
+			
 			if(vList!=null){
 				StringBuilder sb = new StringBuilder();
-				for(int i=0; i<vList.size(); i++){
-					System.out.println("ddddd");
-					Volunteer vl=vList.get(i);
-					//sb.append("<td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
-					sb.append("<tr><td>"+vl.getV_num()+"</td>");
-					sb.append("<td>"+vl.getV_mid()+"</td>");
-					sb.append("<td>"+vl.getV_bid()+"</td>");
-					sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid'" 
-							+ " onClick='CountChecked(this)'/></td></tr>");
+				for(int i=0; i<1;i++){//프로젝트 인원수 를 받아오기 위해
+					Volunteer v=vList.get(i);//vList에 담아있는 값 중 p_person을  Volunteer Bean의 p_person에 담기 위해
+					System.out.println(v.getP_person());
+					for(int a=0; a<v.getP_person(); a++){//프로젝트 인원수 만큼 만 지원자를 받아오기 위해//인원 수 만큼 StringBuilder에 HTML코드를 append
+						Volunteer vl=vList.get(a);
+						System.out.println("a");
+						sb.append("<input type='hidden' value='' name='v_mid' onClick='CountChecked(this)' id='vmid'/>");
+						sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
+						sb.append("<td>"+vl.getV_num()+"</td>");
+						sb.append("<td>"+vl.getV_mid()+"</td>");
+						System.out.println(vl.getV_mid());
+						sb.append("<td>"+vl.getV_bid()+"</td>");
+						sb.append("<td><input type='checkbox' value='"+vl.getV_mid()+"' name='v_mid' id='vmid' " 
+								+ " onClick='CountChecked(this)'/></td></tr>");
+					}
 				}
-				mav.addObject("vList", sb.toString());
+				mav.addObject("vList", sb.toString());//append한 HTML코드를 ModelAndView에 addObject
 			}
-			view="applyList";
+			view="applyList";//성공하면 applyList.jsp로 이동
 		}else{
-			view="home";
+			view="home";//실패하면 home.jsp로 이동
 		}
 		mav.setViewName(view);
 
-	}*/
+	}
+
 	private void showApplyList() {//지원자 리스트롤 보기 위한 ajax
 		mav=new ModelAndView();
 		String view=null;
@@ -191,10 +162,8 @@ public class ClientManagement {
 				Volunteer v=vList.get(i);
 				sb.append("<tr><td>"+v.getV_num()+"</td>");
 				sb.append("<td><a href='goFreelancerDetail?m_id="+v.getV_mid()+"'>"+v.getV_mid()+"</td>");//누르면 프리랜서 상세페이지로 이동
-				//sb.append("<td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+v.getV_bid()+"</td>");
 				sb.append("<td>"+v.getV_bid()+"만 원"+"</td>");
 				sb.append("<td>"+v.getV_time()+"</td></tr>");
-				//sb.append("<tr><td><input type='hidden' value='"+vl.getV_pnum()+"' name='v_pnum'/>"+vl.getV_pnum()+"</td>");
 			}
 			sb.append("<tr><td colspan='4'><a href='./goMyPageCI'><button class='btn'>닫기</button></a></tr></td>");
 			sb.append("</table>");
@@ -259,7 +228,6 @@ public class ClientManagement {
 			pd.setPd_punum(pd_punum);
 			List<Purchase_detail> pdList=null;
 			pdList=aDao.selectPurchase_detail(pd);//결제 내역 가져오기
-			//pdList=aDao.selectPurchase_detail(pu_num);//결제 내역 가져오기
 
 			if(pdList!=null){//결제내역을 불러 오면
 				StringBuilder sb = new StringBuilder();
@@ -303,6 +271,10 @@ public class ClientManagement {
 		String pu_mid=session.getAttribute("m_id").toString();
 		int pu_pnum=Integer.valueOf(req.getParameter("v_pnum"));
 		int p_num=Integer.valueOf(req.getParameter("v_pnum"));
+		System.out.println(pu_money);
+		System.out.println(pu_pnum);
+		System.out.println(p_num);
+		System.out.println(pu_mid);
 		
 		Accounting accounting = new Accounting(pu_num,pu_money,pu_mid,pu_pnum);
 			if(aDao.insertPurchase(accounting)!=0){
@@ -319,12 +291,8 @@ public class ClientManagement {
 				System.out.println(pd_money);
 				System.out.println(pd_catagory);
 				
-				//int uState=pDao.StatusUpdateIng(p_num);//프로젝트 상태 업데이트 
-				//System.out.println(uState);
                 Accounting accounting2 = new Accounting(pd_num,pd_punum,pd_mid,pd_money,pd_catagory);
 				if(aDao.insertPurchase_detail(accounting2)!=0){
-					int v_pnum1=vDao.UpdateVolunteer(pu_pnum);//지원자 업데이트
-					System.out.println(v_pnum1);
 					int v_pnum2=pDao.UpdateProject(pu_pnum);//프로젝트 업데이트
 					System.out.println(v_pnum2);
 					view="redirect:goMyPageCI";
@@ -371,14 +339,29 @@ public class ClientManagement {
 		String view=null;
 		System.out.println("왔어");
 		int v_pnum=Integer.valueOf(req.getParameter("v_pnum"));
+		String v_mid0=req.getParameter("v_mid0");
+		String v_mid1=req.getParameter("v_mid1");
+		String v_mid2=req.getParameter("v_mid2");
+		String v_mid3=req.getParameter("v_mid3");
+		String v_mid4=req.getParameter("v_mid4");
+		
+		//System.out.println(v_mid2);
 		
 		System.out.println(v_pnum);
+		System.out.println(v_mid0);
+		System.out.println(v_mid1);
+		System.out.println(v_mid2);
+		System.out.println(v_mid3);
+		System.out.println(v_mid4);
+		
+		
 		int p_person=pDao.getPerson(v_pnum);//프로젝트 인원 받아 오기
 		System.out.println(p_person);
 		int v_mid=vDao.getPerson(v_pnum);//지원자 수 받아오기
 		System.out.println(v_mid);
+		System.out.println(v_pnum);
 
-		if(aDao.Countpunum(v_pnum)!=0 || p_person > v_mid){//이미 결제가 되었는지 확인//그리고 프로젝트 인원에 맞게 지원했는지 확인
+		if(p_person > v_mid){//이미 결제가 되었는지 확인//그리고 프로젝트 인원에 맞게 지원했는지 확인
 			res.setCharacterEncoding("UTF-8");
 			res.setContentType("text/html; charset=UTF-8"); 
 			PrintWriter out;
@@ -394,10 +377,22 @@ public class ClientManagement {
 			}
 		}else{//결제 가능
 			System.out.println("결제하자");
+			
+			Volunteer vl=new Volunteer();
+			vl.setV_mid0(v_mid0);
+			vl.setV_mid1(v_mid1);
+			vl.setV_mid2(v_mid2);
+			vl.setV_mid3(v_mid3);
+			vl.setV_mid4(v_mid4);
+			vl.setV_pnum(v_pnum);
+			
+			int v_pnum1=vDao.UpdateVolunteer(vl);//팀결성하기
 			int Maxbid=0;
 			int person=0;
 			System.out.println(v_pnum);
 			Maxbid=aDao.getPrice(v_pnum);//최대 금액 가져오기
+			//Maxbid=vDao.getPrice(v_pnum);//최대 금액 가져오기
+			System.out.println(Maxbid);
 			person=pDao.getPerson(v_pnum);//프로젝트 인원 가져오기
 			int sumbid=Maxbid * person;//입찰 가격의 합
 			
@@ -425,8 +420,6 @@ public class ClientManagement {
 		System.out.println(m_kind);
 		if(session!=null && session.getAttribute("m_id")!= "" && m_kind.equals("C")){
 			List<Project> plist=null;
-			//if(session!=null && session.getAttribute("m_id")!=null ){
-			//plist=pDao.getProjectList(session.getAttribute("m_id"));//합치면 이것으로
 			String m_id=session.getAttribute("m_id").toString();
 			plist=pDao.getProjectList2(m_id);
 			System.out.println(plist);
@@ -474,26 +467,27 @@ public class ClientManagement {
 	}
 
 
-	private void setRequired_Skill() {
+	private void setRequired_Skill() {//세부기술 받아오는 메서드
 		String view=null;
-		mav=new ModelAndView();
-		List<Required_Skill> slist=null;
-		slist=pDao.getRequired_SkillList();
+		mav=new ModelAndView();//ModelAndView를 생성
+		List<Required_Skill> slist=null;//Required_Skill Bean을 활용하는 slist 생성
+		slist=pDao.getRequired_SkillList();//slist에 pDao의 getRequired_SkillList() 함수의 결과를 담음
 		System.out.println(slist);
 
 		if(slist!=null){
 			StringBuilder sb = new StringBuilder();
-				sb.append("<input type='hidden' value='' name='p_plnum[]' onClick='CountChecked(this)' id='inter'/>");
-			for(int i=0; i<slist.size(); i++){
-				Required_Skill rs=slist.get(i);
+				sb.append("<input type='hidden' value='' name='p_plnum[]' onClick='CountChecked(this)' id='inter'/>");//체크리스트의 복수값을 배열로 담아 저장하기 위한 숨겨진 input
+			for(int i=0; i<slist.size(); i++){//slist.size()만큼 StringBuilder에 HTML코드를 append
+				Required_Skill rs=slist.get(i);//slist에 저장된 값을 Required_skill Bean을 이용하기 위한 객체 생성
 				System.out.println(rs.getRs_plnum());
 				sb.append("<input type='checkbox' value='"+rs.getRs_plnum()+"' name='p_plnum[]' id='inter' onClick='CountChecked(this)' />"+rs.getRs_plnum());
+				//체크박스 생성
 				sb.append("/");
 			}
-			mav.addObject("slist", sb.toString());
+			mav.addObject("slist", sb.toString());//append한 HTML코드를 ModelAndView에 addObject
 		}
 		view="projectInsert";
-		mav.setViewName(view);
+		mav.setViewName(view);//Target View를 ModelAndView에 setViewName
 	}
 
 
@@ -515,24 +509,24 @@ public class ClientManagement {
 		return mav;
 	}
 
-	private void insertProject(MultipartHttpServletRequest multi) {
-	      String mid = session.getAttribute("m_id").toString();
-	      String pc1_name=multi.getParameter("pc1_name");
-	      String pc2_name=multi.getParameter("pc2_name");
-	      //String p_mid="client";
-	      //String p_mid=session.getAttribute("m_id").toString();
-	      int p_budget=Integer.parseInt(multi.getParameter("p_budget"));
-	      String p_term=multi.getParameter("p_term");
-	      String p_title=multi.getParameter("p_title");
-	      String p_content=multi.getParameter("p_content");
-	      int check=Integer.parseInt(multi.getParameter("fileCheck"));//확인
-	      String p_deadline=multi.getParameter("p_deadline");
-	      String p_plnum0=multi.getParameter("p_plnum0");
-	      String p_plnum1=multi.getParameter("p_plnum1");
-	      String p_plnum2=multi.getParameter("p_plnum2");
-	      int p_person=Integer.parseInt(multi.getParameter("p_person"));
+	private void insertProject(MultipartHttpServletRequest multi) {//프로젝트 등록 메서드
+	      String mid = session.getAttribute("m_id").toString();//세션에 저장되어있던 m_id를 받아와 mid에 저장
+	      String pc1_name=multi.getParameter("pc1_name");//1차 카테고리
+	      String pc2_name=multi.getParameter("pc2_name");//2차 카테고리
+
+	      int p_budget=Integer.parseInt(multi.getParameter("p_budget"));//예산
+	      String p_term=multi.getParameter("p_term");//프로젝트 기간
+	      String p_title=multi.getParameter("p_title");//제목
+	      String p_content=multi.getParameter("p_content");//내용
+	      int check=Integer.parseInt(multi.getParameter("fileCheck"));//파일등록 확인
+	      String p_deadline=multi.getParameter("p_deadline");//프로젝트 입찰 종료 시간
+	      String p_plnum0=multi.getParameter("p_plnum0");//첫번째 세부기술
+	      String p_plnum1=multi.getParameter("p_plnum1");//두번째 세부기술
+	      String p_plnum2=multi.getParameter("p_plnum2");//세번째 세부기술
+	      int p_person=Integer.parseInt(multi.getParameter("p_person"));//프로젝트 인원
 	      System.out.println("check="+check);//1이면 첨부됨
 	      Map<String, Object> fMap=new HashMap<String, Object>();
+	      //UploadFile.java에 있는 파일 업로드 메서드인 public Map<String,Object> fileUp(MultipartHttpServletrequest multi)를 사용위한 객체 생성
 	      Map<String, String> bmMap = new HashMap<String, String>();
 	      int bookmarkNum = 0;
 	      if(pbDao.bookmarkCount()!=0){
@@ -543,19 +537,20 @@ public class ClientManagement {
 	      if(check==1){
 	         UploadFile upload=new UploadFile();
 	         //서버에 파일을 업로드 한 뒤, 
-
+	         //권한 부여ㅑ
 	         //오리지널 파일명, 시스템 파일명을 리턴 후 Map에 저장
 
 	         fMap=upload.fileUp(multi);
 
 	         System.out.println(fMap);
 	      }
-	      Project project=new Project();
-	      if(pDao.getProjectCount() != 0){
-	         project.setP_num(pDao.getProjectMaxNum()+1);         
+	      Project project=new Project();//Project Bean활용 위한 객체 생성
+	      if(pDao.getProjectCount() != 0){//프로젝트 존재여부 판독
+	         project.setP_num(pDao.getProjectMaxNum()+1);//등록된 프로젝트 번호를 부여하기 위해 DB에 저장된 프로젝트 번호에 1을 더함         
 	      }else{
-	         project.setP_num(1);
+	         project.setP_num(1);//최초 프로젝트 이면 등록번호에 1을 부여
 	      }
+	      //project bean에 multi로 받아온 파라미터를 저장
 	      project.setP_pc1name(pc1_name);
 	      project.setP_pc2name(pc2_name);
 	      project.setP_mid(session.getAttribute("m_id").toString());
@@ -569,7 +564,7 @@ public class ClientManagement {
 	      project.setP_plnum2(p_plnum2);
 	      project.setP_person(p_person);
 	      project.setP_status(1);
-
+	      //fMap에 파라미터가 저장된 Bean값을 저장
 	      fMap.put("p_num", project.getP_num());
 	      fMap.put("pc1_name", project.getP_pc1name());
 	      fMap.put("pc2_name", project.getP_pc2name());
@@ -594,13 +589,13 @@ public class ClientManagement {
 
 	      System.out.println(fMap);
 	      
-	      if(pDao.insertProject(fMap)!=0){
+	      if(pDao.insertProject(fMap)!=0){//fMap에 저장된 값을 project 테이블에 Insert
 	         System.out.println("북마크 db실행1");
 	         pbDao.bookmarkInsert(bmMap);
 	         System.out.println("북마크 db실행2");
-	         view="redirect:goMyPageCI";
+	         view="redirect:goMyPageCI";//insert성공시 goMyPageCI url 생성
 	      }else{
-	         view="redirect:goAddProject";
+	         view="redirect:goAddProject";//insert실패시 goAddProject url 생성
 	      }
 	      mav.setViewName(view);
 	   }

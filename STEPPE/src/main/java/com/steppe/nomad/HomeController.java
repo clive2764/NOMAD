@@ -74,25 +74,6 @@ public class HomeController {
       mav=rm.showProjcetDetail();
       return mav;
    }
-   /*
-	@RequestMapping(value="/goProjectDetail", method = RequestMethod.GET)
-	public ModelAndView goProjectDetail(){
-		mav = new ModelAndView();
-		mav.setViewName("projectDetail"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
-		return mav;
-	}
-
-	@RequestMapping(value="/goAddProject")
-	public ModelAndView goAddProject(){
-		mav = new ModelAndView();
-
-		mav.setViewName("projectInsert"); //projectDetail.jsp �봽濡쒖젥�듃 �긽�꽭蹂닿린 �럹�씠吏�
-		return mav;
-	}
-
-	//이메일 인증
-	}*/
-
 	//이메일 인증
 	@RequestMapping(value = "/sendCode")
 	public ModelAndView sendCode() {

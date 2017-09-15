@@ -8,18 +8,19 @@
 		WHERE v.v_ptteam = 1 AND v.v_mid = #{mid} OR p.p_mid = #{mid}
 	</select>
 	<select id="showApplyList" resultType="volunteer" parameterType = "Integer">
+	
 	<![CDATA[
-		select rownum, v.v_num, v.v_mid, v.v_bid, v.v_pnum from volunteer v inner join project p on v.v_pnum = p.p_num where v.v_pnum=#{p_num} order by v.v_bid, v.v_time
+		select rownum as 작업자, v.v_num, v.v_mid, v.v_bid, v.v_pnum, v.v_ptteam, p.p_person from volunteer v inner join project p on v.v_pnum = p.p_num
+		where v.v_pnum=#{p_num} order by v.v_bid, v.v_time
 	]]>
-	</select>
+	</select><!-- p_num과 일치하는 프로젝트에 지원한 프리랜서를 입찰가와 입찰시간을 기준으로 오름차순으로 정렬해 Select  -->
 	
 	<select id="checkVolunteerList" resultType="Integer" parameterType = "volunteer">
 		SELECT COUNT(V_NUM) FROM VOLUNTEER WHERE V_PNUM = #{v_pnum} AND V_MID = #{v_mid}
 	</select>
 	
-	<update id="UpdateVolunteer" parameterType="Integer">
-		update volunteer set
-		v_ptteam=1 where v_pnum = #{v_pnum}
+	<update id="UpdateVolunteer" parameterType="volunteer">
+		update volunteer set v_ptteam=1 where (v_mid = #{v_mid0} or v_mid = #{v_mid1} or v_mid = #{v_mid2} or v_mid = #{v_mid3} or v_mid = #{v_mid4}) and v_pnum=#{v_pnum} 
 	</update>
 
 	<select id="volunteerCheck" resultType="Integer" parameterType="String">

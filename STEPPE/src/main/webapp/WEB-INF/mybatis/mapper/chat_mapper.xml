@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chat">
 	<insert id="chatSubmit" parameterType="Map">
-		INSERT INTO chat VALUES(#{chatNum},#{pnum},#{mid},#{chatContent},default)
+		INSERT INTO chat VALUES(#{chatNum},#{pnum},#{mid},default,#{chatContent})
 	</insert>
 	<select id="getTenList" parameterType="Map" resultType="Chat">
 		<![CDATA[

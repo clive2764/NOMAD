@@ -1049,7 +1049,7 @@ private void purchaseComplate(int pnum) {
 		
 		if(InsertSales!=0){
 			pDao.updatefinalStatus(pnum1);//프로젝트 상태를 결제완료로 바굼
-			view="redirect:purchaseCheck";
+			view="redirect:/";
 			mav.setViewName(view);
 
 		}
